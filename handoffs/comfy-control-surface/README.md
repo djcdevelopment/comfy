@@ -39,3 +39,8 @@ No network, bot token, webhook, or privileged service is required.
 
 Use [`PROOF.md`](PROOF.md) for the offline, install, in-game, hotkey, multi-action, failure, and package
 checks.
+
+## Bridge Consumer
+
+Use [`bridge-consumer/`](bridge-consumer/) to validate `outbox/*.json` payloads and render local
+review markdown without network access or bot credentials.

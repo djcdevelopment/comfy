@@ -9,6 +9,9 @@ desktop.ini
 scratch/
 *.tmp
 
+# generated local bridge outputs
+bridge-review/
+
 # .NET / mod build outputs
 bin/
 obj/
