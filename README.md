@@ -1,45 +1,61 @@
-# Comfy — a build session that deliberately built almost nothing
+# Comfy - a build session that deliberately built almost nothing
 
 *Shared openly as homework. If you're here to learn how to leverage AI, read the restraint, not the output.*
 
 ## What this is
 
 The record of one long, single-session build for a volunteer game community ("Comfy," a heavily-modded
-Valheim server). But the artifact that matters isn't the code — it's the **method**, shared in the open
+Valheim server). But the artifact that matters isn't the code - it's the **method**, shared in the open
 so anyone can copy *how the understanding was built*, not just what came out.
 
 ## The most valuable thing here is the restraint
 
 Read these docs (and the conversation behind them) and notice what *didn't* happen. Over and over, the
-cheap thing — "just build it" — was right there, and it got set down in favor of understanding first.
+cheap thing - "just build it" - was right there, and it got set down in favor of understanding first.
 
-> **When execution was expensive, cost forced you to plan.** Now execution is nearly free — so the
+> **When execution was expensive, cost forced you to plan.** Now execution is nearly free - so the
 > discipline that expense used to *enforce* now has to be *chosen*, against a current pulling everyone
-> toward building fast and thinking less. The scarcity didn't vanish. It **moved** — from execution to
+> toward building fast and thinking less. The scarcity didn't vanish. It **moved** - from execution to
 > **intention.** Planning with intention is scarcer, and more valuable, than it has ever been.
 
-So: **we built nothing — and the nothing is the point.** The value isn't the recipes or the widgets.
+So: **we built nothing - and the nothing is the point.** The value isn't the recipes or the widgets.
 It's the turns of "not yet," and why.
 
 ## The method (the copyable part)
 
-**Understanding before data.** Describe the problem from every seat — the users' fears, hopes, why they
-play, the structure from each angle you've stood at — and *withhold the data firehose* until there's a
+**Understanding before data.** Describe the problem from every seat - the users' fears, hopes, why they
+play, the structure from each angle you've stood at - and *withhold the data firehose* until there's a
 lens to aim it through. Build the projector, not the slides. Data is infinite and directionless;
-understanding is compressed and directional. (See `docs/kernel.md` → the method note.)
+understanding is compressed and directional. (See `docs/kernel.md` -> the method note.)
 
 ## How to read this
 
-- **`docs/kernel.md`** — the locked understanding everything resolves to. *Start here.*
-- **`docs/perspectives/`** — the human lenses, one file each: how the understanding was assembled, in order.
-- **`docs/community-insights.md`** — the raw threads, numbered, in the order they surfaced.
-- **`docs/positioning.md` · `docs/adoption-strategy.md` · `framework/PHILOSOPHY.md`** — how to talk about
+- **`docs/kernel.md`** - the locked understanding everything resolves to. *Start here.*
+- **`docs/perspectives/`** - the human lenses, one file each: how the understanding was assembled, in order.
+- **`docs/community-insights.md`** - the raw threads, numbered, in the order they surfaced.
+- **`docs/positioning.md` / `docs/adoption-strategy.md` / `framework/PHILOSOPHY.md`** - how to talk about
   it, how to bring it in, and why it's open and craftable.
-- **`recipes/` · `framework/`** — the *little* that got built, and (in the philosophy) why so little.
-- **`data/`** — the raw source, landed untouched, plus the few normalized artifacts.
-- **`docs/method/`** — the reusable *method*: `conversation-ledger.md` (turn-by-turn), the extracted
+- **`recipes/` / `framework/`** - the *little* that got built, and (in the philosophy) why so little.
+- **`data/`** - the raw source, landed untouched, plus the few normalized artifacts.
+- **`docs/method/`** - the reusable *method*: `conversation-ledger.md` (turn-by-turn), the extracted
   `the-lens-first-playbook.md` (with an honest "what's Derek-specific, don't cargo-cult" section), and
   `conversation-extract.md` (the full session, readable).
+
+## What got built
+
+Two different agent passes were used as handoff readers, not as all-knowing builders:
+
+- one pass turned the perspective work into the `handoffs/` brief set and the control-surface vertical slice
+- a second pass inspected the existing ComfyMods ecosystem and wrote the implementation guidance for the
+  in-game control surface
+
+The concrete artifacts from that work live here:
+
+- **`handoffs/in-game-control-surface.md`** - the vertical-slice brief for the in-game control surface
+- **`handoffs/comfymods-inspection.md`** - the assessment of ComfyMods patterns to reuse
+- **`handoffs/comfy-control-surface/`** - the actual mod workbench built from those briefs
+- **`handoffs/valheim-camera-proof/`** - the earlier proof kit that verified the modding path before the
+  vertical slice
 
 ## The recursion worth noticing
 
