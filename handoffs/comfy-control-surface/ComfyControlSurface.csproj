@@ -47,6 +47,7 @@
   <ItemGroup>
     <PackageMetadata Include="README.md" Condition="Exists('README.md')" />
     <PackageMetadata Include="PROOF.md" Condition="Exists('PROOF.md')" />
+    <PackageMetadata Include="inspect-proof.ps1" Condition="Exists('inspect-proof.ps1')" />
     <PackageMetadata Include="CHANGELOG.md" Condition="Exists('CHANGELOG.md')" />
     <PackageMetadata Include="manifest.json" Condition="Exists('manifest.json')" />
   </ItemGroup>

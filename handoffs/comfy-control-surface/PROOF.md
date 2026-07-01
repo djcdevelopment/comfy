@@ -103,6 +103,12 @@ The trace should include:
 - `payload_written`
 - `player_status_shown`
 
+From the repo root, this helper summarizes the current proof files:
+
+```powershell
+.\handoffs\comfy-control-surface\inspect-proof.ps1
+```
+
 ## Hotkey proof
 
 Press `F7` in-world with exactly one action configured.
@@ -164,4 +170,3 @@ Expected result:
 
 The current zip is enough for a local proof. A public Thunderstore package should also include
 `icon.png`, matching normal ComfyMods package shape.
-
