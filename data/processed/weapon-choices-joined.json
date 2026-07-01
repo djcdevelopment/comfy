@@ -1,0 +1,612 @@
+[
+  {
+    "class": "Axe",
+    "weapon": "Stone",
+    "count": 28,
+    "matched_name": "Stone axe",
+    "match": "exact",
+    "cost": 5,
+    "base": 15,
+    "biome": 1
+  },
+  {
+    "class": "Axe",
+    "weapon": "Flint",
+    "count": 28,
+    "matched_name": "Flint axe",
+    "match": "exact",
+    "cost": 6,
+    "base": 20,
+    "biome": 1
+  },
+  {
+    "class": "Axe",
+    "weapon": "Bronze",
+    "count": 26,
+    "matched_name": "Bronze axe",
+    "match": "exact",
+    "cost": 8,
+    "base": 40,
+    "biome": 2
+  },
+  {
+    "class": "Axe",
+    "weapon": "Iron",
+    "count": 176,
+    "matched_name": "Iron axe",
+    "match": "exact",
+    "cost": 10,
+    "base": 60,
+    "biome": 3
+  },
+  {
+    "class": "Axe",
+    "weapon": "BM",
+    "count": 19,
+    "matched_name": "Black metal axe",
+    "match": "exact",
+    "cost": 14,
+    "base": 100,
+    "biome": 5
+  },
+  {
+    "class": "Axe",
+    "weapon": "Jotun Bane",
+    "count": 23,
+    "matched_name": "Jotun Bane",
+    "match": "exact",
+    "cost": 16,
+    "base": 120,
+    "biome": 6
+  },
+  {
+    "class": "Axe",
+    "weapon": "Berserkir",
+    "count": 6,
+    "matched_name": "Berserkir axes",
+    "match": "prefix",
+    "cost": 16,
+    "base": 140,
+    "biome": 7
+  },
+  {
+    "class": "Axe",
+    "weapon": "BM Battleaxe",
+    "count": 24,
+    "matched_name": "Black metal battleaxe",
+    "match": "exact",
+    "cost": 20,
+    "base": 110,
+    "biome": 5
+  },
+  {
+    "class": "Axe",
+    "weapon": "Crystal Battleaxe",
+    "count": 22,
+    "matched_name": "Crystal battleaxe",
+    "match": "exact",
+    "cost": 18,
+    "base": 120,
+    "biome": 4
+  },
+  {
+    "class": "Axe",
+    "weapon": "Skull Splittur",
+    "count": 22,
+    "matched_name": "Skull Splittur",
+    "match": "exact",
+    "cost": 22,
+    "base": 130,
+    "biome": 6
+  },
+  {
+    "class": "Axe",
+    "weapon": "Wooden Axe",
+    "count": 85,
+    "matched_name": "Wooden Axe",
+    "match": "exact",
+    "cost": 4,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Axe",
+    "weapon": "Wooden Battleaxe",
+    "count": 85,
+    "matched_name": "Wooden Battleaxe",
+    "match": "exact",
+    "cost": 8,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Knife",
+    "weapon": "Flint",
+    "count": 57,
+    "matched_name": "Flint knife",
+    "match": "exact",
+    "cost": 4,
+    "base": 10,
+    "biome": 1
+  },
+  {
+    "class": "Knife",
+    "weapon": "Copper",
+    "count": 55,
+    "matched_name": "Copper knife",
+    "match": "exact",
+    "cost": 6,
+    "base": 24,
+    "biome": 2
+  },
+  {
+    "class": "Knife",
+    "weapon": "Abyssal Razor",
+    "count": 52,
+    "matched_name": "Abyssal Razor",
+    "match": "exact",
+    "cost": 8,
+    "base": 40,
+    "biome": 3
+  },
+  {
+    "class": "Knife",
+    "weapon": "Silver",
+    "count": 28,
+    "matched_name": "Silver knife",
+    "match": "exact",
+    "cost": 10,
+    "base": 62,
+    "biome": 4
+  },
+  {
+    "class": "Knife",
+    "weapon": "Flesh Rippers",
+    "count": 24,
+    "matched_name": "Flesh Rippers",
+    "match": "exact",
+    "cost": 10,
+    "base": 60,
+    "biome": 4
+  },
+  {
+    "class": "Knife",
+    "weapon": "Black Metal",
+    "count": 48,
+    "matched_name": "Black metal knife",
+    "match": "exact",
+    "cost": 12,
+    "base": 68,
+    "biome": 5
+  },
+  {
+    "class": "Knife",
+    "weapon": "Skoll and Hati",
+    "count": 42,
+    "matched_name": "Skoll and Hati",
+    "match": "exact",
+    "cost": 14,
+    "base": 90,
+    "biome": 6
+  },
+  {
+    "class": "Knife",
+    "weapon": "Vilebone Maulclaws",
+    "count": 23,
+    "matched_name": "Vilebone Maulclaws",
+    "match": "exact",
+    "cost": 12,
+    "base": 80,
+    "biome": 5
+  },
+  {
+    "class": "Knife",
+    "weapon": "Wooden Knife",
+    "count": 50,
+    "matched_name": "Wooden Knife",
+    "match": "exact",
+    "cost": 2,
+    "base": 10,
+    "biome": 2
+  },
+  {
+    "class": "Sword",
+    "weapon": "Bronze",
+    "count": 24,
+    "matched_name": "Bronze sword",
+    "match": "exact",
+    "cost": 8,
+    "base": 35,
+    "biome": 2
+  },
+  {
+    "class": "Sword",
+    "weapon": "Iron",
+    "count": 22,
+    "matched_name": "Iron sword",
+    "match": "exact",
+    "cost": 10,
+    "base": 55,
+    "biome": 3
+  },
+  {
+    "class": "Sword",
+    "weapon": "Silver",
+    "count": 12,
+    "matched_name": "Silver sword",
+    "match": "exact",
+    "cost": 12,
+    "base": 105,
+    "biome": 4
+  },
+  {
+    "class": "Sword",
+    "weapon": "Black Metal",
+    "count": 19,
+    "matched_name": "Black metal sword",
+    "match": "exact",
+    "cost": 14,
+    "base": 95,
+    "biome": 5
+  },
+  {
+    "class": "Sword",
+    "weapon": "Mistwalker",
+    "count": 11,
+    "matched_name": "Mistwalker",
+    "match": "exact",
+    "cost": 16,
+    "base": 115,
+    "biome": 6
+  },
+  {
+    "class": "Sword",
+    "weapon": "Nidhogg",
+    "count": 14,
+    "matched_name": "Nidhögg",
+    "match": "exact",
+    "cost": 16,
+    "base": 135,
+    "biome": 7
+  },
+  {
+    "class": "Sword",
+    "weapon": "Slayer",
+    "count": 20,
+    "matched_name": "Slayer",
+    "match": "exact",
+    "cost": 20,
+    "base": 170,
+    "biome": 7
+  },
+  {
+    "class": "Sword",
+    "weapon": "Krom",
+    "count": 24,
+    "matched_name": "Krom",
+    "match": "exact",
+    "cost": 20,
+    "base": 150,
+    "biome": 6
+  },
+  {
+    "class": "Sword",
+    "weapon": "Wooden Sword",
+    "count": 130,
+    "matched_name": "Wooden Sword",
+    "match": "exact",
+    "cost": 2,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Sword",
+    "weapon": "Wooden Greatsword",
+    "count": 180,
+    "matched_name": "Wooden Greatsword",
+    "match": "exact",
+    "cost": 2,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Bronze",
+    "count": 27,
+    "matched_name": "Bronze atgeir",
+    "match": "exact",
+    "cost": 12,
+    "base": 45,
+    "biome": 2
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Iron",
+    "count": 25,
+    "matched_name": "Iron atgeir",
+    "match": "exact",
+    "cost": 14,
+    "base": 65,
+    "biome": 3
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Black metal",
+    "count": 21,
+    "matched_name": "Black metal atgeir",
+    "match": "exact",
+    "cost": 18,
+    "base": 105,
+    "biome": 5
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Himmin Afl",
+    "count": 13,
+    "matched_name": "Himminafl",
+    "match": "exact",
+    "cost": 20,
+    "base": 125,
+    "biome": 6
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Stagbreaker",
+    "count": 35,
+    "matched_name": "Stagbreaker",
+    "match": "exact",
+    "cost": 12,
+    "base": 20,
+    "biome": 2
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Iron Sledge",
+    "count": 33,
+    "matched_name": "Iron sledge",
+    "match": "exact",
+    "cost": 20,
+    "base": 55,
+    "biome": 3
+  },
+  {
+    "class": "Atgeir/Sledge",
+    "weapon": "Demolisher",
+    "count": 16,
+    "matched_name": "Demolisher",
+    "match": "exact",
+    "cost": 28,
+    "base": 145,
+    "biome": 6
+  },
+  {
+    "class": "Club",
+    "weapon": "Club",
+    "count": 24,
+    "matched_name": "Club",
+    "match": "exact",
+    "cost": 6,
+    "base": 12,
+    "biome": 1
+  },
+  {
+    "class": "Club",
+    "weapon": "Bronze Mace",
+    "count": 21,
+    "matched_name": "Bronze mace",
+    "match": "exact",
+    "cost": 8,
+    "base": 35,
+    "biome": 2
+  },
+  {
+    "class": "Club",
+    "weapon": "Iron Mace",
+    "count": 19,
+    "matched_name": "Iron mace",
+    "match": "exact",
+    "cost": 10,
+    "base": 55,
+    "biome": 3
+  },
+  {
+    "class": "Club",
+    "weapon": "Frostner",
+    "count": 17,
+    "matched_name": "Frostner",
+    "match": "exact",
+    "cost": 12,
+    "base": 95,
+    "biome": 4
+  },
+  {
+    "class": "Club",
+    "weapon": "Porcupine",
+    "count": 21,
+    "matched_name": "Porcupine",
+    "match": "exact",
+    "cost": 14,
+    "base": 95,
+    "biome": 5
+  },
+  {
+    "class": "Club",
+    "weapon": "Flametal Mace",
+    "count": 10,
+    "matched_name": "Flametal mace",
+    "match": "exact",
+    "cost": 16,
+    "base": 135,
+    "biome": 7
+  },
+  {
+    "class": "Club",
+    "weapon": "Wooden Mace",
+    "count": 125,
+    "matched_name": "Wooden Mace",
+    "match": "exact",
+    "cost": 4,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Club",
+    "weapon": "Wooden Sledge",
+    "count": 190,
+    "matched_name": "Wooden Sledge",
+    "match": "exact",
+    "cost": 8,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Spear",
+    "weapon": "Flint",
+    "count": 29,
+    "matched_name": "Flint spear",
+    "match": "exact",
+    "cost": 6,
+    "base": 20,
+    "biome": 1
+  },
+  {
+    "class": "Spear",
+    "weapon": "Bronze",
+    "count": 29,
+    "matched_name": "Bronze spear",
+    "match": "exact",
+    "cost": 8,
+    "base": 35,
+    "biome": 2
+  },
+  {
+    "class": "Spear",
+    "weapon": "Ancient Bark",
+    "count": 28,
+    "matched_name": "Ancient bark spear",
+    "match": "exact",
+    "cost": 10,
+    "base": 55,
+    "biome": 3
+  },
+  {
+    "class": "Spear",
+    "weapon": "Fang",
+    "count": 27,
+    "matched_name": "Fang spear",
+    "match": "exact",
+    "cost": 12,
+    "base": 75,
+    "biome": 4
+  },
+  {
+    "class": "Spear",
+    "weapon": "Carapace",
+    "count": 24,
+    "matched_name": "Carapace spear",
+    "match": "exact",
+    "cost": 16,
+    "base": 115,
+    "biome": 6
+  },
+  {
+    "class": "Spear",
+    "weapon": "Splitnir",
+    "count": 21,
+    "matched_name": "Splitnir",
+    "match": "exact",
+    "cost": 16,
+    "base": 135,
+    "biome": 7
+  },
+  {
+    "class": "Spear",
+    "weapon": "Wooden Spear",
+    "count": 160,
+    "matched_name": "Wooden Spear",
+    "match": "exact",
+    "cost": 4,
+    "base": 5,
+    "biome": 2
+  },
+  {
+    "class": "Bow",
+    "weapon": "Crude",
+    "count": 41,
+    "matched_name": "Crude Bow",
+    "match": "exact",
+    "cost": 4,
+    "base": 104,
+    "biome": 1
+  },
+  {
+    "class": "Bow",
+    "weapon": "Finewood",
+    "count": 33,
+    "matched_name": "Finewood Bow",
+    "match": "exact",
+    "cost": 6,
+    "base": 114,
+    "biome": 2
+  },
+  {
+    "class": "Bow",
+    "weapon": "Huntsman",
+    "count": 34,
+    "matched_name": "Huntsman Bow",
+    "match": "exact",
+    "cost": 8,
+    "base": 124,
+    "biome": 3
+  },
+  {
+    "class": "Bow",
+    "weapon": "Draugr Fang",
+    "count": 33,
+    "matched_name": "Draugr Fang",
+    "match": "exact",
+    "cost": 10,
+    "base": 134,
+    "biome": 4
+  },
+  {
+    "class": "Bow",
+    "weapon": "Spine Snap",
+    "count": 1,
+    "matched_name": "Spinesnap",
+    "match": "exact",
+    "cost": 14,
+    "base": 159,
+    "biome": 6
+  },
+  {
+    "class": "Bow",
+    "weapon": "Ash Fang",
+    "count": 12,
+    "matched_name": "Ash Fang",
+    "match": "exact",
+    "cost": 14,
+    "base": 164,
+    "biome": 7
+  },
+  {
+    "class": "Bow",
+    "weapon": "Arbalest",
+    "count": 56,
+    "matched_name": "Arbalest",
+    "match": "exact",
+    "cost": 1,
+    "base": 282,
+    "biome": 6
+  },
+  {
+    "class": "Bow",
+    "weapon": "Ripper",
+    "count": 49,
+    "matched_name": "Ripper",
+    "match": "exact",
+    "cost": 1,
+    "base": 302,
+    "biome": 7
+  }
+]

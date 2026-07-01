@@ -1,0 +1,62 @@
+class,weapon,count
+Axe,Stone,28
+Axe,Flint,28
+Axe,Bronze,26
+Axe,Iron,176
+Axe,BM,19
+Axe,Jotun Bane,23
+Axe,Berserkir,6
+Axe,BM Battleaxe,24
+Axe,Crystal Battleaxe,22
+Axe,Skull Splittur,22
+Axe,Wooden Axe,85
+Axe,Wooden Battleaxe,85
+Knife,Flint,57
+Knife,Copper,55
+Knife,Abyssal Razor,52
+Knife,Silver,28
+Knife,Flesh Rippers,24
+Knife,Black Metal,48
+Knife,Skoll and Hati,42
+Knife,Vilebone Maulclaws,23
+Knife,Wooden Knife,50
+Sword,Bronze,24
+Sword,Iron,22
+Sword,Silver,12
+Sword,Black Metal,19
+Sword,Mistwalker,11
+Sword,Nidhogg,14
+Sword,Slayer,20
+Sword,Krom,24
+Sword,Wooden Sword,130
+Sword,Wooden Greatsword,180
+Atgeir/Sledge,Bronze,27
+Atgeir/Sledge,Iron,25
+Atgeir/Sledge,Black metal,21
+Atgeir/Sledge,Himmin Afl,13
+Atgeir/Sledge,Stagbreaker,35
+Atgeir/Sledge,Iron Sledge,33
+Atgeir/Sledge,Demolisher,16
+Club,Club,24
+Club,Bronze Mace,21
+Club,Iron Mace,19
+Club,Frostner,17
+Club,Porcupine,21
+Club,Flametal Mace,10
+Club,Wooden Mace,125
+Club,Wooden Sledge,190
+Spear,Flint,29
+Spear,Bronze,29
+Spear,Ancient Bark,28
+Spear,Fang,27
+Spear,Carapace,24
+Spear,Splitnir,21
+Spear,Wooden Spear,160
+Bow,Crude,41
+Bow,Finewood,33
+Bow,Huntsman,34
+Bow,Draugr Fang,33
+Bow,Spine Snap,1
+Bow,Ash Fang,12
+Bow,Arbalest,56
+Bow,Ripper,49

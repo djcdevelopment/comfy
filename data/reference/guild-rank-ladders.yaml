@@ -1,0 +1,289 @@
+# Guild rank ladders — ranks 1–3 for all 7 guilds
+#
+# Source: user-made flowcharts (hand-drawn by a member who later became a Guild Master),
+# three images = rank tiers 1, 2, 3. Transcribed 2026-06-30. PROVISIONAL — verify against
+# each guild's authoritative rank graphics in its Discord channel (which drift; guide line 149).
+#
+# Ladders continue beyond tier 3 (depth unknown). Requirements are Era-scoped (Era 16).
+#
+# MODEL: a GuildRank ladder = ordered list of TIERS. Each tier =
+#   { rank name, ordered task `path`, optional reward bonus, material tribute }.
+# Mechanics are wildly heterogeneous per guild (contracts / wholesale points / IRL badges /
+# boss-kill challenges / LOTR-themed quests). A generic "GuildRank" entity must hold all shapes.
+#
+# Abbreviations seen: CS = community-service hours; AP = (Explorer) adventure points;
+# IP = (Mage) points from boss-related "incantation" challenges; Tn = gear tier.
+
+meta:
+  era: 16
+  captured: "2026-06-30"
+  source: "3 user-made flowchart images (rank tiers 1/2/3)"
+  status: provisional
+  coverage: "ranks 1–3, all 7 guilds; ladders extend further (depth unknown)"
+
+guilds:
+  slayer:
+    rank_theme: "Norse nobility (Thrall → Thegn → Jarl → …)"
+    tiers:
+      - tier: 1
+        rank: Thrall
+        path:
+          - "Complete 5 contracts"
+          - "Complete 5 general summons (Know your Enemies I & II, Intermediate Killer, Clash of Titans, Air Drop)"
+          - "Kneel at HQ and request Viking Trainee"
+      - tier: 2
+        rank: Thegn
+        path:
+          - "Complete 9 Contracts + 2 Bounties"
+          - "Complete 10 summons (Blacksmith I, Bonking Bonemass, Crusader, Fenrir's Children, Helpful Hunter)"
+          - "Thrall Duel or Mercy Rule"
+      - tier: 3
+        rank: Jarl
+        path:
+          - "Complete 15 Contracts + 5 Bounties + 10 Class Summons"
+          - "Class challenges: Death from Above, Full House, Swift Sneak, Self Sufficient, Silent Killer, Gjallarhorn Come, Back Stabber, Cold Shot, Falling Hard, Skilled Rogue"
+
+  merchant:
+    rank_theme: "Trade ladder (Peddler → Vendor → Exalted → …)"
+    tiers:
+      - tier: 1
+        rank: Peddler
+        bonus: "+2 Merchant Tokens"
+        path:
+          - "Document Comfort of 10"
+          - "Earn 1 point Non-profit (The Giver) + 10 Points Wholesale (Birch Please, Baker, Butcher, Gourmand)"
+          - "Make trades of token items for Merchants (15)"
+      - tier: 2
+        rank: Vendor
+        path:
+          - "Manufacturing (Armorer, Blacksmith, Shield Maiden) + Retail (Boom Boom Pow, Carpenter, Pet Shop) + Wholesale (Bird is the Word [Rangers], Fickle Thistle, Fun Gal)"
+          - "Document a comfort level of 10 and make trades of token items for Merchants (45)"
+      - tier: 3
+        rank: Exalted
+        path:
+          - "4 Points Marketing (Diverse Clientele) + 10 Points Non-Profit (Strong Blessing, Benvolent Merchant, Forged in Fire) + 30 Points Wholesale (Ashen Adventurer, Black Glass, Bloodbagger, Green Thumb, I Can't Believe It's not Coal, Long Live the Queen, Misty Merchant, Seed Banking)"
+          - "15 Comfort and make trades of token items for Merchants (35)"
+
+  builder:
+    rank_theme: "Building trades (Mason → Contractor → Architect → …)"
+    tiers:
+      - tier: 1
+        rank: Mason
+        path:
+          - "Collect 5 Builder Points"
+          - "Complete one Commission"
+      - tier: 2
+        rank: Contractor
+        path:
+          - "Collect 10 Builder Points"
+          - "Participate in a Builder Event"
+      - tier: 3
+        rank: Architect
+        path:
+          - "Collect 15 Builder Points"
+          - "Complete a Portfolio"
+
+  ranger:
+    rank_theme: "Field ranks (Scout → Trailblazer → Warden → …)"
+    note: "Uniquely blends REAL-LIFE environmental activities (IRL badges, community-service hours) with in-game field events."
+    tiers:
+      - tier: 1
+        rank: Scout
+        bonus: "+1 Badge"
+        path:
+          - "Finish IRL badges before era start: Animal Care, Environmentalist, Meadow, Plains, Ocean"
+          - "Look for chances to do: Fish out of Water, Neck Preserve, Room to Grow, Hunting Spirits, Camping"
+      - tier: 2
+        rank: Trailblazer
+        path:
+          - "Badges: Art, First Aid Kit, Dog Whisperer, Fishing Pier, Outpost"
+          - "Badges: Herbalist, Lore Friendly, Pet Resort, Waterway, Photography"
+          - "Collect 15 Badges + 1 Ranger Quest (Bee Who) + 3 CS Hours"
+      - tier: 3
+        rank: Warden
+        path:
+          - "Badges: Dog Whisperer, Camping, Comfy Ranger, Community Garden, Raised Garden"
+          - "Badges: Theater Arts, Trailblazer, Waterway, Engineering, Foxy Loxy"
+          - "Complete 25 Badges + 6 Hours CS"
+          - "2 Quests (Bee Who and God Firs / Bee's Targets)"
+
+  explorer:
+    rank_theme: "Wayfarer ranks (Drifter → Wanderer → Strider → …)"
+    tiers:
+      - tier: 1
+        rank: Drifter
+        path:
+          - "Find Tutorial Stash and make a T1 like it"
+          - "Walk a starter continent coastline until you see an Explorer's Shipwreck"
+          - "Bring 20 meat, 20 fruit, and 20 shrooms"
+          - "Sail to Explorer HQ"
+      - tier: 2
+        rank: Wanderer
+        path:
+          - "Earn 25 AP and make a T2"
+          - "Find 5 Coastal Shipwrecks"
+          - "Item from Every Biome (8)"
+          - "2x Coastlines (Old way, or ReportCard)"
+      - tier: 3
+        rank: Strider
+        path:
+          - "Earn 50 AP"
+          - "Make a T3 (Skills)"
+          - "Fully explore 2 continents + 5 Coastlines (ReportCard)"
+          - "Participate in 3 races (incl. Pentathalon)"
+          - "Exploration: 5 Ocean Spires"
+
+  hobbit:
+    rank_theme: "LOTR-themed wayfaring (Traveller → Harvester → Dweller → …)"
+    tiers:
+      - tier: 1
+        rank: Traveller
+        path:
+          - "Themed quests: Hobbit Feast, Bilbo's Book, Fangorn Forest, Took's Tangle, Gandalf's Fireworks"
+          - "Complete 5 quests"
+      - tier: 2
+        rank: Harvester
+        path:
+          - "Themed quests: Farmer Maggot, Comforts of Home, Shadows of Mordor, Hobbit Feast II, Bilbo's Book II"
+      - tier: 3
+        rank: Dweller
+        path:
+          - "Themed quests: Phial of Galadriel, Dark Magic, Comforts of Home II, Bilbo's Book III"
+
+  mage:
+    rank_theme: "Arcane ranks (Apprentice → Enchanter → Archmage → …)"
+    tiers:
+      - tier: 1
+        rank: Apprentice
+        path:
+          - "Get someone to ferry you to Freyja's Isle with your offering"
+          - "Complete Novice Arcane Arts (Pickables, Potions, Runestones)"
+          - "Request and complete the Harrowing"
+      - tier: 2
+        rank: Enchanter
+        path:
+          - "Complete Advanced Arcane Arts (Pickables, Potions, Runestones)"
+          - "Accumulate 25 IP — boss challenges (28 total): Eikthyr w/ Dundr & Dead Raiser; Elder w/ Fire Staff; Bonemass w/ Frost Staff; Moder w/ Fire Staff; Yagluth w/ Yag buff & Staff of the Wild; Queen w/ Eitr armor & Bombs; Fader w/ Embla & Staff of the Wild"
+          - "Complete 'Here Lies the Abyss'"
+      - tier: 3
+        rank: Archmage
+        path:
+          - "Complete Arcane Arts (Pickables, Potions, Runestones) and Arcane Masteries (four '-mancy' quests)"
+          - "Win a Mage Duel, accumulate 60 IP (ferry three players; provide foods and potions four times), and complete WPHW"
+
+# Each rank-tier flowchart carried ONE floating materials box (one per image, shown to the
+# right of all 7 guild rows). Working hypothesis: a per-TIER material "tribute" that escalates
+# with biome progression. Whether it applies to ALL guilds at that tier, or belongs to one
+# specific guild, is still unconfirmed. [need attribution]
+tier_material_lists:
+  tier1:
+    items:
+      - "8 Deer trophies"
+      - "12 Ancient Seeds"
+      - "1 stack Crystal"
+      - "1 stack Tar"
+      - "1 stack Meat"
+      - "1/2 stack Fruit"
+      - "1/2 stack Shrooms"
+      - "6 stacks Finewood"
+      - "1 stack Bronze Nails"
+      - "1 stack Crafted Food"
+      - "1 stack cooked Meat"
+      - "1 stack Surtling Cores"
+      - "3 stacks of Honey"
+      - "1 stack Feathers"
+      - "1 stack Ancient Bark"
+      - "First Three Boss Drops"
+      - "1.5 stacks Dandelion"
+      - "1 stack Thistle"
+      - "1 stack Carrots"
+      - "3 stacks Raspberry"
+      - "2 stacks Blueberries"
+      - "1.5 stacks Yellow mushrooms"
+      - "1 stack Red Mushrooms"
+  tier2:
+    items:
+      - "1 stack Tin"
+      - "1 stack Copper"
+      - "1 stack Bronze"
+      - "10x Health/Stamina potions"
+      - "10x Fish (Bench Upgrades)"
+      - "10x Poison Resistance Potions"
+      - "10x Frost Resistance Potions"
+      - "2.5 stacks of Any Seed"
+      - "6 stacks of Crafted Food"
+      - "4 pieces of Swamp-level armor"
+      - "4 fully upgraded weapons"
+      - "4 fully upgraded shields"
+      - "4 stacks of Ooze Bombs"
+      - "4 stacks of Bronze Nails"
+      - "1 pair of tamed animals"
+      - "4 stacks of Feathers"
+      - "4 stacks of Thistle"
+      - "4 stacks of Red Mushrooms"
+      - "20x Greydwarf Shaman Trophies"
+      - "10x Greydwarf Brute Trophies"
+      - "10x Skeleton Trophies"
+      - "10 Eikthyr Trophies"
+      - "5x Cooked Meat"
+      - "1 stack Crafted Food"
+      - "3 stacks Finewood"
+      - "10x Tankards"
+  tier3:
+    items:
+      - "1 Vulture Trophy"
+      - "1 Gjall Trophy"
+      - "1 Deathsquito Trophy"
+      - "1 Marksman Trophy"
+      - "1 Warrior Trophy"
+      - "1 Warlock Trophy"
+      - "2 Major Health mead bases"
+      - "2 Medium Stamina mead bases"
+      - "5 stacks Smoke Bombs"
+      - "1 stack of Ashwood"
+      - "1 Meginjord"
+      - "500 Gold"
+      - "4 stacks of Grausten"
+      - "4 stacks of Obsidian"
+      - "4 stacks of Bloodbags"
+      - "1 stack of Birch seeds"
+      - "4 stacks of Ashwood"
+      - "4 stacks of Royal Jelly"
+      - "4 stacks of Black Marble"
+      - "4 stacks of vegetable seeds"
+      - "4x stacks of Seeds"
+      - "2 stacks of Crystal"
+      - "20 stacks of Crafted Food"
+      - "8 stacks of Healing potions"
+      - "4 stacks of Fire Resistance"
+      - "4 stacks of Poison Resistance"
+      - "8 stacks of Eitr foods"
+
+# --- ENRICHMENT discovered 2026-07-01 (Raevyxn's Era 16 master guild sheet,
+#     data/raw/discord-found-sheet.csv + per-guild quest/rank trackers linked in it) ---
+# The ladders above are the SKELETON (requirements to climb). The real system also has:
+enrichment:
+  source: "Raevyxn's Era 16 master guild sheet (data/raw/discord-found-sheet.csv); each guild also
+    links its own 'quests & rank tracker' — more data sources to absorb."
+  initiation:            # some guilds gate entry
+    slayer:   "Complete the Training Course at Slayer HQ (screenshot proof)"
+    merchant: "none — make any transaction + submit a token in #token-turnin (or be tagged in one)"
+    builder:  "none"
+    ranger:   "none"
+    explorer: "none"
+    hobbit:   "Request from @HobbitRep in #hobbit-requests; ceremony at Hobbit HQ; receive ward access"
+    mage:     "'Offering to Goddess Freyja' — 1 stack each Honey/Feathers/Ancient Bark + 1 each Hard
+      Antler, Swamp Key, Wishbone, L1 Copper Knife (with crafting tag)"
+  reward_dimension:      # the WHY you climb — the ladders had requirements, not the payoff
+    note: "each rank grants rewards: private quarters, boss stones, 10x crafting/farming stations, achievements"
+    slayer:   "personal fortress (expands w/ rank); 10x crafting: Smelter@Thrall, Blast Furnace@Thegn; boss stone@Jarl"
+    merchant: "personal trade locker (many chests + 3 metal portals) @Exalted"
+    builder:  "upgradeable Build Hammer (grows each era); boss stone@Architect (after 'The Journeyman's Endeavor')"
+    ranger:   "treehouse@Scout; personal vault; boss stone@Warden (after 'The Prepared')"
+    explorer: "personal vault@Nomad; boss stone@Pathfinder"
+    hobbit:   "pre-fab Hobbit home (Comfort 25)@Dweller; 10x crafting@Harvester; boss stone@Dweller (after 'Ring Bearer')"
+    mage:     "study room + mead kettle@Initiation; boss stone@Archmage (after 'Runemaster'); Mage Garden (after 'Elementalist')"
+  additional_ranks_seen: # beyond the 3 tiers captured earlier → ladders extend to ~5-6 tiers
+    explorer: ["Nomad", "Pathfinder"]
+  achievements_seen: ["The Journeyman's Endeavor (Builder)", "The Prepared (Ranger)",
+    "Ring Bearer (Hobbit)", "Runemaster (Mage)", "Elementalist (Mage)"]

@@ -1,0 +1,274 @@
+﻿Comfy Valheim New Player Guide
+JOINING THE SERVER
+1. Get whitelisted. Steps for this are broken out in📋-whitelist-tickets.
+2. Before logging into the server, your character must only have a level 1 rag tunic and/or level 1 torch in your inventory
+3. lf you plan to play with mods, make sure that you only have mods from the Full Mods List mention in the #📂-allowed-mods channel. 
+4. Once you're ready to log in, you can follow the instructions in 👋-welcome to connect to Comfy. If you see a message that says that you are banned, open a ticket under #❗-get-support. Irongate's coding can give this error for players who are not properly whitelisted.  
+5. Once whitelisted, make sure you have Show All Channels selected under Server Settings (as shown to the right) so you can discover all the discord has to offer. Once you are more comfortable with the server feel free to Hide Muted Channels. However, never mute the #📯-announcements or #❗-get-support channels.
+IMPORTANT: We reset our seed periodically; a period of time (typically lasting 3-5 months) on the same seed is referred to as an Era.
+
+CURRENT ERA: Era 16  
+LAUNCH DATE:Nov 15, 2025 4:00 PM EST
+
+HOW TO START  
+FIRST TIME IN-GAME
+Spawn island consists of 7 Boss Stones, 
+4 Cardinal Direction Portals (North, East, West, South), 7 Guild HQ portals, 1 Creator HQ portal, 1 Best West portal, 1 Nexus portal and 1 Prestige Kit portal. (Note: In the first 24 hours of a new era the only portals connected at Spawn will be the Directional, Prestige Kit and Best West portals). 
+
+
+Start by choosing a directional portal and settling either on that continent or finding enough supplies to sail and settle elsewhere. If you need help finding an area that isn't crowded you can pop in #🌎-explorerᵈᶦˢᶜᵒᵛᵉʳʸ and ask an @Explorer if they know a good spot. Do not build over 7k instances or build greydwarf, or draugr farms, or any auto-breeders on directional portal continents.
+
+
+  
+
+IMPORTANT TIP: Pinned Posts and Threads are referenced several times in this guide. Graphic to the right shows you were to locate those for every channel on Discord.
+    COLLECTING MATERIALS & EARNING GOLD 
+Once you've gotten your first tools created, you'll want to get away from the spawn huts and explore the starter continent or sail away even further from it - this is both to minimize lag and to maximize your chances of finding resources that are still available. If you can't find a certain resource check out the Merchants Guild shop, The Comfy Trader, or see if a @Merchant in #💲-merchantᵉˣᶜʰᵃⁿᵍᵉ  can sell or trade you some. 
+
+
+If you’re looking to earn some gold, a few great ways to do so as a new player are by using the #💲-merchantᵉˣᶜʰᵃⁿᵍᵉ  or ranking in the Merchants Guild. Certain materials retain a decent amount of value - particularly materials that are used over and over again like items for crafting consumables or arrows. Other materials like metals, armor or weapons are valuable as well but not as accessible for brand new players.  
+FINDING YOUR FIRST HOME
+You can either build a base from scratch, or rent out a room/home from the official staff-run Newbie Center, The Best West. The Best West is accessible by portal at Spawn and provides portals to other player-run accommodations to guide you through your first steps on Comfy.
+
+
+If you decide to build your own home, you'll want a ward to prevent theft. Wards will protect your chests, doors, items stands, etc but not carts or boats - see the FAQ for tips to prevent boat theft.
+
+
+NEWBIE CENTER
+THE BEST WEST 
+The Best West, which is connected to spawn, offers some of the best resources we have for new players to get on their feet. The Best West Quests can be found under the pinned messages in #🐗-best-west-turnin, and a lot of them are worth doing as you'll be using materials you collect from natural progression to get some sweet rewards. You can also get a ward from the "Welcome to the Best West!" quest.
+
+
+THE NEXUS  
+MASS PORTAL HUB 
+The Nexus Hub, which is connected to spawn, is a mass portal transportation system that is organized and built by staff but funded by players. As a new player, once you have a home and materials to get yourself going, you'll likely want to invest in a Nexus Portal that connects to your base. You can find directions on how to obtain a portal by following the instructions pinned in the #💠-the-nexus. There are also navigational guides posted in-game.   
+Middle Hub includes public portals to Spawn, Boss Locations, Guild HQs & Creator HQ and is open to everyone. Biome Hubs (8) include all player portals and are considered private unless you have consent to visit or it’s marked “public.” 
+
+THE GUILDS
+
+
+There are currently seven official guilds that are custom made for our server and our players, run by our staff. Guilds have the uniqueness of higher level items as rewards and are characterized by various tasks and staff hosted events. You can join as many guilds as you want. Reaching max rank in 3 or more guilds will earn you an Odin Hood (see graphic).
+HOW TO JOIN: Simply react to the matching emote at the bottom of  #⁠❓-comfy-roles and then check the Essential Guild Information channels or pinned posts in the Main Chatting Channel for said guild to get started. See these broken out below.
+
+
+
+
+
+
+
+
+
+
+
+
+	SLAYERS
+	MERCHANTS
+	BUILDERS
+	RANGERS
+	EXPLORERS
+	HOBBITS
+	MAGES
+	Description:
+	Heroic fighters and rescuers in times of need, where you can improve your combat skills.
+	A trade community, where you can buy/sell items, earn gold & manage a shop.
+	A creative space for learning to build or showing off acquired skills by attending classes, builder races or doing commissions.
+	A nature-loving community consisting of real life and in-game nature badges, field service events and social mini-games.
+	The kings of the seas and lands, who discover new territories, hidden stashes and compete in epic races.
+	Roleplay with cooking, socializing, exploring, building and fighting quests to achieve a personal Hobbit Home.
+	An immersive circle that incentivises your magical pursuits by completing uniquely themed tasks and events, solo or as a group.
+	Guild Tag:
+	@Slayer
+	@Merchant
+	@Builder 
+	@Ranger
+	@Explorer
+	@Hobbit
+	@Mage
+	Staff Tag:
+	@SlayerRep 
+	@MerchantRep 
+	@BuilderRep 
+	@RangerRep 
+	@ExplorerRep
+	@HobbitRep 
+	@MageRep
+	Guild News:
+	#📯Call To Arms
+	#📢Merchant Announcements
+	#Builder Announcements
+	#Ranger News
+	#Explorer Announcements
+	#📜Hear Ye Hobbits
+	#📯The Daily Raiser
+	Essential Guild Information:
+	#Slayer Overview
+	#📚Merchant Info
+	#Builder Overview
+	#Ranger Overview
+	#Explorers Overview
+	#📚Hobbit 
+Overview
+	#📌Mage Overview
+	Main Chatting Channel:
+	#💀Slayer
+	#💲Merchant Marketplace
+	#🔨Builder
+	#🌲Ranger
+	#🌎Explorer
+	#🍺Hobbit
+	#🔮Mages
+	Guild Turn-Ins:
+	#🔪Contract Turn-In
+#🔪Summon Turn-In
+	#✅Token Turn-In 
+	#🍞Point Tracker 
+	#🏹Ranger Submissions
+	#Explorer Turn-In
+#Stash-Creation
+	#🍲Hobbit Turn-In
+	#Mage Submissions 
+	Guild Requests:
+	#Slayer Requests  
+	#🛎Guild Requests
+	N/A
+(automatic by staff)
+	#🪓Ranger Requests 
+	#Explorer Requests
+	#🏆Hobbit Requests
+	#Mage Requests
+	Guild Ads:
+	N/A
+	#📌Exalted-Ads
+	#💡Portfolio Adds
+	N/A
+	N/A
+	N/A
+	N/A
+	
+
+Notes: (1) The Rank Graphics are updated by the discretion of guilds in their own channels and are not always as current in this document. Be sure to cross reference in their corresponding channels.
+(2) Links above with a # symbol are a designated channel.
+
+
+
+THE EVENTS
+  
+
+To add yourself to the @Events role, simply hit the Beers emote in #⁠❓-comfy-roles. 
+
+
+Notifications for Guild Events are often posted in their corresponding guild announcement channel (as the table in the previous section outlines). Notifications about Creator Events are posted in #⭐-creator-news.
+GUILD EVENTS
+These are posted & provided by each Guild and fall in one of two classifications: Hosted Events or World Events.
+
+
+Hosted Events are typically held at a specific time that you plan for in advance by reviewing the Event Calendar in Discord. The Calendar icon can be located in the top left corner below the Comfy Valheim banner. Sometimes they are held as pop-ups.
+
+
+World Events are unique dungeons designed by staff and can be used as an extension of Guild content. These can either be Creator Events and associated with the Creator Team (Applicable Guilds: Hobbits & Rangers), or instead be independent Guild Events and managed solely by the specific Guild that provides them (Applicable Guilds: Mages & Slayers).
+CREATOR EVENTS  
+Creator Events are independent events designed by Creators (staff) with unique lore, enemies/challenges & hidden loot, and include diverse event styles such as dungeons, mazes, parkour, pop-up, etc. A deeper dive into how to access these events and what makes them unique is found in the #📘-creator-overview channel. 
+
+
+Creator Events are posted in #🎪-creator-events  connected to Creator HQ & will be reset (made available to run again) at each Creator’s discretion, without a specific timeline. Notifications regarding reset of creator events are posted in #🔁-event-resets. 
+
+
+You can LFG in #🤝-looking-for-group. Creator Events specifically provide blue mushrooms (don’t eat them!) which can be spent in the #🍄-creator-shop, a staff-run shop that provides unique services and assets. Creator Events also can provide linen cape sets to earn an Odin Cape (see graphic). Before running events, be sure to read all the Creator Event Etiquette & Rules.
+NEWBIE CREATOR EVENTS
+These include the Creator Events in a low tier of difficulty. Most Newbie Events can be found in the Odin’s Apprentice wing of Creator HQ.
+DUNGEON HELP
+The Dungeoneering Club is a player-run club where players can ask questions, share information, and opinions about the current combat setups and creator events. This is a welcoming place to start immersing in the lore and history of Comfy Creator Events. See 🧩The Dungeoneering Club for more details.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+COMFY Shops
+
+
+CREATOR SHOP
+Shop managed by the select Creator Leads that provide unique assets and luxury services. The currency used at this shop is blue mushrooms, an item found in Creator Events. See #🍄-creator-shop for details. In-Game Location: Located at Creator HQ; Opens start of Week 3.
+
+
+COMFY TRADER
+Shop managed by the Merchant’s Guild that allows trades on items like Copper, Tin, Bronze, Flint, Surtling cores, etc. This is where you can find the traders: Haldor, Hildir and The Bog Witch. The shop also provides Metal Delivery for any metals purchased from the shop. See #📚-merchant-info for details. In-Game Location: Located every era at Merchant HQ.
+
+BUILDER SHOP
+Shop managed by the Builder’s Guild that currently provides stonecutter delivery, space islands, and space farms. The shop also provides one-way non-teleportables delivery to space. See #builder-shop for details. In-Game Location: N/A
+
+BEES N’ TREES
+Shop managed by the Ranger’s Guild that trades items for bees and provides vegetation services. See #bees-n-trees for details. In-Game Location: N/A
+
+
+
+
+COMFY BOTS
+
+Some Guilds have a specific bot to submit for your guild requirements. Each Guild bot has several commands available, with specific fields that you may need to fill when submitting each requirement. Applicable Guilds: Slayers, Merchants, Rangers, Explorers, Hobbits, Mages.
+
+
+Rule of thumb across all Guild Bots is: use the command /help to view all available commands and what they are for. And also, each guild sheet provides the copy and paste string commands highly recommended for you to use to avoid error in submissions.
+
+
+As an example, you can see a visual tutorial on how to submit with the ComfyHobbit bot here.
+
+
+
+
+COMFY NEWs
+
+To add yourself to the @News role, simply hit the Newspaper emote in  #❓-comfy-roles. This role is pinged every time important news about the server is announced. 
+
+
+
+
+Occasionally news can also be shared on our server’s website: https://www.comfyvalheimserver.com and our twitter: https://twitter.com/ComfyValheim.
+
+
+Crucial server announcements will always be posted in #📯-announcements channel. Be sure to frequently check that channel.
+
+
+
+
+REPORTING
+
+
+For most of your troubles on the server, you will need to open a support ticket in #❗-get-support. A staff member will reach out as soon as they are available. All tickets are private and only viewable by moderators and other specific supporting staff members. Do not private message staff about game or server issues. Always make a ticket. 
+
+
+If you've been banned, you can use the #🔶-ban-appeal channel to file an appeal. Read and fill out the instructions in the channel to get the appeal started. Appeals can take anywhere between 2-5 business days to resolve. Be prepared to review the rules and admit what rules you've broken. Accountability is key to being considered a second chance. 
+
+
+To avoid being banned, be sure to carefully review the Comfy Handbook.
+
+
+
+
+FEEDBACK
+
+
+Your feedback is always welcome! If there’s any aspect of Comfy about which you would like to share your opinion about (about a specific guild, best west, events, comfy shops, rules, guidelines, or anything else), you can do so in 🔒report-to-steward-only channel and select Comfy Feedback to open a Feedback ticket. 
+
+
+Your feedback will be received by the respective group/s involved, either anonymously (if you want) or directly in your ticket, where you can have an open discussion with the group/s involved.
+
+
+
+
+FREQUENTLY ASKED QUESTIONS
+
+
+For frequently asked questions, please review the Comfy Valheim: New Player FAQ document. 
+
+If you still can’t find your question answered you can always pop in the #❔ask-a-question channel where @Mentors can help. Feel free to tag them and ask them your question.

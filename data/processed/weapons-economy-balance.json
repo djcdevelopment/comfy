@@ -1,0 +1,2475 @@
+[
+  {
+    "name": "Wood arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 22,
+    "damage": {
+      "Pierce": 22
+    }
+  },
+  {
+    "name": "Flinthead arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 27,
+    "damage": {
+      "Pierce": 27
+    }
+  },
+  {
+    "name": "Bronzehead arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 32,
+    "damage": {
+      "Pierce": 32
+    }
+  },
+  {
+    "name": "Fire arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 33,
+    "damage": {
+      "Pierce": 11,
+      "Fire": 22
+    }
+  },
+  {
+    "name": "Ironhead arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 42,
+    "damage": {
+      "Pierce": 42
+    }
+  },
+  {
+    "name": "Poison arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 78,
+    "damage": {
+      "Pierce": 26,
+      "Poison": 52
+    }
+  },
+  {
+    "name": "Obsidian arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 52,
+    "damage": {
+      "Pierce": 52
+    }
+  },
+  {
+    "name": "Frost arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 78,
+    "damage": {
+      "Pierce": 26,
+      "Frost": 52
+    }
+  },
+  {
+    "name": "Silver arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 72,
+    "damage": {
+      "Pierce": 52,
+      "Spirit": 20
+    }
+  },
+  {
+    "name": "Needle arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 62,
+    "damage": {
+      "Pierce": 62
+    }
+  },
+  {
+    "name": "Carapace arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 72,
+    "damage": {
+      "Pierce": 72
+    }
+  },
+  {
+    "name": "Charred arrow",
+    "category": "Arrows",
+    "kind": "ammo",
+    "base": 82,
+    "damage": {
+      "Pierce": 82
+    }
+  },
+  {
+    "name": "Bone bolt",
+    "category": "Bolts",
+    "kind": "ammo",
+    "base": 32,
+    "damage": {
+      "Pierce": 32
+    }
+  },
+  {
+    "name": "Iron bolt",
+    "category": "Bolts",
+    "kind": "ammo",
+    "base": 42,
+    "damage": {
+      "Pierce": 42
+    }
+  },
+  {
+    "name": "Black metal bolt",
+    "category": "Bolts",
+    "kind": "ammo",
+    "base": 62,
+    "damage": {
+      "Pierce": 62
+    }
+  },
+  {
+    "name": "Carapace bolt",
+    "category": "Bolts",
+    "kind": "ammo",
+    "base": 72,
+    "damage": {
+      "Pierce": 72
+    }
+  },
+  {
+    "name": "Charred bolt",
+    "category": "Bolts",
+    "kind": "ammo",
+    "base": 82,
+    "damage": {
+      "Pierce": 82
+    }
+  },
+  {
+    "name": "Staff of Embers",
+    "category": "Elemental Magic",
+    "kind": "weapon",
+    "cost": 35,
+    "gain": 6,
+    "gain_split": {
+      "Fire": 6
+    },
+    "base": 240,
+    "damage": {
+      "Blunt": 120,
+      "Fire": 120
+    },
+    "biome": 6,
+    "regen": 1.75,
+    "hits": 1.75,
+    "combo_time": 0.82,
+    "hit_timings": [
+      0.82
+    ]
+  },
+  {
+    "name": "Staff of Frost",
+    "category": "Elemental Magic",
+    "kind": "weapon",
+    "cost": 5,
+    "gain": 2,
+    "gain_split": {
+      "Frost": 2
+    },
+    "base": 30,
+    "damage": {
+      "Frost": 30
+    },
+    "biome": 6,
+    "regen": 0.25,
+    "hits": 1,
+    "combo_time": 0.22,
+    "hit_timings": [
+      0.22
+    ]
+  },
+  {
+    "name": "Dundr",
+    "category": "Elemental Magic",
+    "kind": "weapon",
+    "cost": 38,
+    "gain": 3,
+    "gain_split": {
+      "Lightning": 3
+    },
+    "base": 20,
+    "damage": {
+      "Lightning": 20
+    },
+    "biome": 7,
+    "regen": 1.89,
+    "hits": 12,
+    "combo_time": 1.75,
+    "hit_timings": [
+      1.75
+    ]
+  },
+  {
+    "name": "Staff of the Wild",
+    "category": "Elemental Magic",
+    "kind": "weapon",
+    "cost": 55,
+    "gain": 40,
+    "gain_split": {
+      "Blunt": 20,
+      "Poison": 20
+    },
+    "base": 1040,
+    "damage": {
+      "Blunt": 1020,
+      "Poison": 20
+    },
+    "biome": 7,
+    "regen": 2.75,
+    "hits": 1,
+    "combo_time": 0.82,
+    "hit_timings": [
+      0.82
+    ]
+  },
+  {
+    "name": "Staff of Fracturing",
+    "category": "Elemental Magic",
+    "kind": "weapon",
+    "cost": 30,
+    "gain": 6,
+    "gain_split": {
+      "Fire": 6
+    },
+    "base": 24,
+    "damage": {
+      "Blunt": 12,
+      "Fire": 12
+    },
+    "biome": 7,
+    "regen": 1.5,
+    "hits": 12,
+    "combo_time": 0.82,
+    "hit_timings": [
+      0.82
+    ]
+  },
+  {
+    "name": "Staff of Protection",
+    "category": "Blood Magic",
+    "kind": "weapon",
+    "cost": 60,
+    "gain": 1,
+    "gain_split": {
+      "Blunt": 1
+    },
+    "base": null,
+    "damage": {
+      "Blunt": 1
+    },
+    "biome": 6,
+    "regen": null,
+    "hits": null,
+    "combo_time": null,
+    "hit_timings": []
+  },
+  {
+    "name": "Dead Raiser",
+    "category": "Blood Magic",
+    "kind": "weapon",
+    "cost": 100,
+    "gain": 1,
+    "gain_split": {
+      "Blunt": 1
+    },
+    "base": null,
+    "damage": {
+      "Blunt": 1
+    },
+    "biome": 6,
+    "regen": null,
+    "hits": null,
+    "combo_time": null,
+    "hit_timings": []
+  },
+  {
+    "name": "Trollstav",
+    "category": "Blood Magic",
+    "kind": "weapon",
+    "cost": 120,
+    "gain": 1,
+    "gain_split": {
+      "Blunt": 1
+    },
+    "base": null,
+    "damage": {
+      "Blunt": 1
+    },
+    "biome": 7,
+    "regen": null,
+    "hits": null,
+    "combo_time": null,
+    "hit_timings": []
+  },
+  {
+    "name": "Stone axe",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 5,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 15,
+    "damage": {
+      "Slash": 15
+    },
+    "biome": 1,
+    "regen": 0.42,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Flint axe",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 20,
+    "damage": {
+      "Slash": 20
+    },
+    "biome": 1,
+    "regen": 0.5,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Bronze axe",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 40,
+    "damage": {
+      "Slash": 40
+    },
+    "biome": 2,
+    "regen": 0.67,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Iron axe",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 60,
+    "damage": {
+      "Slash": 60
+    },
+    "biome": 3,
+    "regen": 0.83,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Black metal axe",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 100,
+    "damage": {
+      "Slash": 100
+    },
+    "biome": 5,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Jotun Bane",
+    "category": "Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 120,
+    "damage": {
+      "Slash": 80,
+      "Poison": 40
+    },
+    "biome": 6,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Battleaxe",
+    "category": "2-hand Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 70,
+    "damage": {
+      "Slash": 70
+    },
+    "biome": 3,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 3.22,
+    "hit_timings": [
+      1.58,
+      0.92,
+      0.72
+    ]
+  },
+  {
+    "name": "Crystal battleaxe",
+    "category": "2-hand Axes",
+    "kind": "weapon",
+    "cost": 18,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 120,
+    "damage": {
+      "Slash": 90,
+      "Spirit": 30
+    },
+    "biome": 4,
+    "regen": 1.5,
+    "hits": 4,
+    "combo_time": 3.22,
+    "hit_timings": [
+      1.58,
+      0.92,
+      0.72
+    ]
+  },
+  {
+    "name": "Black metal battleaxe",
+    "category": "2-hand Axes",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 110,
+    "damage": {
+      "Slash": 110
+    },
+    "biome": 5,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.22,
+    "hit_timings": [
+      1.58,
+      0.92,
+      0.72
+    ]
+  },
+  {
+    "name": "Skull Splittur",
+    "category": "2-hand Axes",
+    "kind": "weapon",
+    "cost": 22,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 130,
+    "damage": {
+      "Slash": 130
+    },
+    "biome": 6,
+    "regen": 1.83,
+    "hits": 4,
+    "combo_time": 3.22,
+    "hit_timings": [
+      1.58,
+      0.92,
+      0.72
+    ]
+  },
+  {
+    "name": "Early Axes",
+    "category": "Dual Axes",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 30,
+    "damage": {
+      "Slash": 30
+    },
+    "biome": 3,
+    "regen": 0.67,
+    "hits": 8,
+    "combo_time": 3.58,
+    "hit_timings": [
+      0.4,
+      0.7,
+      1,
+      1.48
+    ]
+  },
+  {
+    "name": "Berserkir axes",
+    "category": "Dual Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 140,
+    "damage": {
+      "Slash": 140
+    },
+    "biome": 7,
+    "regen": 1.78,
+    "hits": 8,
+    "combo_time": 3.58,
+    "hit_timings": [
+      0.4,
+      0.7,
+      1,
+      1.48
+    ]
+  },
+  {
+    "name": "Bleeding Berserkir Axes",
+    "category": "Dual Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 140,
+    "damage": {
+      "Slash": 140
+    },
+    "biome": 7,
+    "regen": 1.78,
+    "hits": 8,
+    "combo_time": 3.58,
+    "hit_timings": [
+      0.4,
+      0.7,
+      1,
+      1.48
+    ]
+  },
+  {
+    "name": "Primal Berserkir Axes",
+    "category": "Dual Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 150,
+    "damage": {
+      "Slash": 140,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 1.78,
+    "hits": 8,
+    "combo_time": 3.58,
+    "hit_timings": [
+      0.4,
+      0.7,
+      1,
+      1.48
+    ]
+  },
+  {
+    "name": "Thundering Berserkir Axes",
+    "category": "Dual Axes",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 150,
+    "damage": {
+      "Slash": 140,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 1.78,
+    "hits": 8,
+    "combo_time": 3.58,
+    "hit_timings": [
+      0.4,
+      0.7,
+      1,
+      1.48
+    ]
+  },
+  {
+    "name": "Torch",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 3,
+    "gain_split": {
+      "Blunt": 3
+    },
+    "base": 19,
+    "damage": {
+      "Blunt": 4,
+      "Fire": 15
+    },
+    "biome": 1,
+    "regen": 0.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Club",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 12,
+    "damage": {
+      "Blunt": 12
+    },
+    "biome": 1,
+    "regen": 0.5,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Bronze mace",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 35,
+    "damage": {
+      "Blunt": 35
+    },
+    "biome": 2,
+    "regen": 0.67,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Iron mace",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 55,
+    "damage": {
+      "Blunt": 55
+    },
+    "biome": 3,
+    "regen": 0.83,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Frostner",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 6,
+    "gain_split": {
+      "Frost": 6
+    },
+    "base": 95,
+    "damage": {
+      "Blunt": 35,
+      "Frost": 40,
+      "Spirit": 20
+    },
+    "biome": 4,
+    "regen": 1,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Porcupine",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 95,
+    "damage": {
+      "Blunt": 50,
+      "Pierce": 45
+    },
+    "biome": 5,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Flametal mace",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 135,
+    "damage": {
+      "Blunt": 135
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Bloodgeon (Flametal Mace)",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 135,
+    "damage": {
+      "Blunt": 135
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Klossen (Flametal Mace)",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 145,
+    "damage": {
+      "Blunt": 135,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Storm Star (Flametal Mace)",
+    "category": "Clubs",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 145,
+    "damage": {
+      "Blunt": 135,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Stagbreaker",
+    "category": "2-hand Clubs",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 20,
+    "damage": {
+      "Blunt": 20
+    },
+    "biome": 2,
+    "regen": 0.33,
+    "hits": 1.75,
+    "combo_time": 2.12,
+    "hit_timings": [
+      2.12
+    ]
+  },
+  {
+    "name": "Iron sledge",
+    "category": "2-hand Clubs",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 55,
+    "damage": {
+      "Blunt": 55
+    },
+    "biome": 3,
+    "regen": 0.56,
+    "hits": 1.75,
+    "combo_time": 2.12,
+    "hit_timings": [
+      2.12
+    ]
+  },
+  {
+    "name": "Demolisher",
+    "category": "2-hand Clubs",
+    "kind": "weapon",
+    "cost": 28,
+    "gain": 6,
+    "gain_split": {
+      "Blunt": 6
+    },
+    "base": 145,
+    "damage": {
+      "Blunt": 145
+    },
+    "biome": 6,
+    "regen": 0.78,
+    "hits": 1.75,
+    "combo_time": 2.12,
+    "hit_timings": [
+      2.12
+    ]
+  },
+  {
+    "name": "Bronze sword",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 35,
+    "damage": {
+      "Slash": 35
+    },
+    "biome": 2,
+    "regen": 0.67,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Iron sword",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 55,
+    "damage": {
+      "Slash": 55
+    },
+    "biome": 3,
+    "regen": 0.83,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Silver sword",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 11,
+    "gain_split": {
+      "Slash": 6,
+      "Spirit": 5
+    },
+    "base": 105,
+    "damage": {
+      "Slash": 75,
+      "Spirit": 30
+    },
+    "biome": 4,
+    "regen": 1,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Black metal sword",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 95,
+    "damage": {
+      "Slash": 95
+    },
+    "biome": 5,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Old Dyrnwyn",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 11,
+    "gain_split": {
+      "Slash": 5,
+      "Fire": 6
+    },
+    "base": null,
+    "damage": {
+      "Slash": 55,
+      "Fire": 30
+    },
+    "biome": 6,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Mistwalker",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 11,
+    "gain_split": {
+      "Frost": 6,
+      "Spirit": 5
+    },
+    "base": 115,
+    "damage": {
+      "Slash": 75,
+      "Frost": 40
+    },
+    "biome": 6,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Nidhögg",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 135,
+    "damage": {
+      "Slash": 135
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Nidhögg the Bleeding",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 135,
+    "damage": {
+      "Slash": 135
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Nidhögg the Primal",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 145,
+    "damage": {
+      "Slash": 135,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Nidhögg the Thundering",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 145,
+    "damage": {
+      "Slash": 135,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Dyrnwyn",
+    "category": "Swords",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 155,
+    "damage": {
+      "Slash": 145,
+      "Fire": 10
+    },
+    "biome": 7,
+    "regen": 1.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Krom",
+    "category": "2-hand Swords",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 150,
+    "damage": {
+      "Slash": 150
+    },
+    "biome": 6,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Slayer",
+    "category": "2-hand Swords",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 170,
+    "damage": {
+      "Slash": 170
+    },
+    "biome": 7,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Brutal Slayer",
+    "category": "2-hand Swords",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 170,
+    "damage": {
+      "Slash": 170
+    },
+    "biome": 7,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Primal Slayer",
+    "category": "2-hand Swords",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 170,
+    "damage": {
+      "Slash": 170,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Scourging Slayer",
+    "category": "2-hand Swords",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Slash": 6
+    },
+    "base": 170,
+    "damage": {
+      "Slash": 170,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Flint spear",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 20,
+    "damage": {
+      "Pierce": 20
+    },
+    "biome": 1,
+    "regen": 0.17,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Bronze spear",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 35,
+    "damage": {
+      "Pierce": 35
+    },
+    "biome": 2,
+    "regen": 0.22,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Ancient bark spear",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 55,
+    "damage": {
+      "Pierce": 55
+    },
+    "biome": 3,
+    "regen": 0.28,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Fang spear",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 75,
+    "damage": {
+      "Pierce": 75
+    },
+    "biome": 4,
+    "regen": 0.33,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Carapace spear",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 115,
+    "damage": {
+      "Pierce": 115
+    },
+    "biome": 6,
+    "regen": 0.44,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Splitnir",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 135,
+    "damage": {
+      "Pierce": 135
+    },
+    "biome": 7,
+    "regen": 0.44,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Splitnir the Bleeding",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 135,
+    "damage": {
+      "Pierce": 135
+    },
+    "biome": 7,
+    "regen": 0.44,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Splitnir the Primal",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 145,
+    "damage": {
+      "Pierce": 135,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 0.44,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Splitnir the Storming",
+    "category": "Spears",
+    "kind": "weapon",
+    "cost": 16,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 145,
+    "damage": {
+      "Pierce": 135,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 0.44,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Bronze atgeir",
+    "category": "Polearms",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 45,
+    "damage": {
+      "Pierce": 45
+    },
+    "biome": 2,
+    "regen": 1,
+    "hits": 4,
+    "combo_time": 2.98,
+    "hit_timings": [
+      0.84,
+      0.86,
+      1.28
+    ]
+  },
+  {
+    "name": "Iron atgeir",
+    "category": "Polearms",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 65,
+    "damage": {
+      "Pierce": 65
+    },
+    "biome": 3,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 2.98,
+    "hit_timings": [
+      0.84,
+      0.86,
+      1.28
+    ]
+  },
+  {
+    "name": "Black metal atgeir",
+    "category": "Polearms",
+    "kind": "weapon",
+    "cost": 18,
+    "gain": 6,
+    "gain_split": {
+      "Pierce": 6
+    },
+    "base": 105,
+    "damage": {
+      "Pierce": 105
+    },
+    "biome": 5,
+    "regen": 1.5,
+    "hits": 4,
+    "combo_time": 2.98,
+    "hit_timings": [
+      0.84,
+      0.86,
+      1.28
+    ]
+  },
+  {
+    "name": "Himminafl",
+    "category": "Polearms",
+    "kind": "weapon",
+    "cost": 20,
+    "gain": 6,
+    "gain_split": {
+      "Lightning": 6
+    },
+    "base": 125,
+    "damage": {
+      "Pierce": 85,
+      "Lightning": 40
+    },
+    "biome": 6,
+    "regen": 1.67,
+    "hits": 4,
+    "combo_time": 2.98,
+    "hit_timings": [
+      0.84,
+      0.86,
+      1.28
+    ]
+  },
+  {
+    "name": "Flint knife",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 10,
+    "damage": {
+      "Pierce": 5,
+      "Slash": 5
+    },
+    "biome": 1,
+    "regen": 0.33,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Copper knife",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 24,
+    "damage": {
+      "Pierce": 12,
+      "Slash": 12
+    },
+    "biome": 2,
+    "regen": 0.5,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Abyssal Razor",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 40,
+    "damage": {
+      "Pierce": 20,
+      "Slash": 20
+    },
+    "biome": 3,
+    "regen": 0.67,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Silver knife",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 62,
+    "damage": {
+      "Pierce": 25,
+      "Slash": 25,
+      "Spirit": 12
+    },
+    "biome": 4,
+    "regen": 0.83,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Black metal knife",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 68,
+    "damage": {
+      "Pierce": 34,
+      "Slash": 34
+    },
+    "biome": 5,
+    "regen": 1,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Skoll and Hati",
+    "category": "Knives",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 2,
+    "gain_split": {
+      "Pierce": 1,
+      "Slash": 1
+    },
+    "base": 90,
+    "damage": {
+      "Pierce": 45,
+      "Slash": 45
+    },
+    "biome": 6,
+    "regen": 1.17,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  },
+  {
+    "name": "Paws of the Bear",
+    "category": "Fists",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 4,
+    "gain_split": {
+      "Slash": 4
+    },
+    "base": 25,
+    "damage": {
+      "Slash": 25
+    },
+    "biome": 2,
+    "regen": 0.33,
+    "hits": 3,
+    "combo_time": 1.48,
+    "hit_timings": [
+      0.74,
+      0.74
+    ]
+  },
+  {
+    "name": "Flesh Rippers",
+    "category": "Fists",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 4,
+    "gain_split": {
+      "Slash": 4
+    },
+    "base": 60,
+    "damage": {
+      "Slash": 60
+    },
+    "biome": 4,
+    "regen": 0.56,
+    "hits": 3,
+    "combo_time": 1.48,
+    "hit_timings": [
+      0.74,
+      0.74
+    ]
+  },
+  {
+    "name": "Vilebone Maulclaws",
+    "category": "Fists",
+    "kind": "weapon",
+    "cost": 12,
+    "gain": 4,
+    "gain_split": {
+      "Slash": 4
+    },
+    "base": 80,
+    "damage": {
+      "Pierce": 60,
+      "Slash": 20
+    },
+    "biome": 5,
+    "regen": 0.67,
+    "hits": 3,
+    "combo_time": 1.48,
+    "hit_timings": [
+      0.74,
+      0.74
+    ]
+  },
+  {
+    "name": "Stone pickaxe",
+    "category": "Pickaxes",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 4,
+    "gain_split": {
+      "Blunt": 4
+    },
+    "base": 14,
+    "damage": {
+      "Pierce": 45
+    },
+    "biome": 1,
+    "regen": 0.11,
+    "hits": 1,
+    "combo_time": 1.4,
+    "hit_timings": [
+      1.4
+    ]
+  },
+  {
+    "name": "Antler pickaxe",
+    "category": "Pickaxes",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 4,
+    "gain_split": {
+      "Blunt": 4
+    },
+    "base": 54,
+    "damage": {
+      "Pierce": 54
+    },
+    "biome": 1,
+    "regen": 0.17,
+    "hits": 1,
+    "combo_time": 1.4,
+    "hit_timings": [
+      1.4
+    ]
+  },
+  {
+    "name": "Bronze pickaxe",
+    "category": "Pickaxes",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 15,
+    "gain_split": {
+      "Pierce": 15
+    },
+    "base": 75,
+    "damage": {
+      "Pierce": 75
+    },
+    "biome": 2,
+    "regen": 0.22,
+    "hits": 1,
+    "combo_time": 1.4,
+    "hit_timings": [
+      1.4
+    ]
+  },
+  {
+    "name": "Iron pickaxe",
+    "category": "Pickaxes",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 15,
+    "gain_split": {
+      "Pierce": 15
+    },
+    "base": 99,
+    "damage": {
+      "Pierce": 99
+    },
+    "biome": 3,
+    "regen": 0.28,
+    "hits": 1,
+    "combo_time": 1.4,
+    "hit_timings": [
+      1.4
+    ]
+  },
+  {
+    "name": "Black metal pickaxe",
+    "category": "Pickaxes",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 15,
+    "gain_split": {
+      "Pierce": 15
+    },
+    "base": 147,
+    "damage": {
+      "Pierce": 147
+    },
+    "biome": 6,
+    "regen": 0.39,
+    "hits": 1,
+    "combo_time": 1.4,
+    "hit_timings": [
+      1.4
+    ]
+  },
+  {
+    "name": "Crude Bow",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 104,
+    "damage": {
+      "Pierce": 104
+    },
+    "biome": 1,
+    "regen": 0.09,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Finewood Bow",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 6,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 114,
+    "damage": {
+      "Pierce": 114
+    },
+    "biome": 2,
+    "regen": 0.13,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Huntsman Bow",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 124,
+    "damage": {
+      "Pierce": 124
+    },
+    "biome": 3,
+    "regen": 0.18,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Draugr Fang",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 10,
+    "gain": 8,
+    "gain_split": {
+      "Pierce": 3,
+      "Poison": 5
+    },
+    "base": 134,
+    "damage": {
+      "Pierce": 129,
+      "Poison": 5
+    },
+    "biome": 4,
+    "regen": 0.22,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Spinesnap",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 9,
+    "gain_split": {
+      "Pierce": 4,
+      "Spirit": 5
+    },
+    "base": 159,
+    "damage": {
+      "Pierce": 154,
+      "Spirit": 5
+    },
+    "biome": 6,
+    "regen": 0.31,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Ash Fang",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 9,
+    "gain_split": {
+      "Pierce": 4,
+      "Spirit": 5
+    },
+    "base": 164,
+    "damage": {
+      "Pierce": 164
+    },
+    "biome": 7,
+    "regen": 0.31,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Blood Fang",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 9,
+    "gain_split": {
+      "Pierce": 4,
+      "Spirit": 5
+    },
+    "base": 164,
+    "damage": {
+      "Pierce": 164
+    },
+    "biome": 7,
+    "regen": 0.31,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Root Fang",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 9,
+    "gain_split": {
+      "Pierce": 4,
+      "Spirit": 5
+    },
+    "base": 174,
+    "damage": {
+      "Pierce": 164,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 0.31,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Storm Fang",
+    "category": "Bows",
+    "kind": "weapon",
+    "cost": 14,
+    "gain": 9,
+    "gain_split": {
+      "Pierce": 4,
+      "Spirit": 5
+    },
+    "base": 174,
+    "damage": {
+      "Pierce": 164,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 0.31,
+    "hits": 1,
+    "combo_time": 0.8,
+    "hit_timings": [
+      0.8
+    ]
+  },
+  {
+    "name": "Arbalest",
+    "category": "Crossbows",
+    "kind": "weapon",
+    "cost": 1,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 282,
+    "damage": {
+      "Pierce": 282
+    },
+    "biome": 6,
+    "regen": 0.05,
+    "hits": 1,
+    "combo_time": 1.72,
+    "hit_timings": [
+      1.72
+    ]
+  },
+  {
+    "name": "Ripper",
+    "category": "Crossbows",
+    "kind": "weapon",
+    "cost": 1,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 302,
+    "damage": {
+      "Pierce": 302
+    },
+    "biome": 7,
+    "regen": 0.05,
+    "hits": 1,
+    "combo_time": 1.72,
+    "hit_timings": [
+      1.72
+    ]
+  },
+  {
+    "name": "Wound Ripper",
+    "category": "Crossbows",
+    "kind": "weapon",
+    "cost": 1,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 302,
+    "damage": {
+      "Pierce": 302
+    },
+    "biome": 7,
+    "regen": 0.05,
+    "hits": 1,
+    "combo_time": 1.72,
+    "hit_timings": [
+      1.72
+    ]
+  },
+  {
+    "name": "Root Ripper",
+    "category": "Crossbows",
+    "kind": "weapon",
+    "cost": 1,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 312,
+    "damage": {
+      "Pierce": 302,
+      "Poison": 10
+    },
+    "biome": 7,
+    "regen": 0.05,
+    "hits": 1,
+    "combo_time": 1.72,
+    "hit_timings": [
+      1.72
+    ]
+  },
+  {
+    "name": "Storm Ripper",
+    "category": "Crossbows",
+    "kind": "weapon",
+    "cost": 1,
+    "gain": 3,
+    "gain_split": {
+      "Pierce": 3
+    },
+    "base": 312,
+    "damage": {
+      "Pierce": 302,
+      "Lightning": 10
+    },
+    "biome": 7,
+    "regen": 0.05,
+    "hits": 1,
+    "combo_time": 1.72,
+    "hit_timings": [
+      1.72
+    ]
+  },
+  {
+    "name": "Wooden Axe",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 5,
+    "damage": {
+      "Slash": 5
+    },
+    "biome": 2,
+    "regen": 0.33,
+    "hits": 6,
+    "combo_time": 2.58,
+    "hit_timings": [
+      1.11,
+      0.65,
+      0.82
+    ]
+  },
+  {
+    "name": "Wooden Battleaxe",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 5,
+    "damage": {
+      "Slash": 5
+    },
+    "biome": 2,
+    "regen": 0.67,
+    "hits": 8,
+    "combo_time": 3.22,
+    "hit_timings": [
+      1.58,
+      0.92,
+      0.72
+    ]
+  },
+  {
+    "name": "Wooden Mace",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 5,
+    "gain_split": {
+      "Blunt": 5
+    },
+    "base": 5,
+    "damage": {
+      "Blunt": 5
+    },
+    "biome": 2,
+    "regen": 0.33,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Wooden Sledge",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 8,
+    "gain": 5,
+    "gain_split": {
+      "Blunt": 5
+    },
+    "base": 5,
+    "damage": {
+      "Blunt": 5
+    },
+    "biome": 2,
+    "regen": 0.22,
+    "hits": 1.75,
+    "combo_time": 2.12,
+    "hit_timings": [
+      2.12
+    ]
+  },
+  {
+    "name": "Wooden Sword",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 2,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 5,
+    "damage": {
+      "Slash": 5
+    },
+    "biome": 2,
+    "regen": 0.17,
+    "hits": 4,
+    "combo_time": 2.46,
+    "hit_timings": [
+      1.14,
+      0.44,
+      0.88
+    ]
+  },
+  {
+    "name": "Wooden Greatsword",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 2,
+    "gain": 5,
+    "gain_split": {
+      "Slash": 5
+    },
+    "base": 5,
+    "damage": {
+      "Slash": 5
+    },
+    "biome": 2,
+    "regen": 0.17,
+    "hits": 4,
+    "combo_time": 3.45,
+    "hit_timings": [
+      0.72,
+      1.12,
+      1.61
+    ]
+  },
+  {
+    "name": "Wooden Spear",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 4,
+    "gain": 5,
+    "gain_split": {
+      "Pierce": 5
+    },
+    "base": 5,
+    "damage": {
+      "Pierce": 5
+    },
+    "biome": 2,
+    "regen": 0.11,
+    "hits": 1,
+    "combo_time": 0.68,
+    "hit_timings": [
+      0.68
+    ]
+  },
+  {
+    "name": "Wooden Atgeir",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 2,
+    "gain": 5,
+    "gain_split": {
+      "Pierce": 5
+    },
+    "base": 5,
+    "damage": {
+      "Pierce": 5
+    },
+    "biome": 2,
+    "regen": 0.17,
+    "hits": 6,
+    "combo_time": 2.98,
+    "hit_timings": [
+      0.84,
+      0.86,
+      1.28
+    ]
+  },
+  {
+    "name": "Wooden Knife",
+    "category": "Wooden Weapons",
+    "kind": "weapon",
+    "cost": 2,
+    "gain": 10,
+    "gain_split": {
+      "Pierce": 5,
+      "Slash": 5
+    },
+    "base": 10,
+    "damage": {
+      "Pierce": 5,
+      "Slash": 5
+    },
+    "biome": 2,
+    "regen": 0.17,
+    "hits": 4,
+    "combo_time": 1.74,
+    "hit_timings": [
+      0.6,
+      0.44,
+      0.7
+    ]
+  }
+]

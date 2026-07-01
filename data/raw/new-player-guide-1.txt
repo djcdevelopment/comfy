@@ -1,0 +1,62 @@
+﻿Comfy Valheim New Player FAQ
+IN-GAME FAQ
+BUILDING 
+"How close to other people can I build?" Build at least 1 ward's width (or 1 sector) away from the next closest player's build. You can use the ZonesScouter mod, or 2m beams to check this. Here's an example. More about ZoneScouter. Example:
+  
+
+
+"How many days can I be inactive without worrying about my build?" Our rule is 15 days inactive on both the discord and the server itself. After that, another player may request a demolition and your build can be removed. To avoid this, simply open a ticket in 🔷-dont-delete-my-base-pls and let us know approximately how long you'll be gone. 
+
+
+“How are players rotating build pieces at so many different angles?” There is this mod called Comfy Gizmo that you can install that will allow you to rotate build pieces at angles the vanilla game does not allow. More about Comfy Gizmo.
+
+
+"How do I break my boats if I have Get Off My Lawn installed?" You can demolish the boat with the middle mouse button OR you’ll need the Valheim Configuration Manager to open mod settings. Hit F1 and modify its health to 1 or some other low number. You can refresh your boat’s health by repairing it with a hammer, then punch it for enough damage to break it down. Remember to reset your get off my lawn to the desired value afterwards. 9.919211E+17 is recommended. More about Get Off My Lawn.
+PREVENTING THEFT   
+“How do I protect my boats from being stolen?” You have two solid options: 
+a. Lock the boat with beams around the mast + activate a ward nearby (see picture to the right)  
+b. Deconstruct the boat and put the mats in a chest that is warded.
+LAG 
+"Why does the server seem frozen?" It could be just normal lag, but you should also press F2 in game to open the diagnostic window and check what your # of instances is at. Usually it will pass naturally and it is largely impacted by the number of players you have nearby, so you should be careful about moving items in containers or sailing, as you might lose some progress in resets. If you lose anything as the result of a server reset, please use the ❗-get-support channel to create a ticket.
+
+
+"Why is my base so laggy?" Press F2 in game to open the diagnostic window and check what your instances are at. The lower the better, but once you're nearing 10,000 it's usually too much. The best way to avoid it is to be careful when making your base how detailed you are with building and to avoid unnecessary terraforming. 
+
+
+“Why does my boat keep taking so much damage when sailing?” Due to the amount of players on the server, Irongate’s coding causes the ocean’s physics to be applied multiple times and causes this constant damage. If you download GOML (Get Off My Lawn), hit F1, and set the health value high (example: 1000000000000000000000), then you can build your boat with high health and avoid it falling apart at sea.
+NOTABLE SERVER FEATURES
+"What do the yellow announcement messages mean?" Yellow announcements in game are various staff making announcements in-game. It can be about a variety of things such as the Comfy Trader is open, a Guild Event is starting soon, or a Creator Event has been reset. You can ask in shout chat (type /s before your message) to find out more details.
+“This server is huge, what if all the resources are gone?” Comfy has N/S/E/W portals dispersing people on launch. Our regen team operates at unknown intervals to keep it fair for everyone. Even with this, resources are gobbled up quickly. If you are having issues with progression, do the Best West! 
+
+
+
+
+
+
+DISCORD FAQ  
+“How do I find threads and pinned messages?” We’ve created a visual graphic to help you locate them in every channel.
+
+
+"How do I find people to play with?" The general rule of thumb is if you can see it, you can join it. Playing in VC will enhance your experience on the server and it will make your time here at comfy that much more enjoyable! Another way to meet new people is to attend events! They happen frequently and are always a good time. 
+
+"There are NO empty tables to voice chat in!" We have a bot on our server that lets players create a table on demand! All you have to do is click on the "Create Voice Channel" vc and it will create a new table and drop you right in. Once a table is empty, it automatically disappears. It's also why the table numbers might be a little off.   
+
+
+
+
+MODS FAQ
+What is Thunderstore? It’s a Mod Manager that makes installing our mods incredibly easy. It includes all of our most commonly used mods and you'll automatically get an update when we approve new mods we think most people will use. Install the Thunderstore Mod Manager here.
+
+
+What is the Comfy Modpack? The Comfy Modpack gives you a great "basic mod kit" but you can add other mods as long as they're on the Approved Mod List. Thunderstore will also automatically update your mods for you so you get bug fixes, less lag, and new features. You can see which mods are included on the Comfy modpack page itself. Here are steps to install the Comfy Modpack.
+
+“What is ZoneScouter?” ZonesScouter is a mod that allows you to see sector lines. This is important for two reasons - 1) Helps you measure how far you need to build away from others; two sectors worth of distance is ideal, and 2) it provides coordinates of wherever you are in the world on your screen, allowing moderators to help you faster when you open a ticket in ❗-get-support and send us a screenshot of your screen. 
+
+
+What is Get Off My Lawn (GOML)? This mod is in the ComfyPack and allows you to set the health of anything you build in the build menu. This prevents grieving and boats from falling apart at sea. To change the values in GOML you will need to download the Valheim Configuration Manager and hit F1 to customize the mod’s settings.
+
+
+"What is License to Skill?" It is a mod that reduces the skill loss from death from 5% to 1%. You can get it from the Comfy Mod Pack for free! We highly encourage you to consider this mod as it makes running events much more enjoyable.
+
+
+“What is Comfy Gizmo?” Comfy Gizmo is a mod that allows you to rotate build pieces at more angles than the vanilla game allows. You can also customize the rotation points it allows - 8 is the vanilla #. The values 16 and 32 are also compatible with vanilla rotation points if you are building with anyone playing vanilla.

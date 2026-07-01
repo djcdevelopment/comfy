@@ -1,0 +1,15 @@
+# OS / editor junk
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+
+# scratch / local-only
+scratch/
+*.tmp
+
+# large game data (world saves are found separately, not committed)
+*.db
+*.fwl
+*.fch

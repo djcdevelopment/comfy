@@ -1,0 +1,43 @@
+{
+  "guild": "Slayers",
+  "era": 16,
+  "source": "Mikers's rank chart (transcribed from flowchart)",
+  "bot_command_template": "/slayer submit rank:{rank} proof:{proof}",
+  "bot_command_is_placeholder": true,
+  "ranks": [
+    {
+      "tier": 0,
+      "name": "Recruit",
+      "requirements": ["Join the Slayers (react to the guild emote in #comfy-roles)"]
+    },
+    {
+      "tier": 1,
+      "name": "Thrall",
+      "requirements": [
+        "Complete 5 contracts",
+        "Complete 5 general summons (Know your Enemies I & II, Intermediate Killer, Clash of Titans, Air Drop)",
+        "Kneel at HQ and request Viking Trainee"
+      ],
+      "reward": {"rank": "Thrall"}
+    },
+    {
+      "tier": 2,
+      "name": "Thegn",
+      "requirements": [
+        "Complete 9 Contracts + 2 Bounties",
+        "Complete 10 summons (Blacksmith I, Bonking Bonemass, Crusader, Fenrir's Children, Helpful Hunter)",
+        "Thrall Duel or Mercy Rule"
+      ],
+      "reward": {"rank": "Thegn"}
+    },
+    {
+      "tier": 3,
+      "name": "Jarl",
+      "requirements": [
+        "Complete 15 Contracts + 5 Bounties + 10 Class Summons",
+        "Class challenges: Death from Above, Full House, Swift Sneak, Self Sufficient, Silent Killer, Gjallarhorn Come, Back Stabber, Cold Shot, Falling Hard, Skilled Rogue"
+      ],
+      "reward": {"rank": "Jarl"}
+    }
+  ]
+}
