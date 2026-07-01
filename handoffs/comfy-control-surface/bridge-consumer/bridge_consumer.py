@@ -97,13 +97,7 @@ def discover_payloads(input_dir):
 def render_review(payload, source_path, input_root):
     screenshot_abs = os.path.normpath(os.path.join(input_root, payload["screenshot"]))
     trace_abs = os.path.normpath(os.path.join(input_root, payload["trace_file"]))
-    bot_line = (
-        f"/comfy submit type:{payload['submission_type']} "
-        f"player:{quote_token(payload['player_name'])} "
-        f"world:{quote_token(payload['world_name'] or 'unknown')} "
-        f"x:{payload['x']:.1f} y:{payload['y']:.1f} z:{payload['z']:.1f} "
-        f"proof:{quote_token(payload['screenshot'])}"
-    )
+    bot_line = render_command(payload)
 
     return "\n".join([
         f"# Submission {payload['submission_id']}",
@@ -148,6 +142,20 @@ def quote_token(value):
     return text
 
 
+def render_command(payload):
+    if payload["submission_type"] == "slayer_rank_proof" and payload["action_id"].startswith("slayer_rank_"):
+        rank = payload["action_id"].removeprefix("slayer_rank_").replace("_", " ").title()
+        return f"/slayer submit rank:{quote_token(rank)} proof:{quote_token(payload['screenshot'])}"
+
+    return (
+        f"/comfy submit type:{payload['submission_type']} "
+        f"player:{quote_token(payload['player_name'])} "
+        f"world:{quote_token(payload['world_name'] or 'unknown')} "
+        f"x:{payload['x']:.1f} y:{payload['y']:.1f} z:{payload['z']:.1f} "
+        f"proof:{quote_token(payload['screenshot'])}"
+    )
+
+
 def write_review(out_dir, submission_id, text):
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, f"{submission_id}.md")
@@ -171,22 +179,39 @@ def atomic_write_json(path, data):
     os.replace(tmp, path)
 
 
-def ensure_pending_state(out_dir, payload, review_path):
+def ensure_review_state(out_dir, payload, source_path, review_path):
     state_dir = os.path.join(out_dir, "state")
     state_path = os.path.join(state_dir, f"{payload['submission_id']}.json")
     if os.path.exists(state_path):
-        return load_json(state_path)
+        state = load_json(state_path)
+        state.update(state_metadata(payload, source_path, review_path, out_dir))
+        atomic_write_json(state_path, state)
+        return state
 
     state = {
         "submission_id": payload["submission_id"],
         "status": "pending",
         "reason": "",
-        "review_file": os.path.relpath(review_path, out_dir).replace("\\", "/"),
         "created_at_utc": utc_now(),
         "updated_at_utc": utc_now()
     }
+    state.update(state_metadata(payload, source_path, review_path, out_dir))
     atomic_write_json(state_path, state)
     return state
+
+
+def state_metadata(payload, source_path, review_path, out_dir):
+    return {
+        "action_id": payload["action_id"],
+        "submission_type": payload["submission_type"],
+        "player": payload["player_name"],
+        "world": payload["world_name"],
+        "evidence_screenshot": payload["screenshot"],
+        "trace_file": payload["trace_file"],
+        "source_payload": os.path.abspath(source_path),
+        "review_file": os.path.relpath(review_path, out_dir).replace("\\", "/"),
+        "payload_created_at_utc": payload["created_at_utc"]
+    }
 
 
 def write_index(out_dir, items):
@@ -222,11 +247,12 @@ def main(argv):
         payload = validate_payload(data, path)
         review = render_review(payload, path, input_dir)
         review_path = write_review(out_dir, payload["submission_id"], review)
-        state = ensure_pending_state(out_dir, payload, review_path)
+        state = ensure_review_state(out_dir, payload, path, review_path)
         index_items.append({
             "submission_id": payload["submission_id"],
             "status": state["status"],
             "submission_type": payload["submission_type"],
+            "action_id": payload["action_id"],
             "player": payload["player_name"],
             "world": payload["world_name"],
             "created_at_utc": payload["created_at_utc"],

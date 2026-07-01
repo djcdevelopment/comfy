@@ -141,18 +141,54 @@ def show_item(root, submission_id):
 
 def export_item(root, submission_id):
     state, review = show_item(root, submission_id)
+    payload = load_json(state["source_payload"]) if state.get("source_payload") else None
+    command = render_export_command(payload) if payload else ""
     export_path = os.path.join(root, "export", f"{submission_id}.txt")
-    text = "\n".join([
+    lines = [
         f"Submission: {submission_id}",
         f"Review status: {state['status']}",
         f"Reason: {state.get('reason', '') or 'none'}",
         "",
-        review.rstrip(),
-        "",
-    ])
+    ]
+    if command:
+        lines += [
+            "Copy-paste command:",
+            command,
+            "",
+        ]
+    lines += [review.rstrip(), ""]
+    text = "\n".join(lines)
     atomic_write_text(export_path, text)
     transition(root, submission_id, "exported", reason=state.get("reason", ""))
     return export_path
+
+
+def render_export_command(payload):
+    action_id = payload.get("action_id", "")
+    submission_type = payload.get("submission_type", "")
+    evidence = payload.get("evidence") if isinstance(payload.get("evidence"), dict) else {}
+    screenshot = evidence.get("screenshot")
+    if not screenshot:
+        return ""
+
+    if submission_type == "slayer_rank_proof" and action_id.startswith("slayer_rank_"):
+        rank = action_id.removeprefix("slayer_rank_").replace("_", " ").title()
+        return f"/slayer submit rank:{quote_token(rank)} proof:{quote_token(screenshot)}"
+
+    player = (payload.get("player") or {}).get("name", "unknown")
+    world = (payload.get("world") or {}).get("name", "unknown")
+    return (
+        f"/comfy submit type:{quote_token(submission_type)} "
+        f"player:{quote_token(player)} world:{quote_token(world)} "
+        f"proof:{quote_token(screenshot)}"
+    )
+
+
+def quote_token(value):
+    text = str(value)
+    if not text or any(ch.isspace() for ch in text):
+        return '"' + text.replace('"', '\\"') + '"'
+    return text
 
 
 def print_list(root):
@@ -229,4 +265,3 @@ if __name__ == "__main__":
     except (OSError, ValueError, json.JSONDecodeError) as exc:
         print(f"error: {exc}", file=sys.stderr)
         raise SystemExit(1)
-

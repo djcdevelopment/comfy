@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "actions": [
+    {
+      "action_id": "slayer_rank_thrall",
+      "label": "Slayer: Thrall Proof",
+      "description": "Create a local proof submission for Slayer rank Thrall.",
+      "submission_type": "slayer_rank_proof",
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    },
+    {
+      "action_id": "slayer_rank_thegn",
+      "label": "Slayer: Thegn Proof",
+      "description": "Create a local proof submission for Slayer rank Thegn.",
+      "submission_type": "slayer_rank_proof",
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    },
+    {
+      "action_id": "slayer_rank_jarl",
+      "label": "Slayer: Jarl Proof",
+      "description": "Create a local proof submission for Slayer rank Jarl.",
+      "submission_type": "slayer_rank_proof",
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    }
+  ]
+}

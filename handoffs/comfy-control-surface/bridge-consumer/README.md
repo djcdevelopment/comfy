@@ -21,6 +21,13 @@ python .\handoffs\comfy-control-surface\bridge-consumer\bridge_consumer.py `
   .\handoffs\comfy-control-surface\bridge-consumer\fixtures
 ```
 
+Against the Mikers/Slayer rank-up demo:
+
+```powershell
+python .\handoffs\comfy-control-surface\bridge-consumer\bridge_consumer.py `
+  .\handoffs\comfy-control-surface\bridge-consumer\mikers-demo
+```
+
 ## Output
 
 The script writes one markdown review file per payload:
@@ -71,6 +78,15 @@ Every state transition appends to:
 
 ```text
 bridge-review/events.jsonl
+```
+
+## Mikers Demo
+
+[`mikers-demo/`](mikers-demo/) shows the first persona-specific path: a Slayer rank proof enters the
+same local review inbox and exports a Slayer command draft, for example:
+
+```text
+/slayer submit rank:Thrall proof:evidence/20260701-210000-slayer-rank-thrall-demo.png
 ```
 
 ## Contract
