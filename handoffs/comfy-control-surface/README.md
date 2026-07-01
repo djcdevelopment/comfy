@@ -34,3 +34,8 @@ Outputs:
 - `status/last-error.json`
 
 No network, bot token, webhook, or privileged service is required.
+
+## Proof
+
+Use [`PROOF.md`](PROOF.md) for the offline, install, in-game, hotkey, multi-action, failure, and package
+checks.
