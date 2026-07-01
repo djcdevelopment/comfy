@@ -23,7 +23,7 @@ public static class PluginConfig {
             "Input",
             "submitShortcut",
             new KeyboardShortcut(KeyCode.F7),
-            "Shortcut that submits the default Comfy control-surface action.");
+            "Shortcut that opens the Comfy control-surface panel.");
 
     ShowDebugMessages =
         config.Bind(

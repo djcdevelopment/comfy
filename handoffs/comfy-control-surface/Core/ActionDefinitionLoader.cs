@@ -87,6 +87,13 @@ public static class ActionDefinitionLoader {
         Label = ReadString(objectText, "label"),
         Description = ReadString(objectText, "description"),
         SubmissionType = ReadString(objectText, "submission_type"),
+        WorkflowGuild = ReadString(objectText, "guild"),
+        WorkflowEra = ReadValue(objectText, "era"),
+        WorkflowSource = ReadString(objectText, "source"),
+        WorkflowCategory = ReadString(objectText, "category"),
+        WorkflowRank = ReadString(objectText, "rank"),
+        WorkflowTier = ReadValue(objectText, "tier"),
+        WorkflowCommandTemplate = ReadString(objectText, "bot_command_template"),
         RequiresScreenshot = ReadBool(objectText, "requires_screenshot"),
         RequiresTarget = ReadBool(objectText, "requires_target"),
         BridgeKind = ReadString(objectText, "kind"),
@@ -151,6 +158,16 @@ public static class ActionDefinitionLoader {
     return match.Success && string.Equals(match.Groups[1].Value, "true", StringComparison.OrdinalIgnoreCase);
   }
 
+  static string ReadValue(string json, string fieldName) {
+    Regex regex = new($"\"{Regex.Escape(fieldName)}\"\\s*:\\s*(\"((?:\\\\.|[^\"])*)\"|-?\\d+(?:\\.\\d+)?)", RegexOptions.CultureInvariant);
+    Match match = regex.Match(json);
+    if (!match.Success) {
+      return null;
+    }
+
+    return match.Groups[2].Success ? UnescapeJson(match.Groups[2].Value) : match.Groups[1].Value;
+  }
+
   static string UnescapeJson(string value) {
     return value
         .Replace("\\\"", "\"")
@@ -171,6 +188,11 @@ public static class ActionDefinitionLoader {
 
     if (string.IsNullOrWhiteSpace(action.SubmissionType)) {
       throw new InvalidOperationException($"Action {action.ActionId} is missing submission_type.");
+    }
+
+    if (string.Equals(action.SubmissionType, "slayer_rank_proof", StringComparison.OrdinalIgnoreCase)
+        && string.IsNullOrWhiteSpace(action.WorkflowRank)) {
+      throw new InvalidOperationException($"Action {action.ActionId} is missing workflow.rank.");
     }
 
     if (!string.Equals(action.BridgeKind, "file", StringComparison.OrdinalIgnoreCase)) {
@@ -202,10 +224,61 @@ public static class ActionDefinitionLoader {
         + "  \"schema_version\": 1,\n"
         + "  \"actions\": [\n"
         + "    {\n"
-        + "      \"action_id\": \"submit_proof\",\n"
-        + "      \"label\": \"Submit Proof\",\n"
-        + "      \"description\": \"Create a local proof submission from the current player context.\",\n"
-        + "      \"submission_type\": \"rank_proof\",\n"
+        + "      \"action_id\": \"slayer_rank_thrall\",\n"
+        + "      \"label\": \"Slayer: Thrall Proof\",\n"
+        + "      \"description\": \"Create a local proof submission for Slayer rank Thrall.\",\n"
+        + "      \"submission_type\": \"slayer_rank_proof\",\n"
+        + "      \"workflow\": {\n"
+        + "        \"guild\": \"Slayers\",\n"
+        + "        \"era\": 16,\n"
+        + "        \"source\": \"Mikers's rank chart (transcribed from flowchart)\",\n"
+        + "        \"category\": \"rank_proof\",\n"
+        + "        \"rank\": \"Thrall\",\n"
+        + "        \"tier\": 1,\n"
+        + "        \"bot_command_template\": \"/slayer submit rank:{rank} proof:{proof}\"\n"
+        + "      },\n"
+        + "      \"requires_screenshot\": true,\n"
+        + "      \"requires_target\": false,\n"
+        + "      \"bridge\": {\n"
+        + "        \"kind\": \"file\",\n"
+        + "        \"out_dir\": \"BepInEx/config/comfy-control/outbox\"\n"
+        + "      }\n"
+        + "    },\n"
+        + "    {\n"
+        + "      \"action_id\": \"slayer_rank_thegn\",\n"
+        + "      \"label\": \"Slayer: Thegn Proof\",\n"
+        + "      \"description\": \"Create a local proof submission for Slayer rank Thegn.\",\n"
+        + "      \"submission_type\": \"slayer_rank_proof\",\n"
+        + "      \"workflow\": {\n"
+        + "        \"guild\": \"Slayers\",\n"
+        + "        \"era\": 16,\n"
+        + "        \"source\": \"Mikers's rank chart (transcribed from flowchart)\",\n"
+        + "        \"category\": \"rank_proof\",\n"
+        + "        \"rank\": \"Thegn\",\n"
+        + "        \"tier\": 2,\n"
+        + "        \"bot_command_template\": \"/slayer submit rank:{rank} proof:{proof}\"\n"
+        + "      },\n"
+        + "      \"requires_screenshot\": true,\n"
+        + "      \"requires_target\": false,\n"
+        + "      \"bridge\": {\n"
+        + "        \"kind\": \"file\",\n"
+        + "        \"out_dir\": \"BepInEx/config/comfy-control/outbox\"\n"
+        + "      }\n"
+        + "    },\n"
+        + "    {\n"
+        + "      \"action_id\": \"slayer_rank_jarl\",\n"
+        + "      \"label\": \"Slayer: Jarl Proof\",\n"
+        + "      \"description\": \"Create a local proof submission for Slayer rank Jarl.\",\n"
+        + "      \"submission_type\": \"slayer_rank_proof\",\n"
+        + "      \"workflow\": {\n"
+        + "        \"guild\": \"Slayers\",\n"
+        + "        \"era\": 16,\n"
+        + "        \"source\": \"Mikers's rank chart (transcribed from flowchart)\",\n"
+        + "        \"category\": \"rank_proof\",\n"
+        + "        \"rank\": \"Jarl\",\n"
+        + "        \"tier\": 3,\n"
+        + "        \"bot_command_template\": \"/slayer submit rank:{rank} proof:{proof}\"\n"
+        + "      },\n"
         + "      \"requires_screenshot\": true,\n"
         + "      \"requires_target\": false,\n"
         + "      \"bridge\": {\n"

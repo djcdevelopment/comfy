@@ -6,6 +6,9 @@
       "label": "Submit Proof",
       "description": "Create a local proof submission from the current player context.",
       "submission_type": "rank_proof",
+      "workflow": {
+        "category": "proof"
+      },
       "requires_screenshot": true,
       "requires_target": false,
       "bridge": {
@@ -18,6 +21,9 @@
       "label": "Submit Gallery Highlight",
       "description": "Create a local gallery highlight submission from the current player context.",
       "submission_type": "gallery_highlight",
+      "workflow": {
+        "category": "gallery_highlight"
+      },
       "requires_screenshot": true,
       "requires_target": false,
       "bridge": {

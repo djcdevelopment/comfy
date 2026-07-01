@@ -85,7 +85,11 @@ composition of two existing endpoints — no parser change. Downstream segments 
 either the real `waypoints.json` or the `waypoints.sample.json` fixture; both share the contract shape.
 
 ## Two other slices (separate handoffs, same template — not in this pipeline)
-- **A Discord bot** (the community-facing "control surface"): its own brief, out of scope here.
+- **The control surface** (the community-facing workflow slice): **built** — see
+  [`comfy-control-surface/`](comfy-control-surface/). In-game submission → local outbox → review
+  inbox → copy-paste guild-bot command; no bot, no server. Its delivery brief is
+  [`comfy-control-surface/QUEST.md`](comfy-control-surface/QUEST.md), written to ship inside the
+  package zip.
 - **A general Valheim mod** (the toolchain that Segment 3 is a specific instance of): Segment 2 + 3
   together already establish it; a standalone "how to build any Valheim mod" brief can be extracted
   from Segment 3 later.

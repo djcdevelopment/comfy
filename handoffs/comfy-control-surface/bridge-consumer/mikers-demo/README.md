@@ -40,6 +40,6 @@ Expected export command:
 
 ## In-game action fixture
 
-`actions.slayer-rank.json` shows the intended control-surface actions for the first three known Slayer
-ranks: Thrall, Thegn, and Jarl.
-
+`actions.slayer-rank.json` is generated from `recipes/rank-ladders/example-output.json`; it carries
+the rank names and `bot_command_template` from the rank-ladder recipe instead of duplicating them by
+hand.

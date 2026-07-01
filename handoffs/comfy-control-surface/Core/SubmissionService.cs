@@ -110,7 +110,9 @@ public static class SubmissionService {
       AtomicFile.WriteAllText(payloadPath, payload);
       trace.Event("payload_written", ok: true, $"outbox/{submissionId}.json");
 
-      StatusFiles.WriteLastSubmission(submissionId, trace.TraceId, $"outbox/{submissionId}.json");
+      string relativePayloadPath = $"outbox/{submissionId}.json";
+      StatusFiles.WriteLastSubmission(submissionId, trace.TraceId, relativePayloadPath);
+      StatusFiles.WriteReceipt(action, submissionId, screenshotRelativePath, relativePayloadPath);
 
       string message = $"Submission saved: {submissionId}";
       PlayerStatus.Show(message);
@@ -176,6 +178,15 @@ public static class SubmissionService {
         + $"  \"submission_type\": {JsonText.String(action.SubmissionType)},\n"
         + $"  \"created_at_utc\": {JsonText.Utc(createdAtUtc)},\n"
         + "  \"status\": \"ready_for_review\",\n"
+        + "  \"workflow\": {\n"
+        + $"    \"guild\": {JsonText.NullableString(action.WorkflowGuild)},\n"
+        + $"    \"era\": {JsonText.NullableString(action.WorkflowEra)},\n"
+        + $"    \"source\": {JsonText.NullableString(action.WorkflowSource)},\n"
+        + $"    \"category\": {JsonText.NullableString(action.WorkflowCategory)},\n"
+        + $"    \"rank\": {JsonText.NullableString(action.WorkflowRank)},\n"
+        + $"    \"tier\": {JsonText.NullableString(action.WorkflowTier)},\n"
+        + $"    \"bot_command_template\": {JsonText.NullableString(action.WorkflowCommandTemplate)}\n"
+        + "  },\n"
         + "  \"player\": {\n"
         + $"    \"name\": {JsonText.String(context.PlayerName)},\n"
         + $"    \"player_id\": {JsonText.NullableString(context.PlayerId)}\n"

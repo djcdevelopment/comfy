@@ -1,11 +1,69 @@
 {
   "schema_version": 1,
+  "source": {
+    "kind": "rank-ladder",
+    "guild": "Slayers",
+    "era": 16,
+    "source": "Mikers's rank chart (transcribed from flowchart)",
+    "bot_command_is_placeholder": true
+  },
   "actions": [
     {
-      "action_id": "submit_proof",
-      "label": "Submit Proof",
-      "description": "Create a local proof submission from the current player context.",
-      "submission_type": "rank_proof",
+      "action_id": "slayer_rank_thrall",
+      "label": "Slayers: Thrall Proof",
+      "description": "Create a local proof submission for Slayers rank Thrall.",
+      "submission_type": "slayer_rank_proof",
+      "workflow": {
+        "guild": "Slayers",
+        "era": 16,
+        "source": "Mikers's rank chart (transcribed from flowchart)",
+        "category": "rank_proof",
+        "rank": "Thrall",
+        "tier": 1,
+        "bot_command_template": "/slayer submit rank:{rank} proof:{proof}"
+      },
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    },
+    {
+      "action_id": "slayer_rank_thegn",
+      "label": "Slayers: Thegn Proof",
+      "description": "Create a local proof submission for Slayers rank Thegn.",
+      "submission_type": "slayer_rank_proof",
+      "workflow": {
+        "guild": "Slayers",
+        "era": 16,
+        "source": "Mikers's rank chart (transcribed from flowchart)",
+        "category": "rank_proof",
+        "rank": "Thegn",
+        "tier": 2,
+        "bot_command_template": "/slayer submit rank:{rank} proof:{proof}"
+      },
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    },
+    {
+      "action_id": "slayer_rank_jarl",
+      "label": "Slayers: Jarl Proof",
+      "description": "Create a local proof submission for Slayers rank Jarl.",
+      "submission_type": "slayer_rank_proof",
+      "workflow": {
+        "guild": "Slayers",
+        "era": 16,
+        "source": "Mikers's rank chart (transcribed from flowchart)",
+        "category": "rank_proof",
+        "rank": "Jarl",
+        "tier": 3,
+        "bot_command_template": "/slayer submit rank:{rank} proof:{proof}"
+      },
       "requires_screenshot": true,
       "requires_target": false,
       "bridge": {

@@ -23,6 +23,18 @@ CHANGELOG.md
 ComfyControlSurface.dll
 manifest.json
 README.md
+QUEST.md
+inspect-proof.ps1
+PROOF.md
+generate-actions-from-rank-ladder.py
+support/diagnose.ps1
+rank-ladder/slayer-ladder.json
+bridge-consumer/bridge_consumer.py
+bridge-consumer/review_inbox.py
+bridge-consumer/README.md
+bridge-consumer/mikers-demo/README.md
+bridge-consumer/mikers-demo/actions.slayer-rank.json
+bridge-consumer/mikers-demo/outbox/20260701-210000-slayer-rank-thrall-demo.json
 fixtures/actions.multi.json
 fixtures/actions.single.json
 fixtures/submission.example.json
@@ -30,8 +42,21 @@ fixtures/trace.example.jsonl
 config/comfy-control/actions.json
 ```
 
+The package must be runnable as a standalone handoff: `QUEST.md` Part 1 (the bridge-consumer demo)
+and Part 3 (regenerate actions from `rank-ladder/slayer-ladder.json`) must work from the unzipped
+package with no access to this repository.
+
 The package must not contain generated `outbox/`, `evidence/`, `traces/`, `status/`, `bin/`, or `obj/`
 workbench output.
+
+The packaged `config/comfy-control/actions.json` should be regenerated from the rank-ladder recipe
+output, not edited by hand:
+
+```powershell
+python .\handoffs\comfy-control-surface\generate-actions-from-rank-ladder.py `
+  .\recipes\rank-ladders\example-output.json `
+  .\handoffs\comfy-control-surface\Config\comfy-control\actions.json
+```
 
 ## Install proof
 
@@ -69,7 +94,7 @@ devcommands
 god
 fly
 comfy_control_status
-comfy_submit
+comfy_submit slayer_rank_thrall
 ```
 
 Expected result:
@@ -78,16 +103,21 @@ Expected result:
 - player sees `Submission saved: <submission_id>`
 - `outbox/<submission_id>.json` exists
 - `evidence/<submission_id>.png` exists
+- `receipts/<submission_id>.json` exists
 - `traces/<submission_id>.trace.jsonl` exists
 - `status/last-submission.json` exists
+- `status/last-receipt.json` exists
 
 The submission payload should include:
 
 - `schema_version: 1`
 - non-empty `submission_id`
 - non-empty `run_id`
-- `action_id: "submit_proof"`
-- `submission_type: "rank_proof"`
+- `action_id: "slayer_rank_thrall"`
+- `submission_type: "slayer_rank_proof"`
+- `workflow.guild: "Slayers"`
+- `workflow.category: "rank_proof"`
+- `workflow.rank: "Thrall"`
 - `status: "ready_for_review"`
 - player name, or `"unknown"` if unavailable
 - finite `position.x`, `position.y`, and `position.z`
@@ -111,12 +141,13 @@ From the repo root, this helper summarizes the current proof files:
 
 ## Hotkey proof
 
-Press `F7` in-world with exactly one action configured.
+Press `F7` in-world with the packaged Slayer rank actions configured.
 
 Expected result:
 
-- same output as `comfy_submit`
-- pressing `F7` repeatedly while a submission is running shows `Submission already running.`
+- the local panel opens
+- `Slayers -> Rank Proof -> Thrall` creates the same output as `comfy_submit slayer_rank_thrall`
+- pressing a rank while a submission is running shows `Submission already running.`
 
 ## Multi-action proof
 
@@ -125,14 +156,14 @@ Replace `BepInEx/config/comfy-control/actions.json` with `fixtures/actions.multi
 ```text
 comfy_control_reload
 comfy_submit
-comfy_submit submit_proof
+comfy_submit submit_gallery_highlight
 ```
 
 Expected result:
 
 - `comfy_control_reload` succeeds
 - bare `comfy_submit` asks for an explicit `action_id`
-- `comfy_submit submit_proof` writes a normal submission
+- `comfy_submit submit_gallery_highlight` writes a normal submission
 
 ## Failure proof
 

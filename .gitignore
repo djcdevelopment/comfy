@@ -12,6 +12,7 @@ __pycache__/
 
 # generated local bridge outputs
 bridge-review/
+support-report.*
 
 # .NET / mod build outputs
 bin/

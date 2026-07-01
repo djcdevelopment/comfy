@@ -10,6 +10,7 @@ public static class WorkbenchPaths {
   public static string EvidenceDir { get; private set; }
   public static string TracesDir { get; private set; }
   public static string StatusDir { get; private set; }
+  public static string ReceiptsDir { get; private set; }
   public static string FailedDir { get; private set; }
 
   public static void Initialize(string configRoot, string overrideRoot) {
@@ -23,6 +24,7 @@ public static class WorkbenchPaths {
     EvidenceDir = Path.Combine(Root, "evidence");
     TracesDir = Path.Combine(Root, "traces");
     StatusDir = Path.Combine(Root, "status");
+    ReceiptsDir = Path.Combine(Root, "receipts");
     FailedDir = Path.Combine(Root, "failed");
 
     EnsureDirectories();
@@ -34,6 +36,7 @@ public static class WorkbenchPaths {
     Directory.CreateDirectory(EvidenceDir);
     Directory.CreateDirectory(TracesDir);
     Directory.CreateDirectory(StatusDir);
+    Directory.CreateDirectory(ReceiptsDir);
     Directory.CreateDirectory(FailedDir);
   }
 

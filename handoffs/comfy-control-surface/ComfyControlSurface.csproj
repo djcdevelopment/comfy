@@ -38,6 +38,10 @@
       <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
       <Private>false</Private>
     </Reference>
+    <Reference Include="UnityEngine.IMGUIModule">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
     <Reference Include="UnityEngine.ScreenCaptureModule">
       <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
       <Private>false</Private>
@@ -46,10 +50,17 @@
 
   <ItemGroup>
     <PackageMetadata Include="README.md" Condition="Exists('README.md')" />
+    <PackageMetadata Include="QUEST.md" Condition="Exists('QUEST.md')" />
     <PackageMetadata Include="PROOF.md" Condition="Exists('PROOF.md')" />
     <PackageMetadata Include="inspect-proof.ps1" Condition="Exists('inspect-proof.ps1')" />
+    <PackageMetadata Include="generate-actions-from-rank-ladder.py" Condition="Exists('generate-actions-from-rank-ladder.py')" />
     <PackageMetadata Include="CHANGELOG.md" Condition="Exists('CHANGELOG.md')" />
     <PackageMetadata Include="manifest.json" Condition="Exists('manifest.json')" />
+    <SupportFiles Include="support\diagnose.ps1" Condition="Exists('support\diagnose.ps1')" />
+    <BridgeFiles Include="bridge-consumer\bridge_consumer.py;bridge-consumer\review_inbox.py;bridge-consumer\README.md" />
+    <BridgeDemoFiles Include="bridge-consumer\mikers-demo\README.md;bridge-consumer\mikers-demo\actions.slayer-rank.json" />
+    <BridgeDemoOutboxFiles Include="bridge-consumer\mikers-demo\outbox\*.json" />
+    <RankLadderFiles Include="..\..\recipes\rank-ladders\example-output.json" />
   </ItemGroup>
 
   <Target Name="CopyAssembly" AfterTargets="Build" Condition="Exists('$(PluginOutputPath)')">
@@ -73,10 +84,17 @@
     </ItemGroup>
     <MakeDir Directories="$(PackageDir)" />
     <MakeDir Directories="$(PackageDir)\fixtures" />
+    <MakeDir Directories="$(PackageDir)\support" />
     <MakeDir Directories="$(PackageDir)\config\comfy-control" />
+    <MakeDir Directories="$(PackageDir)\bridge-consumer\mikers-demo\outbox" />
     <Copy SourceFiles="@(ThunderstoreFiles)" DestinationFolder="$(PackageDir)" />
     <Copy SourceFiles="@(FixtureFiles)" DestinationFolder="$(PackageDir)\fixtures" />
+    <Copy SourceFiles="@(SupportFiles)" DestinationFolder="$(PackageDir)\support" />
     <Copy SourceFiles="@(StarterConfigFiles)" DestinationFolder="$(PackageDir)\config\comfy-control" />
+    <Copy SourceFiles="@(BridgeFiles)" DestinationFolder="$(PackageDir)\bridge-consumer" />
+    <Copy SourceFiles="@(BridgeDemoFiles)" DestinationFolder="$(PackageDir)\bridge-consumer\mikers-demo" />
+    <Copy SourceFiles="@(BridgeDemoOutboxFiles)" DestinationFolder="$(PackageDir)\bridge-consumer\mikers-demo\outbox" />
+    <Copy SourceFiles="@(RankLadderFiles)" DestinationFiles="$(PackageDir)\rank-ladder\slayer-ladder.json" />
     <ZipDirectory SourceDirectory="$(PackageDir)" DestinationFile="$(OutDir)$(PackageName).zip" Overwrite="true" />
     <RemoveDir Directories="$(PackageDir)" />
   </Target>

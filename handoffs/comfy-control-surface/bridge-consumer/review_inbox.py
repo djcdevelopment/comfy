@@ -16,6 +16,7 @@ from datetime import datetime, timezone
 
 
 VALID_STATUSES = {"pending", "accepted", "rejected", "needs_info", "exported"}
+SLAYER_RANKS = {"Thrall", "Thegn", "Jarl"}
 
 
 def utc_now():
@@ -166,13 +167,21 @@ def export_item(root, submission_id):
 def render_export_command(payload):
     action_id = payload.get("action_id", "")
     submission_type = payload.get("submission_type", "")
+    workflow = payload.get("workflow") if isinstance(payload.get("workflow"), dict) else {}
     evidence = payload.get("evidence") if isinstance(payload.get("evidence"), dict) else {}
     screenshot = evidence.get("screenshot")
     if not screenshot:
         return ""
 
-    if submission_type == "slayer_rank_proof" and action_id.startswith("slayer_rank_"):
-        rank = action_id.removeprefix("slayer_rank_").replace("_", " ").title()
+    template = workflow.get("bot_command_template")
+    rank = slayer_rank(workflow, action_id)
+    if isinstance(template, str) and template.strip() and rank:
+        return render_template_command(template, workflow, screenshot, rank)
+
+    if submission_type == "slayer_rank_proof":
+        rank = slayer_rank(workflow, action_id)
+        if rank not in SLAYER_RANKS:
+            return ""
         return f"/slayer submit rank:{quote_token(rank)} proof:{quote_token(screenshot)}"
 
     player = (payload.get("player") or {}).get("name", "unknown")
@@ -182,6 +191,26 @@ def render_export_command(payload):
         f"player:{quote_token(player)} world:{quote_token(world)} "
         f"proof:{quote_token(screenshot)}"
     )
+
+
+def render_template_command(template, workflow, screenshot, rank):
+    guild = workflow.get("guild")
+    return (
+        template.replace("{guild}", str(guild or "").lower())
+        .replace("{rank}", str(rank))
+        .replace("{proof}", str(screenshot))
+    )
+
+
+def slayer_rank(workflow, action_id):
+    rank = workflow.get("rank")
+    if isinstance(rank, str) and rank.strip():
+        return rank.strip().title()
+
+    if action_id.startswith("slayer_rank_"):
+        return action_id.removeprefix("slayer_rank_").replace("_", " ").title()
+
+    return ""
 
 
 def quote_token(value):

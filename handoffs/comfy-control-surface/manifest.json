@@ -1,6 +1,6 @@
 {
   "name": "ComfyControlSurface",
-  "version_number": "0.1.0",
+  "version_number": "0.2.0",
   "author": "ComfyMods",
   "description": "Local in-game control surface proof slice for Comfy Valheim workflows.",
   "website_url": "https://github.com/redseiko/ComfyMods",

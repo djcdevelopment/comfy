@@ -18,7 +18,7 @@ using Comfy.ControlSurface.Core.Commands;
 public sealed class ComfyControlSurface : BaseUnityPlugin {
   public const string PluginGuid = "comfy.valheim.controlsurface";
   public const string PluginName = "ComfyControlSurface";
-  public const string PluginVersion = "0.1.0";
+  public const string PluginVersion = "0.2.0";
 
   static ManualLogSource _logger;
   static Harmony _harmony;
@@ -46,7 +46,13 @@ public sealed class ComfyControlSurface : BaseUnityPlugin {
 
   void Update() {
     if (PluginConfig.IsModEnabled.Value && PluginConfig.SubmitShortcut.Value.IsDown()) {
-      SubmissionService.SubmitDefault();
+      ControlSurfacePanel.Toggle();
+    }
+  }
+
+  void OnGUI() {
+    if (PluginConfig.IsModEnabled.Value) {
+      ControlSurfacePanel.Draw();
     }
   }
 

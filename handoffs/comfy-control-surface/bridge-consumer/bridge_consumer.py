@@ -14,6 +14,9 @@ import sys
 from datetime import datetime, timezone
 
 
+SLAYER_RANKS = {"Thrall", "Thegn", "Jarl"}
+
+
 def load_json(path):
     with open(path, encoding="utf-8-sig") as f:
         return json.load(f)
@@ -65,6 +68,7 @@ def validate_payload(data, path):
 
     player = require_object(data.get("player"), "payload.player")
     world = require_object(data.get("world"), "payload.world")
+    workflow = data.get("workflow") if isinstance(data.get("workflow"), dict) else {}
     position = require_object(data.get("position"), "payload.position")
     evidence = require_object(data.get("evidence"), "payload.evidence")
     trace = require_object(data.get("trace"), "payload.trace")
@@ -73,6 +77,15 @@ def validate_payload(data, path):
     payload["player_id"] = optional_string(player, "player_id", "payload.player")
     payload["world_name"] = optional_string(world, "name", "payload.world")
     payload["world_seed"] = optional_string(world, "seed", "payload.world")
+    payload["workflow_guild"] = optional_string(workflow, "guild", "payload.workflow")
+    payload["workflow_era"] = workflow.get("era")
+    payload["workflow_source"] = optional_string(workflow, "source", "payload.workflow")
+    payload["workflow_category"] = optional_string(workflow, "category", "payload.workflow")
+    payload["workflow_rank"] = optional_string(workflow, "rank", "payload.workflow")
+    payload["workflow_tier"] = workflow.get("tier")
+    payload["workflow_bot_command_template"] = optional_string(
+        workflow, "bot_command_template", "payload.workflow"
+    )
     payload["x"] = require_number(position, "x", "payload.position")
     payload["y"] = require_number(position, "y", "payload.position")
     payload["z"] = require_number(position, "z", "payload.position")
@@ -81,6 +94,15 @@ def validate_payload(data, path):
     payload["trace_id"] = require_string(trace, "trace_id", "payload.trace")
     payload["trace_file"] = require_string(trace, "trace_file", "payload.trace")
     payload["notes"] = data.get("notes") if isinstance(data.get("notes"), str) else ""
+
+    if payload["submission_type"].endswith("_rank_proof"):
+        rank = slayer_rank(payload)
+        if payload["submission_type"] == "slayer_rank_proof" and rank not in SLAYER_RANKS:
+            allowed = ", ".join(sorted(SLAYER_RANKS))
+            raise ValueError(f"{path}: Slayer rank must be one of {allowed}")
+        if not rank:
+            raise ValueError(f"{path}: rank proof payload must include workflow.rank")
+
     return payload
 
 
@@ -107,6 +129,7 @@ def render_review(payload, source_path, input_root):
         f"- Status: ready for review",
         f"- Type: {payload['submission_type']}",
         f"- Action: {payload['action_id']}",
+        f"- Workflow: {workflow_label(payload)}",
         f"- Created: {payload['created_at_utc']}",
         f"- Player: {payload['player_name']}",
         f"- Player ID: {payload['player_id'] or 'unknown'}",
@@ -143,8 +166,13 @@ def quote_token(value):
 
 
 def render_command(payload):
-    if payload["submission_type"] == "slayer_rank_proof" and payload["action_id"].startswith("slayer_rank_"):
-        rank = payload["action_id"].removeprefix("slayer_rank_").replace("_", " ").title()
+    template = payload.get("workflow_bot_command_template")
+    rank = payload.get("workflow_rank") or slayer_rank(payload)
+    if template and rank:
+        return render_template_command(template, payload, rank)
+
+    if payload["submission_type"] == "slayer_rank_proof":
+        rank = slayer_rank(payload)
         return f"/slayer submit rank:{quote_token(rank)} proof:{quote_token(payload['screenshot'])}"
 
     return (
@@ -154,6 +182,36 @@ def render_command(payload):
         f"x:{payload['x']:.1f} y:{payload['y']:.1f} z:{payload['z']:.1f} "
         f"proof:{quote_token(payload['screenshot'])}"
     )
+
+
+def render_template_command(template, payload, rank):
+    return (
+        template.replace("{guild}", str(payload.get("workflow_guild") or "").lower())
+        .replace("{rank}", str(rank))
+        .replace("{proof}", payload["screenshot"])
+    )
+
+
+def slayer_rank(payload):
+    rank = payload.get("workflow_rank")
+    if rank:
+        return str(rank).strip().title()
+
+    action_id = payload.get("action_id", "")
+    if action_id.startswith("slayer_rank_"):
+        return action_id.removeprefix("slayer_rank_").replace("_", " ").title()
+
+    return ""
+
+
+def workflow_label(payload):
+    parts = [
+        payload.get("workflow_guild"),
+        payload.get("workflow_category"),
+        payload.get("workflow_rank"),
+    ]
+    text = " / ".join(str(part) for part in parts if part)
+    return text or "none"
 
 
 def write_review(out_dir, submission_id, text):
@@ -206,6 +264,13 @@ def state_metadata(payload, source_path, review_path, out_dir):
         "submission_type": payload["submission_type"],
         "player": payload["player_name"],
         "world": payload["world_name"],
+        "workflow_guild": payload["workflow_guild"],
+        "workflow_era": payload["workflow_era"],
+        "workflow_source": payload["workflow_source"],
+        "workflow_category": payload["workflow_category"],
+        "workflow_rank": payload["workflow_rank"],
+        "workflow_tier": payload["workflow_tier"],
+        "workflow_bot_command_template": payload["workflow_bot_command_template"],
         "evidence_screenshot": payload["screenshot"],
         "trace_file": payload["trace_file"],
         "source_payload": os.path.abspath(source_path),
