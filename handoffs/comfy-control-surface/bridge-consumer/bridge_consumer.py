@@ -11,6 +11,7 @@ import json
 import math
 import os
 import sys
+from datetime import datetime, timezone
 
 
 def load_json(path):
@@ -157,6 +158,47 @@ def write_review(out_dir, submission_id, text):
     return path
 
 
+def utc_now():
+    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+
+
+def atomic_write_json(path, data):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    tmp = path + ".tmp"
+    with open(tmp, "w", encoding="utf-8", newline="\n") as f:
+        json.dump(data, f, indent=2)
+        f.write("\n")
+    os.replace(tmp, path)
+
+
+def ensure_pending_state(out_dir, payload, review_path):
+    state_dir = os.path.join(out_dir, "state")
+    state_path = os.path.join(state_dir, f"{payload['submission_id']}.json")
+    if os.path.exists(state_path):
+        return load_json(state_path)
+
+    state = {
+        "submission_id": payload["submission_id"],
+        "status": "pending",
+        "reason": "",
+        "review_file": os.path.relpath(review_path, out_dir).replace("\\", "/"),
+        "created_at_utc": utc_now(),
+        "updated_at_utc": utc_now()
+    }
+    atomic_write_json(state_path, state)
+    return state
+
+
+def write_index(out_dir, items):
+    index = {
+        "schema_version": 1,
+        "generated_at_utc": utc_now(),
+        "count": len(items),
+        "items": items
+    }
+    atomic_write_json(os.path.join(out_dir, "index.json"), index)
+
+
 def main(argv):
     if len(argv) not in (1, 2):
         print(__doc__.strip(), file=sys.stderr)
@@ -174,14 +216,26 @@ def main(argv):
         return 1
 
     count = 0
+    index_items = []
     for path in payload_paths:
         data = load_json(path)
         payload = validate_payload(data, path)
         review = render_review(payload, path, input_dir)
         review_path = write_review(out_dir, payload["submission_id"], review)
+        state = ensure_pending_state(out_dir, payload, review_path)
+        index_items.append({
+            "submission_id": payload["submission_id"],
+            "status": state["status"],
+            "submission_type": payload["submission_type"],
+            "player": payload["player_name"],
+            "world": payload["world_name"],
+            "created_at_utc": payload["created_at_utc"],
+            "review_file": os.path.relpath(review_path, out_dir).replace("\\", "/")
+        })
         print(f"wrote {review_path}")
         count += 1
 
+    write_index(out_dir, index_items)
     print(f"processed {count} payload(s)")
     return 0
 

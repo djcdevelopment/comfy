@@ -8,6 +8,7 @@ desktop.ini
 # scratch / local-only
 scratch/
 *.tmp
+__pycache__/
 
 # generated local bridge outputs
 bridge-review/
