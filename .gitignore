@@ -9,6 +9,13 @@ desktop.ini
 scratch/
 *.tmp
 
+# .NET / mod build outputs
+bin/
+obj/
+*.dll
+*.pdb
+*.zip
+
 # large game data (world saves are found separately, not committed)
 *.db
 *.fwl

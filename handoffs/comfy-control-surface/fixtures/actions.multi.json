@@ -1,0 +1,29 @@
+{
+  "schema_version": 1,
+  "actions": [
+    {
+      "action_id": "submit_proof",
+      "label": "Submit Proof",
+      "description": "Create a local proof submission from the current player context.",
+      "submission_type": "rank_proof",
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    },
+    {
+      "action_id": "submit_gallery_highlight",
+      "label": "Submit Gallery Highlight",
+      "description": "Create a local gallery highlight submission from the current player context.",
+      "submission_type": "gallery_highlight",
+      "requires_screenshot": true,
+      "requires_target": false,
+      "bridge": {
+        "kind": "file",
+        "out_dir": "BepInEx/config/comfy-control/outbox"
+      }
+    }
+  ]
+}

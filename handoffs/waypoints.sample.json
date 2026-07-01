@@ -1,0 +1,17 @@
+{
+  "world": "ComfyEra16",
+  "cellSize": 500,
+  "_note": "Real fixture: the 10 densest building-piece clusters from an actual Valheim world (x/z are world coords, values are true piece counts per 500m cell). 'owner' is null here because per-cluster player attribution is added by the extraction step; for testing captions, real top-builder names from this same world include: Anathema (397961 pieces placed total), Ennius Staff (79960), Dahira (79177), Jord (44486), Ditseey (36626). Build/test against this file; the production file has identical shape with owners filled in.",
+  "waypoints": [
+    { "rank": 1,  "x": 3250.0,  "z": 2250.0,   "y": null, "owner": null, "label": "densest build cluster", "pieceCount": 20965, "dwellSeconds": 7 },
+    { "rank": 2,  "x": -2250.0, "z": -1750.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 20910, "dwellSeconds": 6 },
+    { "rank": 3,  "x": -4250.0, "z": 5250.0,   "y": null, "owner": null, "label": "cluster",                "pieceCount": 20601, "dwellSeconds": 6 },
+    { "rank": 4,  "x": 8750.0,  "z": 10750.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 20181, "dwellSeconds": 6 },
+    { "rank": 5,  "x": -7250.0, "z": 17750.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 19744, "dwellSeconds": 6 },
+    { "rank": 6,  "x": -7250.0, "z": 18750.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 19744, "dwellSeconds": 5 },
+    { "rank": 7,  "x": -7250.0, "z": 15250.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 18492, "dwellSeconds": 5 },
+    { "rank": 8,  "x": -7250.0, "z": 16750.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 18489, "dwellSeconds": 5 },
+    { "rank": 9,  "x": -9750.0, "z": 8250.0,   "y": null, "owner": null, "label": "cluster",                "pieceCount": 17620, "dwellSeconds": 5 },
+    { "rank": 10, "x": -3750.0, "z": -1250.0,  "y": null, "owner": null, "label": "cluster",                "pieceCount": 15611, "dwellSeconds": 5 }
+  ]
+}

@@ -1,0 +1,157 @@
+{
+  "world": "ComfyEra16",
+  "cellSize": 500,
+  "generated_from": "StewardView /heatmap?type=BUILDING (ranking) + /points (attribution) — composition, no parser change",
+  "waypoints": [
+    {
+      "rank": 1,
+      "x": 3290.2,
+      "z": 2257.4,
+      "y": null,
+      "owner": "FaX",
+      "label": "faxgd1",
+      "pieceCount": 20965,
+      "dwellSeconds": 7
+    },
+    {
+      "rank": 2,
+      "x": -2224.6,
+      "z": -1568.3,
+      "y": null,
+      "owner": "Baconbaby",
+      "label": "bacondock",
+      "pieceCount": 20910,
+      "dwellSeconds": 6
+    },
+    {
+      "rank": 3,
+      "x": -4224.6,
+      "z": 5367.1,
+      "y": null,
+      "owner": "Kamil Markusz",
+      "label": "CELESTIAL5",
+      "pieceCount": 20601,
+      "dwellSeconds": 6
+    },
+    {
+      "rank": 4,
+      "x": 8750.1,
+      "z": 10690.5,
+      "y": null,
+      "owner": "Mayo C",
+      "label": "build cluster",
+      "pieceCount": 20181,
+      "dwellSeconds": 6
+    },
+    {
+      "rank": 5,
+      "x": -7220.7,
+      "z": 17759.7,
+      "y": null,
+      "owner": null,
+      "label": "build cluster",
+      "pieceCount": 19744,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 6,
+      "x": -7220.7,
+      "z": 18719.7,
+      "y": null,
+      "owner": null,
+      "label": "build cluster",
+      "pieceCount": 19744,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 7,
+      "x": -7223.3,
+      "z": 15222.6,
+      "y": null,
+      "owner": null,
+      "label": "build cluster",
+      "pieceCount": 18492,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 8,
+      "x": -7222.2,
+      "z": 16767.7,
+      "y": null,
+      "owner": null,
+      "label": "build cluster",
+      "pieceCount": 18489,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 9,
+      "x": -9851.6,
+      "z": 8207.4,
+      "y": null,
+      "owner": "Ennius Staff",
+      "label": "witchcp3",
+      "pieceCount": 17620,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 10,
+      "x": -3882.7,
+      "z": -1281.2,
+      "y": null,
+      "owner": "Turcaut",
+      "label": "Turcaut",
+      "pieceCount": 15611,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 11,
+      "x": 8772.4,
+      "z": 11767.7,
+      "y": null,
+      "owner": "Jordˢᵗᵃᶠᶠ",
+      "label": "LiminalEnd",
+      "pieceCount": 14781,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 12,
+      "x": -4323.2,
+      "z": 14312.0,
+      "y": null,
+      "owner": "Dahira",
+      "label": "EnthRanger",
+      "pieceCount": 14507,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 13,
+      "x": 8959.9,
+      "z": 7041.6,
+      "y": null,
+      "owner": "Kluh'taq",
+      "label": "Kluh'taq",
+      "pieceCount": 11727,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 14,
+      "x": 8701.2,
+      "z": 4179.2,
+      "y": null,
+      "owner": null,
+      "label": "endA-1",
+      "pieceCount": 11317,
+      "dwellSeconds": 5
+    },
+    {
+      "rank": 15,
+      "x": 708.2,
+      "z": 4750.6,
+      "y": null,
+      "owner": "Softstyles",
+      "label": "GDobsv2",
+      "pieceCount": 11272,
+      "dwellSeconds": 5
+    }
+  ]
+}

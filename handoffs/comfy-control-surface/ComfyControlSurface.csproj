@@ -1,0 +1,81 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <AssemblyName>ComfyControlSurface</AssemblyName>
+    <RootNamespace>Comfy.ControlSurface</RootNamespace>
+    <LangVersion>12</LangVersion>
+    <Nullable>disable</Nullable>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <Deterministic>true</Deterministic>
+    <Optimize>true</Optimize>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <ValheimDir Condition="'$(ValheimDir)' == ''">C:\Program Files (x86)\Steam\steamapps\common\Valheim</ValheimDir>
+    <PluginOutputPath Condition="'$(PluginOutputPath)' == ''">$(ValheimDir)\BepInEx\plugins</PluginOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="0Harmony">
+      <HintPath>$(ValheimDir)\BepInEx\core\0Harmony.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="BepInEx">
+      <HintPath>$(ValheimDir)\BepInEx\core\BepInEx.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="assembly_valheim">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\assembly_valheim.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.InputLegacyModule">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.ScreenCaptureModule">
+      <HintPath>$(ValheimDir)\valheim_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageMetadata Include="README.md" Condition="Exists('README.md')" />
+    <PackageMetadata Include="CHANGELOG.md" Condition="Exists('CHANGELOG.md')" />
+    <PackageMetadata Include="manifest.json" Condition="Exists('manifest.json')" />
+  </ItemGroup>
+
+  <Target Name="CopyAssembly" AfterTargets="Build" Condition="Exists('$(PluginOutputPath)')">
+    <Copy SourceFiles="$(TargetDir)$(AssemblyName).dll" DestinationFolder="$(PluginOutputPath)" />
+  </Target>
+
+  <Target Name="MakeThunderstorePackage" AfterTargets="Build">
+    <GetAssemblyIdentity AssemblyFiles="$(TargetPath)">
+      <Output TaskParameter="Assemblies" ItemName="BuiltAssembly" />
+    </GetAssemblyIdentity>
+    <PropertyGroup>
+      <AssemblyVersion>@(BuiltAssembly->'%(Version)')</AssemblyVersion>
+      <PackageName>$(AssemblyName)_v$(AssemblyVersion)</PackageName>
+      <PackageDir>$(OutDir)$(PackageName)</PackageDir>
+    </PropertyGroup>
+    <ItemGroup>
+      <ThunderstoreFiles Include="$(TargetDir)$(AssemblyName).dll" />
+      <ThunderstoreFiles Include="@(PackageMetadata)" />
+      <FixtureFiles Include="fixtures\*.json;fixtures\*.jsonl" />
+      <StarterConfigFiles Include="config\comfy-control\actions.json" Condition="Exists('config\comfy-control\actions.json')" />
+    </ItemGroup>
+    <MakeDir Directories="$(PackageDir)" />
+    <MakeDir Directories="$(PackageDir)\fixtures" />
+    <MakeDir Directories="$(PackageDir)\config\comfy-control" />
+    <Copy SourceFiles="@(ThunderstoreFiles)" DestinationFolder="$(PackageDir)" />
+    <Copy SourceFiles="@(FixtureFiles)" DestinationFolder="$(PackageDir)\fixtures" />
+    <Copy SourceFiles="@(StarterConfigFiles)" DestinationFolder="$(PackageDir)\config\comfy-control" />
+    <ZipDirectory SourceDirectory="$(PackageDir)" DestinationFile="$(OutDir)$(PackageName).zip" Overwrite="true" />
+    <RemoveDir Directories="$(PackageDir)" />
+  </Target>
+</Project>

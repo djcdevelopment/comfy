@@ -1,0 +1,6 @@
+{"ts_utc":"2026-07-01T22:30:12Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"action_selected","ok":true,"detail":"submit_proof"}
+{"ts_utc":"2026-07-01T22:30:12Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"context_captured","ok":true,"position":{"x":1234.5,"y":67.8,"z":-901.2},"biome":"Meadows"}
+{"ts_utc":"2026-07-01T22:30:13Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"screenshot_captured","ok":true,"detail":"evidence/20260701-153012-submit-proof-7f3a.png"}
+{"ts_utc":"2026-07-01T22:30:13Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"payload_validated","ok":true,"detail":"20260701-153012-submit-proof-7f3a"}
+{"ts_utc":"2026-07-01T22:30:13Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"payload_written","ok":true,"detail":"outbox/20260701-153012-submit-proof-7f3a.json"}
+{"ts_utc":"2026-07-01T22:30:13Z","trace_id":"20260701-153012-submit-proof-7f3a","step":"player_status_shown","ok":true,"detail":"Submission saved: 20260701-153012-submit-proof-7f3a"}

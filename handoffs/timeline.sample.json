@@ -1,0 +1,30 @@
+{
+  "run_id": "sample-dry-run",
+  "t0_meaning": "seconds are measured from first camera movement",
+  "events": [
+    {
+      "rank": 1,
+      "owner": "Anathema",
+      "label": "densest build cluster",
+      "pieceCount": 20965,
+      "arrived_s": 3.0,
+      "left_s": 10.0
+    },
+    {
+      "rank": 2,
+      "owner": null,
+      "label": "cluster",
+      "pieceCount": 20910,
+      "arrived_s": 14.0,
+      "left_s": 20.0
+    },
+    {
+      "rank": 3,
+      "owner": "Dahira",
+      "label": "cluster",
+      "pieceCount": 20601,
+      "arrived_s": 24.0,
+      "left_s": 30.0
+    }
+  ]
+}
