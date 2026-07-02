@@ -1,0 +1,380 @@
+﻿E13 Slayers Guild
+⚔Welcome to the Slayer’s Guild!⚔
+
+Slayer GM:  ⚔Son Loki 
+Slayer Reps: Winterson, KombatKarl, Miker, Chef, and Neo, SantaClaws
+
+
+The Slayers Guild
+We are the protectors of Comfy.  We stand ready to help the Comfy community by helping them protect themselves from enemies and when the need arises to assist them when the enemies become too tough and they need help recovering their things.  We do this for the community and not for any benefit except for the contract.
+
+We are proud to present exciting New content to play!
+
+Changes for Era 16
+
+
+1. Slayer Smelter in Slayer Quarters 10x Speed
+2. Boss Stone of choice for Jarls
+3. Jarl Weapon and Armor have been Buffed
+4. Removed all Non-Combat Legendary Summons
+5. Added Several new Summons “Flawless Victory, Flawless Victory Legendary, Challenger, Londoner, and Raid Shadow Legends
+6. Complete 8 Legendary Summons to Upgrade your Dyrnwyn +1 lvl
+7. New 4th Era Reward Nostalgia Weapon
+
+
+Berserker
+	Brute
+	Knight
+	Rogue
+	“Courage is not the absence of fear, but being brave in spite of it.”
+	“A weapon is only as good as the slayer who wields it.” 
+	“A knight is defined not by the strength of their sword, but by that of their character.” 
+	“Let fools fight for the spotlight, my success comes in the dark.” 
+	Berserkers specialize in dual wielding weapons.
+	Brute specializes in 2 handed weapons.
+	Knights specialize in using a sword and shield.
+	Rogues specialize in stealth & fighting from a  distance.
+	 
+
+
+
+
+
+
+
+
+Rank-up Reqs & Rewards:
+
+
+Rank
+	Requirements
+	Rewards
+	Viking Trainee
+	Join the Slayer Guild by completing the Training Course at Slayer HQ and take a screenshot at the end proving completion.  (Can be done in groups of 2)
+Use command /slayer summons summons_type:Viking Trainee image: in the summon-turn-in thread
+	Your own private quarters.
+
+
+	Thrall
+	5 Contracts
+5 Summons
+	200 Carapace Arrows
+200 Frost Arrows
+20 Fiery Svinstew
+20 Piquant Pie
+20 Roasted Crust Pie
+20 Mashed Meat
+2 stacks poison resist mead
+1 stack frost resist mead
+Lvl 1 Dyrnwyn (old model)
+Super Smelter
+Training Hall Access
+	Thegn
+	10 Contracts
+8 Summons
+
+
+	200 Frost Arrows
+200 Charred Bolts and Arrows
+20 Fiery Svinstew 
+20 Piquant Pie
+20 Roasted Crust Pie
+20 Mashed Meat 
+4 stacks fire resist barleywine
+4 stacks poison resist mead
+Lvl 4 Dyrnwyn (old model)
+(New Dyrnwyn replaces old)
+Lvl 9 Wolf Chest
+Lvl 9 Wolf Legs
+Lvl 9 Drake Helm
+2 stacks Berserker Potions
+Super Blast Furnace
+Portal to Slayer HQ
+	Jarl
+	15  Contracts
+5 Bounties
+Duel win or 3 Staff Hosted Eventl Participations
+8 Class Summons in a specific Class  (16 Summons total)
+
+
+Complete Class Specific Event
+	400 Charred arrows
+400 Charred Bolts
+40 Fiery Svinstew
+40 Piquant Pie
+40 Roasted Crust Pie
+40 Mashed Meat
+4 stacks Berserker Potions
+Lvl 7 Dyrnwyn (old model)
+(New Dyrnwyn replaces old)
+Odin Max weapon of choice
+Lvl 4 Ashen Cape
+Lvl 8 Flametal Chest
+Lvl 8 Flametal Legs
+Lvl 8 Flametal Helm
+(Replaces Thegn L5 Wolf armor)
+Boss Stone Token
+	
+
+Your Quarters
+Your quarters will be your private and official place to turn in your items.  It is also a place we want you to feel at home with, so not only will you be able to turn in your summons, but you will also be able to build and decorate your quarters.  
+
+
+Submitting items like trophies, weapons, or gear can be placed anywhere in your quarters, just make sure you screenshot where they are.
+
+
+Thread & Channels
+* Call to Arms- Slayer Announcements 
+* Slayer-Overview - All Player documents are links are here
+* SlayerBounty - Thread for Slayers to organize boss kills, ask for body recoveries and protection.
+* Slayer Summons - Thread to submit summons
+* slayerrep - requests - Used to request weapon changes, event requests, rank-ups etc… to Slayer Staff
+
+
+Weapon Choices
+
+
+Axe
+	Knife
+	Sword
+	Atgeir/Sledge
+	Club
+	Spear
+	Bow
+	Stone L28
+Flint L28
+Bronze L26
+Iron L176
+BM L19
+Jotun Bane L23
+Berserkir L6
+BM Battleaxe L24
+Crystal Battleaxe L22
+Skull Splittur  L22
+Wooden Axe L85
+Wooden Battleaxe L85
+	Flint L57
+Copper L55
+Abyssal Razor L52
+Silver L28
+Flesh Rippers L24
+Black Metal L48
+Skoll and Hati L42
+Vilebone Maulclaws L23
+Wooden Knife L50
+	Bronze L24
+Iron L22
+Silver L12
+Black Metal L19
+Mistwalker L11
+Nidhogg L14
+Slayer L20
+Krom L24
+Wooden Sword L130
+Wooden Greatsword L180
+	Bronze L27
+Iron L25
+Black metal L21
+Himmin Afl L13
+Stagbreaker L35
+Iron Sledge L33
+Demolisher L16
+	Club L24
+Bronze Mace L21
+Iron Mace L19
+Frostner L17
+Porcupine L21
+Flametal Mace L10
+Wooden Mace L125
+Wooden Sledge L190
+	Flint L29
+Bronze L29
+Ancient Bark L28
+Fang L27
+Carapace L24
+Splitnir L21
+Wooden Spear L160
+	Crude L41
+Finewood L33
+Huntsman L34
+Draugr Fang L29
+Spine Snap L13
+Ash Fang L12
+Arbalest L56
+Ripper L49
+	
+
+
+
+Contract and Bounty Guide
+What is a Contract?
+A contract is a request by any player who requests aid from other players which involves slaying enemies or protection in Valheim. Contracts can originate from calls for help in world chat, requests for assistance in the #main or #Slayerᵇᵒᵘⁿᵗʸ chats in the comfy discord, or the #looking-for-group for those looking to do the #creator-events
+
+
+This document defines what is and what is not a slayer contract. 
+
+
+Thrall requires 5 Contracts.
+Thegn requires 10 Contracts
+Jarl requires 15 Contracts & 5 Bounties.
+
+
+Contract Types
+
+
+* Creator Events - Running creator events with players that don’t solely consist of your usual base group (you need at least 1 player that’s not a base-mate). They can be found in the Creator Events discord channel.
+
+
+* Group Boss Kills - Group boss kills count as one contract per boss type per day* (from one person providing the summoning supplies). 
+   * EX: one person summons five Yagluths and three Moders = two contracts. 
+   * The summoner and participants all receive credit.
+   * Must include 1 non-basemate to qualify.
+
+
+* Slayer Events - Participating in any slayer event hosted by slayer staff.
+   * EX - Jarl Sail events, Tower Defense, Saturday Night Showdowns.
+   * Must be combat-based and include 1 non-basemate participating to qualify.
+
+
+
+
+
+
+Bounty Types
+At least 5 contracts need to come from this bounty group to reach Jarl:
+* Body recovery: We are often one of the first contacts new players have with guild members. When we are honorable, players look up to and trust us. When we cheese stuff like body recoveries, it cheapens the guild. Rules for body recoveries –
+   * 3 Slayers Max per body recovery. 
+
+
+   * Players dying during boss fights (Eikthyr, Elder, Bonemass, Moder, Yagluth, and The Queen) do not count as body recoveries in 99% of cases. 
+      * Notable exception - a new player killed when trying to kill a boss themself. You must not have been included in the original kill attempt. 
+
+
+   * Body recoveries during Creator Events ONLY count if you were not included in the original party. All loot must be refused.
+
+
+   * Multiple bodies (even from multiple people) in the same group/location only count as “1” body recovery.
+* Protection – Protecting someone while building/exploring/etc. Must be protecting them for at least 15 minutes.
+   * Max of 3 slayers per protection contract.
+
+
+   * Ranger CS Events requesting protection must be
+      * A building event located in Plains, Mistlands, or Ashlands.
+      * 1 slayer per protection, 30 minute minimum
+
+
+* Creator Protection - Protect players running a creator event.
+   * Rules of the event apply, Troll events require troll gear or below etc.
+
+
+   * Players you have run events with that day & Basemates do not qualify. 
+
+
+   * Loot from the event must be refused.
+
+
+   * Event testing does not qualify for protection.
+
+
+   * Max of 1 slayer per creator protection contract.
+
+
+* Duels - Participating in a duel (once per day). To find out more about Thrall duels, read below. 
+
+
+* Event testing - When creators make new events, they need to be tested. If you assist in playtesting an event that involves killing enemies, you can claim this contract.
+
+
+
+
+Please submit suggestions of additional contracts or questions to @SlayerReps on discord. This document will likely grow and evolve as we find new ways to slay enemies and support each other.
+
+
+
+
+
+
+
+
+General Contract & Bounty Rules:
+
+
+🟥 Contracts need to be answered by at least one non-basemate to qualify.
+
+
+🟥 Contracts don’t stack. If you go and recover a body, you can’t then claim for protection in the same instance.
+
+
+🟥 You can only claim contracts (like body recovery or protection) for the same person once per day. If they die multiple times, you cannot claim that as a bounty.
+
+
+🟥 You can’t claim contracts with the same group more than 7 times in a row.
+
+
+*To determine what constitutes a day, if you’ve slept between doing the last one, then it’s a new day. 
+
+
+
+
+
+
+
+
+Submitting Contracts & Bounties
+Get Credit:
+Credit for contracts is through tags in the #💀bountyˢˡᵃʸᵉʳ channel. The person who posted the contract should post a thank you for the body recovery, boss kill help, etc. @-ing all participants. Tagging @slayer in the thank you is NOT necessary.
+
+
+Submit to Reps:
+Copy a link to the person thanking you for the contract. Then go to “ Contract Turn-ins” and start by typing” /slayer_contract.” Click on the option and follow the directions, which include what type of contract and pasting the contract url when prompted.
+
+
+Please post each Contract or Bounty separately.
+
+
+How many Contracts do I have?
+
+
+In the “Contract Turn-In” thread, type “/slayer_player_info user_chosen: ” and press enter after choosing the correct option, this will count both bounties and contracts.They must be marked by a member of Slayer Staff before the bot will add them to the count.
+
+
+I forgot to submit for credit, how do I find my contracts?
+
+
+It happens, we can easily forget to submit a contract after someone has thanked us for it. To find thank you posts, you can go to the #SlayerBounty channel and search (or hit ctrl-F) and search for mentions of your name. That should bring up all the times you’ve been thanked for your slayer services. Simply copy those links and paste them in the contracts turn in.
+
+
+
+
+FAQs
+What is a Duel?
+A duel is a 1v1 or 2v2 or 3v3 or FFA player versus player event required to rank up to Thegn. You will be provided with everything needed to participate - you do not need to show up naked. All participants will be provided with food and the best 2 out of 3 rounds win. There is a mercy rule, where if you Participate in at least 3 Duels and don’t win you will still get the credit to rank up. The duels will be hosted on Comfy.
+
+
+Multi-era Rewards
+If you’ve reached the status of Jarl multiple times, you’ll get bonus rewards.
+
+
+2nd era
+	Lvl 6 Flametal Shield
+	3rd era
+	Second Jarl weapon
+	4th Era
+	Old Nastalgia Weapon (Pre-Mistlands)
+	
+
+Training Hall
+You get access to the training hall when you reach Thrall, where you can level up your skills to progress further in the guild, and aid your time in comfy.
+* Do not take the arrows out of the hall
+* No magic allowed in the training hall
+What are Slayer Events?
+Slayer events are hosted by Slayer Staff and include:
+* Duels
+* Tower Defense
+* Ctf
+* Harpoon Ball
+* Hosted:  Eichenwalde Event
+* Clubbing with Trolls
+
+How can I participate in Slayer Events?
+Slayer staff will announce when they’re hosting events.If you’re needing a Thrall duel, you can tag @slayerreps in the SlayerBounty chat and if one is available, they can host one for you. Please remember, all of our staff are volunteers, so be patient.
