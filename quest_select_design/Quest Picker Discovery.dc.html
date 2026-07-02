@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Spectral:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#0f0d0a;font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+  .dv-turn{padding:44px 48px 36px;border-bottom:1px solid rgba(224,178,78,.1);scroll-margin-top:16px}
+  .dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 22px}
+  .dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#e3b457;color:#12100c;border-radius:4px;text-decoration:none}
+  .dv-tname{font:600 13px/1.3 system-ui,sans-serif;color:#cbbfa8}
+  .dv-tname a{color:#e3b457;text-decoration:none}
+  .dv-opts{display:flex;flex-wrap:wrap;gap:34px;align-items:flex-start}
+  .dv-opt{flex:none;display:flex;flex-direction:column;gap:11px;scroll-margin-top:16px}
+  .dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(224,178,78,.14);color:#e3b457;border-radius:5px;text-decoration:none}
+  .dv-olabel{display:flex;align-items:baseline;gap:9px;font:400 12px/1.3 system-ui,sans-serif;color:#9a8b70}
+  .dv-card{max-width:100%;background:#1a1510;border:1px solid rgba(224,178,78,.16);border-radius:12px;box-shadow:0 24px 60px rgba(0,0,0,.5);overflow:hidden}
+  .dv-opt:target .dv-oid{background:#e3b457;color:#12100c}
+  .dv-next{margin:24px 0 0;font:12px/1.6 system-ui,sans-serif;color:#7c7059}
+  .dv-next a{color:#e3b457;text-decoration:none;background:rgba(224,178,78,.1);padding:2px 6px;border-radius:4px}
+  .cqp-input::placeholder{color:#6f6350}
+  .cqp-scroll::-webkit-scrollbar{width:9px;height:9px}
+  .cqp-scroll::-webkit-scrollbar-track{background:transparent}
+  .cqp-scroll::-webkit-scrollbar-thumb{background:rgba(224,178,78,.22);border-radius:5px}
+  .cqp-scroll::-webkit-scrollbar-thumb:hover{background:rgba(224,178,78,.4)}
+  .qrow{transition:background .12s}
+  .qrow:hover{background:rgba(224,178,78,.055)!important}
+  .qcard{transition:border-color .12s,transform .1s,box-shadow .12s}
+  .qcard:hover{transform:translateY(-1px)}
+  .chip{transition:background .12s,border-color .12s,color .12s}
+  .savebtn{transition:filter .12s,opacity .12s}
+  .savebtn:not(:disabled):hover{filter:brightness(1.1)}
+  .linkbtn{transition:color .12s}
+  .linkbtn:hover{color:#e3b457!important}
+</style>
+</helmet>
+<section class="dv-turn" id="t1">
+  <div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Two ways to make quests findable without reading everything</span></div>
+  <div class="dv-opts">
+    <div class="dv-opt" id="1a">
+      <div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a><span><b style="color:#cbbfa8">Faceted Codex</b> — filter rail narrows the whole list; search + sort + removable filter chips. Discovery = narrow down.</span></div>
+      <div class="dv-card" style="width:1200px">{{ appA }}</div>
+    </div>
+    <div class="dv-opt" id="1b">
+      <div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a><span><b style="color:#cbbfa8">Zone Board</b> — quests laid out by biome progression (easy→hard) as columns you scan. Discovery = browse by where you are.</span></div>
+      <div class="dv-card" style="width:1340px">{{ appB }}</div>
+    </div>
+  </div>
+  <p class="dv-next">Try next: "combine <a class="dv-oid" href="#1a">1a</a>'s filter rail with <a class="dv-oid" href="#1b">1b</a>'s columns" · "make <a class="dv-oid" href="#1a">1a</a> denser" · "add a reward-first grouping"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  constructor(props){
+    super(props);
+    this.ZONES = [
+      {k:'Meadows', t:1, c:'#8bb84e'},
+      {k:'Black Forest', t:2, c:'#3f9268'},
+      {k:'Swamp', t:3, c:'#8a8640'},
+      {k:'Mountains', t:4, c:'#accbe0'},
+      {k:'Plains', t:5, c:'#d3a63f'},
+      {k:'Mistlands', t:6, c:'#9a7ac4'},
+      {k:'Ashlands', t:7, c:'#d1543a'},
+    ];
+    this.ZMAP = {}; this.ZONES.forEach(z=>this.ZMAP[z.k]=z);
+    this.RTYPES = {Trophy:'#d18a3f', Resource:'#5f9bc4', Gear:'#c2a34a', Food:'#cf5f48', Coins:'#e6bd4e'};
+    this.RTORDER = ['Trophy','Resource','Gear','Food','Coins'];
+    this.QUESTS = [
+      {id:'r-angler',name:'Angler',cls:'Rangers',cat:'Nature Badges',zone:'Meadows',reward:{item:'Grilled Fish',qty:4,type:'Food'},effort:'Quick'},
+      {id:'r-foraging',name:'Foraging',cls:'Rangers',cat:'Nature Badges',zone:'Meadows',reward:{item:'Raspberries',qty:20,type:'Resource'},effort:'Quick'},
+      {id:'r-chicken',name:'Comfy Fried Chicken',cls:'Rangers',cat:'Nature Badges',zone:'Meadows',reward:{item:'Fried Chicken',qty:2,type:'Food'},effort:'Quick'},
+      {id:'r-thin',name:'Thin the Herd',cls:'Rangers',cat:'Nature Badges',zone:'Meadows',reward:{item:'Boar Trophy',qty:1,type:'Trophy'},effort:'Quick'},
+      {id:'r-neck',name:'Neck Preserve',cls:'Rangers',cat:'Nature Badges',zone:'Meadows',reward:{item:'Neck Tail',qty:6,type:'Food'},effort:'Medium'},
+      {id:'r-wildtender',name:'Wildtender',cls:'Rangers',cat:'Homestead',zone:'Meadows',reward:{item:'Honey',qty:3,type:'Food'},effort:'Quick'},
+      {id:'r-room',name:'Room to Grow',cls:'Rangers',cat:'Homestead',zone:'Meadows',reward:{item:'Core Wood',qty:6,type:'Resource'},effort:'Medium'},
+      {id:'r-merchant',name:'Merchant Run',cls:'Rangers',cat:'Homestead',zone:'Meadows',reward:{item:'Coins',qty:120,type:'Coins'},effort:'Quick'},
+      {id:'r-oak',name:'Oak Guardian',cls:'Rangers',cat:'Nature Badges',zone:'Black Forest',reward:{item:'Fine Wood',qty:1,type:'Resource'},effort:'Quick'},
+      {id:'r-backpack',name:'Backpacking',cls:'Rangers',cat:'Nature Badges',zone:'Black Forest',reward:{item:'Leather Pack',qty:1,type:'Gear'},effort:'Medium'},
+      {id:'r-fishoot',name:'Fish Out of Water',cls:'Rangers',cat:'Nature Badges',zone:'Black Forest',reward:{item:'Fish Wraps',qty:2,type:'Food'},effort:'Medium'},
+      {id:'r-trader',name:"Trader's Trust",cls:'Rangers',cat:'Homestead',zone:'Black Forest',reward:{item:'Coins',qty:180,type:'Coins'},effort:'Medium'},
+      {id:'r-canoe',name:'Canoeing',cls:'Rangers',cat:'Nature Badges',zone:'Swamp',reward:{item:'Fine Wood',qty:4,type:'Resource'},effort:'Medium'},
+      {id:'r-fur',name:'Fur Trapper',cls:'Rangers',cat:'Nature Badges',zone:'Mountains',reward:{item:'Wolf Pelt',qty:2,type:'Resource'},effort:'Medium'},
+      {id:'r-dog',name:'Dog Whisperer',cls:'Rangers',cat:'Nature Badges',zone:'Mountains',reward:{item:'Wolf Trophy',qty:2,type:'Trophy'},effort:'Long'},
+      {id:'r-foxy',name:'Foxy Loxy',cls:'Rangers',cat:'Nature Badges',zone:'Plains',reward:{item:'Lox Trophy',qty:2,type:'Trophy'},effort:'Long'},
+      {id:'r-wildlife',name:'Wildlife',cls:'Rangers',cat:'Nature Badges',zone:'Plains',reward:{item:'Deer Trophy',qty:7,type:'Trophy'},effort:'Long'},
+      {id:'s-first',name:'First Blood',cls:'Slayers',cat:'General summons',zone:'Meadows',reward:{item:'Neck Trophy',qty:1,type:'Trophy'},effort:'Quick'},
+      {id:'s-grey',name:'Greydwarf Cull',cls:'Slayers',cat:'General summons',zone:'Black Forest',reward:{item:'Greydwarf Eye',qty:10,type:'Resource'},effort:'Medium'},
+      {id:'s-troll',name:'Troll Toll',cls:'Slayers',cat:'Brute summons',zone:'Black Forest',reward:{item:'Troll Trophy',qty:1,type:'Trophy'},effort:'Long'},
+      {id:'s-draugr',name:'Draugr Purge',cls:'Slayers',cat:'General summons',zone:'Swamp',reward:{item:'Draugr Trophy',qty:3,type:'Trophy'},effort:'Medium'},
+      {id:'s-bone',name:'Bonemass Bane',cls:'Slayers',cat:'Brute summons',zone:'Swamp',reward:{item:'Iron Mace',qty:1,type:'Gear'},effort:'Long'},
+      {id:'s-wraith',name:'Wraith Watch',cls:'Slayers',cat:'Rogue summons',zone:'Swamp',reward:{item:'Chains',qty:2,type:'Resource'},effort:'Medium'},
+      {id:'s-frost',name:'Frost Hunt',cls:'Slayers',cat:'Knight summons',zone:'Mountains',reward:{item:'Fenring Trophy',qty:2,type:'Trophy'},effort:'Long'},
+      {id:'s-golem',name:'Stone Golem',cls:'Slayers',cat:'Brute summons',zone:'Mountains',reward:{item:'Silver',qty:4,type:'Resource'},effort:'Long'},
+      {id:'s-drake',name:'Drake Down',cls:'Slayers',cat:'Rogue summons',zone:'Mountains',reward:{item:'Freeze Gland',qty:3,type:'Resource'},effort:'Medium'},
+      {id:'s-silver',name:'Silver Cache',cls:'Slayers',cat:'Knight summons',zone:'Mountains',reward:{item:'Coins',qty:300,type:'Coins'},effort:'Long'},
+      {id:'s-fuling',name:'Fuling Frenzy',cls:'Slayers',cat:'General summons',zone:'Plains',reward:{item:'Fuling Trophy',qty:5,type:'Trophy'},effort:'Medium'},
+      {id:'s-squito',name:'Deathsquito Duty',cls:'Slayers',cat:'Rogue summons',zone:'Plains',reward:{item:'Needle',qty:6,type:'Resource'},effort:'Quick'},
+      {id:'s-lox',name:'Lox Wrangler',cls:'Slayers',cat:'Brute summons',zone:'Plains',reward:{item:'Lox Meat Pie',qty:2,type:'Food'},effort:'Long'},
+      {id:'s-berserk',name:"Berserker's Path",cls:'Slayers',cat:'Berserker summons',zone:'Plains',reward:{item:'Black Metal Axe',qty:1,type:'Gear'},effort:'Long'},
+      {id:'s-seeker',name:'Seeker Siege',cls:'Slayers',cat:'Knight summons',zone:'Mistlands',reward:{item:'Seeker Trophy',qty:4,type:'Trophy'},effort:'Long'},
+      {id:'s-gjall',name:'Gjall Gambit',cls:'Slayers',cat:'Rogue summons',zone:'Mistlands',reward:{item:'Sap',qty:5,type:'Resource'},effort:'Medium'},
+      {id:'s-tick',name:'Tick Tock',cls:'Slayers',cat:'General summons',zone:'Mistlands',reward:{item:'Carapace',qty:3,type:'Resource'},effort:'Medium'},
+      {id:'s-queen',name:"Queen's Guard",cls:'Slayers',cat:'Berserker summons',zone:'Mistlands',reward:{item:'Carapace Armor',qty:1,type:'Gear'},effort:'Long'},
+      {id:'s-charred',name:'Charred Crusade',cls:'Slayers',cat:'Knight summons',zone:'Ashlands',reward:{item:'Charred Trophy',qty:6,type:'Trophy'},effort:'Long'},
+      {id:'s-flame',name:'Flametal Run',cls:'Slayers',cat:'General summons',zone:'Ashlands',reward:{item:'Flametal',qty:4,type:'Resource'},effort:'Long'},
+      {id:'s-morgen',name:'Morgen Hunt',cls:'Slayers',cat:'Brute summons',zone:'Ashlands',reward:{item:'Morgen Trophy',qty:2,type:'Trophy'},effort:'Long'},
+      {id:'s-ember',name:'Ember Coins',cls:'Slayers',cat:'Rogue summons',zone:'Ashlands',reward:{item:'Coins',qty:250,type:'Coins'},effort:'Medium'},
+    ];
+    this.state = {
+      tracked: [], character:'', discord:'',
+      a: { q:'', classes:[], zones:[], rewards:[], status:'all', sort:'zone' },
+      b: { q:'', cls:'All', rewards:[] },
+    };
+  }
+
+  componentDidMount(){
+    try{
+      const t = JSON.parse(localStorage.getItem('cqp-tracked')||'[]');
+      const c = localStorage.getItem('cqp-char')||'';
+      const d = localStorage.getItem('cqp-disc')||'';
+      if((t&&t.length)||c||d) this.setState({tracked:Array.isArray(t)?t:[], character:c, discord:d});
+    }catch(e){}
+  }
+
+  toggleTracked(id){
+    this.setState(s=>{
+      const has = s.tracked.includes(id);
+      const tracked = has ? s.tracked.filter(x=>x!==id) : [...s.tracked, id];
+      try{ localStorage.setItem('cqp-tracked', JSON.stringify(tracked)); }catch(e){}
+      return {tracked};
+    });
+  }
+  setField(k, v){
+    this.setState({[k]:v});
+    try{ localStorage.setItem(k==='character'?'cqp-char':'cqp-disc', v); }catch(e){}
+  }
+  patchA(p){ this.setState(s=>({a:{...s.a,...p}})); }
+  patchB(p){ this.setState(s=>({b:{...s.b,...p}})); }
+  toggleArr(group, key, val){
+    this.setState(s=>{
+      const cur = s[group][key];
+      const next = cur.includes(val) ? cur.filter(x=>x!==val) : [...cur, val];
+      return {[group]:{...s[group],[key]:next}};
+    });
+  }
+  clearA(){ this.setState(s=>({a:{...s.a, q:'', classes:[], zones:[], rewards:[], status:'all'}})); }
+
+  download(){
+    const names = this.QUESTS.filter(q=>this.state.tracked.includes(q.id)).map(q=>q.name);
+    const data = { character:this.state.character, discord:this.state.discord||undefined, era:17, quests:names };
+    const blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a'); a.href=url; a.download='quest-view.json'; a.click();
+    setTimeout(()=>URL.revokeObjectURL(url), 500);
+  }
+
+  // ---------- shared bits ----------
+  pips(tier, color){
+    const h = React.createElement;
+    return h('span',{style:{display:'inline-flex',gap:2,alignItems:'center'},title:'Difficulty tier '+tier},
+      [1,2,3,4,5,6,7].map(i=>h('span',{key:i,style:{width:5,height:5,transform:'rotate(45deg)',borderRadius:1,
+        background:i<=tier?color:'transparent',border:'1px solid '+(i<=tier?color:'rgba(224,178,78,.22)')}})));
+  }
+  zoneChip(zone, big){
+    const h = React.createElement; const z = this.ZMAP[zone];
+    return h('span',{style:{display:'inline-flex',alignItems:'center',gap:6,padding:big?'3px 9px':'2px 7px',
+      borderRadius:20,background:z.c+'1f',border:'1px solid '+z.c+'55',color:z.c,fontSize:big?11.5:10.5,fontWeight:600,whiteSpace:'nowrap'}},
+      [h('span',{key:'d',style:{width:7,height:7,borderRadius:'50%',background:z.c}}), z.k]);
+  }
+  rewardPill(reward){
+    const h = React.createElement; const c = this.RTYPES[reward.type];
+    return h('span',{style:{display:'inline-flex',alignItems:'center',gap:6,padding:'3px 9px 3px 8px',borderRadius:7,
+      background:c+'1a',border:'1px solid '+c+'40',whiteSpace:'nowrap'}},[
+      h('span',{key:'d',style:{width:6,height:6,borderRadius:2,background:c}}),
+      h('span',{key:'t',style:{color:'#efe4cf',fontSize:12,fontFamily:"'Spectral',Georgia,serif"}},reward.item),
+      h('span',{key:'q',style:{color:c,fontSize:11.5,fontWeight:700}},'×'+reward.qty),
+    ]);
+  }
+  effortTag(effort){
+    const h = React.createElement;
+    const map={Quick:'#84c46e',Medium:'#e6bd4e',Long:'#d1543a'};
+    return h('span',{style:{display:'inline-flex',alignItems:'center',gap:5,color:'#9a8b70',fontSize:10,fontWeight:600,letterSpacing:.5,textTransform:'uppercase'}},[
+      h('span',{key:'d',style:{width:6,height:6,borderRadius:'50%',background:map[effort]}}), effort]);
+  }
+  checkbox(on, onClick, size){
+    const h = React.createElement; const s = size||18;
+    return h('button',{onClick,'aria-label':'track',style:{width:s,height:s,flex:'none',cursor:'pointer',padding:0,
+      borderRadius:5,border:'2px solid '+(on?'#e3b457':'rgba(224,178,78,.35)'),background:on?'#e3b457':'transparent',
+      display:'flex',alignItems:'center',justifyContent:'center',color:'#1a1510',fontSize:s*0.7,lineHeight:1}},
+      on?'✓':'');
+  }
+
+  chip(label, active, onClick, dotColor){
+    const h = React.createElement;
+    return h('button',{className:'chip',onClick,key:label,style:{display:'inline-flex',alignItems:'center',gap:6,
+      padding:'5px 11px',borderRadius:20,cursor:'pointer',fontSize:12,fontWeight:600,fontFamily:'system-ui,sans-serif',
+      background:active?(dotColor?dotColor+'26':'rgba(224,178,78,.18)'):'rgba(255,255,255,.02)',
+      border:'1px solid '+(active?(dotColor?dotColor+'99':'#e3b457'):'rgba(224,178,78,.18)'),
+      color:active?(dotColor||'#f0c96a'):'#a89878'}},[
+      dotColor?h('span',{key:'d',style:{width:8,height:8,borderRadius:'50%',background:dotColor,opacity:active?1:.55}}):null,
+      label]);
+  }
+
+  // ---------- Option A: Faceted Codex ----------
+  filterA(){
+    const {q,classes,zones,rewards,status}=this.state.a; const s=q.trim().toLowerCase();
+    let list=this.QUESTS.filter(x=>{
+      if(classes.length && !classes.includes(x.cls)) return false;
+      if(zones.length && !zones.includes(x.zone)) return false;
+      if(rewards.length && !rewards.includes(x.reward.type)) return false;
+      const t=this.state.tracked.includes(x.id);
+      if(status==='tracked' && !t) return false;
+      if(status==='untracked' && t) return false;
+      if(s && !(x.name.toLowerCase().includes(s)||x.reward.item.toLowerCase().includes(s)||x.cat.toLowerCase().includes(s)||x.zone.toLowerCase().includes(s)||x.cls.toLowerCase().includes(s))) return false;
+      return true;
+    });
+    const eOrd={Quick:0,Medium:1,Long:2};
+    const sort=this.state.a.sort;
+    list.sort((a,b)=>{
+      if(sort==='zone') return (this.ZMAP[a.zone].t-this.ZMAP[b.zone].t)||a.name.localeCompare(b.name);
+      if(sort==='name') return a.name.localeCompare(b.name);
+      if(sort==='reward') return a.reward.type.localeCompare(b.reward.type)||a.reward.item.localeCompare(b.reward.item);
+      if(sort==='effort') return (eOrd[a.effort]-eOrd[b.effort])||a.name.localeCompare(b.name);
+      return 0;
+    });
+    return list;
+  }
+
+  facetGroup(title, children){
+    const h=React.createElement;
+    return h('div',{style:{marginBottom:18}},[
+      h('div',{key:'t',style:{color:'#8b7d64',fontSize:10.5,fontWeight:700,letterSpacing:1,textTransform:'uppercase',marginBottom:9}},title),
+      h('div',{key:'c',style:{display:'flex',flexWrap:'wrap',gap:7}},children)
+    ]);
+  }
+
+  rowA(q){
+    const h=React.createElement; const on=this.state.tracked.includes(q.id); const z=this.ZMAP[q.zone];
+    return h('div',{key:q.id,className:'qrow',style:{display:'grid',gridTemplateColumns:'22px 300px 150px 1fr 84px',alignItems:'center',
+      gap:14,padding:'11px 18px',borderBottom:'1px solid rgba(224,178,78,.07)',background:on?'rgba(224,178,78,.045)':'transparent',
+      borderLeft:'3px solid '+(on?z.c:'transparent')}},[
+      this.checkbox(on,()=>this.toggleTracked(q.id),18),
+      h('div',{key:'n'},[
+        h('div',{style:{fontFamily:"'Spectral',Georgia,serif",fontSize:15.5,fontWeight:600,color:'#efe4cf',lineHeight:1.15}},q.name),
+        h('div',{style:{fontSize:11,color:'#7c7059',marginTop:2}},q.cls+' · '+q.cat)
+      ]),
+      h('div',{key:'z',style:{display:'flex',alignItems:'center',gap:9}},[this.zoneChip(q.zone), this.pips(z.t,z.c)]),
+      h('div',{key:'r'},this.rewardPill(q.reward)),
+      h('div',{key:'e',style:{justifySelf:'end'}},this.effortTag(q.effort)),
+    ]);
+  }
+
+  appA(){
+    const h=React.createElement; const A=this.state.a; const list=this.filterA();
+    const active=[];
+    A.classes.forEach(c=>active.push({label:c,fn:()=>this.toggleArr('a','classes',c)}));
+    A.zones.forEach(z=>active.push({label:z,fn:()=>this.toggleArr('a','zones',z),c:this.ZMAP[z].c}));
+    A.rewards.forEach(r=>active.push({label:r,fn:()=>this.toggleArr('a','rewards',r),c:this.RTYPES[r]}));
+    if(A.status!=='all') active.push({label:A.status==='tracked'?'Tracked only':'Untracked only',fn:()=>this.patchA({status:'all'})});
+    if(A.q.trim()) active.push({label:'"'+A.q.trim()+'"',fn:()=>this.patchA({q:''})});
+
+    const rail=h('div',{className:'cqp-scroll',style:{width:262,flex:'none',borderRight:'1px solid rgba(224,178,78,.12)',
+      padding:'18px 18px 24px',overflowY:'auto',background:'rgba(0,0,0,.15)'}},[
+      h('div',{key:'s',style:{position:'relative',marginBottom:20}},[
+        h('span',{style:{position:'absolute',left:11,top:'50%',transform:'translateY(-50%)',color:'#6f6350',fontSize:13}},'⌕'),
+        h('input',{className:'cqp-input',placeholder:'Search quests, rewards…',value:A.q,onChange:e=>this.patchA({q:e.target.value}),
+          style:{width:'100%',padding:'9px 10px 9px 30px',borderRadius:8,border:'1px solid rgba(224,178,78,.22)',
+          background:'rgba(0,0,0,.3)',color:'#efe4cf',fontSize:13,outline:'none',fontFamily:'system-ui,sans-serif'}})
+      ]),
+      this.facetGroup('Class', ['Slayers','Rangers'].map(c=>this.chip(c,A.classes.includes(c),()=>this.toggleArr('a','classes',c)))),
+      this.facetGroup('Zone · difficulty', this.ZONES.map(z=>this.chip(z.k,A.zones.includes(z.k),()=>this.toggleArr('a','zones',z.k),z.c))),
+      this.facetGroup('Reward type', this.RTORDER.map(r=>this.chip(r,A.rewards.includes(r),()=>this.toggleArr('a','rewards',r),this.RTYPES[r]))),
+      this.facetGroup('Status', [
+        this.chip('All',A.status==='all',()=>this.patchA({status:'all'})),
+        this.chip('Untracked',A.status==='untracked',()=>this.patchA({status:'untracked'})),
+        this.chip('Tracked',A.status==='tracked',()=>this.patchA({status:'tracked'})),
+      ]),
+    ]);
+
+    const sortSel=h('div',{style:{display:'flex',alignItems:'center',gap:8}},[
+      h('span',{key:'l',style:{color:'#7c7059',fontSize:11.5}},'Sort'),
+      h('select',{value:A.sort,onChange:e=>this.patchA({sort:e.target.value}),
+        style:{background:'rgba(0,0,0,.3)',color:'#efe4cf',border:'1px solid rgba(224,178,78,.22)',borderRadius:7,
+        padding:'6px 9px',fontSize:12.5,fontFamily:'system-ui,sans-serif',outline:'none',cursor:'pointer'}},[
+        h('option',{key:'z',value:'zone'},'Zone (easy → hard)'),
+        h('option',{key:'n',value:'name'},'Name (A–Z)'),
+        h('option',{key:'r',value:'reward'},'Reward type'),
+        h('option',{key:'e',value:'effort'},'Effort'),
+      ])
+    ]);
+
+    const toolbar=h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:14,
+      padding:'13px 18px',borderBottom:'1px solid rgba(224,178,78,.12)',flexWrap:'wrap'}},[
+      h('div',{key:'l',style:{display:'flex',alignItems:'center',gap:12,flexWrap:'wrap'}},[
+        h('span',{key:'c',style:{color:'#efe4cf',fontSize:13.5,fontWeight:600}},[
+          h('span',{style:{color:'#e3b457',fontSize:16}},list.length),' quest'+(list.length===1?'':'s')]),
+        active.length?h('div',{key:'chips',style:{display:'flex',gap:6,flexWrap:'wrap',alignItems:'center'}},
+          active.map((f,i)=>h('button',{key:i,onClick:f.fn,style:{display:'inline-flex',alignItems:'center',gap:6,
+            padding:'3px 8px',borderRadius:6,cursor:'pointer',fontSize:11.5,fontWeight:600,
+            background:(f.c||'#e3b457')+'22',border:'1px solid '+(f.c||'#e3b457')+'55',color:f.c||'#f0c96a'}},
+            [f.label,h('span',{key:'x',style:{opacity:.7,fontSize:13}},'×')]))
+          .concat(h('button',{key:'clr',className:'linkbtn',onClick:()=>this.clearA(),style:{background:'none',border:'none',
+            cursor:'pointer',color:'#7c7059',fontSize:11.5,textDecoration:'underline'}},'clear all'))
+        ):h('span',{key:'no',style:{color:'#6f6350',fontSize:12}},'showing all')
+      ]),
+      sortSel
+    ]);
+
+    const body = list.length ? h('div',{className:'cqp-scroll',style:{flex:1,overflowY:'auto'}}, list.map(q=>this.rowA(q)))
+      : h('div',{style:{flex:1,display:'flex',alignItems:'center',justifyContent:'center',color:'#6f6350',fontSize:14}},'No quests match these filters.');
+
+    return h('div',{style:{display:'flex',flexDirection:'column',height:762,background:'#1a1510',fontFamily:'system-ui,sans-serif'}},[
+      this.header('Comfy Quest Picker'),
+      h('div',{key:'main',style:{flex:1,display:'flex',minHeight:0}},[rail, h('div',{style:{flex:1,display:'flex',flexDirection:'column',minWidth:0}},[toolbar, body])]),
+      this.footer()
+    ]);
+  }
+
+  // ---------- Option B: Zone Board ----------
+  filterB(){
+    const {q,cls,rewards}=this.state.b; const s=q.trim().toLowerCase();
+    return this.QUESTS.filter(x=>{
+      if(cls!=='All' && x.cls!==cls) return false;
+      if(rewards.length && !rewards.includes(x.reward.type)) return false;
+      if(s && !(x.name.toLowerCase().includes(s)||x.reward.item.toLowerCase().includes(s)||x.cat.toLowerCase().includes(s))) return false;
+      return true;
+    });
+  }
+  cardB(q){
+    const h=React.createElement; const on=this.state.tracked.includes(q.id); const z=this.ZMAP[q.zone];
+    return h('button',{key:q.id,className:'qcard',onClick:()=>this.toggleTracked(q.id),style:{textAlign:'left',cursor:'pointer',
+      width:'100%',display:'block',padding:'10px 11px',borderRadius:9,marginBottom:8,
+      background:on?z.c+'1c':'rgba(255,255,255,.028)',
+      border:'1px solid '+(on?z.c+'aa':'rgba(224,178,78,.14)'),
+      boxShadow:on?'0 0 0 1px '+z.c+'55 inset':'none'}},[
+      h('div',{key:'top',style:{display:'flex',alignItems:'flex-start',justifyContent:'space-between',gap:8,marginBottom:8}},[
+        h('div',{key:'n',style:{fontFamily:"'Spectral',Georgia,serif",fontSize:14.5,fontWeight:600,color:'#efe4cf',lineHeight:1.2}},q.name),
+        this.checkbox(on,e=>{e.stopPropagation();this.toggleTracked(q.id);},16)
+      ]),
+      h('div',{key:'r',style:{marginBottom:8}},this.rewardPill(q.reward)),
+      h('div',{key:'m',style:{display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}},[
+        this.pips(z.t,z.c), this.effortTag(q.effort)
+      ]),
+      h('div',{key:'c',style:{marginTop:6,fontSize:10.5,color:'#7c7059'}},q.cls+' · '+q.cat)
+    ]);
+  }
+  appB(){
+    const h=React.createElement; const B=this.state.b; const list=this.filterB();
+    const cols=this.ZONES.map(z=>({z, items:list.filter(q=>q.zone===z.k)}));
+
+    const toolbar=h('div',{style:{display:'flex',alignItems:'center',gap:14,padding:'14px 18px',
+      borderBottom:'1px solid rgba(224,178,78,.12)',flexWrap:'wrap'}},[
+      h('div',{key:'seg',style:{display:'inline-flex',padding:3,borderRadius:9,background:'rgba(0,0,0,.28)',border:'1px solid rgba(224,178,78,.15)'}},
+        ['All','Slayers','Rangers'].map(c=>h('button',{key:c,onClick:()=>this.patchB({cls:c}),style:{padding:'6px 14px',borderRadius:6,
+          border:'none',cursor:'pointer',fontSize:12.5,fontWeight:600,fontFamily:'system-ui,sans-serif',
+          background:B.cls===c?'#e3b457':'transparent',color:B.cls===c?'#1a1510':'#a89878'}},c))),
+      h('div',{key:'s',style:{position:'relative',flex:'0 1 240px'}},[
+        h('span',{style:{position:'absolute',left:11,top:'50%',transform:'translateY(-50%)',color:'#6f6350',fontSize:13}},'⌕'),
+        h('input',{className:'cqp-input',placeholder:'Search…',value:B.q,onChange:e=>this.patchB({q:e.target.value}),
+          style:{width:'100%',padding:'8px 10px 8px 30px',borderRadius:8,border:'1px solid rgba(224,178,78,.22)',
+          background:'rgba(0,0,0,.3)',color:'#efe4cf',fontSize:13,outline:'none',fontFamily:'system-ui,sans-serif'}})
+      ]),
+      h('div',{key:'rw',style:{display:'flex',gap:7,flexWrap:'wrap',marginLeft:'auto'}},
+        this.RTORDER.map(r=>this.chip(r,B.rewards.includes(r),()=>this.toggleArr('b','rewards',r),this.RTYPES[r])))
+    ]);
+
+    const board=h('div',{className:'cqp-scroll',style:{flex:1,overflow:'auto',display:'flex',gap:12,padding:'16px 18px',alignItems:'stretch'}},
+      cols.map(col=>h('div',{key:col.z.k,style:{flex:'none',width:184,display:'flex',flexDirection:'column'}},[
+        h('div',{key:'h',style:{position:'sticky',top:0,marginBottom:10}},[
+          h('div',{style:{height:3,borderRadius:2,background:col.z.c,marginBottom:8}}),
+          h('div',{style:{display:'flex',alignItems:'baseline',justifyContent:'space-between',gap:6}},[
+            h('span',{style:{color:col.z.c,fontSize:12.5,fontWeight:700,fontFamily:'system-ui,sans-serif'}},col.z.k),
+            h('span',{style:{color:'#6f6350',fontSize:11,fontWeight:600}},col.items.length)
+          ]),
+          h('div',{style:{color:'#5f5645',fontSize:9.5,fontWeight:600,letterSpacing:.6,textTransform:'uppercase',marginTop:2}},'Tier '+col.z.t)
+        ]),
+        h('div',{key:'b'}, col.items.length?col.items.map(q=>this.cardB(q))
+          :h('div',{style:{padding:'14px 8px',textAlign:'center',color:'#524a3b',fontSize:11,border:'1px dashed rgba(224,178,78,.12)',borderRadius:8}},'—'))
+      ]))
+    );
+
+    return h('div',{style:{display:'flex',flexDirection:'column',height:762,background:'#1a1510',fontFamily:'system-ui,sans-serif'}},[
+      this.header('Comfy Quest Picker'),
+      toolbar, board,
+      this.footer()
+    ]);
+  }
+
+  // ---------- shared header + footer ----------
+  header(title){
+    const h=React.createElement; const n=this.state.tracked.length;
+    return h('div',{style:{display:'flex',alignItems:'center',justifyContent:'space-between',padding:'15px 20px',
+      borderBottom:'1px solid rgba(224,178,78,.16)',background:'rgba(0,0,0,.2)'}},[
+      h('div',{key:'t',style:{fontFamily:"'Cinzel',serif",fontSize:19,fontWeight:600,color:'#e3b457',letterSpacing:.5}},title),
+      h('div',{key:'c',style:{display:'inline-flex',alignItems:'center',gap:7,padding:'5px 12px',borderRadius:20,
+        background:n?'rgba(132,196,110,.14)':'rgba(255,255,255,.03)',border:'1px solid '+(n?'rgba(132,196,110,.4)':'rgba(224,178,78,.15)')}},[
+        h('span',{style:{width:8,height:8,borderRadius:'50%',background:n?'#84c46e':'#6f6350'}}),
+        h('span',{style:{color:n?'#9fd68a':'#8b7d64',fontSize:12.5,fontWeight:700}},n+' tracked')
+      ])
+    ]);
+  }
+  footer(){
+    const h=React.createElement; const canSave=this.state.character.trim() && this.state.tracked.length>0;
+    const inp=(ph,val,k)=>h('input',{className:'cqp-input',placeholder:ph,value:val,onChange:e=>this.setField(k,e.target.value),
+      style:{padding:'8px 11px',borderRadius:8,border:'1px solid rgba(224,178,78,.22)',background:'rgba(0,0,0,.3)',
+      color:'#efe4cf',fontSize:12.5,outline:'none',width:150,fontFamily:'system-ui,sans-serif'}});
+    return h('div',{style:{display:'flex',alignItems:'center',gap:14,padding:'13px 20px',flexWrap:'wrap',
+      borderTop:'1px solid rgba(224,178,78,.16)',background:'rgba(0,0,0,.25)'}},[
+      h('label',{key:'c',style:{display:'inline-flex',alignItems:'center',gap:8,color:'#a89878',fontSize:12.5,fontWeight:600}},['Character',inp('Valheim name',this.state.character,'character')]),
+      h('label',{key:'d',style:{display:'inline-flex',alignItems:'center',gap:8,color:'#a89878',fontSize:12.5,fontWeight:600}},['Discord',h('span',{style:{color:'#6f6350',fontWeight:400}},'(optional)'),inp('username',this.state.discord,'discord')]),
+      h('button',{key:'s',className:'savebtn',disabled:!canSave,onClick:()=>this.download(),style:{marginLeft:'auto',padding:'9px 20px',borderRadius:8,
+        border:'none',cursor:canSave?'pointer':'not-allowed',fontSize:13,fontWeight:700,fontFamily:'system-ui,sans-serif',
+        background:canSave?'#e3b457':'rgba(224,178,78,.18)',color:canSave?'#1a1510':'#6f6350',opacity:canSave?1:.8}},'Save quest-view.json'),
+    ]);
+  }
+
+  renderVals(){
+    return { appA: this.appA(), appB: this.appB() };
+  }
+}
+</script>
+</body>
+</html>
