@@ -6,6 +6,7 @@ using System.IO;
 public static class WorkbenchPaths {
   public static string Root { get; private set; }
   public static string ActionsFile { get; private set; }
+  public static string QuestViewFile { get; private set; }
   public static string OutboxDir { get; private set; }
   public static string EvidenceDir { get; private set; }
   public static string TracesDir { get; private set; }
@@ -20,6 +21,7 @@ public static class WorkbenchPaths {
             : Path.Combine(configRoot ?? PathsFallback(), "comfy-control");
 
     ActionsFile = Path.Combine(Root, "actions.json");
+    QuestViewFile = Path.Combine(Root, "quest-view.json");
     OutboxDir = Path.Combine(Root, "outbox");
     EvidenceDir = Path.Combine(Root, "evidence");
     TracesDir = Path.Combine(Root, "traces");

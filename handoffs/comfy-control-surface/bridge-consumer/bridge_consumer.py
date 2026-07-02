@@ -91,6 +91,12 @@ def validate_payload(data, path):
     payload["z"] = require_number(position, "z", "payload.position")
     payload["biome"] = require_string(position, "biome", "payload.position")
     payload["screenshot"] = require_string(evidence, "screenshot", "payload.evidence")
+    shots = evidence.get("screenshots")
+    payload["screenshots"] = (
+        [s for s in shots if isinstance(s, str) and s]
+        if isinstance(shots, list) and shots
+        else [payload["screenshot"]]
+    )
     payload["trace_id"] = require_string(trace, "trace_id", "payload.trace")
     payload["trace_file"] = require_string(trace, "trace_file", "payload.trace")
     payload["notes"] = data.get("notes") if isinstance(data.get("notes"), str) else ""
@@ -117,9 +123,15 @@ def discover_payloads(input_dir):
 
 
 def render_review(payload, source_path, input_root):
-    screenshot_abs = os.path.normpath(os.path.join(input_root, payload["screenshot"]))
     trace_abs = os.path.normpath(os.path.join(input_root, payload["trace_file"]))
     bot_line = render_command(payload)
+
+    shot_lines = []
+    for i, shot in enumerate(payload["screenshots"], 1):
+        shot_abs = os.path.normpath(os.path.join(input_root, shot))
+        label = f"Screenshot {i}/{len(payload['screenshots'])}" if len(payload["screenshots"]) > 1 else "Screenshot"
+        shot_lines.append(f"- {label}: `{shot}`")
+        shot_lines.append(f"- {label} absolute path: `{shot_abs}`")
 
     return "\n".join([
         f"# Submission {payload['submission_id']}",
@@ -139,8 +151,7 @@ def render_review(payload, source_path, input_root):
         "",
         "## Evidence",
         "",
-        f"- Screenshot: `{payload['screenshot']}`",
-        f"- Screenshot absolute path: `{screenshot_abs}`",
+        *shot_lines,
         f"- Trace: `{payload['trace_file']}`",
         f"- Trace absolute path: `{trace_abs}`",
         f"- Source payload: `{source_path}`",
@@ -167,6 +178,12 @@ def quote_token(value):
 
 def render_command(payload):
     template = payload.get("workflow_bot_command_template")
+
+    if payload["submission_type"] == "quest_proof" and template:
+        # quest turn-ins are the guild's verbatim slash command; its image:/url:/
+        # participants: slots are filled in Discord by attaching the evidence files
+        return template
+
     rank = payload.get("workflow_rank") or slayer_rank(payload)
     if template and rank:
         return render_template_command(template, payload, rank)

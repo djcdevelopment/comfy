@@ -157,6 +157,15 @@ def export_item(root, submission_id):
             command,
             "",
         ]
+    if payload:
+        evidence = payload.get("evidence") if isinstance(payload.get("evidence"), dict) else {}
+        shots = evidence.get("screenshots")
+        if not (isinstance(shots, list) and shots):
+            shots = [evidence.get("screenshot")] if evidence.get("screenshot") else []
+        if shots:
+            lines += ["Attach these files (in slot order):"]
+            lines += [f"  {i}. {shot}" for i, shot in enumerate(shots, 1)]
+            lines += [""]
     lines += [review.rstrip(), ""]
     text = "\n".join(lines)
     atomic_write_text(export_path, text)
@@ -174,6 +183,12 @@ def render_export_command(payload):
         return ""
 
     template = workflow.get("bot_command_template")
+
+    if submission_type == "quest_proof" and isinstance(template, str) and template.strip():
+        # quest turn-ins are the guild's verbatim slash command; its image:/url:/
+        # participants: slots are filled in Discord by attaching the evidence files
+        return template
+
     rank = slayer_rank(workflow, action_id)
     if isinstance(template, str) and template.strip() and rank:
         return render_template_command(template, workflow, screenshot, rank)

@@ -107,7 +107,7 @@ public static class ActionDefinitionLoader {
     return actions;
   }
 
-  static IEnumerable<string> ExtractObjects(string text) {
+  internal static IEnumerable<string> ExtractObjects(string text) {
     int depth = 0;
     int start = -1;
     bool inString = false;
@@ -146,19 +146,19 @@ public static class ActionDefinitionLoader {
     }
   }
 
-  static string ReadString(string json, string fieldName) {
+  internal static string ReadString(string json, string fieldName) {
     Regex regex = new($"\"{Regex.Escape(fieldName)}\"\\s*:\\s*\"((?:\\\\.|[^\"])*)\"", RegexOptions.CultureInvariant);
     Match match = regex.Match(json);
     return match.Success ? UnescapeJson(match.Groups[1].Value) : null;
   }
 
-  static bool ReadBool(string json, string fieldName) {
+  internal static bool ReadBool(string json, string fieldName) {
     Regex regex = new($"\"{Regex.Escape(fieldName)}\"\\s*:\\s*(true|false)", RegexOptions.CultureInvariant | RegexOptions.IgnoreCase);
     Match match = regex.Match(json);
     return match.Success && string.Equals(match.Groups[1].Value, "true", StringComparison.OrdinalIgnoreCase);
   }
 
-  static string ReadValue(string json, string fieldName) {
+  internal static string ReadValue(string json, string fieldName) {
     Regex regex = new($"\"{Regex.Escape(fieldName)}\"\\s*:\\s*(\"((?:\\\\.|[^\"])*)\"|-?\\d+(?:\\.\\d+)?)", RegexOptions.CultureInvariant);
     Match match = regex.Match(json);
     if (!match.Success) {

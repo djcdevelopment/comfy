@@ -10,6 +10,8 @@ using BepInEx.Logging;
 
 using HarmonyLib;
 
+using UnityEngine;
+
 using Comfy.ControlSurface.Config;
 using Comfy.ControlSurface.Core;
 using Comfy.ControlSurface.Core.Commands;
@@ -18,7 +20,7 @@ using Comfy.ControlSurface.Core.Commands;
 public sealed class ComfyControlSurface : BaseUnityPlugin {
   public const string PluginGuid = "comfy.valheim.controlsurface";
   public const string PluginName = "ComfyControlSurface";
-  public const string PluginVersion = "0.2.0";
+  public const string PluginVersion = "0.6.0";
 
   static ManualLogSource _logger;
   static Harmony _harmony;
@@ -39,14 +41,25 @@ public sealed class ComfyControlSurface : BaseUnityPlugin {
 
     StartupStatus.WritePluginLoaded();
     ActionDefinitionLoader.LoadActions();
+    QuestViewLoader.LoadQuestView();
     ControlSurfaceCommands.ToggleCommands(toggleOn: true);
 
     _harmony = Harmony.CreateAndPatchAll(Assembly.GetExecutingAssembly(), harmonyInstanceId: PluginGuid);
+    Patches.PanelInputPatches.Apply(_harmony);
+    Patches.QuestTriggerPatches.Apply(_harmony);
   }
 
   void Update() {
-    if (PluginConfig.IsModEnabled.Value && PluginConfig.SubmitShortcut.Value.IsDown()) {
+    if (!PluginConfig.IsModEnabled.Value) {
+      return;
+    }
+
+    if (PluginConfig.SubmitShortcut.Value.IsDown()) {
       ControlSurfacePanel.Toggle();
+    }
+
+    if (ControlSurfacePanel.IsOpen && Input.GetKeyDown(KeyCode.Escape)) {
+      ControlSurfacePanel.Close();
     }
   }
 
