@@ -1,0 +1,2073 @@
+{
+  "schema_version": 1,
+  "guild": "Slayers",
+  "era": 17,
+  "source": {
+    "kind": "sheet-xlsx",
+    "detail": "../../data/raw/slayer-guild-tracker.xlsx :: Summons list for bot",
+    "url": "https://docs.google.com/spreadsheets/d/1Xij6i1JIUT8iAdVgMDuwy9JzZGvMaU0xv85pSJZmElM",
+    "retrieved": "2026-07-01"
+  },
+  "quests": [
+    {
+      "quest_id": "air_drop",
+      "name": "Air Drop",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Kill a Deathsquito with a thrown Spear\n📸 Deathsquito while holding a Spear\n📸 Kiling Deathsquito, no longer holding Spear",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Air Drop image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "cold_shot",
+      "name": "Cold Shot",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Kill a Drake with a Spear with a thrown Spear\n📸 Drake while holding a Spear\n📸 Kiling Drake, no longer holding Spear",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Cold Shot image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "crow_s_nest",
+      "name": "Crow's Nest",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Jump atop the mast of one of the Drakkars at the Slayer HQ\n📸 View of HQ from your perch",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Crow's Nest image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "dodge_a_wrench",
+      "name": "Dodge a Wrench",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Play a game of Harpoon Ball - staff-hosted Slayer PvP event\n🔗 Event summary posted in #Slayer Announcements",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dodge a Wrench summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "master_killer",
+      "name": "Master Killer",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Prove you cleared the Mistlands and Ashlands\n📸 Turn in: 1 stack each of Seeker Meat, Scale Hide, Charred Bones, Bonemaw Tooth",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Master Killer image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "misty_meat",
+      "name": "Misty Meat",
+      "category": "General summons",
+      "coopable": true,
+      "requirements": "Drag a Serpent onto land and dispose of it\n📸 Dragging the Serpent on land\n📸 Killing Serpent",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Misty Meat image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "rare_killer",
+      "name": "Rare Killer",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Kill the rare enemies and make their heads roll\n📸 Turn in or mount in your quarters: 1 each of Fallen Valkyrie, Rancid Remains, and Wraith Trophies",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Misty Meat image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "hard_and_wild",
+      "name": "Hard and Wild",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Trap 2 wild Boars: one must be 1+ star. Start the taming process and display a sign: \"Free Boars from the Slayers\"\n📸 Wild, fenced, starred Boar with status: 1-99% tame",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Hard and Wild image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "fenrir_s_children",
+      "name": "Fenrir's Children",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Trap 2 wild Wolves: one must be 1+ star. Start the taming process and display a sign: \"Free Wolves from the Slayers\"\n📸 Wild, fenced, starred Wolf with status: 1-99% tame",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Fenrir's Children image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "can_i_pick_your_brain_1",
+      "name": "Can I Pick Your Brain 1",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Stagger a Troll by shooting it in the head for extra damage\n📸 A staggered Troll with a damage number near its head, your bow or crossbow equipped",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Can I Pick Your Brain 1 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "can_i_pick_your_brain_2",
+      "name": "Can I Pick Your Brain 2",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Jump on a Stone Golem's head and hit it with your Pickaxe\n📸 Swinging your Pickaxe on top of a Stone Golem",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Can I Pick Your Brain 2 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "can_i_pick_your_brain_3",
+      "name": "Can I Pick Your Brain 3",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Land the killing blow on a Gjall with a thrown Spear\n📸 Holding a Spear and looking at Gjall\n📸 Gjallsplosion! (spear thrown)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Can I Pick Your Brain 3 image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "can_i_pick_your_brain_4",
+      "name": "Can I Pick Your Brain 4",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Lure a Seeker Soldier into smashing a Jotunn Skull for you\n📸 Seeker Soldier next to a Skull with a hole in it",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Can I Pick Your Brain 4 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "legendary_lobotomizer",
+      "name": "Legendary Lobotomizer",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Complete all 4 Can I Pick Your Brain summons (above)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "too_hot_for_you_1",
+      "name": "Too Hot for You 1",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Kill an enemy in any Dungeon by building a fire under it and walling it off with cooking racks. Deconstruct when done!\n📸 Burning enemy with campfire and cooking racks visible",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Too Hot for You 1 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "too_hot_for_you_2",
+      "name": "Too Hot For You 2",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Parry an Abomination over the flame of a Surtling spawner\n📸 Abomination staggered and on fire",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Too Hot for You 2 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "too_hot_for_you_3",
+      "name": "Too Hot For You 3",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Lure an enemy into Ashlands waters and watch it boil alive\n📸 Enemy losing HP while over boiling water",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Too Hot for You 3 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "too_hot_for_you_4",
+      "name": "Too Hot for You 4",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Dodge roll a lava blob explosion\n📸 You *not* on fire with lava blob explosion effects all around",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Too Hot for You 4 image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "legendary_cook",
+      "name": "Legendary Cook",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Complete all 4 Too Hot for You summons (above)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "deer_destroyer",
+      "name": "Deer Destroyer",
+      "category": "General summons",
+      "coopable": true,
+      "requirements": "In a group of 2-4: Defeat Eikthyr completely unarmed: only fists\n📸 Group fighting Eikthyr barehanded - no solo!\n🤜🤛 Tag all players - they will get credit too",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Deer Destroyer image: participants:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "elder_extinguisher",
+      "name": "Elder Extinguisher",
+      "category": "General summons",
+      "coopable": true,
+      "requirements": "In a group of 2-4: Defeat Elder by swinging Torches at it\n📸 Group fighting Elder with Torches - no solo!\n🤜🤛 Tag all players - they will get credit too",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Elder Extinguisher image: participants:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "bonkin_bonemass",
+      "name": "Bonkin Bonemass",
+      "category": "General summons",
+      "coopable": true,
+      "requirements": "In a group of 2-4: Defeat Bonemass with only wooden Clubs\n📸 Group fighting Bonemass with Clubs - no solo!\n🤜🤛 Tag all players - they will get credit too",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Bonkin Bonemass image: participants:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "melee_moder",
+      "name": "Melee Moder",
+      "category": "General summons",
+      "coopable": true,
+      "requirements": "📸 Defeat Moder with melee weapons only - solo or group fight, but all players submit separately",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Melee Moder image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "got_your_back",
+      "name": "Got Your Back",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Run behind Yagluth's tailbone and kite him around to prevent him attacking - solo or group fight, but all players submit separately\n📸 You behind Yagluth while he does no attack animations",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Got Your Back image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "game_of_thrones",
+      "name": "Game of Thrones",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Defeat The Queen with Frost or Fire weapons/arrows - solo or group fight, but all players submit separately\n📸 You fighting The Queen with Frost or Fire weapons (no magic)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Game of Thones image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "friendly_fissure",
+      "name": "Friendly Fissure",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Lure a Fallen Valkyrie or Morgen into Fader's Fissure (ground spikes) attack and watch it burn to death\n📸 Fallen Valkyrie or Morgen burning in Fader's green flames",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Friendly Fissure image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "legendary_boss_rusher",
+      "name": "Legendary Boss Rusher",
+      "category": "General summons",
+      "coopable": false,
+      "requirements": "Complete all 7 Forsaken-related Boss Rush summons (above)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "ancient_berserker_weapon",
+      "name": "Ancient Berserker Weapon",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Find a Berserker weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Ancient Berserker Weapon image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "arsenal_of_a_berserker",
+      "name": "Arsenal of a Berserker",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "On an armor stand in your quarters, permanently mount your:\n📸 Berserker armor (Carapace set) and\n📸 Dual-wielded weapons",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Arsenal of a Berserker image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "build_dedication",
+      "name": "Build: Dedication",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Build a huge, statue-sized viking weapon, at least 6m tall.\nCould be turned into a Slayer Ancient Weapon Site!\n📸x4 of your Build",
+      "reward": null,
+      "evidence": {
+        "screenshots": 4,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Build: Dedication image: image2: image3: image4:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "burning_man",
+      "name": "Burning Man",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Fight a horde of 5+ Ashlands enemies including:\n📸 A Morgen or a Fallen Valkyrie, and\n📸 Win, showing their drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Burning Man image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "burnt_bonemaw",
+      "name": "Burnt Bonemaw",
+      "category": "Berserker summons",
+      "coopable": true,
+      "requirements": "Drag a Bonemaw into the Ashlands Lava and kill it - can co-op\n🤜🤛 Tag another player to credit both of you\n📸 You both killing the Bonemaw over lava",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Burnt Bonemaw image: participants:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "coup_de_grace",
+      "name": "Coup de Grace",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Jump out of your boat in the Ocean and\n📸  Kill a Serpent before you splash land, to get the\n📸 (show inventory) Serpent Scales before they sink!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Coup de Grace image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "exterminator",
+      "name": "Exterminator",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Find and destroy the Mini-Bosses of Valheim:\n📸 Turn in or mount in your quarters: 1 each of Brenna, Geirrhafa, Zil, Thungr Trophies",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Exterminator image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "fort_night",
+      "name": "Fort Night",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Taking another player to a Charred Fortress you found, and as a\n🔗 Protection Contract, help them clear it. Take no loot as always.\n📸 You both clearing the fortress",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Fort Night image: summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "god_of_thunder",
+      "name": "God of Thunder",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Using a gemmed weapon, trigger a massive chain lightning proc!\n📸 5+ enemies getting zapped",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:God of Thunder image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "helldiver",
+      "name": "Helldiver",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Use a catapult to\n📸 (Superman pose) launch yourself into a Charred Fortress and\n📸 (empty fortress) eliminate all enemies within!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Helldiver image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "helldiver_legendary",
+      "name": "Helldiver Legendary",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Do Helldiver totally naked: No feather cape, no magic\nDeaths are expected, Helldivers are expendable!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Helldiver Legendary image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "iron_price",
+      "name": "Iron Price",
+      "category": "Berserker summons",
+      "coopable": true,
+      "requirements": "📸 Fight another player to the death over a weapon - describe what weapon was worth your lives! Follow boosting rules!\n🤜🤛 Tag your opponent - you both receive credit",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": true
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Iron Price image: participants: summons_notes:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "raging",
+      "name": "Raging",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Prove your strength. 📸 Kill a Seeker Soldier while naked and using dual-wielded weapons\n📸 Survive, showing its drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Raging image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "this_is_sparta",
+      "name": "This is SPARTA",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Using Flesh Rippers, 📸 kick an enemy 📸 into a mountain well!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:This is SPARTA image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "trial_by_fire",
+      "name": "Trial by Fire",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "In the Slayer event, Trial By Fire: Defeat the Fuling Berserker\n📸 Show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Trial by Fire image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "trial_by_fire_legendary",
+      "name": "Trial by Fire Legendary",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "In the Slayer event, Trial By Fire: Defeat Lord Reto\n📸 Show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Trial by Fire Legendary image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "who_seeks_the_seekers",
+      "name": "Who Seeks the Seekers",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Using Dual-wielded or Lightning weapons,\n📸 Fight through an Infested Mine with multiple Seeker Soldiers\n🔗 Post coordinates @Slayers to help others get Soldier Trophies",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Who Seeks the Seekers image: summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "wicked_purge",
+      "name": "Wicked Purge",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Using Dual-wielded or Lightning weapons 📸 kill everything at a Fuling Camp and 📸 show the ruins left in your wake",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Wicked Purge image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "berserker_event",
+      "name": "Berserker Event",
+      "category": "Berserker summons",
+      "coopable": false,
+      "requirements": "Rip and tear, until it is done.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Berserker Event image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "ancient_brute_weapon",
+      "name": "Ancient Brute Weapon",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Find a Brute weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Ancient Brute Weapon image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "arsenal_of_a_brute",
+      "name": "Arsenal of a Brute",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "On an armor stand in your quarters, permanently mount your:\n📸 Brute armor (Padded set) and\n📸 Two-handed weapon",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Arsenal of a Brute image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "build_fight_club",
+      "name": "Build: Fight Club",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Build a battle arena for you and your friends.\nCould be turned into a Slayer PvP Event!\n📸x4 of your Build",
+      "reward": null,
+      "evidence": {
+        "screenshots": 4,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dedication image: image2: image3: image4:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "banger",
+      "name": "Banger",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Jump on a Gjall and 📸 beat its brains with a Two-handed Hammer!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Banger image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "bloodborne",
+      "name": "Bloodborne",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Transport 📸 four Ticks to your Slayer Quarters! Starred ticks count as two!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Bloodborne image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "bloody_blade",
+      "name": "Bloody Blade",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "With a Brutal Slayer two-handed sword,\n📸 Fight a Seeker Soldier while missing more than half your HP\n📸 Then kill it! - show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Bloody Blade image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "blood_soaked",
+      "name": "Blood soaked",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "With a Bloodstone-enhanced or a two-handed weapon,\n📸 Find two Morgens together...\n📸 and kill them at the same time! - show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Blood Soaked image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "cattle_prod",
+      "name": "Cattle Prod",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "📸 Hit 3 Lox at once with a Himminafl secondary (spin attack)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Cattle Prod image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "flawless_victory",
+      "name": "Flawless Victory",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Participate in a staff-hosted Eichenwalde PvP event\n(Not the Creator version)\n🔗 Link summary post from #Slayers",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Earthshatter summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "flawless_victory_legendary",
+      "name": "Flawless Victory Legendary",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "At a staff-hosted Eichenwalde PvP event,\n📸 Kill multiple opponents with one Earthshatter (single-use Demolisher with that tag)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Earthshatter Legendary image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "golem_executioner",
+      "name": "Golem Executioner",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "📸 Wield a two-handed sledgehammer facing two Stone Golems\n📸 and reduce them both to rubble",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Golem Executioner image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "hold_my_mead",
+      "name": "Hold my Mead",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Jump off a high point in the Mistlands or Ashlands, taking \n📸 Severe fall damage (over 50). With a blood-enhanced weapon, 📸 Kill an enemy in one blow.",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Hold my Mead image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "homewrecker",
+      "name": "Homewrecker",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "📸 Demolish a Dvergr Tower with a sledgehammer and\n📸 Stash away the drops nearby, off-site (don't block Regen!) in chests with a sign: \"Free Dvergr mats from the Slayers.\"",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Homewrecker image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "kilo_strike",
+      "name": "Kilo Strike",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Do over 1000 damage in a single strike!\n📸 Damage number over 1000 - see how high you can hit!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Kilo Strike image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "kilo_strike_legendary",
+      "name": "Kilo Strike Legendary",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Reach over 📸 2500 damage in a single strike!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Kilo Strike Legendary image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "rude_awakening",
+      "name": "Rude Awakening",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "📸 Backstab (surprise attack) a Forsaken Boss as it spawns, by performing a two-handed sword secondary (big stab)",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Rude Awakening image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "supreme_king",
+      "name": "Supreme King",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Using only the Brutal Slayer or Krom and no magic,\n📸 Kill The Queen in a solo battle\n📸 Show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Supreme King image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "warrior_s_tale",
+      "name": "Warrior's Tale",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Return to the site of a major battle you once had, and \n📸 Write a story about it on signs built next to a campfire and chair",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Warrior's Tale image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "brute_event",
+      "name": "Brute Event",
+      "category": "Brute summons",
+      "coopable": false,
+      "requirements": "Kill everything that moves!\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Brute Event image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "ancient_knight_weapon",
+      "name": "Ancient Knight Weapon",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Find a Knight weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Ancient Knight Weapon image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "arsenal_of_a_knight",
+      "name": "Arsenal of a Knight",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "On an armor stand in your quarters, permanently mount your:\n📸 Knight armor (Silver, Iron, or Bronze set) and\n📸 One-handed weapon and shield",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Arsenal of a Knight image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "build_training_grounds",
+      "name": "Build: Training Grounds",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Build a Training area where players can level their skills.\nCould be turned into a Slayer Training Hall!\n📸x4 of your Build",
+      "reward": null,
+      "evidence": {
+        "screenshots": 4,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dedication image: image2: image3: image4:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "can_t_touch_this",
+      "name": "Can't Touch This",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Block or parry over 200 damage from one incoming blow!\nNo magic bubbles, must be a physical shield or weapon\n📸 Show damage text: Blocked 200+",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Can't Touch This image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "challenger",
+      "name": "Challenger",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Complete 10 Protection Contracts",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "diplomat",
+      "name": "Diplomat",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Provide Slayer Protection for a Guild-related event or activity\n🔗 Thank-you post or approved bounty",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Diplomat summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "dragon_rider",
+      "name": "Dragon Rider",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "📸 Stand atop a flying Drake\nAlso counts for the Daring Drifter Explorer Adventure",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dragon Rider image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "dragon_rider_legendary",
+      "name": "Dragon Rider Legendary",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "📸 Stand on Moder's back while she is flying!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dragon Rider Legendary image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "float_like_a_butterfly",
+      "name": "Float Like a Butterfly",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Without using protection magic or Anti-Sting potions:\n📸 Stare down a Deathsquito completely naked and unarmed\n📸 and kill it with your bare hands - show drops",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Float Like a Butterfly image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "float_like_a_butterfly_legendary",
+      "name": "Float Like a Butterfly Legendary",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Do Float Like a Butterfly with no food at all!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Float Like a Butterfly Legendary image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "gold_price",
+      "name": "Gold Price",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Earn at least 10 of these Merchant Tokens:\nArmorer, Bedazzled, Blacksmith, Rootin' Tootin' and Shootin'\n🔗 Your approved tokens using /merchant count",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Gold Price summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "knight_of_odin",
+      "name": "Knight of Odin",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Complete a set of 6 Creator Capes and redeem your Odin Cape!\n📸 Show off its tag",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Knight of Odin image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "parry_master",
+      "name": "Parry Master",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Complete the Parry Hunting Grounds event\n📸 Show the aftermath of the final fight",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Parry Master image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "realm_protector",
+      "name": "Realm Protector",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "📸 Turn in or mount the heads of all 7 Forsaken Bosses.",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Realm Protector image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "standard_bearer",
+      "name": "Standard-bearer",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Participate in a staff-hosted Capture the Flag event\n🔗 Link summary post from #Slayers",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Standard-bearer summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "silver_tempest",
+      "name": "Silver Tempest",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "The Knights need upgraded equipment to fend off the undead.\nCraft a Silver Sword and Shield and\n📸 Turn in or mount them in your quarters",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Silver Tempest image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "veteran",
+      "name": "Veteran",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Run two Combat Creator Events with a non-basemate player who hasn't already completed it this era\n🔗🔗 Thank-you posts mentioning who the first-timers are",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Veteran summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "witch_hunter",
+      "name": "Witch Hunter",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Burn a Fuling Shaman to death by \n📸 dragging it into the Bonfire at a Fuling camp",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Witch Hunter image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "knight_event",
+      "name": "Knight Event",
+      "category": "Knight summons",
+      "coopable": false,
+      "requirements": "Find out what happened to Geirrhafa.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Knight Event image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "ancient_rogue_weapon",
+      "name": "Ancient Rogue Weapon",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Find a Rogue weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Ancient Rogue Weapon image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "arsenal_of_a_rogue",
+      "name": "Arsenal of a Rogue",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "On an armor stand in your quarters, permanently mount your:\n📸 Rogue armor (Root, Fenris, or Ask set) and\n📸 Bow, Crossbow, or Knife",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Arsenal of a Rogue image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "build_shrine_of_smoke",
+      "name": "Build: Shrine of Smoke",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Build a shrine to a Slayer you wish to honor and write a story about their deeds on signs.\n📸x4 of your Build",
+      "reward": null,
+      "evidence": {
+        "screenshots": 4,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Dedication image: image2: image3: image4:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "airshot",
+      "name": "Airshot",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Kill a Blob mid-jump\n📸 Blobsplosion in the air!",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Airshot image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "air_superiority",
+      "name": "Air Superiority",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Jump off a 📸 high place with a feather cape and\n📸 Shoot a flying enemy in midair",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Air Superiority image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "air_superiority_legendary",
+      "name": "Air Superiority Legendary",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Instead of jumping, use a catapult to\n📸 launch yourself into the sky and\n📸 shoot a flying enemy while flying (Superman-posed) in midair",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Air Superiority Legendary image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "back_stabber",
+      "name": "Back Stabber",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Befriend a Dvergr - 📸 dance with them - and then 📸 kill them with a knife",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Back Stabber image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "bird_of_prey",
+      "name": "Bird of Prey",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "📸 Kill a Volture from a great distance in one shot",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Bird of Prey image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "bomb_voyage",
+      "name": "Bomb Voyage",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Throw down a basalt bomb at your feet in the Ashlands lava to temporarily escape from enemies\n📸 Taunt them while you're out of reach",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Bomb Voyage image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "clash_of_titans",
+      "name": "Clash of Titans",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Find out whose strength is greatest: Get a 1v1 fight going between a Troll, Abomination, Golem, or Lox\n📸 Show the spectacle and note who won",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": true
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Clash of Titans image: summons_notes:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "death_from_above",
+      "name": "Death from Above",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Eliminate the flying threats spawncamping your fellow Vikings:\n📸 Turn in or mount in your quarters: 1 each of Volture, Gjall, and Deathsquito Trophies",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Death from Above image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "full_house",
+      "name": "Full House",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "📸 Turn in a complete Charred skeleton: 1 each of Warrior, Warlock, and Marksman Trophies",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Death from Above image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "gjallarhorn_come",
+      "name": "Gjallarhorn Come",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Lure a Gjall into a different biome and\n📸 Watch it set your enemies aflame",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Gjallarhorn Come image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "redeemer",
+      "name": "Redeemer",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "With only a bow and knife eliminate a fallen Valkeryie over the flames of the Ashlands\n📸 Screenshot of their death by weapon or short video",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Redeemer image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "raid_shadow_legends",
+      "name": "Raid Shadow Legends",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "📸 Complete the Mysterious Mist in a group (no soloing)\n🤜🤛 Tag all participants - everyone gets credit",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": true,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Shadow Hunter image: participants:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "silent_killer",
+      "name": "Silent Killer",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "📸 Sneak up behind a Troll",
+      "reward": null,
+      "evidence": {
+        "screenshots": 1,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Silent Killer image:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "silent_killer_legendary",
+      "name": "Silent Killer Legendary",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "📸 Sneak up behind a 📸 starred Troll and, with a knife, \n📸 Kill it in one blow",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Silent Killer Legendary image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "tower_defense",
+      "name": "Tower Defense",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Participate in Tower Defense staff-hosted event\n🔗 Link summary post from #Slayers",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": true,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Tower Defense summons_url:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    },
+    {
+      "quest_id": "rogue_event",
+      "name": "Rogue Event",
+      "category": "Rogue summons",
+      "coopable": false,
+      "requirements": "Choose 1 path to the Castle. Strike down anyone in your way.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+      "reward": null,
+      "evidence": {
+        "screenshots": 2,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": "/slayer summons summons_type:Rogue Event image: image2:",
+      "auto_checked": false,
+      "venue": "in_game",
+      "trigger": null
+    }
+  ]
+}
