@@ -35,10 +35,7 @@ distrust of AI-built bots.
 - **"Trained outside the game" / "I'm fun at parties"** → the broken-toys ethos: documentation as a
   survival adaptation; honor it, make the coping lighter, never remove the control that makes it safe.
 
-## How it evolved
-"The volunteer" → journey/motivation → private-Discord-as-spec → no-basement → celebration → the Core
-aim (appreciation) → the discovery that her celebration idea **already exists** in the community as the
-Hall of Fame (§20). Her instinct kept turning out to be the design.
+
 
 ## What it changed in the kernel / build
 Owner-controlled + portable/owned + no-basement invariants; the *celebration* recipe; and the Core aim
