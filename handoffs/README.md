@@ -1,7 +1,7 @@
-# Handoff kit — the in-game "gallery" camera pipeline
+# Handoff kit - the in-game "gallery" camera pipeline
 
-This folder decomposes one end-to-end capability — *turn a saved Valheim world into a flythrough
-video of its most impressive builds* — into **independent segments**, each written to be handed to a
+This folder decomposes one end-to-end capability - *turn a saved Valheim world into a flythrough
+video of its most impressive builds* - into **independent segments**, each written to be handed to a
 **different builder, on a different machine, using a different AI model, with none of the surrounding
 context.**
 
@@ -11,12 +11,10 @@ brief tells its builder exactly what file comes in and what file goes out. Nobod
 
 ## The pipeline (data flows left to right)
 
-```
- world .db  ──[Segment 1: extraction, ALREADY BUILT]──▶  waypoints.json
-                                                              │
- waypoints.json + a running modded Valheim ──[Segment 2/3: fly it]──▶  timeline.json  (+ live capture)
-                                                              │
- recorded video + timeline.json ──[Segment 4: cut it]──▶  gallery/  (clips + stills + gallery.json)
+```text
+world .db --[Segment 1: extraction, ALREADY BUILT]--> waypoints.json
+waypoints.json + a running modded Valheim --[Segment 2/3: fly it]--> timeline.json (+ live capture)
+recorded video + timeline.json --[Segment 4: cut it]--> gallery/ (clips + stills + gallery.json)
 ```
 
 - **Recording is a solved problem and is NOT a segment.** Any screen recorder (OBS, Discord "Go
@@ -25,9 +23,9 @@ brief tells its builder exactly what file comes in and what file goes out. Nobod
 
 ## The contracts (the only shared knowledge)
 
-### `waypoints.json` — produced by Segment 1, consumed by Segment 3
+### `waypoints.json` - produced by Segment 1, consumed by Segment 3
 A ranked list of world locations to visit. `x`/`z` are Valheim world coordinates (horizontal); `y`
-(height) is optional — the flight code resolves ground height itself. See `waypoints.sample.json` in
+(height) is optional - the flight code resolves ground height itself. See `waypoints.sample.json` in
 this folder for a **real fixture** you can build and test against with zero other context.
 ```json
 {
@@ -48,7 +46,7 @@ this folder for a **real fixture** you can build and test against with zero othe
 }
 ```
 
-### `timeline.json` — produced by Segment 3, consumed by Segment 4
+### `timeline.json` - produced by Segment 3, consumed by Segment 4
 For each waypoint the flight visited, the seconds (relative to the moment the flight started moving,
 `t = 0`) when the camera arrived and left. This is what lets the video be cut without anyone eyeballing it.
 ```json
@@ -62,40 +60,43 @@ For each waypoint the flight visited, the seconds (relative to the moment the fl
 }
 ```
 
-### `gallery/` — produced by Segment 4 (the final artifact)
+### `gallery/` - produced by Segment 4 (the final artifact)
 A folder of per-build clips + stills and a `gallery.json` manifest tying each to its rank/owner/caption.
 
 ## The segments
 
-| # | Brief | Hand to someone who knows… | In → Out |
+| # | Brief | Hand to someone who knows... | In -> Out |
 |---|---|---|---|
-| 1 | [`segment-1-waypoints-from-world.md`](segment-1-waypoints-from-world.md) **(built)** | Java + Python | world `.db` → `waypoints.json` |
-| 2 | [`segment-2-get-into-the-world.md`](segment-2-get-into-the-world.md) | Valheim + BepInEx basics | a world save → a running, mod-loadable Valheim in that world |
-| 3 | [`segment-3-flight-path-mod.md`](segment-3-flight-path-mod.md) | C# / Unity / BepInEx modding | `waypoints.json` → a live flythrough + `timeline.json` |
-| 4 | [`segment-4-video-to-gallery.md`](segment-4-video-to-gallery.md) + [`segment-4-runner.md`](segment-4-runner.md) | ffmpeg + any scripting | video + `timeline.json` → `gallery/` |
+| 1 | [`segment-1-waypoints-from-world.md`](segment-1-waypoints-from-world.md) **(built)** | Java + Python | world `.db` -> `waypoints.json` |
+| 2 | [`segment-2-get-into-the-world.md`](segment-2-get-into-the-world.md) | Valheim + BepInEx basics | a world save -> a running, mod-loadable Valheim in that world |
+| 3 | [`segment-3-flight-path-mod.md`](segment-3-flight-path-mod.md) | C# / Unity / BepInEx modding | `waypoints.json` -> a live flythrough + `timeline.json` |
+| 4 | [`segment-4-video-to-gallery.md`](segment-4-video-to-gallery.md) + [`segment-4-runner.md`](segment-4-runner.md) | ffmpeg + any scripting | video + `timeline.json` -> `gallery/` |
 
 Before building Segment 3, run the proof kit in
 [`valheim-camera-proof/`](valheim-camera-proof/README.md). It verifies the actual obstacle: this
 machine can load the save, load BepInEx, see `Player.m_localPlayer`, teleport to a waypoint, and write
 proof files.
 
-**Segment 1 (extraction) is built** — see its brief, the emitter `segment-1-emit-waypoints.py`, and
+**Segment 1 (extraction) is built** - see its brief, the emitter `segment-1-emit-waypoints.py`, and
 the real output `waypoints.json` (Era 16's top 15 clusters, attributed to their builders). It's pure
-composition of two existing endpoints — no parser change. Downstream segments can develop against
+composition of two existing endpoints - no parser change. Downstream segments can develop against
 either the real `waypoints.json` or the `waypoints.sample.json` fixture; both share the contract shape.
 
-## Two other slices (separate handoffs, same template — not in this pipeline)
-- **The control surface** (the community-facing workflow slice): **built** — see
-  [`comfy-control-surface/`](comfy-control-surface/). In-game submission → local outbox → review
-  inbox → copy-paste guild-bot command; no bot, no server. Its delivery brief is
+## Related built work
+
+- **The control surface** (the community-facing workflow slice): **built** - see
+  [`comfy-control-surface/`](comfy-control-surface/). In-game submission -> local outbox -> review
+  inbox -> copy-paste guild-bot command; no bot, no server. Its delivery brief is
   [`comfy-control-surface/QUEST.md`](comfy-control-surface/QUEST.md), written to ship inside the
-  package zip.
+  package zip. Read this with `quest-log-retrospective.md` and `REBOOT-HANDOFF.md` if you want the
+  later quest-log expansion and current next-step guidance.
 - **A general Valheim mod** (the toolchain that Segment 3 is a specific instance of): Segment 2 + 3
   together already establish it; a standalone "how to build any Valheim mod" brief can be extracted
   from Segment 3 later.
 
 ## For the coordinator (you)
+
 Hand each builder **only their brief + the contract files they touch** (the two JSON schemas above and
 `waypoints.sample.json`). Do not hand them this project's history. If a builder needs to know anything
-that isn't in their brief or a contract, that's a bug in the decomposition — fix the brief, not the
+that isn't in their brief or a contract, that's a bug in the decomposition - fix the brief, not the
 builder.

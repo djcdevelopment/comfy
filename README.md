@@ -1,67 +1,70 @@
-# Comfy - a build session that deliberately built almost nothing
+# Comfy
 
-*Shared openly as homework. If you're here to learn how to leverage AI, read the restraint, not the output.*
+*Shared openly as homework. If you're here to learn how to leverage AI, read the restraint, then read the few places where restraint finally paid off.*
 
 ## What this is
 
-The record of one long, single-session build for a volunteer game community ("Comfy," a heavily-modded
-Valheim server). But the artifact that matters isn't the code - it's the **method**, shared in the open
-so anyone can copy *how the understanding was built*, not just what came out.
+This repo started as the record of one long build session for a volunteer game community
+("Comfy," a heavily-modded Valheim server). The artifact that mattered first was the
+**method**: understand the world from multiple human seats, delay the data flood until a
+lens exists, and resist building until a concrete projection earns its keep.
 
-## The most valuable thing here is the restraint
+That first session did not stay abstract forever. A small number of deliberate projections
+were built afterward, and they now live alongside the method that produced them.
 
-Read these docs (and the conversation behind them) and notice what *didn't* happen. Over and over, the
-cheap thing - "just build it" - was right there, and it got set down in favor of understanding first.
+## Start here
 
-> **When execution was expensive, cost forced you to plan.** Now execution is nearly free - so the
-> discipline that expense used to *enforce* now has to be *chosen*, against a current pulling everyone
-> toward building fast and thinking less. The scarcity didn't vanish. It **moved** - from execution to
-> **intention.** Planning with intention is scarcer, and more valuable, than it has ever been.
-
-So: **we built nothing - and the nothing is the point.** The value isn't the recipes or the widgets.
-It's the turns of "not yet," and why.
-
-## The method (the copyable part)
-
-**Understanding before data.** Describe the problem from every seat - the users' fears, hopes, why they
-play, the structure from each angle you've stood at - and *withhold the data firehose* until there's a
-lens to aim it through. Build the projector, not the slides. Data is infinite and directionless;
-understanding is compressed and directional. (See `docs/kernel.md` -> the method note.)
-
-## How to read this
-
-- **`docs/kernel.md`** - the locked understanding everything resolves to. *Start here.*
-- **`docs/perspectives/`** - the human lenses, one file each: how the understanding was assembled, in order.
-- **`docs/community-insights.md`** - the raw threads, numbered, in the order they surfaced.
-- **`docs/positioning.md` / `docs/adoption-strategy.md` / `framework/PHILOSOPHY.md`** - how to talk about
-  it, how to bring it in, and why it's open and craftable.
-- **`recipes/` / `framework/`** - the *little* that got built, and (in the philosophy) why so little.
-- **`data/`** - the raw source, landed untouched, plus the few normalized artifacts.
-- **`docs/method/`** - the reusable *method*: `conversation-ledger.md` (turn-by-turn), the extracted
-  `the-lens-first-playbook.md` (with an honest "what's Derek-specific, don't cargo-cult" section), and
-  `conversation-extract.md` (the full session, readable).
+- `docs/kernel.md` - the locked understanding everything else resolves to.
+- `docs/perspectives/` - the human lenses that built that understanding.
+- `docs/method/` - the reusable operating discipline, ledger, and full conversation extract.
 
 ## What got built
 
-Two different agent passes were used as handoff readers, not as all-knowing builders:
+### Recipes and data contracts
 
-- one pass turned the perspective work into the `handoffs/` brief set and the control-surface vertical slice
-- a second pass inspected the existing ComfyMods ecosystem and wrote the implementation guidance for the
-  in-game control surface
+- `recipes/rank-ladders/` - canonical guild rank requirements rendered into machine-usable
+  action definitions.
+- `recipes/quest-catalogs/` - live guild tracker harvest -> validated quest catalogs ->
+  anomalies reports -> picker input.
+- `data/raw/` - landed source material with provenance.
+- `data/processed/` - derived catalogs, anomaly reports, and the generated quest picker.
 
-The concrete artifacts from that work live here:
+### Handoffs and proofs
 
-- **`handoffs/in-game-control-surface.md`** - the vertical-slice brief for the in-game control surface
-- **`handoffs/comfymods-inspection.md`** - the assessment of ComfyMods patterns to reuse
-- **`handoffs/comfy-control-surface/`** - the actual mod workbench built from those briefs
-- **`handoffs/valheim-camera-proof/`** - the earlier proof kit that verified the modding path before the
-  vertical slice
+- `handoffs/valheim-camera-proof/` - the first proof kit that established the local Valheim
+  modding path.
+- `handoffs/` - the decomposed camera/gallery pipeline and the later control-surface slices.
+- `handoffs/comfymods-inspection.md` - implementation guidance based on the existing
+  ComfyMods ecosystem.
 
-## The recursion worth noticing
+### The built vertical slice
 
-The way this was built is the same shape as the thing it builds: *build the loop, not the control;
-understand before you absorb; never automate the human magic.* The method and the message are one object.
+- `handoffs/comfy-control-surface/` - a local-first BepInEx plugin plus bridge consumer:
+  in-game capture -> local outbox -> GM review inbox -> exported guild-bot command.
+- `handoffs/quest-log-retrospective.md` - how that slice expanded from rank proof to the
+  player quest log, auto-capture, kill sequences, and the Ledger panel.
+- `handoffs/REBOOT-HANDOFF.md` - the current "pick this up cold" brief.
 
----
+## How the pieces connect
 
-*Execution is cheap. Intention is the scarce supply. Spend accordingly.*
+The work now forms one chain:
+
+`docs/kernel.md` -> `recipes/quest-catalogs/` and `recipes/rank-ladders/` ->
+`data/processed/quest-picker.html` -> `quest-view.json` ->
+`handoffs/comfy-control-surface/` -> local review/export.
+
+The older camera/gallery handoff is still relevant because it proved the same local modding
+surface the control-surface work now uses.
+
+## How to read the repo
+
+- Read `docs/kernel.md` first if you want the thesis.
+- Read `docs/method/the-lens-first-playbook.md` if you want the operating discipline.
+- Read `handoffs/REBOOT-HANDOFF.md` if you want the current built state and likely next moves.
+- Read `handoffs/comfy-control-surface/QUEST.md` if you want the packaged, end-to-end player/GM slice.
+
+## The principle that still holds
+
+Execution got cheaper; intention did not. The point of this repo is still that understanding
+should lead and automation should follow. The difference is that there are now a few built
+artifacts showing what happens when that discipline finally cashes out.

@@ -1,4 +1,4 @@
-# Reboot handoff - 2026-07-01
+# Reboot handoff - 2026-07-02
 
 ## Current state
 
@@ -7,18 +7,17 @@ Branch is clean and pushed to `origin/main`.
 Latest commit:
 
 ```text
-a379bc1 Add Mikers Slayer rank proof demo
+f606ee5 Add the quest-log slice retrospective
 ```
 
 Recent relevant commits:
 
 ```text
-a379bc1 Add Mikers Slayer rank proof demo
-132cc8d Add local review inbox
-a8dba21 Add control surface bridge consumer
-e018d1e Add control surface proof inspector
-713ede1 Add control surface proof checklist
-cc322ee Add Valheim handoff and control surface workbench
+f606ee5 Add the quest-log slice retrospective
+1bd5f00 Quest log mod v0.3.0 -> v0.6.0: quest view, auto-capture, kill sequences, Ledger panel
+30eda37 Add the quest picker (Faceted Codex) and the player quest-view contract
+a8b5f5a Add quest-catalog recipe: configurator harvest over two live guilds
+a0e9416 Land live guild sources: Slayer + Ranger trackers, guild handbook
 ```
 
 ## What is built
@@ -31,18 +30,25 @@ Location:
 handoffs/comfy-control-surface/
 ```
 
-This is a BepInEx Valheim plugin proof slice. It supports:
+This is the live BepInEx Valheim vertical slice. It now supports:
 
 - configurable local `actions.json`
-- `F7` default action hotkey
+- `F7` panel with Actions and Quest Log views
 - `comfy_submit`
 - `comfy_control_status`
 - `comfy_control_reload`
-- local screenshot evidence
-- structured outbox payloads
-- JSONL traces
-- status files
+- `comfy_quest_reload`
+- local screenshot evidence, including multi-shot sequences
+- structured outbox payloads, receipts, JSONL traces, and status files
+- quest-view ingestion from the picker output
+- automatic trigger capture for implemented `hit` and `kill` quest specs
 - no network, no bot token, no central service
+
+Primary references:
+
+- `handoffs/comfy-control-surface/README.md`
+- `handoffs/comfy-control-surface/CHANGELOG.md`
+- `handoffs/quest-log-retrospective.md`
 
 ### Bridge consumer
 
@@ -73,6 +79,58 @@ needs-info <submission_id> --reason "..."
 export <submission_id>
 ```
 
+It remains backward compatible with the original rank-proof payloads while also handling
+quest-proof exports and multi-image attachment lists.
+
+Primary reference:
+
+- `handoffs/comfy-control-surface/bridge-consumer/README.md`
+
+### Quest catalog + picker pipeline
+
+Locations:
+
+```text
+recipes/quest-catalogs/
+data/processed/
+```
+
+This is the inbound data path for the quest log:
+
+- harvest live guild sheets through `sources.json`
+- validate to a canonical catalog contract
+- emit anomalies reports rather than silently fixing source issues
+- generate the local picker page
+- save a per-player `quest-view.json` for the mod to ingest
+
+Current harvested catalogs:
+
+- Slayers: 103 quests
+- Rangers: 85 quests
+
+Primary references:
+
+- `recipes/quest-catalogs/schema.md`
+- `recipes/quest-catalogs/quest-view-schema.md`
+- `data/processed/quest-picker.html`
+- `handoffs/quest-log-retrospective.md`
+
+### Rank ladder recipe
+
+Location:
+
+```text
+recipes/rank-ladders/
+```
+
+This remains the source of truth for rank-proof actions. The control-surface starter
+`actions.json` is generated from the ladder output, not maintained by hand.
+
+Primary references:
+
+- `recipes/rank-ladders/schema.md`
+- `handoffs/comfy-control-surface/generate-actions-from-rank-ladder.py`
+
 ### Mikers demo
 
 Location:
@@ -96,6 +154,18 @@ Expected export:
 ```text
 /slayer submit rank:Thrall proof:evidence/20260701-210000-slayer-rank-thrall-demo.png
 ```
+
+### Earlier proof and parallel handoff work
+
+Locations:
+
+```text
+handoffs/valheim-camera-proof/
+handoffs/
+```
+
+The camera proof and gallery pipeline handoffs still matter because they established the
+same local Valheim modding/tooling path before the control-surface slice existed.
 
 ## Proof already completed
 
@@ -146,71 +216,54 @@ python .\handoffs\comfy-control-surface\bridge-consumer\review_inbox.py .\handof
 python .\handoffs\comfy-control-surface\bridge-consumer\bridge_consumer.py "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\config\comfy-control"
 python .\handoffs\comfy-control-surface\bridge-consumer\review_inbox.py "C:\Program Files (x86)\Steam\steamapps\common\Valheim\BepInEx\config\comfy-control" list
 python .\recipes\rank-ladders\validate.py .\recipes\rank-ladders\example-output.json
+python .\recipes\quest-catalogs\validate.py .\data\processed\quest-catalog-slayers.json
+python .\recipes\quest-catalogs\validate.py .\data\processed\quest-catalog-rangers.json
 python .\handoffs\video_to_gallery.py sample.mp4 .\handoffs\timeline.sample.json --dry-run --duration 60
 ```
 
 ## Current design assessment
 
-The functional boundary is proven. The next risk is user/support experience.
+The functional boundary is proven across both directions:
 
-The current CLI/file workflow works, but it still feels like a developer workbench. That is acceptable
-for proof, but not enough for adoption.
+- curated guild data can flow into the game as a player quest log
+- player evidence can flow back out as reviewable local submissions
 
-Next build should prioritize making support and operation easy before adding richer in-game UI.
+The next risks are not "can this work?" risks. They are product-shaping risks:
+
+- which trigger specs are worth encoding next
+- whether the anomaly reports get ruled on by guild staff
+- how review state returns to the player
+- whether the IMGUI panel gets the intended reskin
+- how much support burden remains when a non-builder installs it
 
 ## Recommended next build
 
-Build the support diagnostics workbench:
+Build the flagship real quest trigger:
 
 ```text
-handoffs/comfy-control-surface/support/diagnose.ps1
+Air Drop: thrown-spear Deathsquito kill, first-hit -> death sequence
 ```
 
-Purpose:
+Reason:
 
-One command should answer whether the local install is healthy.
+It uses machinery that already exists:
 
-It should check:
+- quest catalogs
+- quest-view ingestion
+- `kill` triggers
+- two-shot capture
+- bridge export
+- local review
 
-- Valheim install exists
-- BepInEx exists
-- plugin DLL installed
-- plugin version if detectable
-- `comfy-control` config exists
-- `actions.json` exists
-- actions load status from `plugin-status.json`
-- latest startup trace
-- latest submission
-- latest error
-- outbox count
-- evidence count
-- bridge-review count
-- latest BepInEx log lines for `ComfyControlSurface`
-- generated package zip contents
+It is the cleanest "real quest, real drama, no new architecture" demo.
 
-It should write:
+## After that, likely order
 
-```text
-support-report.md
-support-report.json
-```
-
-This helps future Derek, Mikers, or any rep/supporter answer "what is broken?" without spelunking.
-
-## After diagnostics
-
-Build a small player-facing in-game panel:
-
-```text
-F7 opens panel
--> Slayers
--> Rank Proof
--> Thrall / Thegn / Jarl
--> Capture proof
--> Saved receipt
-```
-
-Keep the console commands for testers, but do not require players to use them.
+1. Get guild rulings on the existing anomalies and land updated source truth.
+2. Add the contracts/bounties tabs from Mikers and a Ranger follow-up pass.
+3. Add review-status round-trip as a file-shaped sync back to the player.
+4. Count prior captures from local receipts inside the panel.
+5. Port the Ledger panel chrome from IMGUI semantics to a cleaner Jotunn/uGUI skin.
 
 ## Important principles to keep
 
@@ -221,4 +274,4 @@ Keep the console commands for testers, but do not require players to use them.
 - Export into existing workflows before integrating with credentials.
 - Persona-specific proof beats generic infrastructure.
 - Mikers demo is the beachhead.
-
+- Standardize the plumbing, never the guild content.
