@@ -11,6 +11,7 @@ It grew in layers:
 1. a **core session** about understanding the Comfy community from multiple human seats
 2. a **process capture** phase that turned that session into reusable docs and working method
 3. a set of **small projection builds** and later **vibe-built vertical slices** that used the understanding as source material
+4. a small **network research fork** for shareable multiplayer architecture notes
 
 If you open the repo cold, the important distinction is:
 
@@ -171,6 +172,19 @@ It is the combination of:
 
 That is why a file like `docs/quest-vertical-slice-architecture.md` exists here at all.
 It only makes sense because the repo is both the understanding and the build history.
+
+## Network research fork
+
+There is now also a small top-level research fork in `network/`.
+
+That directory is for shareable notes about multiplayer architecture: bandwidth budgets,
+priority-ranked replication, interest management, transport fallback, and the older design
+discipline that came from building for weaker machines and weaker links.
+
+Best entry points:
+
+- `network/README.md`
+- `network/research-framing.md`
 
 ## The principle that still holds
 
