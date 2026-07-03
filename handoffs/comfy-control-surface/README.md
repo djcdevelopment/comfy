@@ -74,3 +74,9 @@ latest traces/submissions/receipts/errors, BepInEx log excerpts, bridge-review c
 
 Use [`bridge-consumer/`](bridge-consumer/) to validate `outbox/*.json` payloads and render local
 review markdown without network access or bot credentials.
+
+## Architecture
+
+For the end-to-end quest vertical slice, including intake, picker, quest-view ingestion,
+trigger listening, submission packaging, and review/export flow, read
+[`../../docs/quest-vertical-slice-architecture.md`](../../docs/quest-vertical-slice-architecture.md).

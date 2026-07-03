@@ -49,6 +49,7 @@ Primary references:
 - `handoffs/comfy-control-surface/README.md`
 - `handoffs/comfy-control-surface/CHANGELOG.md`
 - `handoffs/quest-log-retrospective.md`
+- `docs/quest-vertical-slice-architecture.md`
 
 ### Bridge consumer
 
@@ -114,6 +115,7 @@ Primary references:
 - `recipes/quest-catalogs/quest-view-schema.md`
 - `data/processed/quest-picker.html`
 - `handoffs/quest-log-retrospective.md`
+- `docs/quest-vertical-slice-architecture.md`
 
 ### Rank ladder recipe
 

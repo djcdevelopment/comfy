@@ -59,6 +59,7 @@ surface the control-surface work now uses.
 ## How to read the repo
 
 - Read `docs/kernel.md` first if you want the thesis.
+- Read `docs/quest-vertical-slice-architecture.md` if you want the end-to-end quest slice and dataflow.
 - Read `docs/method/the-lens-first-playbook.md` if you want the operating discipline.
 - Read `handoffs/REBOOT-HANDOFF.md` if you want the current built state and likely next moves.
 - Read `handoffs/comfy-control-surface/QUEST.md` if you want the packaged, end-to-end player/GM slice.
