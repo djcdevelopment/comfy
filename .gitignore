@@ -25,3 +25,8 @@ obj/
 *.db
 *.fwl
 *.fch
+
+# Field-lab runtime + generated (not source): container state (~30GB), run packets, gateway var
+fieldlab/autonomous/state/
+fieldlab/runs/
+network/mcp/var/

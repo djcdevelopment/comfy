@@ -142,6 +142,15 @@ player-facing and GM-facing workflow.
 - `handoffs/quest-log-retrospective.md`
 - `handoffs/comfy-control-surface/README.md`
 
+### If you want the base-layer plan
+
+- `fieldlab/README.md`
+- `docs/comfy-base-layer-architecture-plan.md`
+- `docs/lumberjacks-native-runtime-era-save-plan.md`
+- `docs/thesis-gold-local-lab-plan.md`
+- `network/README.md`
+- `docs/adoption-strategy.md`
+
 ### If you want the current practical handoff
 
 - `handoffs/REBOOT-HANDOFF.md`
