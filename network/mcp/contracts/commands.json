@@ -1,0 +1,235 @@
+{
+  "version": 1,
+  "surfaces": [
+    {
+      "name": "valheim_console",
+      "prefix": "network_sense_",
+      "audience": ["developer", "collaborator"],
+      "transport": "Valheim Terminal.ConsoleCommand"
+    },
+    {
+      "name": "mcp_tool",
+      "prefix": "valheim_",
+      "audience": ["agent", "developer"],
+      "transport": "FastMCP streamable-http"
+    }
+  ],
+  "commands": [
+    {
+      "name": "network_sense_status",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["writes BepInEx log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_status",
+      "returns": "Current HUD/detail/mode/benchmark/region/server-pulse state."
+    },
+    {
+      "name": "network_sense_hud",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["changes local HUD visibility", "writes event log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_hud",
+      "returns": "HUD enabled/disabled."
+    },
+    {
+      "name": "network_sense_panel",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["opens or closes local NetworkSense debug drawer"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_panel raven",
+      "returns": "Panel toggled. Tabs: debug, signals, raven. Legacy alias: ward -> debug."
+    },
+    {
+      "name": "network_sense_debug",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["opens local NetworkSense debug drawer"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_debug",
+      "returns": "Debug drawer opened."
+    },
+    {
+      "name": "network_sense_raven",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["opens local NetworkSense Raven drawer"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_raven",
+      "returns": "Raven drawer opened."
+    },
+    {
+      "name": "network_sense_detail",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["changes local HUD detail", "writes event log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_detail",
+      "returns": "Current HUD detail."
+    },
+    {
+      "name": "network_sense_mode",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["changes local NetworkSense mode", "writes event log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_mode group",
+      "returns": "Current NetworkSense mode. Modes: solo, combat, group, town."
+    },
+    {
+      "name": "network_sense_benchmark",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["starts or cancels benchmark", "writes benchmark/event logs"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_benchmark",
+      "returns": "Benchmark started/cancelled."
+    },
+    {
+      "name": "network_sense_reload_config",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["reloads local BepInEx config"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_reload_config",
+      "returns": "Reload result."
+    },
+    {
+      "name": "network_sense_export_session",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["writes session export JSON"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_export_session",
+      "returns": "Export path."
+    },
+    {
+      "name": "network_sense_mcp_status",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["probes localhost gateway asynchronously", "writes BepInEx log"],
+      "requires": ["ComfyNetworkSense", "optional Comfy MCP gateway"],
+      "example": "network_sense_mcp_status",
+      "returns": "Gateway reachability."
+    },
+    {
+      "name": "network_sense_mcp_note",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["writes event log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_mcp_note friend joined world",
+      "returns": "Note recorded."
+    },
+    {
+      "name": "network_sense_mcp_mark",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["writes event log"],
+      "requires": ["ComfyNetworkSense"],
+      "example": "network_sense_mcp_mark entered_dense_base",
+      "returns": "Marker recorded."
+    },
+    {
+      "name": "valheim_networksense_files",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_networksense_files()",
+      "returns": "NetworkSense telemetry files and BepInEx log info."
+    },
+    {
+      "name": "valheim_networksense_report",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_networksense_report(sample_count=30)",
+      "returns": "Compact deterministic telemetry report."
+    },
+    {
+      "name": "valheim_explain_networksense",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files", "calls local Ollama"],
+      "requires": ["Comfy MCP gateway", "Ollama"],
+      "example": "valheim_explain_networksense(sample_count=30)",
+      "returns": "Report plus local-model explanation."
+    },
+    {
+      "name": "valheim_list_sessions",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_list_sessions()",
+      "returns": "Known NetworkSense session IDs with counts."
+    },
+    {
+      "name": "valheim_session_bundle",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_session_bundle(session_id='latest')",
+      "returns": "Telemetry/events/benchmarks/server pulses for one session."
+    },
+    {
+      "name": "valheim_compare_clients",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["pure computation"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_compare_clients(host_bundle, client_bundle)",
+      "returns": "Multiplayer host/client divergence summary."
+    },
+    {
+      "name": "valheim_suggest_next_test",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_suggest_next_test()",
+      "returns": "Next practical test recommendation."
+    },
+    {
+      "name": "valheim_suggest_config",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_suggest_config()",
+      "returns": "Safe config recommendations; does not apply them."
+    },
+    {
+      "name": "valheim_apply_config_profile",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["writes NetworkSense BepInEx cfg"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_apply_config_profile(profile='multiplayer_pulse')",
+      "returns": "Applied whitelisted profile and next reload step."
+    },
+    {
+      "name": "valheim_record_note",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["writes dev note JSONL"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_record_note(text='friend joined', tags=['multiplayer'])",
+      "returns": "Recorded note."
+    },
+    {
+      "name": "valheim_mcp_health",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local paths"],
+      "requires": ["Comfy MCP gateway"],
+      "example": "valheim_mcp_health()",
+      "returns": "Gateway, telemetry path, and Ollama endpoint status."
+    }
+  ]
+}
