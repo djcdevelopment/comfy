@@ -88,6 +88,33 @@
       "returns": "Benchmark started/cancelled."
     },
     {
+      "name": "network_sense_tp",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["teleports local player", "writes event log"],
+      "requires": ["ComfyNetworkSense", "local test world"],
+      "example": "network_sense_tp 3250 2250 extreme",
+      "returns": "Teleport result and marker."
+    },
+    {
+      "name": "network_sense_route_run",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["teleports local player repeatedly", "starts benchmarks", "writes event and benchmark logs"],
+      "requires": ["ComfyNetworkSense", "local test world", "BepInEx/config/comfy-network-sense/teleport-route.tsv"],
+      "example": "network_sense_route_run teleport-route.tsv",
+      "returns": "Route start result; per-stop results are written to telemetry logs."
+    },
+    {
+      "name": "network_sense_rehearsal",
+      "surface": "valheim_console",
+      "stability": "dev",
+      "side_effects": ["reloads local BepInEx config", "probes localhost gateway asynchronously", "writes rehearsal markers", "teleports local player repeatedly", "starts benchmarks", "writes session export JSON"],
+      "requires": ["ComfyNetworkSense", "local test world", "BepInEx/config/comfy-network-sense/teleport-route.tsv"],
+      "example": "network_sense_rehearsal teleport-route.tsv host_full",
+      "returns": "Rehearsal start result; per-stop results, rehearsal markers, benchmark results, and export path are written to telemetry logs."
+    },
+    {
       "name": "network_sense_reload_config",
       "surface": "valheim_console",
       "stability": "dev",

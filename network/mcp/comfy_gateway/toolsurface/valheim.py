@@ -36,6 +36,10 @@ DEV_NOTES_PATH = Path(os.environ.get(
     "COMFY_VALHEIM_NOTES",
     str(Path(__file__).resolve().parents[3] / "var" / "valheim-dev-notes.jsonl"),
 ))
+AUTONOMOUS_STATE = Path(os.environ.get(
+    "COMFY_AUTONOMOUS_STATE",
+    "",
+))
 
 
 def _safe_child(root: Path, file_name: str) -> Path:
@@ -99,6 +103,64 @@ def valheim_networksense_files() -> dict:
         "exists": root.exists(),
         "files": files,
         "bepinex_log": _file_info(BEPINEX_LOG),
+    }
+
+
+def _client_name(client: str) -> str:
+    value = str(client or "").strip().lower()
+    if value.isdigit():
+        number = int(value)
+        if 1 <= number <= 99:
+            return f"client{number:02d}"
+    if value.startswith("client") and len(value) == 8 and value[6:].isdigit():
+        number = int(value[6:])
+        if 1 <= number <= 99:
+            return f"client{number:02d}"
+    raise ValueError("client must be a number or clientNN")
+
+
+def _client_install_dir(client: str) -> Path:
+    if not str(AUTONOMOUS_STATE):
+        raise ValueError("COMFY_AUTONOMOUS_STATE is not configured")
+    name = _client_name(client)
+    return AUTONOMOUS_STATE / name / "games" / "GameLibrary" / "Steam" / "steamapps" / "common" / "Valheim"
+
+
+def _client_networksense_dir(client: str) -> Path:
+    return _client_install_dir(client) / "BepInEx" / "config" / "comfy-network-sense"
+
+
+def valheim_swarm_clients(max_clients: int = 4) -> dict:
+    """List autonomous lab clients and their NetworkSense telemetry paths."""
+    max_clients = max(1, min(int(max_clients), 16))
+    clients = []
+    for index in range(1, max_clients + 1):
+        name = f"client{index:02d}"
+        install_dir = _client_install_dir(name)
+        network_dir = _client_networksense_dir(name)
+        descriptor = AUTONOMOUS_STATE / name / "home" / ".comfy" / "player.json"
+        clients.append({
+            "client": name,
+            "install": _file_info(install_dir),
+            "network_sense_dir": _file_info(network_dir),
+            "bepinex_log": _file_info(install_dir / "BepInEx" / "LogOutput.log"),
+            "player_descriptor": _file_info(descriptor),
+            "no_vnc_url": f"http://127.0.0.1:{8080 + index}",
+        })
+    return {
+        "autonomous_state": str(AUTONOMOUS_STATE),
+        "clients": clients,
+    }
+
+
+def valheim_tail_swarm_client(client: str = "client01", file_name: str = "telemetry-client.jsonl", lines: int = 20) -> dict:
+    """Tail a NetworkSense JSONL file for one autonomous swarm client."""
+    root = _client_networksense_dir(client)
+    path = _safe_child(root, file_name)
+    return {
+        "client": _client_name(client),
+        "file": str(path),
+        "entries": _tail_json(path, lines),
     }
 
 
@@ -199,6 +261,8 @@ def valheim_mcp_health() -> dict:
         "ollama_endpoint": ollama_endpoint,
         "tools": [
             "valheim_networksense_files",
+            "valheim_swarm_clients",
+            "valheim_tail_swarm_client",
             "valheim_networksense_report",
             "valheim_session_bundle",
             "valheim_compare_clients",
@@ -361,6 +425,23 @@ CONFIG_PROFILES = {
         "serverPulseIntervalSeconds": "2",
         "writeTelemetryLogs": "true",
     },
+    "baseline_route": {
+        "liveSampleIntervalSeconds": "0.5",
+        "serverPulseIntervalSeconds": "2",
+        "benchmarkDurationSeconds": "60",
+        "writeTelemetryLogs": "true",
+    },
+    "autonomous_route": {
+        "liveSampleIntervalSeconds": "0.5",
+        "serverPulseIntervalSeconds": "2",
+        "benchmarkDurationSeconds": "60",
+        "writeTelemetryLogs": "true",
+        "autoRehearsalEnabled": "true",
+        "autoRehearsalRouteFile": "teleport-route.tsv",
+        "autoRehearsalProfile": "host_full",
+        "autoRehearsalDelaySeconds": "20",
+        "autoRehearsalRunOncePerSession": "true",
+    },
 }
 
 
@@ -442,6 +523,8 @@ def get_tools() -> list[Callable]:
     return [
         valheim_mcp_health,
         valheim_networksense_files,
+        valheim_swarm_clients,
+        valheim_tail_swarm_client,
         valheim_tail_networksense,
         valheim_tail_bepinex_log,
         valheim_networksense_report,

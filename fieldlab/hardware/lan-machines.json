@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "machines": [
+    {
+      "id": "workstation",
+      "role": "primary_host",
+      "os": "Windows",
+      "cpu": "unknown",
+      "ram_gb": 127,
+      "gpu": "NVIDIA GeForce RTX 5070",
+      "vram_gb": 12,
+      "connection": "local",
+      "tailnet": true,
+      "notes": "Primary experiment host, service runner, bot swarm coordinator, capture and report machine."
+    },
+    {
+      "id": "am4",
+      "role": "lan_client_or_aux_host",
+      "os": "Linux",
+      "cpu": "AM4",
+      "ram_gb": 32,
+      "gpu": "2x Intel Arc Pro B70",
+      "connection": "tailnet",
+      "tailnet": true,
+      "notes": "Good candidate for Linux client, auxiliary host, GPU/render experiments, and non-Windows validation."
+    },
+    {
+      "id": "i5-laptop",
+      "role": "weak_client",
+      "os": "unknown",
+      "cpu": "Intel i5 12th gen",
+      "ram_gb": 32,
+      "gpu": "Intel integrated graphics",
+      "connection": "tailnet",
+      "tailnet": true,
+      "notes": "Good candidate for low-end client feel, fallback-path validation, and Wi-Fi/tailnet behavior if applicable."
+    }
+  ]
+}

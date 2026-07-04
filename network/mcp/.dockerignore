@@ -1,0 +1,9 @@
+# Keep the comfy-gateway build context to just the package source.
+# (Context root is network/mcp/ — see network/mcp/Dockerfile.)
+var/
+__pycache__/
+**/__pycache__/
+*.pyc
+tests/
+.git/
+.pytest_cache/
