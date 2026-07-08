@@ -531,6 +531,36 @@ its own output locked). But the already-running Valheim session still has
 `0.5.2` loaded in memory; **a Valheim restart is required** before this can
 be exercised and verified live. Not yet tested.
 
+## 2026-07-08 Datagram Loss Found + Fixed (0.5.4)
+
+First live test of the datagram-lane consumer (0.5.3, after restart) showed
+a real problem: the Gateway confirmed `datagram_objects_sent: 700`, but the
+mod's `datagram_summary` row only ever showed `datagram_objects_received: 28`
+— and it stayed at 28 for several minutes, ruling out "still trickling in."
+
+Two contributing bugs in `LumberjacksPriorityManifestListener`:
+
+- The receive loop issued a fresh `ReceiveAsync()` every iteration and
+  abandoned the previous one whenever a 500ms poll timeout fired, silently
+  dropping whichever packet the orphaned call ended up completing with.
+- The default OS UDP receive buffer is far smaller than a 700-packet burst
+  arriving almost instantly over loopback, so the OS itself silently drops
+  the overflow before the loop ever gets a chance to drain it.
+
+Fixed both: a single directly-awaited receive per iteration (shutdown now
+delivered by closing the socket via `token.Register`, not by polling a
+timeout), plus `ReceiveBufferSize` bumped to 4 MiB. `ComfyNetworkSense
+0.5.4` built and installed (again while Valheim was running — the DLL is
+never locked, only the in-memory session lags behind).
+
+Re-tested live after another restart: `datagram_objects_received=700
+expected=700` — full recovery, confirmed.
+
+This closes the priority-manifest thread completely. Both lanes (reliable
+and datagram) are now proven live in-game end to end, not just via the
+standalone Python observer, including a real UDP reliability bug found and
+fixed along the way.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
