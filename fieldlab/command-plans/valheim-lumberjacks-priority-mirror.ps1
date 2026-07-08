@@ -496,7 +496,8 @@ $eventSeq = 0
 if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count -gt 1 -and $priorityRouteCompleted) {
   foreach ($sample in $manifestSamples) {
     $eventSeq++
-    $eventId = "$manifestId-sample-$($sample.manifest_seq)"
+    $eventKey = "$manifestId-sample-$($sample.manifest_seq)"
+    $eventId = [guid]::NewGuid().ToString()
     $event = [ordered]@{
       event_id = $eventId
       event_type = "valheim.priority_manifest.sample"
@@ -509,6 +510,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
       schema_version = 1
       payload = [ordered]@{
         manifest_id = $manifestId
+        event_key = $eventKey
         event_seq = $eventSeq
         record = $sample
       }
@@ -518,6 +520,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
     if ($result.ok) { $postedOk++ } else { $postedFailed++ }
     $postResults += [pscustomobject]@{
       event_id = $eventId
+      event_key = $eventKey
       event_type = "valheim.priority_manifest.sample"
       event_seq = $eventSeq
       manifest_seq = $sample.manifest_seq
@@ -532,7 +535,8 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
   foreach ($stop in $routeStopManifests) {
     $eventSeq++
     $stopObjects = @($manifestObjects | Where-Object { [string]$_.route_stop_id -eq [string]$stop.route_stop_id } | Sort-Object manifest_seq)
-    $eventId = "$manifestId-objects-$($stop.route_stop_id)"
+    $eventKey = "$manifestId-objects-$($stop.route_stop_id)"
+    $eventId = [guid]::NewGuid().ToString()
     $event = [ordered]@{
       event_id = $eventId
       event_type = "valheim.priority_manifest.objects"
@@ -545,6 +549,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
       schema_version = 1
       payload = [ordered]@{
         manifest_id = $manifestId
+        event_key = $eventKey
         event_seq = $eventSeq
         route_stop = $stop
         records = $stopObjects
@@ -555,6 +560,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
     if ($result.ok) { $postedOk++ } else { $postedFailed++ }
     $postResults += [pscustomobject]@{
       event_id = $eventId
+      event_key = $eventKey
       event_type = "valheim.priority_manifest.objects"
       event_seq = $eventSeq
       manifest_seq = $stop.first_manifest_seq
@@ -567,7 +573,8 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
   }
 
   $eventSeq++
-  $completeEventId = "$manifestId-complete"
+  $completeEventKey = "$manifestId-complete"
+  $completeEventId = [guid]::NewGuid().ToString()
   $completeEvent = [ordered]@{
     event_id = $completeEventId
     event_type = "valheim.priority_manifest.complete"
@@ -580,6 +587,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
     schema_version = 1
     payload = [ordered]@{
       manifest_id = $manifestId
+      event_key = $completeEventKey
       event_seq = $eventSeq
       source_priority_status = $summaryStatusFromPriority
       sample_rows = $manifestSamples.Count
@@ -594,6 +602,7 @@ if ($health.ok -and $postgresProbe.ok -and $manifest.counts.expected_event_count
   if ($result.ok) { $postedOk++ } else { $postedFailed++ }
   $postResults += [pscustomobject]@{
     event_id = $completeEventId
+    event_key = $completeEventKey
     event_type = "valheim.priority_manifest.complete"
     event_seq = $eventSeq
     manifest_seq = $eventSeq

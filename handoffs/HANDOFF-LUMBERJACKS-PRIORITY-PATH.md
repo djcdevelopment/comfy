@@ -126,6 +126,46 @@ Build the Lumberjacks mirror phase next: send the observed priority manifest as
 ordered side-channel metadata and compare delivery/order under load. Do not keep
 increasing scan radius; the 256m pass already found the practical limit shape.
 
+## 2026-07-08 Mirror Update
+
+The FieldLab mirror packet now passes against Lumberjacks EventLog:
+
+```text
+fieldlab/runs/20260708-075942-valheim-lumberjacks-priority-mirror
+```
+
+Status:
+
+```text
+pass_priority_mirror_with_sparse_fixture_note
+```
+
+Key result:
+
+- `72` priority sample events posted;
+- `962` object records mirrored as `6` per-stop object-batch events;
+- `79/79` EventLog posts accepted;
+- `72` sample events, `6` object-batch events, and `1` completion event queried
+  back;
+- object sequence set preserved end to end;
+- the sparse fixture note still carries forward from the route manifest.
+
+Operational note: the local Lumberjacks Postgres container must be running and
+the `events` table must exist. The mirror command plan now preflights the
+Postgres port and uses UUID `event_id` values because the EventLog persistence
+model maps `event_id` to PostgreSQL `uuid`.
+
+Next phase:
+
+```text
+network_sense_mcp_mark lumberjacks_priority_mirror_ready
+```
+
+Build the live mirror/dual-channel phase next. The practical target is to move
+from FieldLab replay into runtime delivery: either BepInEx emits the same
+per-stop priority batches as it scans, or Gateway learns a first-class priority
+manifest message that can be promoted into the reliable/datagram split.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
