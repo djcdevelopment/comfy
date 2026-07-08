@@ -217,7 +217,7 @@ function Set-NetworkSenseConfigValues {
   $desired = [ordered]@{
     writeTelemetryLogs = "true"
     benchmarkDurationSeconds = "60"
-    lumberjacksShadowInputHz = "10"
+    lumberjacksShadowInputHz = if ($env:FIELDLAB_SHADOW_INPUT_HZ) { [string]$env:FIELDLAB_SHADOW_INPUT_HZ } else { "20" }
     lumberjacksShadowLogIntervalSeconds = "2"
   }
 
@@ -267,6 +267,7 @@ $gatewayWs = if ($env:FIELDLAB_LUMBERJACKS_GATEWAY_WS) { $env:FIELDLAB_LUMBERJAC
 $gatewayHttp = $gatewayWs -replace "^ws://", "http://" -replace "^wss://", "https://"
 $regionId = if ($env:FIELDLAB_LUMBERJACKS_REGION) { $env:FIELDLAB_LUMBERJACKS_REGION } else { "region-spawn" }
 $profile = if ($env:FIELDLAB_SHADOW_ROUTE_PROFILE) { $env:FIELDLAB_SHADOW_ROUTE_PROFILE } else { "movement_only" }
+$shadowInputHz = if ($env:FIELDLAB_SHADOW_INPUT_HZ) { [string]$env:FIELDLAB_SHADOW_INPUT_HZ } else { "20" }
 $valheimDir = if ($env:FIELDLAB_VALHEIM_DIR) { $env:FIELDLAB_VALHEIM_DIR } else { "C:\Program Files (x86)\Steam\steamapps\common\Valheim" }
 $pluginPath = Join-Path $valheimDir "BepInEx\plugins\ComfyNetworkSense.dll"
 $configPath = Join-Path $valheimDir "BepInEx\config\djcdevelopment.valheim.comfynetworksense.cfg"
@@ -326,7 +327,7 @@ $plugin = Get-AssemblyVersionInfo $pluginPath
 $versionOk = $false
 if ($plugin.version) {
   try {
-    $versionOk = ([version]$plugin.version) -ge ([version]"0.4.7.0")
+    $versionOk = ([version]$plugin.version) -ge ([version]"0.4.9.0")
   } catch {
     $versionOk = $false
   }
@@ -399,7 +400,7 @@ $summaryStatus = if ($allStopsObserved -and $routeEndMarkers.Count -gt 0) {
   "blocked_setup"
 }
 
-$shadowCommand = "network_sense_lumberjacks_shadow_route teleport-route.tsv $profile $gatewayWs $regionId"
+$shadowCommand = "network_sense_lumberjacks_shadow_route teleport-route.tsv $profile $gatewayWs $regionId $shadowInputHz"
 $estimatedSeconds = 0
 foreach ($step in $routeSteps) {
   $estimatedSeconds += [double]$step.settle_seconds + [double]$step.benchmark_seconds + 3.0
@@ -413,6 +414,7 @@ $summary = [ordered]@{
   gateway_http = $gatewayHttp
   region_id = $regionId
   movement_profile = $profile
+  shadow_input_hz = $shadowInputHz
   network_sense_log_dir = $logDir
   shadow_log_path = $shadowLogPath
   event_log_path = $eventLogPath
@@ -468,6 +470,8 @@ Write-JsonFile -Value $summary -Path $summaryPath
   "- Gateway: $gatewayWs",
   "- Gateway health: ok=$($health.gateway.ok), status=$($health.gateway.status_code)",
   "- Installed ComfyNetworkSense: $($plugin.version)",
+  "- Movement profile: $profile",
+  "- Shadow input Hz: $shadowInputHz",
   "- Route source: $routeSource",
   "- Route steps: $($routeSteps.Count)",
   "- Route file copied: $routeFileCopied",
@@ -476,13 +480,13 @@ Write-JsonFile -Value $summary -Path $summaryPath
   "",
   "## Run In Valheim",
   "",
-  "Restart Valheim after installing ComfyNetworkSense 0.4.7, load the Era16 test world, keep the game foregrounded, open the console, then run:",
+  "Restart Valheim after installing ComfyNetworkSense 0.4.9, load the Era16 test world, keep the game foregrounded, open the console, then run:",
   "",
   '```text',
   $shadowCommand,
   '```',
   "",
-  "The command teleports through the route, starts one Lumberjacks shadow window per stop, moves locally in a small repeatable circle during the benchmark window, writes route-tagged rows to lumberjacks-shadow.jsonl, and exports the NetworkSense session at the end.",
+  "The command teleports through the route, starts one Lumberjacks shadow window per stop, applies the requested movement profile during the benchmark window, writes route-tagged rows to lumberjacks-shadow.jsonl, and exports the NetworkSense session at the end.",
   "",
   "Estimated route time: $([math]::Round($estimatedSeconds / 60.0, 1)) minutes.",
   "",

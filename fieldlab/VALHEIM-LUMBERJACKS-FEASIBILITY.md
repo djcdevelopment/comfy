@@ -9,6 +9,21 @@ before Valheim's own authority model gets in the way.
 This file treats "Valheim on Lumberjacks" as a set of increasingly invasive layers. The early goal
 is to find the first hard boundary with runnable probes, not to assume a full transport rewrite.
 
+## Strategic Value Target
+
+Shadow movement is a diagnostic, not the main payoff. The first real benefit of attaching Valheim
+to Lumberjacks is ordered, dual-channel broadcast under high traffic. If Lumberjacks can provide a
+stable side channel for priority metadata and update ordering, builders can design large bases with
+clear expectations about what arrives first when traffic is saturated: structural anchors, nearby
+interactive pieces, portals, and player-critical state should win over cosmetic or distant changes.
+
+The larger gain is progressive enhancement. Valheim's default networking remains the compatibility
+floor, while Lumberjacks adds packet filtering, routing, prioritization, and load-order hints that
+Iron Gate's default Unity-derived stack was never designed to express. The next useful experiments
+should not chase full physics replacement first; they should prove that Lumberjacks can make
+high-density build loading more predictable and more operator-controllable without breaking vanilla
+replication.
+
 ## Current Evidence
 
 - Lumberjacks can run its own Gateway/EventLog/Progression/OperatorApi stack and move entity
@@ -115,28 +130,30 @@ It does not mean:
 - Steam/PlayFab sockets were bypassed;
 - a Valheim dedicated server is running on Lumberjacks.
 
-## Next Spike
+## Completed Shadow Spike
 
-After projection is visually confirmed, the next spike is shadow movement authority:
+Shadow movement authority was built as a diagnostic:
 
 1. Keep Valheim local player movement owned by Valheim.
 2. Send equivalent intent to Lumberjacks.
 3. Compare Lumberjacks authoritative position against the Valheim local player.
 4. Record drift and correction pressure without applying corrections.
 
-That answers whether Lumberjacks can be useful as a shadow authority before touching the dangerous
-ZDO/authority layer.
+That answered whether Lumberjacks can be useful as a shadow side channel before touching the
+dangerous ZDO/authority layer. The result is good enough to move on: Gateway connectivity, route
+capture, stationary stability, and movement telemetry all work. Exact movement precision is no
+longer the gating question.
 
 ComfyNetworkSense `0.4.6` adds the first command for that spike:
 
 ```text
-network_sense_lumberjacks_shadow [start|stop|status] [ws-url] [region-id]
+network_sense_lumberjacks_shadow [start|stop|status] [ws-url] [region-id] [input-hz]
 ```
 
 Run it after restarting Valheim with `0.4.6`:
 
 ```text
-network_sense_lumberjacks_shadow start ws://127.0.0.1:4000 region-spawn
+network_sense_lumberjacks_shadow start ws://127.0.0.1:4000 region-spawn 20
 network_sense_lumberjacks_shadow status
 network_sense_lumberjacks_shadow stop
 ```
@@ -149,3 +166,18 @@ BepInEx\config\comfy-network-sense\lumberjacks-shadow.jsonl
 
 `pass_shadow_movement_observed` means drift was measured; it still does not prove correction safety
 or ZDO transport replacement.
+
+## Current Next Spike
+
+The next path is priority/load-order probing, not deeper movement tuning. Build a local probe that
+classifies nearby Valheim objects into priority tiers, emits `priority-load.jsonl`, and optionally
+mirrors a priority manifest to Lumberjacks as an ordered side channel. The proof target is a local
+Era16 route packet showing that player-critical state, portals, structural anchors, and nearby
+interactive pieces can be identified and ordered ahead of distant cosmetic/support noise under dense
+build pressure.
+
+Handoff:
+
+```text
+handoffs/HANDOFF-LUMBERJACKS-PRIORITY-PATH.md
+```
