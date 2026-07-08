@@ -1,0 +1,13 @@
+{
+  "manifest_version": 3,
+  "name": "Discord Search Exporter (local)",
+  "version": "0.1.0",
+  "description": "Export your own Discord search results to a local JSON file. Reads only what is on screen. No network, no token, discord.com only.",
+  "content_scripts": [
+    {
+      "matches": ["*://discord.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_idle"
+    }
+  ]
+}
