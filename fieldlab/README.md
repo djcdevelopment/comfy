@@ -5,6 +5,14 @@
 The purpose is to turn networking and native-runtime claims into field packets that another
 developer, collaborator, or future agent can rerun.
 
+Current NetworkSense Era16 baseline pickup doc:
+
+```text
+fieldlab/NETWORKSENSE-ERA16-MATRIX.md
+fieldlab/NETWORKSENSE-PERF-DEBUG-PLAN.md
+fieldlab/VALHEIM-LUMBERJACKS-FEASIBILITY.md
+```
+
 First proof target:
 
 ```text
@@ -166,6 +174,61 @@ This packet generates load targets only. The next runtime packet should replay s
 through Lumberjacks and compare observed UDP/WebSocket behavior against the modeled priority
 expectations.
 
+## Valheim To Lumberjacks Feasibility
+
+The first bridge spike is intentionally narrow: prove that a live Valheim BepInEx plugin process
+can speak the Lumberjacks Gateway protocol before attempting visual projection, shadow authority,
+or any ZDO/transport patching.
+
+Start Lumberjacks and keep it running:
+
+```powershell
+.\fieldlab\scripts\run-experiment.ps1 .\fieldlab\scenarios\lumberjacks-native-runtime-smoke.yaml -KeepRunning
+```
+
+Restart Valheim with `ComfyNetworkSense 0.4.5`, then run:
+
+```text
+network_sense_lumberjacks_probe ws://127.0.0.1:4000 region-spawn 12
+```
+
+With `ComfyNetworkSense 0.4.5`, run the local-only projection spike:
+
+```text
+network_sense_lumberjacks_projection start ws://127.0.0.1:4000 region-spawn
+network_sense_lumberjacks_projection status
+network_sense_lumberjacks_projection stop
+```
+
+Capture or re-check the packet:
+
+```powershell
+.\fieldlab\scripts\run-experiment.ps1 .\fieldlab\scenarios\valheim-lumberjacks-bridge-feasibility.yaml
+```
+
+Probe rows are written under `BepInEx\config\comfy-network-sense\lumberjacks-bridge-probes.jsonl`.
+Projection rows are written under `BepInEx\config\comfy-network-sense\lumberjacks-projection.jsonl`.
+`pass_sidecar_protocol` only proves side-channel protocol reachability; it does not prove Valheim
+ZDO transport replacement or physics authority replacement.
+
+With `ComfyNetworkSense 0.4.6`, run the shadow movement authority spike:
+
+```text
+network_sense_lumberjacks_shadow start ws://127.0.0.1:4000 region-spawn
+# move the local player for 60-120 seconds
+network_sense_lumberjacks_shadow status
+network_sense_lumberjacks_shadow stop
+```
+
+Capture or re-check the shadow packet:
+
+```powershell
+.\fieldlab\scripts\run-experiment.ps1 .\fieldlab\scenarios\valheim-lumberjacks-shadow-authority.yaml
+```
+
+Shadow rows are written under `BepInEx\config\comfy-network-sense\lumberjacks-shadow.jsonl`.
+This is measurement only: it compares trajectories and does not apply Valheim corrections.
+
 ## Volunteer Readiness Baseline
 
 Before inviting volunteer players, run the Valheim Era16 readiness packet:
@@ -245,6 +308,13 @@ network_sense_rehearsal teleport-route.tsv host_full
 ```
 
 Then rerun the rehearsal packet and the volunteer readiness baseline.
+
+For the current Era16 main-thread hitch investigation, summarize the
+ComfyNetworkSense 0.4.3 perf JSONL files with:
+
+```powershell
+.\fieldlab\scripts\analyze-networksense-perf.ps1
+```
 
 ## Autonomous Valheim Lab
 
