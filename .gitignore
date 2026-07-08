@@ -38,3 +38,7 @@ comfy-miker-analysis/
 # Belt-and-suspenders: the whole folder is ignored, and revealed name maps are double-ignored.
 comfy-tugcow-analysis/
 *.revealed.csv
+
+# Private synthesis built ON TOP of the two analyses above (two more abstraction layers).
+# Derived from private material — same stance: internal only, do not commit.
+comfy-ascent-analysis/
