@@ -30,3 +30,11 @@ obj/
 fieldlab/autonomous/state/
 fieldlab/runs/
 network/mcp/var/
+
+# Private, non-source analysis of miker's exported staff chat (internal only, do not commit)
+comfy-miker-analysis/
+
+# Private, non-source analysis of Tugcow's own Discord export (internal only, do not commit)
+# Belt-and-suspenders: the whole folder is ignored, and revealed name maps are double-ignored.
+comfy-tugcow-analysis/
+*.revealed.csv
