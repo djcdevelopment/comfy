@@ -190,6 +190,105 @@ is written to `priority-mirror.jsonl`.
 The Steam Valheim plugin and autonomous lab plugin copies have been updated to
 assembly version `0.5.1.0`. Valheim must be restarted to load this DLL.
 
+## 2026-07-08 Live Mirror Verification
+
+The live BepInEx-to-EventLog path has now passed twice on the real Era16 route.
+The latest completed run is:
+
+```text
+fieldlab/runs/20260708-091406-valheim-lumberjacks-priority-live-mirror
+```
+
+Status:
+
+```text
+pass_priority_live_mirror
+```
+
+Latest manifest:
+
+```text
+manifest_id: valheim-live-priority-20260708-160502-635debf9
+session_id:  20260708-160328-2c2146d7
+phase:       ready_for_gateway_priority_delivery
+```
+
+Key result:
+
+- `72` local sample rows matched `72` EventLog sample events;
+- `72` local object-batch posts matched `72` EventLog object-batch events;
+- `11,544` local object rows matched `11,544` EventLog object records;
+- `1` completion event was observed in EventLog;
+- `posted_failed` was `0`;
+- all four live verifier gates passed: mirror status, EventLog round trip,
+  local/remote count match, and route completion.
+
+Operational nuance: the mirror stop row can show `queued_posts_at_stop: 1`
+because the completion event is queued immediately before the stop status row is
+written. The EventLog verifier is the correct completion gate; it observed the
+completion event.
+
+The current in-game command remains:
+
+```text
+network_sense_lumberjacks_priority_route_mirror teleport-route.tsv 256 5 192 http://127.0.0.1:4002
+```
+
+The verifier command is:
+
+```powershell
+.\fieldlab\scripts\run-experiment.ps1 .\fieldlab\scenarios\valheim-lumberjacks-priority-live-mirror.yaml
+```
+
+## 2026-07-08 Gateway Plan State
+
+The next build target has moved from "can Valheim stream a priority side
+channel?" to "can Gateway consume and shape that priority side channel?"
+
+Lumberjacks commit:
+
+```text
+03619f3 Add Valheim priority manifest gateway plan
+```
+
+That commit adds:
+
+- a contract-level `ValheimPriorityDeliveryPlanner`;
+- `priority_manifest` as a reliable protocol message type;
+- a Gateway service that queries Lumberjacks EventLog for
+  `valheim.priority_manifest.objects`;
+- a Gateway endpoint shape:
+
+```text
+GET /valheim/priority-manifests/{manifestId}/delivery-plan?reliableBudget=256&datagramBudget=768&eventLimit=500
+```
+
+The delivery plan separates objects into reliable, datagram, and deferred
+buckets. Current reliable tiers are:
+
+- `player_critical`
+- `portal`
+- `structural_anchor`
+- `storage_crafting`
+
+Verification caveat: the Gateway project compiled successfully with the local
+.NET 9 SDK using an alternate output directory. Runtime smoke tests and VSTest
+execution were blocked by Windows Smart App Control loading freshly built
+unsigned DLLs (`0x800711C7`). This is an environment/code-signing issue, not a
+compile failure. Avoid broad Defender exclusions; Smart App Control is separate
+from Defender AV exclusions.
+
+Next concrete build step:
+
+1. Start or update Gateway from normal trusted repo output once Smart App
+   Control is no longer blocking local build artifacts.
+2. Query the latest live manifest through the new delivery-plan endpoint.
+3. Add a FieldLab verifier that compares the Gateway plan counts against the
+   live mirror EventLog counts.
+4. Then wire actual socket emission: reliable `priority_manifest` metadata over
+   WebSocket, transient/detail updates over the datagram lane, with deferred
+   objects explicitly visible to operators/builders.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
