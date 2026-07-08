@@ -166,6 +166,30 @@ from FieldLab replay into runtime delivery: either BepInEx emits the same
 per-stop priority batches as it scans, or Gateway learns a first-class priority
 manifest message that can be promoted into the reliable/datagram split.
 
+## 2026-07-08 Live Mirror Build
+
+ComfyNetworkSense `0.5.1` adds the live BepInEx-to-Lumberjacks EventLog mirror:
+
+```text
+network_sense_lumberjacks_priority_mirror [start|stop|status] [eventlog-url]
+network_sense_lumberjacks_priority_route_mirror [teleport-route.tsv] [radius] [scan-interval] [max-objects] [eventlog-url]
+```
+
+Recommended in-game command for the next run:
+
+```text
+network_sense_lumberjacks_priority_route_mirror teleport-route.tsv 256 5 192 http://127.0.0.1:4002
+```
+
+The route-integrated command starts the mirror before the priority route, emits
+sample events plus per-sample object-batch events to EventLog as scans happen,
+then posts a completion event before the NetworkSense session export. Local
+`priority-load.jsonl` remains the source-of-truth telemetry, and mirror status
+is written to `priority-mirror.jsonl`.
+
+The Steam Valheim plugin and autonomous lab plugin copies have been updated to
+assembly version `0.5.1.0`. Valheim must be restarted to load this DLL.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
