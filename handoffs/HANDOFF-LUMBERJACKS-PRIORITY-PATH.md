@@ -364,6 +364,173 @@ Next concrete step:
    `priority_manifest` WebSocket envelope is received before moving transient
    detail to the datagram lane.
 
+## 2026-07-08 Gateway Deploy + Verifier Pass + Observation Client
+
+All three next steps above are now done:
+
+1. Killed the stale Gateway process and rebuilt `Game.Gateway` at `030eac8`
+   into its normal `bin/Debug/net9.0` output (not a temp `OutDir`, so Smart
+   App Control did not block it). Relaunched with
+   `dotnet exec Game.Gateway.dll` via the `.NET 9` SDK at `C:\work\dotnet9`
+   (the apphost's default global `dotnet` only has 8.0.28 registered).
+2. `run-experiment.ps1` hung indefinitely (near-zero CPU, no output) on this
+   scenario before it got to spawning the command-plan child process — cause
+   not yet found. Worked around by invoking
+   `fieldlab/command-plans/valheim-lumberjacks-priority-gateway-plan.ps1`
+   directly against a run dir. This is a known gap for the next session to
+   chase if it recurs.
+3. The plan verifier now passes:
+
+   ```text
+   status: pass_priority_gateway_plan
+   phase:  ready_for_socket_delivery
+   ```
+
+   All four gates green: `gateway_delivery_plan`, `manifest_counts_match`
+   (11,544 = 11,544), `bucket_accounting` (256 reliable + 700 datagram + 0
+   deferred = 956 unique), `activation`.
+
+4. Added `fieldlab/scripts/observe_priority_manifest.py`, a minimal asyncio
+   WebSocket observation client (connects, logs `session_started`, waits for
+   a `priority_manifest` envelope, pretty-prints it, exits). Ran it against
+   `ws://localhost:4000/`, then `POST /valheim/priority-manifests/{id}/broadcast`
+   for `valheim-live-priority-20260708-160502-635debf9`
+   (`target_sessions: 1, sent_sessions: 1`). The client received the reliable
+   `priority_manifest` envelope with the exact activated-plan counts.
+
+This closes the loop end to end: EventLog manifest → Gateway delivery plan →
+activation → broadcast → WebSocket client. Vanilla Valheim replication was
+never touched.
+
+Next phase (not started — needs a call on priorities first): move transient
+and detail objects onto the datagram lane instead of only ever filling the
+reliable lane, and decide what a real in-game client should do with a
+received `priority_manifest` (currently only the standalone Python observer
+consumes it).
+
+## 2026-07-08 Datagram Lane Wired + UDP Crash Fix
+
+Re-validated the whole pipeline first against a brand-new live route (not
+just the cached manifest): Derek ran
+`network_sense_lumberjacks_priority_route_mirror teleport-route.tsv 256 5 192
+http://127.0.0.1:4002` in-game, producing manifest
+`valheim-live-priority-20260708-173949-6f82f51d` (72/72 sample/object-batch
+events, 11,544 objects, 0 posted failures). The gateway-plan verifier and the
+observation client both passed again against it with the identical bucket
+shape (256 reliable / 700 datagram / 0 deferred = 956 unique).
+
+Then built the datagram lane itself:
+
+- `Game.Contracts`: `MessageType.PriorityManifestObject` /
+  `MessageTypeId.PriorityManifestObject = 17`, classified `Datagram` in
+  `MessageClassification`.
+- `ValheimPriorityManifestEndpoints.SendDatagramObjects()`: sends each
+  `Plan.Datagram` item as its own UDP frame — a JSON payload wrapped in a
+  `BinaryEnvelope`, same fallback pattern `GameWebSocketMiddleware` already
+  uses for non-hot-path types, so no new fixed-field byte format was needed.
+  `/broadcast` now also reports `datagram_objects_sent` and
+  `datagram_sessions_without_udp`.
+
+While verifying this, found and fixed a real bug, not just a test artifact:
+`UdpTransport.ExecuteAsync`'s receive loop only caught
+`OperationCanceledException`. A Windows ICMP port-unreachable response to a
+send poisons the socket, and the next `ReceiveAsync` throws
+`SocketException 10054` — unhandled, this crashed the *entire* Gateway host
+(`BackgroundServiceExceptionBehavior=StopHost`). This is a pre-existing
+latent fragility in the UDP transport (would affect `EntityUpdate` too, not
+just this new feature). Fixed with the `SIO_UDP_CONNRESET` ioctl on the
+`UdpClient` at startup plus a defensive `SocketException` catch in the
+receive loop. Also added exception logging to `UdpTransport.TrySend`, which
+previously swallowed all send failures silently.
+
+Verification: rewrote `fieldlab/scripts/observe_priority_manifest.py` to add
+a real UDP client — does the `session_started` → `udp_token`/`udp_port`
+handshake (8-byte token + 6-byte dummy `BinaryEnvelope` header; a bare
+8-byte packet is below the server's 14-byte `MinPacketSize` and gets
+dropped), listens via a plain blocking socket in a background thread
+(asyncio's `create_datagram_endpoint` alongside the `websockets` client
+caused the WS session to detach almost immediately — root cause not fully
+diagnosed, the thread+blocking-socket rewrite sidesteps it and is more
+robust regardless), and decodes the 6-byte bit-packed header per
+`BitWriter`'s MSB-first layout. Final run:
+`datagram_objects_received=700 expected=700`, sample object matched the
+plan exactly.
+
+Both threads from the last handoff are done: the datagram lane ships and is
+proven end to end. The only open item now is a real in-game/mod-side
+consumer of `priority_manifest` — currently only this standalone Python
+script observes it; nothing in ComfyNetworkSense reacts to it yet.
+
+## 2026-07-08 Real In-Game Consumer
+
+ComfyNetworkSense `0.5.2` adds the first in-game consumer of the reliable
+`priority_manifest` broadcast:
+
+```text
+network_sense_lumberjacks_priority_manifest_listen [start|stop|status] [ws-url] [region-id]
+```
+
+New `LumberjacksPriorityManifestListener` (`Core/Services`), modeled directly
+on `LumberjacksProjectionRunner`'s WS receive-loop pattern (regex-based JSON
+field extraction — the mod is net48/Unity and does not reference
+Lumberjacks' .NET 9 `Game.Contracts` assemblies, so message parsing stays
+hand-rolled like the rest of the Lumberjacks bridge code). It connects,
+joins the given region, and on each `priority_manifest` envelope records
+manifest_id and all five counts to a new
+`priority-manifest-listen.jsonl` (same convention as
+`lumberjacks-projection.jsonl`, `priority-mirror.jsonl`, etc). Built clean,
+0 warnings/errors, and auto-installed to the live Steam BepInEx/plugins
+folder via the existing `CopyAssembly` post-build target.
+
+Scope note: this listener only consumes the **reliable** envelope — it does
+not yet consume the datagram-lane `priority_manifest_object` UDP frames
+in-game. That path is proven only via the standalone Python observer so
+far. Left as an explicit follow-up rather than scope-creeping this slice.
+
+Next concrete step: launch Valheim, load Era16, run
+`network_sense_lumberjacks_priority_manifest_listen start`, then POST
+`/valheim/priority-manifests/{manifestId}/broadcast` against the Gateway
+and confirm a `priority-manifest-listen.jsonl` row plus an in-game HUD
+message appear.
+
+## 2026-07-08 Confirmed Live In-Game
+
+Ran for real: `network_sense_lumberjacks_priority_manifest_listen start` in
+the live Valheim console (session `8f375b0f`, joined `region-spawn`). The
+Gateway broadcast for `valheim-live-priority-20260708-173949-6f82f51d`
+produced a `priority_manifest` row in `priority-manifest-listen.jsonl` with
+`total_input_objects=11544, unique_objects=956, reliable_count=256,
+datagram_count=700, deferred_count=0` — an exact match to the broadcast
+response. This is the full real proof, not just the standalone Python
+observer: live Valheim client → `ComfyNetworkSense 0.5.2` →
+Lumberjacks Gateway → real in-game consumer, end to end.
+
+All three original handoff threads are closed: Gateway rebuild/deploy,
+datagram lane, real in-game consumer. Open follow-up, not yet started:
+consume the datagram-lane `priority_manifest_object` frames in-game too
+(currently reliable-lane only).
+
+## 2026-07-08 Datagram Lane In-Game Consumption (built, not yet tested)
+
+Closed the last open gap: `LumberjacksPriorityManifestListener` now also
+consumes the datagram lane. On `session_started` it extracts
+`udp_token`/`udp_port`, opens a `UdpClient`, sends the 14-byte handshake
+(8-byte token + 6-byte zero header — matching the Python observer's fix),
+and runs a background receive loop decoding the same MSB-first 6-byte
+`BinaryEnvelope` header to filter for `type=17`
+(`PriorityManifestObject`), counting frames into
+`_datagramObjectsReceived`. Three seconds after each reliable
+`priority_manifest` envelope, it emits a follow-up `datagram_summary` row
+to `priority-manifest-listen.jsonl` comparing received vs. expected
+`datagram_count`.
+
+`ComfyNetworkSense 0.5.3` built clean and the DLL was overwritten
+successfully in the live BepInEx/plugins folder — Windows did **not** lock
+it while Valheim was running (unlike the Gateway `.exe`, which does hold
+its own output locked). But the already-running Valheim session still has
+`0.5.2` loaded in memory; **a Valheim restart is required** before this can
+be exercised and verified live. Not yet tested.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
