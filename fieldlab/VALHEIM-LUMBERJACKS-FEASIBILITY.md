@@ -169,15 +169,22 @@ or ZDO transport replacement.
 
 ## Current Next Spike
 
-The next path is priority/load-order probing, not deeper movement tuning. Build a local probe that
-classifies nearby Valheim objects into priority tiers, emits `priority-load.jsonl`, and optionally
-mirrors a priority manifest to Lumberjacks as an ordered side channel. The proof target is a local
-Era16 route packet showing that player-critical state, portals, structural anchors, and nearby
-interactive pieces can be identified and ordered ahead of distant cosmetic/support noise under dense
-build pressure.
-
-Handoff:
+DONE as of 2026-07-08: priority/load-order probing closed the full loop — EventLog manifest,
+Gateway delivery plan (reliable/datagram/deferred buckets), a real socket broadcast over both the
+reliable WebSocket and the UDP datagram lane, and a real in-game consumer of both lanes (proven
+700/700 objects live, after finding and fixing a UDP receive-loop/buffer bug). Full history:
 
 ```text
 handoffs/HANDOFF-LUMBERJACKS-PRIORITY-PATH.md
 ```
+
+Candidates for the next spike, not yet decided:
+
+- Close out the older, still-genuinely-open Era16 baseline thread: the specific
+  `network_sense_rehearsal teleport-route.tsv host_full` in-game command has never been run (a
+  fresh rehearsal-packet check on 2026-07-08 shows 6/7 gates passing, `route_completion` still
+  `pending`, `0/6` stop markers). See `fieldlab/NETWORKSENSE-ERA16-MATRIX.md` and
+  `fieldlab/NETWORKSENSE-PERF-DEBUG-PLAN.md`.
+- Progression/proof/event authority (feasibility matrix row, "likely feasible") — Lumberjacks
+  owning quests/events/proof while Valheim stays the renderer/runtime. No concrete design yet;
+  needs scoping before it's buildable.
