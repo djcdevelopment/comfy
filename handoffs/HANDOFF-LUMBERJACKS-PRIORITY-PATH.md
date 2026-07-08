@@ -289,6 +289,81 @@ Next concrete build step:
    WebSocket, transient/detail updates over the datagram lane, with deferred
    objects explicitly visible to operators/builders.
 
+## 2026-07-08 Gateway Activation/Broadcast Build
+
+Lumberjacks now has the next Gateway slice built locally on top of the delivery
+plan endpoint. New commit:
+
+```text
+030eac8 Add priority manifest activation broadcast
+```
+
+This extends the Gateway priority manifest path with:
+
+- `POST /valheim/priority-manifests/{manifestId}/activate`
+- `GET /valheim/priority-manifests/active`
+- `POST /valheim/priority-manifests/{manifestId}/broadcast`
+
+The activate endpoint loads the live EventLog manifest, shapes it with the
+reliable/datagram/deferred planner, and caches the active plan in Gateway. The
+broadcast endpoint activates the plan and emits a reliable
+`priority_manifest` WebSocket envelope to currently connected sessions. The
+broadcast payload carries the reliable item set, a datagram manifest index, and
+deferred counts by tier. It still does not replace vanilla Valheim replication.
+
+Build verification:
+
+```powershell
+C:\work\dotnet9\dotnet.exe build .\src\Game.Gateway\Game.Gateway.csproj --no-restore -p:UseSharedCompilation=false -p:OutDir=C:\work\lj-build-check\
+```
+
+Result: build succeeded with `0` warnings and `0` errors. The temporary build
+folder was removed after verification.
+
+FieldLab now has a Gateway-plan verifier:
+
+```text
+fieldlab/scenarios/valheim-lumberjacks-priority-gateway-plan.yaml
+fieldlab/command-plans/valheim-lumberjacks-priority-gateway-plan.ps1
+```
+
+Verifier command:
+
+```powershell
+.\fieldlab\scripts\run-experiment.ps1 .\fieldlab\scenarios\valheim-lumberjacks-priority-gateway-plan.yaml
+```
+
+First packet against the currently running Gateway:
+
+```text
+fieldlab/runs/20260708-092311-valheim-lumberjacks-priority-gateway-plan
+```
+
+Status:
+
+```text
+blocked_gateway_priority_endpoint
+```
+
+This is expected because the live Gateway process on `localhost:4000` is still
+the older build and returned `404` for the priority endpoint. The packet is
+useful: it proves the verifier reads the latest live Valheim manifest
+(`valheim-live-priority-20260708-160502-635debf9`) and is ready to compare
+Gateway counts once the updated Gateway is deployed/running.
+
+Next concrete step:
+
+1. Restart or deploy Gateway with the new priority activation/broadcast commit.
+2. Rerun the Gateway-plan FieldLab verifier.
+3. Expected pass shape:
+   - matched Gateway EventLog object-batch events: `72`;
+   - Gateway total input objects: `11,544`;
+   - reliable + datagram + deferred equals Gateway unique object count;
+   - activation returns the same manifest id and total input object count.
+4. Then attach an observation client and validate that the reliable
+   `priority_manifest` WebSocket envelope is received before moving transient
+   detail to the datagram lane.
+
 ## What To Capture
 
 Emit `priority-load.jsonl` from the Valheim plugin. Each row should include:
