@@ -60,8 +60,8 @@ does not add `ZNetView`, does not write ZDOs, and does not claim Valheim authori
 | Local visual projection | Implemented, needs visual run | Lumberjacks `entity_update` rows can render as local-only Valheim debug/proxy objects. | Still no ZDO ownership or multiplayer replication. |
 | Progression/proof/event authority | Likely feasible | Lumberjacks can own quests, events, proof, and operator truth while Valheim remains the renderer/runtime. | Gameplay-critical Valheim combat/building still lives in Valheim. |
 | Shadow movement authority | High risk | Lumberjacks can compute authoritative movement in parallel and measure drift. | Applying corrections may fight Valheim prediction, animation, physics, and ZDO ownership. |
-| ZDO transport replacement | **This is the actual destination — untested, not ruled out.** Early assembly inspection found private `ZNet`/`ZDOMan`/`ZNetView` state (send queues, ownership tables, peer routing) but that only shows the surface exists; it does not show what Harmony/BepInEx patching can or can't reach. Needs real research before any verdict. | A 100% swap of Valheim's native network layer for Lumberjacks, with Valheim staying the renderer/client. | Requires understanding the private ZDO send-queue/ownership/peer-routing internals well enough to intercept or replace them without breaking save/load or peer sync — not yet investigated in depth. |
-| Valheim dedicated server on Lumberjacks | Depends on how it's scoped | If read as "reimplement Valheim's full simulation on Lumberjacks," that's a different, much larger ask than ZDO transport replacement. If read as "Lumberjacks becomes the authoritative network/replication layer while Valheim's own client simulation still runs," that's the same destination as the row above. | Keep these two framings distinct going forward — conflating them is what produced the earlier premature "not viable" verdict. |
+| ZDO transport replacement | **THE DESTINATION — hard, unproven-in-full, no hard blocker found (2026-07-08 deep research).** Every primitive it needs is independently demonstrated by shipping mods on a Harmony-reachable Mono runtime (ZDOMan interception, ZNet send-queue control, Steamworks-socket-layer reach — all confirmed via BetterNetworking); no one has been shown to compose them into a complete swap. See `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md`. | A 100% swap of Valheim's native network layer for Lumberjacks, with Valheim staying the renderer/client. | The genuine disadvantage: Valheim's netcode is Iron Gate's **bespoke** `ZNet`/`ZDOMan`/`ZRoutedRpc` — NOT Mirror/Netcode/Photon — so there is no designed-in transport seam to swap; the interception layer must be hand-built with Harmony against private internals. Also unresolved: legal/anti-cheat posture for redistribution. |
+| Valheim dedicated server on Lumberjacks | Depends on how it's scoped | If read as "reimplement Valheim's full simulation on Lumberjacks," that's a different, much larger ask than the row above. If read as "Lumberjacks becomes the authoritative network/replication layer while Valheim's own client simulation still runs," that's the same destination as the row above. | Keep these two framings distinct going forward — conflating them is what produced the earlier premature "not viable" verdict. |
 
 ## Run The First Probe
 
@@ -178,13 +178,18 @@ reliable WebSocket and the UDP datagram lane, and a real in-game consumer of bot
 handoffs/HANDOFF-LUMBERJACKS-PRIORITY-PATH.md
 ```
 
-Candidates for the next spike, not yet decided:
+The real destination is full netcode replacement (the ZDO transport replacement row above), NOT a
+side quest. A 2026-07-08 deep-research pass established it as hard-but-open with no discovered hard
+blocker — see `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md`. The next concrete move toward
+it is **source-level study of the two most on-point prior-art mods** (`ddormer/valheim-serverside`
+and `CW_Jesse/BetterNetworking`), reading their actual patching approach rather than search
+snippets — the research flagged valheim-serverside's mechanism as the highest-value unknown.
 
-- Close out the older, still-genuinely-open Era16 baseline thread: the specific
-  `network_sense_rehearsal teleport-route.tsv host_full` in-game command has never been run (a
-  fresh rehearsal-packet check on 2026-07-08 shows 6/7 gates passing, `route_completion` still
-  `pending`, `0/6` stop markers). See `fieldlab/NETWORKSENSE-ERA16-MATRIX.md` and
-  `fieldlab/NETWORKSENSE-PERF-DEBUG-PLAN.md`.
-- Progression/proof/event authority (feasibility matrix row, "likely feasible") — Lumberjacks
-  owning quests/events/proof while Valheim stays the renderer/runtime. No concrete design yet;
-  needs scoping before it's buildable.
+Smaller still-open threads (not the destination, but genuinely unfinished):
+
+- The older Era16 baseline: `network_sense_rehearsal teleport-route.tsv host_full` has never been
+  run in-game (fresh 2026-07-08 check: 6/7 gates pass, `route_completion` pending, `0/6` stops).
+  See `NETWORKSENSE-ERA16-MATRIX.md` and `NETWORKSENSE-PERF-DEBUG-PLAN.md`.
+- `lumberjacks-native-runtime-smoke` is currently **failing** (2026-07-05 run): the vertical-slice
+  and multiplayer probes reject a `place_structure` message with `INVALID_MESSAGE` then time out —
+  a real regression in the basic smoke gate, unrelated to the priority-manifest work.
