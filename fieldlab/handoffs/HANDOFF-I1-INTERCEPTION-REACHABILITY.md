@@ -1,5 +1,47 @@
 # Handoff — Rung I1: Interception Reachability (+ I6 cheap win)
 
+> **STATUS 2026-07-09: ✅ I1 PASSED** (`pass_i1_reachable_sendzdos_inlined_fallback`, 0 fails)
+> against a live i5 ↔ am4 session. Evidence: `fieldlab/runs/i1/netcode-probe.jsonl` +
+> `netcode-probe-summary.json`. Both funnels reachable & legible:
+> **recv 1,154 ZDOs (RPC_ZDOData), send 3,846 ZDOs (CreateSyncList)**, 50/50 legible uid+owner
+> each, 3,898 distinct ZDOs, 0 malformed — captured at **~1,190 ZDO/s** through a dense-build area.
+>
+> **INLINING QUESTION SETTLED (the prize):** `SendZDOs` postfix fired **0** times while
+> `CreateSyncList` carried all 3,846 sends → `SendZDOs` **is JIT-inlined** (as feared). Not a
+> kill: the `CreateSyncList` fallback seam one frame up is fully reachable and legible, so I2/I3/I4
+> attach there. Later rungs must **not** rely on a `SendZDOs` hook.
+>
+> **Setup lessons that cost the session:** see `fieldlab/MULTIPLAYER-NETWORK-SETUP.md` — the
+> config-path decoy trap (mod reads the bepinex-root cfg, not the `config/` subdir) and the
+> Docker-Desktop-no-UDP topology fix. Config-driven autostart needs **no console** on the server.
+>
+> **Loose end for a truly airtight number:** this run used `autostop=0`, so the authoritative
+> uncapped aggregate counters (incl. real parse-error count) were never emitted — the 5,000 is a
+> pre-cap floor. For the hard "zero-dropped-over-full-traversal" figure, re-run with finite
+> `autostop` + high `maxDetailRows`. The I1 *gate* is already PASS regardless.
+>
+> ---
+> _Original status (pre-run):_ I1 probe **built, compiled, and installed** (ComfyNetworkSense
+> **0.5.6**). Three `ZDOMan` postfixes (`RPC_ZDOData`, `SendZDOs`, `CreateSyncList`) so the
+> inlining risk resolves either way.
+>
+> **KEY DISCOVERY:** the funnels only fire with a **connected peer**. A first run in a
+> singleplayer world captured a clean zero — `SendZDOs`/`CreateSyncList`/`RPC_ZDOData` are all
+> peer-gated, so no remote peer ⇒ nothing to observe (the probe itself is proven sound; patches
+> applied, `start` row written). **I1 needs a client↔dedicated-server session.**
+>
+> **Chosen path — autonomous Docker lab.** 0.5.6 added a `[Netcode]` config auto-start that
+> fires on `ZNet.GetPeerConnections() > 0` (headless-safe, no local player needed). Run:
+> ```powershell
+> .\fieldlab\scripts\run-autonomous-valheim-lab.ps1 -Clients 1 -Start
+> ```
+> The lab rebuilds+deploys the mod, brings up server+client, the probe auto-starts on both once
+> the peer connects, auto-stops after 150 s, and a post-run step writes
+> `runs\<id>-valheim-autonomous-lab\telemetry\netcode-probe-summary.json` with the I1 gate.
+> (Manual fallback if you'd rather use a live client on a real server: connect, then
+> `network_sense_lumberjacks_netcode_probe start` → move ~60 s → `stop`, and I run
+> `verify-netcode-probe.ps1 -LogDir <that client's comfy-network-sense dir>`.)
+
 Next session's starting point for `VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md`.
 I0 is complete — the map is `../NETCODE-MAP.md` (repo: `fieldlab/NETCODE-MAP.md`).
 Build mapped: `assembly_valheim.dll` @ 2026-07-01, network protocol version **36**.

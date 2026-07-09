@@ -86,7 +86,37 @@ and I6.
     — judgment over decompiled IL, not offloadable.
   - **operator:** none.
 
-### I1 — Interception reachability
+### I1 — Interception reachability — 🔧 BUILT & STAGED (2026-07-09), awaiting connected run
+
+**Discovery (2026-07-09):** the first probe run captured a clean **zero** on all three
+funnels — because it ran in a **singleplayer world**. In the decompile, `SendZDOs` is only
+ever invoked as `SendZDOs(m_peers[m_nextSendPeer], …)` and `RPC_ZDOData` only fires on data
+received *from a peer*; with an empty peer list all three funnels (incl. `CreateSyncList`,
+called only from `SendZDOs`) are dormant no matter how much you move. **I1 requires a
+connected session (client↔dedicated-server), not singleplayer.** The probe itself is proven
+sound: patches applied (no Harmony errors, plugin reached "Telemetry scaffold ready"), the
+`start` row and observe-only claim were written, and the zero was clean (not garbage). This
+corrects the original handoff's "load any world and move around" recipe.
+
+**Resolution — 0.5.6 auto-start (for the autonomous Docker lab):** added a `[Netcode]`
+config auto-start that fires once `ZNet.GetPeerConnections() > 0` (no local player needed, so
+it works headless on the dedicated server too), runs a bounded window, and auto-stops with a
+counters row. `run-autonomous-valheim-lab.ps1` now enables it on both the server and client
+configs and verifies whichever `netcode-probe.jsonl` has data. Next: run
+`.\fieldlab\scripts\run-autonomous-valheim-lab.ps1 -Clients 1 -Start` and read the
+`netcode-probe-summary.json` gate.
+
+**Status:** probe built, compiled clean, and auto-installed (ComfyNetworkSense **0.5.6**).
+Deliverables: command `network_sense_lumberjacks_netcode_probe [start|stop|status]
+[max-detail-rows]`; runner `NetcodeProbeRunner.cs` with three auto-applied `ZDOMan`
+postfixes — `RPC_ZDOData` (receive), `SendZDOs` (residual-inlining-risk send helper),
+`CreateSyncList` (send-side fallback seam + per-ZDO detail); writes `netcode-probe.jsonl`;
+verifier `fieldlab/scripts/verify-netcode-probe.ps1` + scenario
+`valheim-lumberjacks-netcode-probe.yaml`. Observe-only: the receive side re-parses a *copy*
+of the wire bytes (live read cursor untouched), the send side only reads already-selected
+ZDO objects. **Next: operator runs the ~2-min in-game window; then read the verifier gate.**
+Follow-up (deferred, not blocking): wire the scenario into `run-experiment.ps1`'s dispatcher
+for a full signed packet — the standalone verifier already applies the gate.
 
 - **Invariant:** a ComfyNetworkSense Harmony patch actually fires on the live ZDO
   send funnel and the receive funnel, and can read the ZDO payload passing through
