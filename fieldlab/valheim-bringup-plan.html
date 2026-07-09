@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Valheim × Lumberjacks — 2-Player Bringup</title>
+<style>
+/* ============================================================
+   Nordic Glass — dark. Matches the current in-game house theme
+   (network/mod/ComfyNetworkSense/UI-DESIGN.md): blue-black glass,
+   cyan accents, slate text, green/amber/rust state colors.
+   ============================================================ */
+:root{
+  --bg:#0a0e13; --bg2:#070a0e;
+  --glass:rgba(18,27,37,.66); --glass2:rgba(25,36,49,.5);
+  --line:rgba(122,162,192,.16); --line-soft:rgba(122,162,192,.08);
+  --ink:#e8eef4; --slate:#93a2b3; --faint:#5f6b7a;
+  --cyan:#63d3e6; --cyan-deep:#3fa9bd;
+  --good:#5ed09a; --amber:#e6b74d; --rust:#e0684a;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",sans-serif;
+  --mono:"Cascadia Code","JetBrains Mono","SF Mono",Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{
+  background:
+    radial-gradient(120% 80% at 50% -10%,rgba(63,169,189,.10) 0%,transparent 55%),
+    radial-gradient(90% 60% at 100% 0%,rgba(94,208,154,.05) 0%,transparent 50%),
+    linear-gradient(180deg,var(--bg) 0%,var(--bg2) 100%);
+  background-attachment:fixed;
+  color:var(--ink);font-family:var(--sans);font-size:15.5px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;padding:0 0 90px;
+}
+::selection{background:rgba(99,211,230,.24)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-thumb{background:rgba(122,162,192,.22);border:3px solid transparent;background-clip:padding-box;border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:rgba(122,162,192,.4);background-clip:padding-box}
+.progress{position:fixed;top:0;left:0;height:2px;width:0;z-index:60;background:linear-gradient(90deg,var(--cyan),var(--good));box-shadow:0 0 10px var(--cyan);transition:width .1s linear}
+.shell{max-width:1060px;margin:0 auto;padding:0 clamp(18px,4vw,44px)}
+
+/* masthead */
+.mast{padding:clamp(38px,6vw,72px) 0 26px;border-bottom:1px solid var(--line)}
+.kicker{font-family:var(--mono);font-size:11.5px;letter-spacing:.24em;text-transform:uppercase;color:var(--cyan-deep);margin:0 0 18px}
+.kicker b{color:var(--faint);font-weight:400}
+.mast h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.1rem,5vw,3.4rem);line-height:1.05;letter-spacing:-.01em;margin:0;max-width:20ch;text-wrap:balance}
+.mast h1 em{font-style:italic;color:var(--cyan)}
+.lede{font-family:var(--serif);font-size:clamp(1.05rem,1.8vw,1.28rem);line-height:1.5;color:var(--slate);max-width:60ch;margin:18px 0 0;text-wrap:pretty}
+
+/* metastrip */
+.metastrip{display:flex;flex-wrap:wrap;gap:0;margin-top:28px;border:1px solid var(--line);border-radius:8px;background:var(--glass);backdrop-filter:blur(8px);overflow:hidden}
+.metastrip .m{flex:1 1 150px;padding:14px 18px;border-right:1px solid var(--line-soft)}
+.metastrip .m:last-child{border-right:0}
+.metastrip .mv{font-family:var(--serif);font-size:1.5rem;line-height:1;color:var(--cyan)}
+.metastrip .mv.ok{color:var(--good)} .metastrip .mv.hot{color:var(--amber)}
+.metastrip .ml{font-family:var(--mono);font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+
+h2{font-family:var(--mono);font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--slate);margin:44px 0 16px;font-weight:600;display:flex;align-items:center;gap:10px}
+h2::after{content:"";flex:1;height:1px;background:var(--line-soft)}
+
+code,.mono{font-family:var(--mono);font-size:.88em}
+code{color:var(--cyan);background:rgba(99,211,230,.08);padding:1px 5px;border-radius:4px}
+
+.panel{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:0 0 14px;box-shadow:inset 0 1px 0 rgba(255,255,255,.03),0 12px 30px -18px #000}
+.north{border-left:2px solid var(--cyan)}
+
+/* verification tags */
+.legend{display:flex;flex-wrap:wrap;gap:9px 20px;font-size:12.5px;color:var(--slate)}
+.tag{display:inline-block;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:.06em;padding:2px 7px;border-radius:5px;vertical-align:middle;border:1px solid transparent}
+.t-ok{background:rgba(94,208,154,.13);color:var(--good);border-color:rgba(94,208,154,.28)}
+.t-warn{background:rgba(230,183,77,.13);color:var(--amber);border-color:rgba(230,183,77,.28)}
+.t-wait{background:rgba(147,162,179,.12);color:var(--slate);border-color:rgba(147,162,179,.24)}
+.t-gate{background:rgba(224,104,74,.13);color:var(--rust);border-color:rgba(224,104,74,.3)}
+.t-now{background:rgba(99,211,230,.14);color:var(--cyan);border-color:rgba(99,211,230,.32)}
+
+/* step cards */
+.step{background:var(--glass);backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:11px;margin:0 0 13px;overflow:hidden;box-shadow:0 12px 30px -20px #000}
+.step.now{border-color:rgba(99,211,230,.5);box-shadow:0 0 0 1px rgba(99,211,230,.25),0 0 34px -8px rgba(99,211,230,.3)}
+.step .hd{display:flex;align-items:center;gap:13px;padding:14px 18px;background:var(--glass2);border-bottom:1px solid var(--line-soft)}
+.step .n{font-family:var(--serif);font-weight:700;color:var(--cyan);font-size:20px;width:26px;text-align:center;flex:none}
+.step.now .n{color:var(--cyan)}
+.step .ti{font-family:var(--serif);font-size:17px;font-weight:600;flex:1;letter-spacing:.01em}
+.step .bd{padding:14px 18px}
+.step .row{margin:8px 0;display:flex;gap:12px;align-items:baseline}
+.step .k{color:var(--faint);flex:none;width:82px;font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.08em;padding-top:2px}
+.step .v{flex:1;font-size:14px;color:var(--ink)}
+.step .v.inv{color:var(--ink)} .step .v.inv b{color:var(--cyan)}
+
+table{border-collapse:collapse;width:100%;font-size:13px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+th{color:var(--faint);font-family:var(--mono);font-weight:600;font-size:10px;text-transform:uppercase;letter-spacing:.1em}
+td:first-child{color:var(--slate);white-space:nowrap;font-weight:600}
+ul{margin:4px 0;padding-left:20px} li{margin:5px 0;color:var(--slate)}
+li b{color:var(--ink);font-weight:600}
+.chg{color:var(--slate)} .chg b{color:var(--cyan);font-family:var(--mono);font-size:.9em}
+</style>
+</head>
+<body>
+<div class="progress" id="pg"></div>
+<div class="shell">
+
+  <div class="mast">
+    <p class="kicker">Living Plan · Valheim × Lumberjacks <b>&nbsp;/&nbsp; source of truth · 2026-07-09</b></p>
+    <h1>Two-player bringup, <em>then</em> we decide what we build.</h1>
+    <p class="lede">Every claim carries a verification tag — trust it by reading, not by re-checking me. The ZDO netcode work is set down until the five steps below go green. Owner tags: <b>D</b>=Derek, <b>C</b>=Claude.</p>
+
+    <div class="metastrip">
+      <div class="m"><div class="mv ok">2</div><div class="ml">steps verified-partial</div></div>
+      <div class="m"><div class="mv hot">1</div><div class="ml">current step</div></div>
+      <div class="m"><div class="mv">5</div><div class="ml">steps to green</div></div>
+      <div class="m"><div class="mv ok">✓</div><div class="ml">am4 server live</div></div>
+    </div>
+  </div>
+
+  <h2>Legend</h2>
+  <div class="panel legend">
+    <span><span class="tag t-ok">VERIFIED</span> I ran the check this session</span>
+    <span><span class="tag t-warn">CLAIMED</span> a handoff asserts it — not re-checked</span>
+    <span><span class="tag t-wait">PENDING</span> not started</span>
+    <span><span class="tag t-gate">GATE</span> safety gate first</span>
+    <span><span class="tag t-now">NOW</span> current step</span>
+  </div>
+
+  <h2>North Star — paused, not forgotten</h2>
+  <div class="panel north">
+    Full <b style="color:var(--ink)">ZDO netcode replacement</b>: Valheim stays the renderer/client; Lumberjacks becomes the authoritative network layer. Ladder I0→I6 lives in <code>fieldlab/NETCODE-MAP.md</code>. <b style="color:var(--ink)">I0</b> (source map) done. <b style="color:var(--ink)">I1</b> (interception reachability) <span class="tag t-warn">CLAIMED</span> pass — run files in <code>fieldlab/runs/i1/</code>, not re-audited. Next rung when we resume: <b style="color:var(--ink)">I2</b> — hold ZDO ownership against Valheim's release trigger.
+  </div>
+
+  <h2>Current Focus — 2-Player Bringup</h2>
+
+  <div class="step now">
+    <div class="hd"><span class="n">1</span><span class="ti">Two players, two Steam accounts, one server — at once</span><span class="tag t-now">NOW · D+C</span></div>
+    <div class="bd">
+      <div class="row"><span class="k">Goal</span><span class="v">am4 server + OMEN client both live simultaneously on two separately-licensed accounts (Zephar410 / wary.fool). The ~12h blocker the 2nd license was bought to kill.</span></div>
+      <div class="row"><span class="k">Invariant</span><span class="v inv">am4 reports a connected peer <b>and</b> OMEN telemetry shows <code>mode ≠ Solo</code> in the same window, stable ≥60s — confirmed from <b>both</b> sides.</span></div>
+      <div class="row"><span class="k">Connect</span><span class="v">OMEN Valheim (wary.fool) → <b style="color:var(--ink)">Join by IP</b> → <code>100.116.82.60:2456</code>, pass <code>comfytest</code>. Server is <code>PUBLIC=false</code> → not in the browser. <span class="tag t-ok">VERIFIED</span> up, listening 2456-2457/udp.</span></div>
+      <div class="row"><span class="k">Open Q</span><span class="v">"2 players" = a <b style="color:var(--ink)">second walking avatar</b> (am4 can't render — Battlemage/Mesa) or server(headless)+OMEN player? Needs your word.</span></div>
+      <div class="row"><span class="k">Status</span><span class="v"><span class="tag t-now">IN PROGRESS</span> — awaiting join; C verifies both sides.</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="hd"><span class="n">2</span><span class="ti">Deploy / update mods to both am4 and OMEN</span><span class="tag t-wait">PENDING · C</span></div>
+    <div class="bd">
+      <div class="row"><span class="k">Goal</span><span class="v">One command pushes a fresh <code>ComfyNetworkSense.dll</code> to OMEN plugins and the am4 container, each loads it.</span></div>
+      <div class="row"><span class="k">Invariant</span><span class="v inv">After a version bump, the new <code>build_version</code> shows in <b>both</b> OMEN telemetry and the am4 server BepInEx log. Trap: am4 maps <code>ConfigPath</code> to the bepinex root — edit that cfg, not the <code>config/</code> decoy.</span></div>
+      <div class="row"><span class="k">Status</span><span class="v"><span class="tag t-ok">VERIFIED</span> OMEN deploy path (DLL present). <span class="tag t-warn">CLAIMED</span> am4 server-side DLL. Reconcile: two source trees (<code>network/mod</code> vs <code>scratch/ComfyMods</code>) — pick canonical.</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="hd"><span class="n">3</span><span class="ti">MCP reachable by both machines; mods talk through it</span><span class="tag t-wait">PENDING · C</span></div>
+    <div class="bd">
+      <div class="row"><span class="k">Goal</span><span class="v">Gateway reachable from am4 and OMEN; each mod can round-trip a message through it.</span></div>
+      <div class="row"><span class="k">Invariant</span><span class="v inv">mod → MCP → response, logged on both boxes. Blocker: gateway binds <code>127.0.0.1:8720</code> (loopback) — am4 can't reach it over tailnet until it binds the tailnet IP.</span></div>
+      <div class="row"><span class="k">Status</span><span class="v"><span class="tag t-ok">VERIFIED</span> gateway up on OMEN, reads OMEN telemetry; <code>.mcp.json</code> written. <span class="tag t-wait">PENDING</span> tailnet bind + am4 reach.</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="hd"><span class="n">4</span><span class="ti">Drive movement / teleport on am4 and OMEN via MCP</span><span class="tag t-wait">PENDING · C</span></div>
+    <div class="bd">
+      <div class="row"><span class="k">Goal</span><span class="v">An MCP command moves/teleports the intended character on each box — the hands-free loop restored.</span></div>
+      <div class="row"><span class="k">Invariant</span><span class="v inv">A C-issued command moves the target avatar, seen in that box's telemetry (region/pos), no human at the keyboard. Actuation: the <code>autonomous_route</code> profile (auto-rehearsal) — your chosen path.</span></div>
+      <div class="row"><span class="k">Status</span><span class="v"><span class="tag t-ok">VERIFIED</span> <code>autonomous_route</code> profile + <code>teleport-route.tsv</code> present on OMEN. <span class="tag t-wait">PENDING</span> the live drive.</span></div>
+    </div>
+  </div>
+
+  <div class="step">
+    <div class="hd"><span class="n">5</span><span class="ti">Decide what we build</span><span class="tag t-wait">PENDING · D+C</span></div>
+    <div class="bd">
+      <div class="row"><span class="k">Goal</span><span class="v">With a stable 2-player rig + hands-free control + working MCP, choose the next real target (resume ZDO ladder at I2, or a Lumberjacks priority/broadcast slice).</span></div>
+      <div class="row"><span class="k">Status</span><span class="v"><span class="tag t-wait">PENDING</span> — gated on 1-4.</span></div>
+    </div>
+  </div>
+
+  <h2>Verified Topology — this session</h2>
+  <div class="panel" style="padding:6px 8px">
+    <table>
+      <tr><th>Piece</th><th>Fact</th><th>Tag</th></tr>
+      <tr><td>am4 server</td><td><code>100.116.82.60</code>, container Up 2h, real UDP listeners 2456-2457, world ComfyEra16, pass comfytest, PUBLIC=false, CROSSPLAY=false, BEPINEX=true</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>am4 reach</td><td>ping 7ms TTL64; SSH <code>derek@100.116.82.60</code> key-based works</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>OMEN player</td><td>Steam up; Valheim launched (session <code>20260709-161830</code>, 60fps) but <b>Solo</b> — not on am4 yet</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>OMEN mod</td><td><code>ComfyNetworkSense.dll</code> deployed, build 0.5.6 (newest on disk)</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>MCP gateway</td><td>FastMCP streamable-http <code>127.0.0.1:8720</code>, 17 tools, reads OMEN cfg dir live</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>am4 cruft</td><td><code>...valheim-client-gpu-1</code> (llvmpipe, :8095) still running — flag for teardown</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+      <tr><td>i5 laptop</td><td>Abandoned per Derek — ignore</td><td><span class="tag t-ok">VERIFIED</span></td></tr>
+    </table>
+  </div>
+
+  <h2>Trust Ledger — what is NOT verified</h2>
+  <div class="panel">
+    <ul>
+      <li>I1 "PASS" — asserted by handoff + run files; <b>not re-audited</b> this session.</li>
+      <li>Netcode ladder past I1 (I2 ownership-hold, I3/I4, I5 handshake) — <b>unbuilt</b>.</li>
+      <li>am4 server-side mod version / freshness — not confirmed against current source.</li>
+      <li>Any handoff dated after NETCODE-MAP — <b>rumor until verified</b> (your standing rule).</li>
+      <li><b>Memory scope:</b> memories are locked to the working directory (<code>...\projects\C--work-comfy\memory\</code>). Durable directives built in <code>C:\work\commandcenter</code> or elsewhere are <b>not visible here</b> — the likely home of the lost <code>html-living-plan</code> directive + house style.</li>
+    </ul>
+  </div>
+
+  <h2>Changelog</h2>
+  <div class="panel">
+    <ul class="chg">
+      <li><b>2026-07-09</b> — Reset after ~7h thrash. Established this doc as source of truth. Gateway restarted on OMEN, live-telemetry read confirmed, am4 config verified from container env. Locked the 5-step 2-player bringup; ZDO ladder paused. Rebuilt this doc in the dark Nordic Glass house theme after it was first shipped as off-house light-mode slop.</li>
+    </ul>
+  </div>
+
+</div>
+<script>
+  var pg=document.getElementById('pg');
+  function upd(){var h=document.documentElement;var m=h.scrollHeight-h.clientHeight;pg.style.width=(m>0?(h.scrollTop/m*100):0)+'%';}
+  addEventListener('scroll',upd,{passive:true});addEventListener('resize',upd);upd();
+</script>
+</body>
+</html>
