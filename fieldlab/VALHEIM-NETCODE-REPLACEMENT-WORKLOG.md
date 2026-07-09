@@ -45,7 +45,18 @@ split** (what HEARTH/mechnet does vs. what must be frontier or operator).
 
 ## The invariant ladder
 
-### I0 — Netcode map (pre-work for everything)
+### I0 — Netcode map (pre-work for everything) — ✅ COMPLETE (2026-07-09)
+
+**Status:** gate satisfied. Deliverable: `NETCODE-MAP.md` (all five funnels mapped with
+verbatim signatures + citations from a decompile of `assembly_valheim.dll` @ 2026-07-01,
+net protocol version 36). Key outcomes: (1) the inlining standing-risk is **bounded** — the
+whole receive/handshake/routed-RPC handler layer is delegate-registered and inlining-proof,
+so residual risk is only three send-side helpers; (2) the connection-handshake sequence the
+feasibility research *refuted* is now re-derived end to end (version gate `num != 36`, full
+error-code order); (3) native boundary confirmed clean — all managed funnels sit above
+`ZSteamSocket`. Fleet-lane reachability (flagged unknown below) **resolved: fleet CAN reach
+GitHub**. Next unblocked rungs: I1 (see `handoffs/HANDOFF-I1-INTERCEPTION-REACHABILITY.md`)
+and I6.
 
 - **Invariant:** we have an accurate, source-grounded map of Valheim's managed
   replication path: the exact classes/methods/fields for (a) the ZDO send funnel,
@@ -279,10 +290,12 @@ the state-exchange pieces. I7 composes.
 
 ## Standing risks & kill-criteria
 
-- **Inlining (confirmed real):** if the ZDO send or apply funnel is inlined, Harmony
-  can't prefix/postfix it — discovered at I1. Workaround before declaring dead:
-  transpiler patch, or hook a caller one frame up the stack. Only "dead" if *no*
-  reachable seam exists.
+- **Inlining (bounded by I0):** the receive/handshake/routed-RPC handler layer is
+  delegate-registered (`ZRpc.Register`/`ZRoutedRpc.Register`) and therefore inlining-proof —
+  the JIT cannot inline a delegate target. Residual risk is confined to three send-side
+  helpers (`SendZDOs`, `CreateSyncList`, `RouteRPC`), all large/multi-callsite (low). I1
+  tests `SendZDOs` directly. Workaround before declaring dead: postfix `CreateSyncList`, a
+  transpiler patch, or hook a caller one frame up. Only "dead" if *no* reachable seam exists.
 - **Native boundary (confirmed):** Harmony can't touch the native Steamworks send.
   The whole strategy assumes interception at the *managed* `ZSteamSocket` wrapper
   above it. If traffic can bypass that wrapper, I3/I4 need rethinking — flag at I0.

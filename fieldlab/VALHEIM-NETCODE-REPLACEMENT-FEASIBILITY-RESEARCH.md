@@ -101,6 +101,10 @@ bespoke internals. That is the crux of the difficulty.
   connection flow has to satisfy or reproduce these checks. (The *exact method
   sequence* of the handshake was **refuted 1-2** — so the gate exists, but treat
   the precise call chain as not-yet-verified.)
+  **UPDATE 2026-07-09 (I0):** the exact sequence is now re-derived from a decompile —
+  `ServerHandshake → ClientHandshake → SendPeerInfo → RPC_PeerInfo`, version gate
+  `num != 36`, full server-side check order and error codes. See `NETCODE-MAP.md` funnel 5.
+  This "refuted" item is resolved.
 - **Save format is NOT a blocker.** World state is filesystem-portable: the
   `.fwl`/`.db` pair moves between differently-hosted servers with no machine, Steam
   session, or network-identity binding. [confirmed 2-1] Authority can live
