@@ -1,19 +1,17 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T02:23:55-07:00",
+    "updated": "2026-07-10T02:37:34-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
         "topology": "fieldlab/MULTIPLAYER-NETWORK-SETUP.md",
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
-    "needs_derek": [
-        "Launch Valheim on OMEN (wary.fool) + Join 100.116.82.60:2456 -- ~2 min. Then walk away: auto-rehearsal + netcode probe + ownership observe run hands-free for ~3 min and I read + summarize the ownership churn."
-    ],
-    "next_derek_touchpoint": "OBSERVE SEAM LIVE on am4 (mod 0.5.9, ownershipObserveEnabled=true; ZDO.SetOwner/SetOwnerInternal postfixes bound clean at CreateAndPatchAll, no Harmony errors; 9.15M world reconnected). Observe-ONLY, zero gameplay change. OMEN auto-rehearsal coupling re-enabled so a join produces a hands-free dense-route walk. ONE ACTION FROM YOU: launch OMEN as wary.fool + Join 100.116.82.60:2456; after 25s the probe + observer auto-start and log server-side ownership churn for 150s. I then summarize: does ownership transfer on zone entry, via which funnel (SetOwner=revision-bumping vs SetOwnerInternal=revision-silent remote-apply), and does the revision race hold -- settling the two I2 caveats with data before any pin code.",
+    "needs_derek": [],
+    "next_derek_touchpoint": "I2 OBSERVE CAPTURE DONE + both caveats settled with LIVE data (fieldlab/runs/i2-observe/20260710-093009/, sha256 cad7301f). 150s hands-free window, 529 real ownership changes / 201 ZDOs / 22 sectors, zero gameplay change, world intact. (1) Patch REACHES the churn funnel: 140 via=SetOwner, ALL revision-bumping -> the #1 inlining risk is dead, the pin can rely on the ReleaseNearbyZDOS->SetOwner seam. (2) Caveat #2 CONFIRMED + quantified: 389 via=SetOwnerInternal (73%, 169 at revision 0) -- the remote-apply path a SetOwner-only guard would miss; the pin must cover it or keep the pinned revision highest (RPC_ZDOData is revision-gated). NEXT DECISION IS YOURS: go to build the behaviour-CHANGING pin (OwnershipPinRunner @ ReleaseNearbyZDOS + SetOwner/SetOwnerInternal guard + rollback flag + save-integrity hard gate) against this data -- I'll present the refined design first.",
     "trust": {
-        "claims_total": 70,
-        "confirmed": 61,
+        "claims_total": 72,
+        "confirmed": 63,
         "refuted": 3,
         "uncorroborated": 4,
         "conflicted_resolved": 2,
@@ -39,6 +37,10 @@
             {
                 "verdict": "good",
                 "text": "P2 CLOSED (2026-07-10): airtight I1 + repeatable connected baseline. Second green run gated both sides; signed client+server baseline packets (client frame p95 16.7ms locked-60 HIGH; server recv 2126/send 2249, parseErr 0). god/fly autopilot safeguard live. Caught + excluded: mod rtt_ms/jitter_ms are a bogus ZRpc heartbeat sawtooth (real network RTT 2-4ms)."
+            },
+            {
+                "verdict": "good",
+                "text": "I2 observe capture (2026-07-10, mod 0.5.9, observe-only): the ZDO ownership funnel is patch-reachable -- 140 SetOwner changes in a 150s walk, all bumping OwnerRevision (inlining risk retired). Caveat #2 confirmed + quantified: 389 SetOwnerInternal remote-applies (169 at revision 0) the pin must cover. Zero gameplay change; live server-side, archived w/ sha256. Settles I2 before any behaviour-changing pin code."
             }
         ]
     },
