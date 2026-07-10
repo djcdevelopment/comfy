@@ -6,8 +6,11 @@ world, or require the game to be running.
 
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import shlex
+import subprocess
 import time
 from pathlib import Path
 from statistics import mean
@@ -40,6 +43,49 @@ AUTONOMOUS_STATE = Path(os.environ.get(
     "COMFY_AUTONOMOUS_STATE",
     "",
 ))
+
+# --- am4 dedicated server (netcode probe source of record) ---------------------------
+# The headless Valheim server runs on am4 (native Linux Docker, tailnet). Its probe jsonl
+# and container logs are read over key-based ssh (BatchMode: never prompts, fails fast).
+AM4_SSH_HOST = os.environ.get("COMFY_AM4_SSH", "derek@am4")
+AM4_CONTAINER = os.environ.get(
+    "COMFY_AM4_CONTAINER", "comfy-valheim-server-am4-valheim-server-1",
+)
+AM4_PROBE_PATH = os.environ.get(
+    "COMFY_AM4_PROBE_PATH",
+    "~/comfy-valheim-lab/server-state/config/bepinex/comfy-network-sense/netcode-probe.jsonl",
+)
+NETCODE_PROBE_FILE = "netcode-probe.jsonl"
+SSH_TIMEOUT_S = int(os.environ.get("COMFY_SSH_TIMEOUT_S", "20"))
+# Counter fields the probe emits only on an authoritative lifecycle stop/status row.
+_PROBE_COUNTER_KEYS = (
+    "recv_funnel_calls", "recv_zdo_rows", "recv_parse_errors",
+    "send_zdos_calls", "send_zdos_flushed", "create_sync_list_calls", "send_zdo_rows",
+)
+# Default filter for server log tail: peer join/connect + probe lifecycle lines.
+_SERVER_LOG_DEFAULT_FILTER = "join|peer|connect|Netcode probe|ComfyNetworkSense"
+
+
+def _run_ssh(remote_cmd: str, timeout_s: int = SSH_TIMEOUT_S) -> tuple[int, str, str]:
+    """Run a command on am4 over key-based ssh. BatchMode => no password prompt / no hang."""
+    proc = subprocess.run(
+        ["ssh", "-o", "BatchMode=yes", "-o", "ConnectTimeout=10", AM4_SSH_HOST, remote_cmd],
+        capture_output=True, text=True, timeout=timeout_s,
+    )
+    return proc.returncode, proc.stdout, proc.stderr
+
+
+def _parse_jsonl_text(text: str) -> list[dict]:
+    entries = []
+    for line in text.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        try:
+            entries.append(json.loads(line))
+        except json.JSONDecodeError:
+            entries.append({"_parse_error": True, "raw": line[:500]})
+    return entries
 
 
 def _safe_child(root: Path, file_name: str) -> Path:
@@ -257,8 +303,10 @@ def valheim_mcp_health() -> dict:
         "ok": True,
         "network_sense_dir": _file_info(NETWORK_SENSE_DIR),
         "bepinex_log": _file_info(BEPINEX_LOG),
+        "netcode_probe_local": _file_info(NETWORK_SENSE_DIR / NETCODE_PROBE_FILE),
         "notes_path": str(DEV_NOTES_PATH),
         "ollama_endpoint": ollama_endpoint,
+        "am4": {"ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER, "probe_path": AM4_PROBE_PATH},
         "tools": [
             "valheim_networksense_files",
             "valheim_swarm_clients",
@@ -268,6 +316,9 @@ def valheim_mcp_health() -> dict:
             "valheim_compare_clients",
             "valheim_suggest_next_test",
             "valheim_suggest_config",
+            "valheim_tail_netcode_probe",
+            "valheim_netcode_probe_summary",
+            "valheim_server_log_tail",
         ],
     }
 
@@ -519,6 +570,192 @@ def valheim_explain_networksense(sample_count: int = 30, model: str = "qwen3-cod
     return {"report": report, "explanation": result}
 
 
+def valheim_tail_netcode_probe(source: str = "local", lines: int = 20) -> dict:
+    """Tail the I1 netcode-probe.jsonl. source='local' (OMEN client) or 'am4' (server via ssh)."""
+    source = str(source or "").strip().lower()
+    lines = max(1, min(int(lines), 2000))
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, NETCODE_PROBE_FILE)
+        return {
+            "source": "local",
+            "file": str(path),
+            "exists": path.exists(),
+            "entries": _tail_json(path, lines),
+        }
+    if source == "am4":
+        try:
+            rc, out, err = _run_ssh(f"tail -n {lines} {AM4_PROBE_PATH}")
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_PROBE_PATH}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_PROBE_PATH}
+        return {
+            "source": "am4",
+            "ok": True,
+            "ssh_host": AM4_SSH_HOST,
+            "remote_path": AM4_PROBE_PATH,
+            "entries": _parse_jsonl_text(out),
+        }
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def _summarize_probe_rows(rows: list[dict]) -> dict:
+    """Scope to the latest start->end window and read authoritative counters.
+
+    Counters live ONLY on a lifecycle stop/status row (finite autostop). If none landed in
+    the window, the true totals were never emitted: we report per-detail-row FALLBACK counts
+    and mark unmeasured fields null — never a fabricated zero the caller could mistake for a
+    measurement.
+    """
+    # jsonl is append-only, so file order is chronological: find the last 'start' by index.
+    start_idx = None
+    for index, row in enumerate(rows):
+        if str(row.get("event")) == "start":
+            start_idx = index
+    window = rows[start_idx:] if start_idx is not None else rows
+
+    summary_row = None
+    for row in window:
+        if str(row.get("event")) in ("stop", "status") and any(k in row for k in _PROBE_COUNTER_KEYS):
+            summary_row = row  # last one wins
+
+    zdo_rows = [r for r in window if str(r.get("event")) == "zdo"]
+    recv_detail = sum(1 for r in zdo_rows if str(r.get("dir")) == "recv")
+    send_detail = sum(1 for r in zdo_rows if str(r.get("dir")) == "send")
+
+    if summary_row is not None:
+        def _c(key: str) -> int:
+            value = summary_row.get(key)
+            return int(value) if isinstance(value, (int, float)) else 0
+        counters = {key: _c(key) for key in _PROBE_COUNTER_KEYS}
+        authoritative = True
+        caveat = None
+    else:
+        # Fallback: only the pre-cap detail rows are trustworthy as a FLOOR. Everything the
+        # stop-row would have carried (funnel calls, parse errors, send counters) is unknown.
+        counters = {key: None for key in _PROBE_COUNTER_KEYS}
+        counters["recv_zdo_rows"] = recv_detail
+        counters["send_zdo_rows"] = send_detail
+        authoritative = False
+        caveat = ("No lifecycle stop/status row in window: counters are a FLOOR from detail "
+                  "rows, not measured totals. null fields were never emitted (set a finite "
+                  "netcodeProbeAutoStopSeconds to get authoritative counts). Not a PASS.")
+
+    return {
+        "has_lifecycle_summary": summary_row is not None,
+        "counters_are_authoritative": authoritative,
+        "counters": counters,
+        "detail_rows": {"recv": recv_detail, "send": send_detail, "window_rows": len(window)},
+        "window": {
+            "has_start": start_idx is not None,
+            "start_row": window[0] if (start_idx is not None and window) else None,
+        },
+        "caveat": caveat,
+    }
+
+
+def valheim_netcode_probe_summary(source: str = "local") -> dict:
+    """Summarize the netcode probe (I1), explicitly labeling fallback-mode counters.
+
+    A summary with counters_are_authoritative=false is NOT a measurement and must never be
+    reported as a PASS. Provenance (host + sha256 + size) is recorded so stale/copied data is
+    visible. source='local' (OMEN client) or 'am4' (server via ssh).
+    """
+    source = str(source or "").strip().lower()
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, NETCODE_PROBE_FILE)
+        if not path.exists():
+            return {"source": "local", "ok": False, "error": "netcode-probe.jsonl not found",
+                    "path": str(path)}
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        rows = _parse_jsonl_text(raw)
+        stat = path.stat()
+        provenance = {
+            "host": "local",
+            "path": str(path),
+            "sha256": hashlib.sha256(raw.encode("utf-8", "replace")).hexdigest(),
+            "size_bytes": stat.st_size,
+            "modified_utc": stat.st_mtime,
+            "age_seconds": round(time.time() - stat.st_mtime, 1),
+        }
+        result = {"source": "local", "ok": True, "provenance": provenance}
+        result.update(_summarize_probe_rows(rows))
+        return result
+    if source == "am4":
+        # One round-trip: PROV header (sha256 size mtime now) then the file body.
+        remote = (
+            f"F={AM4_PROBE_PATH}; "
+            f"echo PROV $(sha256sum \"$F\" | cut -d' ' -f1) $(stat -c '%s %Y' \"$F\") $(date +%s); "
+            f"tail -n 100000 \"$F\""
+        )
+        try:
+            rc, out, err = _run_ssh(remote, timeout_s=max(SSH_TIMEOUT_S, 40))
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout", "ssh_host": AM4_SSH_HOST}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_PROBE_PATH}
+        body_lines = out.splitlines()
+        provenance = {"host": AM4_SSH_HOST, "remote_path": AM4_PROBE_PATH}
+        if body_lines and body_lines[0].startswith("PROV "):
+            parts = body_lines[0].split()
+            body_lines = body_lines[1:]
+            try:
+                sha, size, mtime, now = parts[1], int(parts[2]), int(parts[3]), int(parts[4])
+                provenance.update({
+                    "sha256": sha,
+                    "size_bytes": size,
+                    "modified_unix": mtime,
+                    "age_seconds": now - mtime,
+                })
+            except (IndexError, ValueError):
+                provenance["prov_parse_error"] = body_lines and parts or None
+        rows = _parse_jsonl_text("\n".join(body_lines))
+        result = {"source": "am4", "ok": True, "provenance": provenance}
+        result.update(_summarize_probe_rows(rows))
+        return result
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
+    """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
+
+    filter_text overrides the default grep pattern; pass 'ALL' for the unfiltered tail.
+    """
+    lines = max(1, min(int(lines), 500))
+    base = f"docker logs --tail {lines} {AM4_CONTAINER} 2>&1"
+    ftext = str(filter_text or "").strip()
+    if ftext.upper() == "ALL":
+        remote = base
+        pattern = None
+    else:
+        pattern = ftext or _SERVER_LOG_DEFAULT_FILTER
+        remote = f"{base} | grep -iE {shlex.quote(pattern)}"
+    try:
+        rc, out, err = _run_ssh(remote)
+    except subprocess.TimeoutExpired:
+        return {"ok": False, "error": "ssh timeout", "ssh_host": AM4_SSH_HOST}
+    except FileNotFoundError:
+        return {"ok": False, "error": "ssh client not found on PATH"}
+    # grep exits 1 on no-match: that's not an error, just an empty result.
+    if rc not in (0, 1):
+        return {"ok": False, "error": err.strip() or f"ssh exit {rc}",
+                "ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER}
+    return {
+        "ok": True,
+        "ssh_host": AM4_SSH_HOST,
+        "container": AM4_CONTAINER,
+        "filter": pattern,
+        "lines": [line for line in out.splitlines() if line.strip()],
+    }
+
+
 def get_tools() -> list[Callable]:
     return [
         valheim_mcp_health,
@@ -536,4 +773,7 @@ def get_tools() -> list[Callable]:
         valheim_suggest_config,
         valheim_apply_config_profile,
         valheim_record_note,
+        valheim_tail_netcode_probe,
+        valheim_netcode_probe_summary,
+        valheim_server_log_tail,
     ]
