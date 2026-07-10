@@ -1,6 +1,6 @@
 {
     "program":  "Valheim ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Lumberjacks ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Netcode Replacement",
-    "updated":  "2026-07-09T23:40:00-07:00",
+    "updated":  "2026-07-10T00:34:57-07:00",
     "canonical_docs":  {
                            "state":  "fieldlab/GROUND-TRUTH.md",
                            "plan":  "fieldlab/TEST-PROGRAM.md",
@@ -10,7 +10,7 @@
     "needs_derek":  [
 
                     ],
-    "next_derek_touchpoint":  "None required to close P2: remaining steps 9/10 (baseline tick/ZDO/hitch packets from the captured perf data) + 14 (perf-era A/B methodology) are hands-free analysis I run via MCP. Optional step 13 (2-seat capture) would need waryfool/Zephar410 launched on the i5. Next REAL Derek touchpoint is P3 (ownership seizure) live gates.",
+    "next_derek_touchpoint":  "P2 is CLOSED. Next real touchpoint is P3 (I6 Steam-only + I2 ownership seizure): one game launch when asked; save-integrity becomes a HARD gate from here. Optional: P2 step 13 (2-seat capture) still available for a 2-peer baseline (needs waryfool/Zephar410 on the i5).",
     "trust":  {
                   "claims_total":  70,
                   "confirmed":  61,
@@ -35,6 +35,10 @@
                                     {
                                         "verdict":  "good",
                                         "text":  "P2 steps 6-8 re-verified for real 2026-07-09 22:48: server + client counters archived via the project\u0027s own verifier (not hand-typed), SendZDOs postfix fires in both directions (2247/2288 calls) - the inlining question is settled, not assumed. Superseded the unbacked a1e2608 claim."
+                                    },
+                                    {
+                                        "verdict":  "good",
+                                        "text":  "P2 CLOSED (2026-07-10): airtight I1 + repeatable connected baseline. Second green run gated both sides; signed client+server baseline packets (client frame p95 16.7ms locked-60 HIGH; server recv 2126/send 2249, parseErr 0). god/fly autopilot safeguard live. Caught + excluded: mod rtt_ms/jitter_ms are a bogus ZRpc heartbeat sawtooth (real network RTT 2-4ms)."
                                     }
                                 ]
               },
@@ -237,8 +241,8 @@
                        "id":  "P2",
                        "ladder":  "I1",
                        "title":  "Airtight I1 + connected baseline",
-                       "status":  "pending",
-                       "human_minutes":  10,
+                       "status":  "done",
+                       "human_minutes":  0,
                        "steps":  [
                                      {
                                          "n":  1,
@@ -292,12 +296,14 @@
                                      {
                                          "n":  9,
                                          "t":  "Server baseline packet (tick/ZDO/hitches)",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "Signed server baseline packet runs/i1-airtight/20260710-p2baseline-server/ (validate-run-packet PASS, 4 gates). 1128 heartbeat pulses/29.1min, heartbeat-gap p95 0.53s, msgs 4.1/s; perf hitches 4 (3 severe = ~49s boot world-load on 9.15M ZDOs, not live degradation); netcode funnel recv 2126calls/60290zdos, SendZDOs 2249, parseErr 0. rtt/jitter excluded (bogus metric)."
                                      },
                                      {
                                          "n":  10,
                                          "t":  "Client baseline mirror packet",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "Signed client baseline packet runs/i1-airtight/20260710-p2baseline-client/ (validate-run-packet PASS, 5 gates). 6301 samples/53.1min session c79bed52 (mod 0.5.8): fps avg 60.4/bench 60.97, frame-time p95 16.67ms, HIGH tier 6/6, 0 corrections, 12 hitches/1 severe (load-boundary). rtt/jitter recorded as _UNRELIABLE, no gate."
                                      },
                                      {
                                          "n":  11,
@@ -314,17 +320,20 @@
                                      {
                                          "n":  13,
                                          "t":  "Optional 2-seat capture (waryfool second seat)",
-                                         "s":  "pending"
+                                         "s":  "pending",
+                                         "g":  "(OPTIONAL, deferred) 2-seat capture: waryfool/Zephar410 on the i5 for a 2-peer baseline. Not required for the P2 gate; available on demand."
                                      },
                                      {
                                          "n":  14,
                                          "t":  "Perf-era A/B methodology reconciled",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "Perf-era A/B methodology reconciled vs the connected baseline: era-banners updated in handoffs/HANDOFF-PERF-TEST-AB-CHECKLIST.md + NETWORKSENSE-PERF-DEBUG-PLAN.md with packet pointers. Verdict: H1(load)+H5(save/quit) confirmed, H2/H3/H4 ruled out for steady state (all severe hitches are boot/load-boundary; steady state clean)."
                                      },
                                      {
                                          "n":  15,
                                          "t":  "Commit + dashboard",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "Committed + dashboard republished; P2 phase row green."
                                      }
                                  ]
                    },

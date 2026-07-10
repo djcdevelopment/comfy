@@ -1,8 +1,12 @@
 # NetworkSense Main-Thread Hitch Debug Plan
 
 > **ERA-BOUND (July 4–8, mod 0.4.x, solo-OMEN).** Superseded as a status doc; the H1–H5
-> hypothesis methodology remains valid and gets reconciled against the new connected baseline in
-> `TEST-PROGRAM.md` P2 step 14. Current state: `GROUND-TRUTH.md`.
+> hypothesis methodology remains valid and was reconciled against the P2 connected baseline
+> (2026-07-10, mod 0.5.7/0.5.8, OMEN + am4) — see `handoffs/HANDOFF-PERF-TEST-AB-CHECKLIST.md`
+> and the signed packets `runs/i1-airtight/20260710-p2baseline-{client,server}/`. **Verdict:**
+> severe hitches are load/save-boundary bound (H1/H5 confirmed: server ~49 s boot world-load on
+> 9.15M ZDOs); steady state is clean (client frame p95 16.7 ms; H2/H3/H4 ruled out for steady
+> state). Current state: `GROUND-TRUTH.md`.
 
 Date: 2026-07-04
 

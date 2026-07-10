@@ -2,7 +2,18 @@
 *Solo Developer — Unity/Valheim BepInEx Plugin*
 
 > **ERA-BOUND (July 4–8 perf era, mod 0.4.x, solo-OMEN).** Not the current work. Current state:
-> `../GROUND-TRUTH.md`; live plan: `../TEST-PROGRAM.md` (A/B methodology reconciled at P2).
+> `../GROUND-TRUTH.md`; live plan: `../TEST-PROGRAM.md`.
+>
+> **A/B methodology reconciled against the P2 connected baseline (2026-07-10, mod 0.5.7 server /
+> 0.5.8 client, OMEN client + am4 dedicated server) — P2 step 14 DONE.** Signed baseline packets
+> (both `validate-run-packet.ps1` PASS): `../runs/i1-airtight/20260710-p2baseline-client/` and
+> `../runs/i1-airtight/20260710-p2baseline-server/`.
+> **Verdict:** every severe hitch is a load/save-boundary spike — server 3 severe (~49 s frame at
+> container boot / world-load on 9.15M ZDOs), client 1 severe (session start/end). Steady state is
+> clean: client frame-time p95 16.7 ms (locked 60 fps, HIGH tier), server heartbeat-gap p95 0.53 s.
+> So **H1 (load boundary) + H5 (save/quit) confirmed; H2/H3/H4 ruled out for steady state** —
+> NetworkSense sampling (H3) runs with no steady-state hitch. rtt/jitter EXCLUDED as a bogus metric
+> (see `../GROUND-TRUTH.md` red-herring graveyard); real network RTT is 2–4 ms.
 
 Condensed operator quick-reference for `NETWORKSENSE-PERF-DEBUG-PLAN.md` Test A / Test B.
 Drafted via HEARTH local_generate (qwen3-coder:30b) — 2026-07-08.
