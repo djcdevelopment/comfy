@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T04:05:00-07:00",
+    "updated": "2026-07-10T04:12:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [],
-    "next_derek_touchpoint": "P3 CLOSED (2026-07-10): I2 ownership-seizure PIN gates PASS. Authoritative window (mod 0.5.10, am4, 10:52:45Z->10:55:15Z): 25 ZDOs pinned + 55 ownership changes HELD on BOTH funnels (34 via SetOwner / ReleaseNearbyZDOS + 21 via SetOwnerInternal / RPC_ZDOData), 262 pass-through transfers on uncaptured ZDOs as the live negative control (independently cross-confirmed by the observe seam's 262 via_internal transitions), and save-integrity PASS with the pin engaged (a full save+reload happened while 25 ZDOs were pinned; world matches baseline exactly). The 21 SetOwnerInternal holds are the proof that guarding that path directly was necessary. Evidence: fieldlab/evidence/i2-pin/ (sha256 ebeefeb6). PIN IS PROVEN and currently STILL ARMED on am4 (ownershipPinEnabled=true) - it re-engages on any join's probe window; to return am4 to the observe-only baseline before P4, set ownershipPinEnabled=false + restart (say the word and I'll do it). NEXT: P4 (outbound redirect -> Lumberjacks) or a retro. No action needed; one optional clean re-join gives a 2nd authoritative repeatability window (window 1 was a corroborating floor, cut short by the routine idle-restart).",
+    "next_derek_touchpoint": "P3 CLOSED (2026-07-10): I2 ownership-seizure PIN gates PASS. Authoritative window (mod 0.5.10, am4, 10:52:45Z->10:55:15Z): 25 ZDOs pinned + 55 ownership changes HELD on BOTH funnels (34 via SetOwner / ReleaseNearbyZDOS + 21 via SetOwnerInternal / RPC_ZDOData), 262 pass-through transfers on uncaptured ZDOs as the live negative control (independently cross-confirmed by the observe seam's 262 via_internal transitions), and save-integrity PASS with the pin engaged (a full save+reload happened while 25 ZDOs were pinned; world matches baseline exactly). The 21 SetOwnerInternal holds are the proof that guarding that path directly was necessary. Evidence: fieldlab/evidence/i2-pin/ (sha256 ebeefeb6). PIN IS PROVEN and now DISARMED on am4 (ownershipPinEnabled=false, restart 2026-07-10) - am4 is back to the observe-only baseline, ready for P4; re-arm on demand for a 2nd repeatability run. NEXT: P4 (outbound redirect -> Lumberjacks) or a retro. No action needed; one optional clean re-join gives a 2nd authoritative repeatability window (window 1 was a corroborating floor, cut short by the routine idle-restart).",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -56,7 +56,7 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.10 | ComfyEra16 (9.155M ZDOs) | P3 PIN PROVEN (gates 9/10/11 PASS 2026-07-10) + STILL ARMED (ownershipPinEnabled=true; re-engages each join's probe window - set false + restart to return to observe-only baseline before P4) | observe on | probe autostart=true/autostop=150s | save-integrity baseline stored | silent between sessions"
+            "detail": "UDP 2456-2457 | mod 0.5.10 | ComfyEra16 (9.155M ZDOs) | P3 PIN PROVEN (gates 9/10/11 PASS 2026-07-10) + now DISARMED (ownershipPinEnabled=false) - back to the observe-only baseline, ready for P4 | observe on (ownershipObserveEnabled=true) | probe autostart=true/autostop=150s | save-integrity baseline stored | silent between sessions"
         },
         {
             "name": "OMEN client",
