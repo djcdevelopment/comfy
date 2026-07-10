@@ -172,6 +172,16 @@ for a full signed packet — the standalone verifier already applies the gate.
     from its source (paste it in) into a step list I can adapt.
   - **frontier:** the actual patch + the safety reasoning (not corrupting save).
   - **operator:** in-game, drive a zone ownership-transfer scenario.
+- **Status: ✅ PASS (2026-07-10, mod 0.5.10).** `OwnershipPinRunner` holds owner on
+  both churn funnels via scoped Harmony prefixes on `ZDO.SetOwner` (release scope) +
+  `ZDO.SetOwnerInternal` (RPC scope). Authoritative gate window: 25 ZDOs pinned, 55
+  holds (34 `SetOwner` + 21 `SetOwnerInternal`), 262 pass-through transfers on unpinned
+  ZDOs as the live negative control, save-integrity PASS with the pin engaged. The
+  mechanism was grounded directly on the decompiled assembly (not the summary doc),
+  which surfaced two corrections: the `RPC_ZDOData:842-844` revision-race hole (so we
+  guard `SetOwnerInternal` directly) and that ZDO ownership is runtime-only (so the pin
+  is inherently save-safe). Evidence: `evidence/i2-pin/` (sha256 `ebeefeb6`). Retro:
+  `retro/SESSION-RETRO-2026-07-10.md`. ADRs 0001, 0002.
 
 ### I3 — Outbound redirect
 
