@@ -56,6 +56,11 @@ AM4_PROBE_PATH = os.environ.get(
     "~/comfy-valheim-lab/server-state/config/bepinex/comfy-network-sense/netcode-probe.jsonl",
 )
 NETCODE_PROBE_FILE = "netcode-probe.jsonl"
+OWNERSHIP_CHURN_FILE = "ownership-churn.jsonl"
+AM4_OWNERSHIP_PATH = os.environ.get(
+    "COMFY_AM4_OWNERSHIP_PATH",
+    AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + OWNERSHIP_CHURN_FILE,
+)
 SSH_TIMEOUT_S = int(os.environ.get("COMFY_SSH_TIMEOUT_S", "20"))
 # Counter fields the probe emits only on an authoritative lifecycle stop/status row.
 _PROBE_COUNTER_KEYS = (
@@ -304,9 +309,11 @@ def valheim_mcp_health() -> dict:
         "network_sense_dir": _file_info(NETWORK_SENSE_DIR),
         "bepinex_log": _file_info(BEPINEX_LOG),
         "netcode_probe_local": _file_info(NETWORK_SENSE_DIR / NETCODE_PROBE_FILE),
+        "ownership_churn_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_CHURN_FILE),
         "notes_path": str(DEV_NOTES_PATH),
         "ollama_endpoint": ollama_endpoint,
-        "am4": {"ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER, "probe_path": AM4_PROBE_PATH},
+        "am4": {"ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER,
+                "probe_path": AM4_PROBE_PATH, "ownership_path": AM4_OWNERSHIP_PATH},
         "tools": [
             "valheim_networksense_files",
             "valheim_swarm_clients",
@@ -318,6 +325,8 @@ def valheim_mcp_health() -> dict:
             "valheim_suggest_config",
             "valheim_tail_netcode_probe",
             "valheim_netcode_probe_summary",
+            "valheim_tail_ownership_churn",
+            "valheim_ownership_churn_summary",
             "valheim_server_log_tail",
         ],
     }
@@ -723,6 +732,176 @@ def valheim_netcode_probe_summary(source: str = "local") -> dict:
     raise ValueError("source must be 'local' or 'am4'")
 
 
+_OWNERSHIP_COUNTER_KEYS = (
+    "set_owner_rows", "set_owner_internal_rows", "no_op_skipped", "rows_written",
+)
+
+
+def valheim_tail_ownership_churn(source: str = "am4", lines: int = 20) -> dict:
+    """Tail the P3/I2 ownership-churn.jsonl. source='am4' (dedicated server, where the pin
+    funnel churns) or 'local' (OMEN client)."""
+    source = str(source or "").strip().lower()
+    lines = max(1, min(int(lines), 2000))
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, OWNERSHIP_CHURN_FILE)
+        return {
+            "source": "local",
+            "file": str(path),
+            "exists": path.exists(),
+            "entries": _tail_json(path, lines),
+        }
+    if source == "am4":
+        try:
+            rc, out, err = _run_ssh(f"tail -n {lines} {AM4_OWNERSHIP_PATH}")
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PATH}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PATH}
+        return {
+            "source": "am4",
+            "ok": True,
+            "ssh_host": AM4_SSH_HOST,
+            "remote_path": AM4_OWNERSHIP_PATH,
+            "entries": _parse_jsonl_text(out),
+        }
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def _summarize_ownership_rows(rows: list[dict]) -> dict:
+    """Scope to the latest start->stop window and aggregate ownership churn.
+
+    Splits the two funnels by `via`: SetOwner = authoritative, revision-BUMPING path;
+    SetOwnerInternal = the revision-SILENT remote-apply path (NETCODE-OWNERSHIP-MAP.md
+    caveat #2 -- a SetOwner guard alone would NOT cover it). Lifecycle counters live only on
+    a stop/status row; without one the counts are a FLOOR, not authoritative totals.
+    """
+    start_idx = None
+    for index, row in enumerate(rows):
+        if str(row.get("event")) == "start":
+            start_idx = index
+    window = rows[start_idx:] if start_idx is not None else rows
+
+    summary_row = None
+    for row in window:
+        if str(row.get("event")) in ("stop", "status") and any(k in row for k in _OWNERSHIP_COUNTER_KEYS):
+            summary_row = row  # last one wins
+
+    churn = [r for r in window if str(r.get("event")) == "ownership"]
+    via_set_owner = sum(1 for r in churn if str(r.get("via")) == "SetOwner")
+    via_internal = sum(1 for r in churn if str(r.get("via")) == "SetOwnerInternal")
+    distinct_uids = len({str(r.get("uid")) for r in churn})
+    distinct_sectors = len({(r.get("sector_x"), r.get("sector_y")) for r in churn})
+    server_rows = sum(1 for r in churn if r.get("is_server") is True)
+    server_became_owner = sum(1 for r in churn if r.get("is_owner_now") is True)
+    released_to_unowned = sum(1 for r in churn if str(r.get("new_owner")) == "0")
+
+    if summary_row is not None:
+        def _c(key: str) -> int:
+            value = summary_row.get(key)
+            return int(value) if isinstance(value, (int, float)) else 0
+        counters = {key: _c(key) for key in _OWNERSHIP_COUNTER_KEYS}
+        authoritative = True
+        caveat = None
+    else:
+        counters = {key: None for key in _OWNERSHIP_COUNTER_KEYS}
+        counters["rows_written"] = len(churn)
+        authoritative = False
+        caveat = ("No lifecycle stop/status row in window: counts are a FLOOR from detail "
+                  "rows, not measured totals (needs ownershipObserveEnabled + a finite "
+                  "netcodeProbeAutoStopSeconds). Not a gate PASS.")
+
+    return {
+        "has_lifecycle_summary": summary_row is not None,
+        "counters_are_authoritative": authoritative,
+        "counters": counters,
+        "churn": {
+            "total_change_rows": len(churn),
+            "via_set_owner": via_set_owner,               # authoritative, revision-bumping
+            "via_set_owner_internal": via_internal,       # revision-silent remote-apply (caveat #2)
+            "distinct_zdos": distinct_uids,
+            "distinct_sectors": distinct_sectors,
+            "server_side_rows": server_rows,
+            "server_became_owner": server_became_owner,   # is_owner_now == true (seize)
+            "released_to_unowned": released_to_unowned,    # new_owner == 0 (release)
+            "window_rows": len(window),
+        },
+        "window": {
+            "has_start": start_idx is not None,
+            "start_row": window[0] if (start_idx is not None and window) else None,
+        },
+        "caveat": caveat,
+    }
+
+
+def valheim_ownership_churn_summary(source: str = "am4") -> dict:
+    """Summarize P3/I2 ownership churn, split by funnel (SetOwner vs SetOwnerInternal).
+
+    Answers the observe-first questions before any pin code: does ownership transfer on zone
+    entry, via which path, and does the revision race hold. counters_are_authoritative=false
+    is NOT a measurement. Provenance (host + sha256 + size + age) exposes stale/copied data.
+    source='am4' (dedicated server) or 'local' (OMEN client).
+    """
+    source = str(source or "").strip().lower()
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, OWNERSHIP_CHURN_FILE)
+        if not path.exists():
+            return {"source": "local", "ok": False, "error": "ownership-churn.jsonl not found",
+                    "path": str(path)}
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        rows = _parse_jsonl_text(raw)
+        stat = path.stat()
+        provenance = {
+            "host": "local",
+            "path": str(path),
+            "sha256": hashlib.sha256(raw.encode("utf-8", "replace")).hexdigest(),
+            "size_bytes": stat.st_size,
+            "modified_utc": stat.st_mtime,
+            "age_seconds": round(time.time() - stat.st_mtime, 1),
+        }
+        result = {"source": "local", "ok": True, "provenance": provenance}
+        result.update(_summarize_ownership_rows(rows))
+        return result
+    if source == "am4":
+        remote = (
+            f"F={AM4_OWNERSHIP_PATH}; "
+            f"echo PROV $(sha256sum \"$F\" | cut -d' ' -f1) $(stat -c '%s %Y' \"$F\") $(date +%s); "
+            f"tail -n 100000 \"$F\""
+        )
+        try:
+            rc, out, err = _run_ssh(remote, timeout_s=max(SSH_TIMEOUT_S, 40))
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout", "ssh_host": AM4_SSH_HOST}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PATH}
+        body_lines = out.splitlines()
+        provenance = {"host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PATH}
+        if body_lines and body_lines[0].startswith("PROV "):
+            parts = body_lines[0].split()
+            body_lines = body_lines[1:]
+            try:
+                sha, size, mtime, now = parts[1], int(parts[2]), int(parts[3]), int(parts[4])
+                provenance.update({
+                    "sha256": sha,
+                    "size_bytes": size,
+                    "modified_unix": mtime,
+                    "age_seconds": now - mtime,
+                })
+            except (IndexError, ValueError):
+                provenance["prov_parse_error"] = True
+        rows = _parse_jsonl_text("\n".join(body_lines))
+        result = {"source": "am4", "ok": True, "provenance": provenance}
+        result.update(_summarize_ownership_rows(rows))
+        return result
+    raise ValueError("source must be 'local' or 'am4'")
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -926,6 +1105,8 @@ def get_tools() -> list[Callable]:
         valheim_record_note,
         valheim_tail_netcode_probe,
         valheim_netcode_probe_summary,
+        valheim_tail_ownership_churn,
+        valheim_ownership_churn_summary,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]

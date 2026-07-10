@@ -1,14 +1,16 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T01:12:07-07:00",
+    "updated": "2026-07-10T02:23:55-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
         "topology": "fieldlab/MULTIPLAYER-NETWORK-SETUP.md",
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
-    "needs_derek": [],
-    "next_derek_touchpoint": "P2 CLOSED + all Derek-approved pre-P3 prep DONE: #1 I2 ownership seam mapped (server-only single seam, NETCODE-OWNERSHIP-MAP.md); #3 I6 Steam-only proven (P3 steps 1-2); #2 save-integrity verifier built + live on the MCP gateway. NEXT DECISION IS YOURS: go/no-go on the I2 ownership-seizure approach before I write P3 steps 3-13 code (save-integrity is now a hard gate). No launch needed until the I2 pin is built + you trigger a zone-entry test.",
+    "needs_derek": [
+        "Launch Valheim on OMEN (wary.fool) + Join 100.116.82.60:2456 -- ~2 min. Then walk away: auto-rehearsal + netcode probe + ownership observe run hands-free for ~3 min and I read + summarize the ownership churn."
+    ],
+    "next_derek_touchpoint": "OBSERVE SEAM LIVE on am4 (mod 0.5.9, ownershipObserveEnabled=true; ZDO.SetOwner/SetOwnerInternal postfixes bound clean at CreateAndPatchAll, no Harmony errors; 9.15M world reconnected). Observe-ONLY, zero gameplay change. OMEN auto-rehearsal coupling re-enabled so a join produces a hands-free dense-route walk. ONE ACTION FROM YOU: launch OMEN as wary.fool + Join 100.116.82.60:2456; after 25s the probe + observer auto-start and log server-side ownership churn for 150s. I then summarize: does ownership transfer on zone entry, via which funnel (SetOwner=revision-bumping vs SetOwnerInternal=revision-silent remote-apply), and does the revision race hold -- settling the two I2 caveats with data before any pin code.",
     "trust": {
         "claims_total": 70,
         "confirmed": 61,
@@ -44,17 +46,17 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.7 loaded | ComfyEra16 (9.15M ZDOs) | probe: autostart=true, autostop=150s, maxDetailRows=20000 | telemetry live"
+            "detail": "UDP 2456-2457 | mod 0.5.9 loaded | ComfyEra16 (9.15M ZDOs) | probe: autostart=true, autostop=150s, maxDetailRows=20000 | P3 observe seam LIVE (ownershipObserveEnabled=true, ZDO.SetOwner/SetOwnerInternal postfix) | telemetry live"
         },
         {
             "name": "OMEN client",
             "state": "ready",
-            "detail": "native Valheim + mod 0.5.8 in plugins (routeGodFlySafeguard on: god+fly enabled before teleport walks) | Steam running | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe available (off)"
+            "detail": "native Valheim + mod 0.5.8 in plugins (routeGodFlySafeguard on) | Steam running | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe ON (join -> hands-free dense-route walk)"
         },
         {
             "name": "comfy-gateway :8720",
             "state": "up",
-            "detail": "native on :8720 (PID restarted 2026-07-10 01:10, healthz green); 26 tools / 4 providers. NEW valheim_save_integrity tool live (world structural fingerprint for the P3+ save hard-gate); clean baseline captured (9.15M ZDO / 4472 portals / 18004 locations). Binds next Claude Code session."
+            "detail": "native on :8720 (healthz green); 26 tools live / 4 providers. +2 P3 ownership read tools built (valheim_tail_ownership_churn / valheim_ownership_churn_summary) - load on next gateway start (not restarted mid-session). Binds next Claude Code session."
         },
         {
             "name": "HEARTH door :8710",
@@ -339,7 +341,7 @@
             "id": "P3",
             "ladder": "I6+I2",
             "title": "Steam-only + ownership seizure",
-            "status": "pending",
+            "status": "active",
             "human_minutes": 10,
             "steps": [
                 {
@@ -362,7 +364,8 @@
                 {
                     "n": 4,
                     "t": "I2 design recorded before code",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "NETCODE-OWNERSHIP-MAP.md records the pin design; SetOwner/SetOwnerInternal signatures re-confirmed vs live assembly_valheim.dll (ZDO:1510/1519, both public/patchable). Observe-first slice approved."
                 },
                 {
                     "n": 5,
