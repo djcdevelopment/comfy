@@ -17,6 +17,10 @@ Bounded: touch only lines you created or resolved.
 - [ ] 2026-07-10 — **Next phase:** P4 (I3 outbound redirect → Lumberjacks) next, or a 2nd I2
   repeatability run / other work first? P4 does not strictly require I2.
   (source: [TEST-PROGRAM.md P4](TEST-PROGRAM.md))
+  - 2026-07-10 (later, Claude): fork question asked, no answer (Derek AFK) — proceeded with the
+    P4 **headless runway** as the fork-neutral move (commits nothing either way; both remaining
+    options only differ in when the join happens). Will re-ask at gate staging whether a
+    window A (I2 repeat on 0.5.10) folds into the same game session before the redirect window.
 
 ## Resolved
 

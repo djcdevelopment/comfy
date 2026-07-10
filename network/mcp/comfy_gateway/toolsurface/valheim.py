@@ -12,6 +12,9 @@ import os
 import shlex
 import subprocess
 import time
+import urllib.error
+import urllib.parse
+import urllib.request
 from pathlib import Path
 from statistics import mean
 from typing import Callable
@@ -66,6 +69,14 @@ AM4_OWNERSHIP_PIN_PATH = os.environ.get(
     "COMFY_AM4_OWNERSHIP_PIN_PATH",
     AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + OWNERSHIP_PIN_FILE,
 )
+REDIRECT_SEND_FILE = "redirect-send.jsonl"
+AM4_REDIRECT_PATH = os.environ.get(
+    "COMFY_AM4_REDIRECT_PATH",
+    AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + REDIRECT_SEND_FILE,
+)
+# Lumberjacks gateway (P4/I3 receipt counter). Runs on OMEN next to this gateway, so
+# localhost by default; the mod on am4 reaches the same service via the tailnet IP.
+LUMBERJACKS_URL = os.environ.get("COMFY_LUMBERJACKS_URL", "http://127.0.0.1:4000")
 SSH_TIMEOUT_S = int(os.environ.get("COMFY_SSH_TIMEOUT_S", "20"))
 # Counter fields the probe emits only on an authoritative lifecycle stop/status row.
 _PROBE_COUNTER_KEYS = (
@@ -316,11 +327,14 @@ def valheim_mcp_health() -> dict:
         "netcode_probe_local": _file_info(NETWORK_SENSE_DIR / NETCODE_PROBE_FILE),
         "ownership_churn_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_CHURN_FILE),
         "ownership_pin_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_PIN_FILE),
+        "redirect_send_local": _file_info(NETWORK_SENSE_DIR / REDIRECT_SEND_FILE),
         "notes_path": str(DEV_NOTES_PATH),
         "ollama_endpoint": ollama_endpoint,
+        "lumberjacks_url": LUMBERJACKS_URL,
         "am4": {"ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER,
                 "probe_path": AM4_PROBE_PATH, "ownership_path": AM4_OWNERSHIP_PATH,
-                "ownership_pin_path": AM4_OWNERSHIP_PIN_PATH},
+                "ownership_pin_path": AM4_OWNERSHIP_PIN_PATH,
+                "redirect_send_path": AM4_REDIRECT_PATH},
         "tools": [
             "valheim_networksense_files",
             "valheim_swarm_clients",
@@ -336,6 +350,10 @@ def valheim_mcp_health() -> dict:
             "valheim_ownership_churn_summary",
             "valheim_tail_ownership_pin",
             "valheim_ownership_pin_status",
+            "valheim_tail_zdo_redirect",
+            "valheim_zdo_redirect_status",
+            "valheim_lumberjacks_receipts",
+            "valheim_zdo_redirect_gate",
             "valheim_server_log_tail",
         ],
     }
@@ -1105,6 +1123,252 @@ def valheim_ownership_pin_status(source: str = "am4") -> dict:
         result.update(_summarize_pin_rows(rows))
         return result
     raise ValueError("source must be 'local' or 'am4'")
+
+
+# Counter fields the redirect emits only on a lifecycle redirect_start/stop/auto_stop row.
+_REDIRECT_COUNTER_KEYS = (
+    "seq", "suppressed", "ack_failures", "posted_ok", "post_failed_batches",
+    "requeued", "dropped", "queued", "rows_written",
+)
+
+
+def valheim_tail_zdo_redirect(source: str = "am4", lines: int = 20) -> dict:
+    """Tail the P4/I3 redirect-send.jsonl (suppressed native sends). source='am4' (dedicated
+    server, where the redirect runs) or 'local' (OMEN client, normally empty — server-side)."""
+    source = str(source or "").strip().lower()
+    lines = max(1, min(int(lines), 2000))
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, REDIRECT_SEND_FILE)
+        return {
+            "source": "local",
+            "file": str(path),
+            "exists": path.exists(),
+            "entries": _tail_json(path, lines),
+        }
+    if source == "am4":
+        try:
+            rc, out, err = _run_ssh(f"tail -n {lines} {AM4_REDIRECT_PATH}")
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_REDIRECT_PATH}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_REDIRECT_PATH}
+        return {
+            "source": "am4",
+            "ok": True,
+            "ssh_host": AM4_SSH_HOST,
+            "remote_path": AM4_REDIRECT_PATH,
+            "entries": _parse_jsonl_text(out),
+        }
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def _summarize_redirect_rows(rows: list[dict]) -> dict:
+    """Scope to the latest redirect_start window and read the mod-side half of the I3 gate.
+
+    The full gate is a THREE-way cross-confirm: these mod-side counts == the Lumberjacks
+    gateway's distinct-seq receipts (valheim_lumberjacks_receipts), while the netcode probe
+    shows zero native sends of the tagged prefab during the active sub-window. Lifecycle
+    counters live only on a redirect_stop/redirect_auto_stop row; without one the counts are
+    a FLOOR from detail rows, not authoritative totals (not a gate input).
+    """
+    start_idx = None
+    for index, row in enumerate(rows):
+        if str(row.get("event")) == "redirect_start":
+            start_idx = index
+    window = rows[start_idx:] if start_idx is not None else rows
+
+    summary_row = None
+    for row in window:
+        if str(row.get("event")) in ("redirect_stop", "redirect_auto_stop", "redirect_start") \
+                and any(k in row for k in _REDIRECT_COUNTER_KEYS):
+            summary_row = row  # last one wins (a stop row supersedes the arming snapshot)
+
+    detail = [r for r in window if str(r.get("event")) == "redirect"]
+    seqs = [int(r.get("seq")) for r in detail if isinstance(r.get("seq"), (int, float))]
+    distinct_prefabs = sorted({r.get("prefab") for r in detail})
+    unacked = sum(1 for r in detail if r.get("acked") is False)
+    window_ids = sorted({str(r.get("window_id")) for r in detail if r.get("window_id")})
+
+    stop_event = str(summary_row.get("event")) if summary_row is not None else None
+    stopped = stop_event in ("redirect_stop", "redirect_auto_stop")
+    if summary_row is not None:
+        def _c(key: str) -> int:
+            value = summary_row.get(key)
+            return int(value) if isinstance(value, (int, float)) else 0
+        counters = {key: _c(key) for key in _REDIRECT_COUNTER_KEYS}
+        authoritative = stopped
+        caveat = None if stopped else (
+            "Only a redirect_start row is present (run still armed or died before stop): "
+            "counters are the arming snapshot, not final totals.")
+    else:
+        counters = {key: None for key in _REDIRECT_COUNTER_KEYS}
+        counters["rows_written"] = len(detail)
+        authoritative = False
+        caveat = ("No redirect lifecycle row in window: counts are a FLOOR from detail rows, "
+                  "not measured totals (needs zdoRedirectEnabled + a prefab allowlist + the "
+                  "netcode-probe window). Not a gate input.")
+
+    return {
+        "has_lifecycle_summary": summary_row is not None,
+        "counters_are_authoritative": authoritative,
+        "stop_event": stop_event,   # redirect_auto_stop = the in-window rollback rehearsal fired
+        "counters": counters,
+        "redirect": {
+            "detail_rows": len(detail),
+            "max_detail_seq": max(seqs) if seqs else 0,
+            "distinct_prefabs": distinct_prefabs,
+            "unacked_detail_rows": unacked,
+            "window_ids": window_ids,
+            "window_rows": len(window),
+        },
+        "window": {
+            "has_start": start_idx is not None,
+            "start_row": window[0] if (start_idx is not None and window) else None,
+        },
+        "caveat": caveat,
+    }
+
+
+def valheim_zdo_redirect_status(source: str = "am4") -> dict:
+    """Report the mod-side half of the P4/I3 redirect gate from redirect-send.jsonl.
+
+    `counters.seq` (on an authoritative stop row) is the suppressed-send count the Lumberjacks
+    gateway's distinct_seq must equal (zero missing_seq) — compare via valheim_zdo_redirect_gate,
+    or manually against valheim_lumberjacks_receipts. stop_event='redirect_auto_stop' confirms
+    the in-window rollback rehearsal fired. Provenance (host + sha256 + size + age) exposes
+    stale/copied data. source='am4' (dedicated server, where the redirect runs) or 'local'.
+    """
+    source = str(source or "").strip().lower()
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, REDIRECT_SEND_FILE)
+        if not path.exists():
+            return {"source": "local", "ok": False, "error": "redirect-send.jsonl not found",
+                    "path": str(path)}
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        rows = _parse_jsonl_text(raw)
+        stat = path.stat()
+        provenance = {
+            "host": "local",
+            "path": str(path),
+            "sha256": hashlib.sha256(raw.encode("utf-8", "replace")).hexdigest(),
+            "size_bytes": stat.st_size,
+            "modified_utc": stat.st_mtime,
+            "age_seconds": round(time.time() - stat.st_mtime, 1),
+        }
+        result = {"source": "local", "ok": True, "provenance": provenance}
+        result.update(_summarize_redirect_rows(rows))
+        return result
+    if source == "am4":
+        remote = (
+            f"F={AM4_REDIRECT_PATH}; "
+            f"echo PROV $(sha256sum \"$F\" | cut -d' ' -f1) $(stat -c '%s %Y' \"$F\") $(date +%s); "
+            f"tail -n 100000 \"$F\""
+        )
+        try:
+            rc, out, err = _run_ssh(remote, timeout_s=max(SSH_TIMEOUT_S, 40))
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout", "ssh_host": AM4_SSH_HOST}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_REDIRECT_PATH}
+        body_lines = out.splitlines()
+        provenance = {"host": AM4_SSH_HOST, "remote_path": AM4_REDIRECT_PATH}
+        if body_lines and body_lines[0].startswith("PROV "):
+            parts = body_lines[0].split()
+            body_lines = body_lines[1:]
+            try:
+                sha, size, mtime, now = parts[1], int(parts[2]), int(parts[3]), int(parts[4])
+                provenance.update({
+                    "sha256": sha,
+                    "size_bytes": size,
+                    "modified_unix": mtime,
+                    "age_seconds": now - mtime,
+                })
+            except (IndexError, ValueError):
+                provenance["prov_parse_error"] = True
+        rows = _parse_jsonl_text("\n".join(body_lines))
+        result = {"source": "am4", "ok": True, "provenance": provenance}
+        result.update(_summarize_redirect_rows(rows))
+        return result
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def valheim_lumberjacks_receipts(window_id: str = "") -> dict:
+    """Read the Lumberjacks gateway's ZDO-redirect receipt counters (the gateway half of the
+    I3 gate). window_id scopes to one window; blank returns all windows. The gate numbers are
+    distinct_seq (must equal the mod's suppressed-send count) and missing_seq (must be 0)."""
+    window_id = str(window_id or "").strip()
+    url = LUMBERJACKS_URL.rstrip("/") + "/valheim/zdo-redirect/status"
+    if window_id:
+        url += "/" + urllib.parse.quote(window_id, safe="")
+    try:
+        with urllib.request.urlopen(url, timeout=10) as response:
+            payload = json.loads(response.read().decode("utf-8", "replace"))
+    except urllib.error.URLError as error:
+        return {"ok": False, "url": url, "error": str(error),
+                "hint": "Is the Lumberjacks gateway up? Launch with --urls http://0.0.0.0:4000 "
+                        "(fieldlab/scripts/start-lumberjacks-gateway.ps1)."}
+    except (json.JSONDecodeError, TimeoutError) as error:
+        return {"ok": False, "url": url, "error": str(error)}
+    return {"ok": True, "url": url, "status": payload}
+
+
+def valheim_zdo_redirect_gate(window_id: str = "", source: str = "am4") -> dict:
+    """One-call P4/I3 gate read: mod suppressed-send count vs Lumberjacks receipts.
+
+    Compares valheim_zdo_redirect_status(source) against valheim_lumberjacks_receipts for the
+    window. verdict='receipts_match_no_loss' requires an authoritative mod stop row, mod seq ==
+    gateway distinct_seq, and gateway missing_seq == 0. The probe cross-confirm (zero native
+    sends of the tagged prefab during the active sub-window) is step 3 — read it separately via
+    valheim_tail_netcode_probe. Not a substitute for the client-stability and save-integrity gates.
+    """
+    mod = valheim_zdo_redirect_status(source)
+    if not mod.get("ok"):
+        return {"ok": False, "verdict": "inconclusive", "error": "mod-side read failed", "mod": mod}
+
+    window_ids = mod.get("redirect", {}).get("window_ids") or []
+    resolved_window = str(window_id or "").strip() or (window_ids[-1] if window_ids else "")
+    gateway = valheim_lumberjacks_receipts(resolved_window)
+    if not gateway.get("ok"):
+        return {"ok": False, "verdict": "inconclusive", "error": "gateway read failed",
+                "window_id": resolved_window, "mod": mod, "gateway": gateway}
+
+    status = gateway.get("status") or {}
+    mod_count = (mod.get("counters") or {}).get("seq")
+    if mod_count is None:
+        mod_count = mod.get("redirect", {}).get("max_detail_seq")
+    distinct = status.get("distinct_seq")
+    missing = status.get("missing_seq")
+    authoritative = bool(mod.get("counters_are_authoritative"))
+
+    if authoritative and mod_count and distinct == mod_count and missing == 0:
+        verdict = "receipts_match_no_loss"
+    elif not authoritative:
+        verdict = "inconclusive_mod_counters_not_authoritative"
+    elif not mod_count:
+        verdict = "no_redirect_activity"
+    else:
+        verdict = "mismatch"
+
+    return {
+        "ok": True,
+        "verdict": verdict,
+        "window_id": resolved_window,
+        "mod_suppressed": mod_count,
+        "gateway_distinct_seq": distinct,
+        "gateway_missing_seq": missing,
+        "gateway_duplicates": status.get("duplicates"),
+        "mod_authoritative": authoritative,
+        "mod_stop_event": mod.get("stop_event"),
+        "mod_unacked_rows": mod.get("redirect", {}).get("unacked_detail_rows"),
+        "caveats": [c for c in [mod.get("caveat")] if c],
+    }
 
 
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:

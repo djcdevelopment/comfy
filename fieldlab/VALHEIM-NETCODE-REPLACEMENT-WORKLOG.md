@@ -203,6 +203,44 @@ for a full signed packet — the standalone verifier already applies the gate.
   - **frontier:** the suppression patch (must not break the send loop's state) +
     the Gateway endpoint contract.
   - **operator:** in-game window.
+- **Design (2026-07-10, recorded before code — target mod 0.5.11):** grounded on a fresh
+  decompile of `ZDOMan`/`ZDO` (l-0.221.12), not the map.
+  - **Seam:** Harmony **Postfix on `ZDOMan.CreateSyncList`** (server-side, `IsServer`-guarded),
+    not a prefix on `SendZDOs` — `toSync` is populated *inside* `CreateSyncList` (ZDOMan:893),
+    so only a postfix can filter it before the serialization loop (ZDOMan:761-784) writes and
+    dispatches via `Invoke("ZDOData")` (ZDOMan:787). Same "one funnel, one flag" scoping that
+    kept the pin surgical.
+  - **Suppress-with-ack:** each tagged ZDO removed from `toSync` gets the native bookkeeping
+    replicated — `peer.m_forceSend.Remove(uid)` + `peer.m_zdos[uid] = PeerZDOInfo(DataRevision,
+    OwnerRevision, now)` (mirroring ZDOMan:767/780) — so native re-offers it only on revision
+    change. Without the ack, `ShouldSend` re-selects every tick (duplicate storm, broken gate
+    math); with it, suppressed-count equals exactly what native would have sent.
+    *Implementation risk:* `ZDOPeer.m_zdos`/`PeerZDOInfo` are non-public — AccessTools/reflection;
+    verify at build.
+  - **Tag scheme:** config prefab-hash allowlist, single test prefab first; `redirectEnabled`
+    off by default; windowed auto-stop (probe-style) + stop command = the instant rollback.
+  - **Payload scope:** wire-equivalent envelope — `{seq (per-window monotonic), uid, owner,
+    owner_rev, data_rev, prefab, pos, body_b64 = base64(zdo.Serialize bytes)}` — **not** a full
+    ZPackage→JSON decomposition. The I3 gate needs equivalence + count math, not legibility;
+    the rebuild problem belongs to I4. Batched POSTs (bounded queue, retries) to the Lumberjacks
+    gateway `POST /valheim/zdo-redirect/receipts`; every suppression also appends to a local
+    `redirect-send.jsonl` (the mod-side count of record).
+  - **Observe-during-change (ADR 0002):** the netcode probe's existing `CreateSyncList` postfix
+    stays on; the redirect postfix runs at `HarmonyPriority.High` so the probe logs the
+    *post-filter* list. Three independent measures in one window: mod suppressed rows ==
+    gateway receipts (seq-gap loss detection) AND probe rows show zero tagged native sends.
+    Postfix order is load-bearing (cf. the I2 multi-prefix lesson).
+  - **Save-safety:** decompile-verified — the send path writes no persisted ZDO state (only
+    runtime peer bookkeeping: `peer.m_zdos`, `m_forceSend`, `m_clientChangeQueue`, `m_zdosSent`;
+    `ZDO.Serialize` only reads `ZDOExtraData`; the world save is the separate
+    `PrepareSave`/`SaveAsync` clone path). The redirect adds no ZDO writes → inherits the pin's
+    save-safety class. Save-integrity gate still runs regardless.
+  - **Network path (proven 2026-07-10):** am4 server *container* → tailnet → OMEN `:4000`
+    `/health` answers; the gateway must bind `0.0.0.0:4000` (launch flag — `appsettings.json`
+    default is localhost-only).
+  - **Client-stability read:** the client is untouched (server-side suppression only); it just
+    receives fewer ZDOs — a normal play condition. Gate reads OMEN logs via MCP for
+    `INVALID_MESSAGE`/socket errors.
 
 ### I4 — Inbound injection
 

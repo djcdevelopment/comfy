@@ -148,20 +148,26 @@ Derek: one game launch when asked (~10 min). Save-integrity is a hard gate from 
 
 ## P4 — I3 outbound redirect (suppress native send for tagged ZDOs → Lumberjacks)
 
-Parallelizable with P5 after P2; shares the serialization shim.
+Re-detailed at unlock 2026-07-10 (design block: worklog I3). Derek's ~10 min: one launch+join
+when staged. Open per DECISIONS-PENDING: whether a window A (2nd I2 repeatability join on
+0.5.10) folds into the same game session before the redirect window — re-ask at gate staging.
 
-1. Lumberjacks gateway up on :4000/:4005 (rebuild if needed; it last ran 7/8) — health checked headlessly.
-2. HEARTH offload: ZPackage↔JSON serialization-shim boilerplate drafted; frontier review.
-3. Lumberjacks receive endpoint + receipt counter (gateway side).
-4. Tag scheme: choose the redirect class (start with a single test-object type).
-5. Implement suppression patch at the **proven** send seam (`CreateSyncList`; use P2's measured answer on `SendZDOs`) — off by default, tag-scoped, instant-rollback flag.
-6. MCP tools: redirect status + Lumberjacks receipt counts.
-7. Deploy both sides; version-confirmed.
-8. Window: wary.fool session generates tagged traffic via auto-route.
-9. **Gate: Lumberjacks receipt count == suppressed-send count** (no loss).
-10. **Gate: client stability** — zero `INVALID_MESSAGE`/socket errors in the window.
-11. Rollback rehearsal: flag off mid-session → native path resumes cleanly.
-12. Save-integrity gate; repeatability run; packets archived; worklog I3 ✅; commit + dashboard.
+| # | Step | Gate | Status |
+|---|---|---|---|
+| 1 | Lumberjacks gateway up with `0.0.0.0:4000` bind; reachability proven from *inside* the am4 server container over tailnet | `/health` answers from the container | ✅ 2026-07-10 |
+| 2 | I3 design recorded before code (seam, suppress-with-ack, payload scope, postfix ordering, save-safety) | worklog design block committed | ✅ 2026-07-10 |
+| 3 | Receive endpoint + receipt counter (`/valheim/zdo-redirect/receipts`, `/status`, `/reset`) with distinct-seq/duplicate/gap math | smoke test: dup + gap detected correctly | |
+| 4 | Mod 0.5.11 `ZdoRedirectRunner`: `CreateSyncList` postfix (`Priority.High`), suppress-with-ack, prefab allowlist, windowed auto-stop + stop command, `redirect-send.jsonl`, wire-equivalent b64 envelopes, batched poster | builds clean; attach lines in boot log | |
+| 5 | MCP tools: redirect status (mod side, am4-ssh variant) + Lumberjacks receipt read; `valheim_mcp_health` extended | tools return live data through the gateway | |
+| 6 | Deploy 0.5.11 OMEN + am4 (ROOT cfg, never the decoy), redirect OFF | `Loading [ComfyNetworkSense 0.5.11]` both boot logs | |
+| 7 | Pre-window: save-integrity snapshot; am4 idle-restart clock checked and window timed clear of it | snapshot + clock note recorded | |
+| 8 | Gate window: wary.fool joins (auto-route), tagged traffic generated, window auto-stops | window rows on both sides | |
+| 9 | **Gate: Lumberjacks receipts == suppressed-send count, zero seq gaps** (mod jsonl vs gateway status vs probe cross-confirm — three independent measures) | gate math green | |
+| 10 | **Gate: client stability** — zero `INVALID_MESSAGE`/socket errors in the window | OMEN log tail via MCP | |
+| 11 | Rollback rehearsal: stop mid-window → native path resumes (probe shows tagged sends resume) | probe rows | |
+| 12 | **Save-integrity hard gate:** quit → reload → world intact | clean reload evidence | |
+| 13 | Repeatability run | two green windows | |
+| 14 | Evidence archived `evidence/i3-redirect/`; worklog I3 ✅; commit + dashboard | phase row green | |
 
 ## P5 — I4 inbound injection (Lumberjacks-authoritative state renders in-world)
 
