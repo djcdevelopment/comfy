@@ -191,6 +191,7 @@ Dead theories, each with its refutation. If a doc or memory suggests one of thes
 - "Derek only ever ran Valheim in Docker" → hallucination, called out live; native installs confirmed.
 - Pre-restart docker connections at 14:17/14:31/14:39Z → the same client across server restarts, not multiple players.
 - "step 2 vs step 3 vs step 6" progress conflict → three DIFFERENT ladders being counted (perf tests vs I-rungs vs bringup steps); the real conflicts were the I1 status line and the next-step fork, both now fixed.
+- Client "high latency" (rtt_ms≈538ms / jitter≈509ms, 2026-07-10) → NOT the network: ICMP + tailscale OMEN→am4 = 2–4ms, direct LAN (192.168.12.233, no DERP). The mod mislabels `ZNet.GetServerPing()` as RTT, but that returns `ZRpc.m_timeSinceLastPing` — a 0→~1000ms ping-heartbeat sawtooth (`m_pingInterval=1f`, resets on each ping/pong), so a healthy link samples ~500ms avg + ~500ms "jitter". Exclude rtt/jitter from the P2 step 9/10 baselines; true RTT needs a ZRpc ping/pong round-trip patch (deferred, Derek's call 2026-07-10).
 
 ---
 
