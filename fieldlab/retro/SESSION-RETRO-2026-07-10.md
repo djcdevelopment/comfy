@@ -189,3 +189,146 @@ covered, because X."
 window — not a regression battery. The pin is scoped and reversible so the blast radius is bounded,
 but "nothing else on the 9.15M-ZDO world shifted" is *inferred*, not *measured*. Raise the capture cap
 or widen the prefab scope and that inference gets thin fast.
+
+---
+
+# Session 2 — 2026-07-10 (later) · P4/I3 outbound redirect: the mechanism worked; delivery didn't
+
+**One-line:** We **closed the I3 outbound redirect** — 1303 tree ZDOs pulled off the native wire to
+Lumberjacks with zero loss — but only after four windows proved that *a mechanism working is not a
+feature delivering*: a server-only Mono defect swallowed every POST while my live monitor read a
+buffered zero, and the fix only landed once Derek made me stop scouting by hand and let data + subagents
+find the target.
+
+## What this session was
+
+A **build-gate session that turned into a root-cause hunt.** It started as "run window B" — a fully
+staged one-join gate — and became a four-window investigation, a mod fix (0.5.12), and a data-driven
+target hunt, because the redirect reported zero across three windows for three *different* reasons
+(empty control stop → no-walk rejoin → suppressed-but-not-delivered). The through-line: everything the
+decompile could de-risk was already right; what bit us lived in the two places the decompile can't see —
+the client's launch/rejoin state machine and the server runtime's HTTP stack.
+
+## What shipped
+
+| Commit | What |
+|---|---|
+| `60a6e66` | **P4/I3 CLOSED** — outbound redirect gate PASS (mod 0.5.12, window i3-w4, `receipts_match_no_loss`, 1303 conifers). Raw-`TcpClient` POST fix + evidence + dashboard + worklog in one slice. |
+
+New durable artifacts:
+- `network/mod/ComfyNetworkSense/Core/Services/ZdoRedirectRunner.cs` — `SendHttpPostViaSocket` (raw socket POST) replacing the broken `WebRequest.Create` path; mod bumped 0.5.11 → **0.5.12**.
+- `fieldlab/evidence/i3-redirect/` — `redirect-send.jsonl` (sha256 `6ed610ef`), `lumberjacks-receipts-i3-w4.json` (`7bc6ee7c`), `gate-verdict.json`, `mod-redirect-status.json`, `ANALYSIS.md`, `PROVENANCE.json`.
+- Memory: [[valheim-server-mono-http-trap]], [[valheim-capture-window-playbook]].
+- Scratch tool `gen-sweep-route.ps1` (elevated straight-line route generator).
+
+## The team retro — our collaboration across the seats
+
+**Architect (Claude drove).** The I3 mechanism design held up completely under a live 1303-ZDO load —
+the `CreateSyncList` postfix, suppress-with-ack, and the save-safety argument (writes nothing persisted)
+all proved correct. The blind spot was structural: the design treated everything as a ZDOMan-internals
+problem and never treated the *delivery hop* — the one part that isn't game internals — as a design
+surface. Source-grounding de-risked the seam; it said nothing about whether an out-of-process HTTP POST
+works in a stripped server Mono runtime (it doesn't, empty WebRequest prefix table). What I'd keep: the
+mechanism. What I'd change: every external I/O edge is its own frontier and needs an end-to-end delivery
+proof — a real POST from the real runtime — not a `/health` GET.
+
+**Implementer (Claude drove; Derek's relaunches were the trigger).** The 0.5.12 fix was clean — a raw
+`TcpClient` HTTP/1.1 write, one build, zero warnings, semantics untouched. But it is a fix for *shipped*
+code that was never exercised server-side: 0.5.11's `WebRequest` POST compiled clean, boot-verified, and
+looked done while being 100% broken on the only runtime that runs the redirect. The real implementer cost
+wasn't the ~60-line fix; it was the debugging to distinguish "not suppressing" from "suppressing but not
+delivering." The three-copy plugin deploy on am4 was navigated by reading `docker inspect` (only `/config`
+is mounted) rather than guessing which DLL the container loads.
+
+**Reviewer / QA (Claude drove; a subagent caught what I missed).** This seat failed and then got saved.
+I built a live monitor that polled the mod's suppressed counter over SSH, watched it read `supp=0` for a
+full window, and *believed it* — calling a window that suppressed 88 ZDOs a coverage failure. The counter
+was reading a buffered, not-yet-flushed `jsonl`; the receiver-side ledger was the ground truth I wasn't
+watching. The timing subagent, parsing `redirect-send.jsonl` directly, is what surfaced the
+88-suppressed / 0-posted reality. The lesson bought in blood: **verify at the receiver; "the mechanism
+fired" is not "the payload arrived."**
+
+**Operator / SRE (Claude drove; am4 + OMEN are Derek's boxes).** Deploy discipline held under pressure —
+found the real container mount via `docker inspect` (not the two decoy DLL copies), verified the loaded
+version in the boot log after every restart, confirmed the disarmed baseline by cfg readback, restored
+the canonical client route on the way out. The operational fact learned the hard way: the client
+auto-walk re-arms only on a full **relaunch**, so two of the four windows were spent discovering that a
+menu rejoin runs no walk. That is a pre-window checklist item now, not a surprise.
+
+**Product / planning (Derek drove the pivot; Claude executed).** The goal and the staging were right; the
+early *pacing* was wrong, and Derek is the one who fixed it. I spent three windows treating him as a live
+scout — fly here, read your coordinates, hover over trees — burning his joins on a search I could have run
+against data. His mid-session redirect — "you don't need me here; spin up a sonnet or two, map the
+density, dial the timing" — was the highest-leverage call of the session. It converted a human-in-the-loop
+guessing loop into a parallel data job that ground-truthed the target from the world-save in one pass. The
+right division of labor was in the standing mandate the whole time; I just hadn't reached for it.
+
+### Two seats, two views
+
+**From Claude's seat.** My worst moment was trusting an instrument over the system — I let a buffered
+`supp=0` override the first-principles fact that the mechanism was sound, and nearly abandoned a working
+approach as broken. My best moment was, once the subagent corrected me, fixing the real bug cleanly and
+ground-truthing the target from the save instead of guessing a fourth time. Two things to carry: when a
+live counter and a first-principles expectation disagree, suspect the instrument and go to the receiver;
+and the instant I feel myself asking Derek to be my eyes, that is the signal to reach for subagents + data
+— it is literally what he asked for at the top of the session.
+
+**From Derek's seat** *(my reconstruction — correct me).* "I said it in the first message: keep me out of
+the loop, use HEARTH and the subagents, pull me in only to stop a thrash. Then you had me flying around as
+a scout for three windows — and I've never even played this world, so of course that stalled. When I
+finally said 'you can *see* the tree density in the telemetry, spin up a couple of Sonnets and dial it in,'
+that's the loop I asked for at the start. Once you ran it, it took one join. The win is real and the
+provenance is clean — now fix the thing that made me repeat myself."
+
+## Last time's lessons — follow-through
+
+| id | lesson | status |
+|---|---|---|
+| `L-2026-07-10-1` | design against decompiled bodies, not the map | **acted-on** — I3 was designed against a fresh `ZDOMan`/`ZDO` decompile; the POST defect was a *runtime* failure no decompile can surface |
+| `L-2026-07-10-2` | ZDO ownership is runtime-only | n/a this rung (banked) |
+| `L-2026-07-10-3` | auto-capture + observe-during-change → one-window gate | **acted-on** — reused: mod-suppressed vs Lumberjacks-receipts cross-confirmed in one window |
+| `L-2026-07-10-4` | am4 idle-restart clips timed gate windows | **acted-on** — arm-restart resets the clock; all 4 windows had clean 90s auto-stops, zero idle-restart clipping |
+| `L-2026-07-10-5` | observe de-risks reachability; source de-risks correctness | **refined** — neither de-risks *runtime/environment*; see `L-2026-07-10b-3` |
+| `L-2026-07-10-6` | Harmony multi-prefix ordering is load-bearing | n/a directly (banked) |
+| `L-2026-07-10-7` | clean compile + boot + one gate ≠ regression suite | **reinforced hard** — 0.5.11 was clean-compile + clean-boot and 100% broken on delivery |
+| (P3 addendum) | prefab-allowlist path is untested; re-verify first use | **acted-on** — used live at i3-w4, matched conifers exactly (0 false matches on the Birch/Beech insurance prefabs) |
+
+## Lessons learned
+
+1. **`L-2026-07-10b-1` — `WebRequest.Create` is unusable in Valheim's dedicated-server Mono runtime;
+   server-side mod HTTP must use raw sockets.** `NotSupportedException("The URI prefix is not recognized.")`
+   — the prefix table is empty server-side (client-side is populated, which hid it). → **ADR 0003** +
+   memory [[valheim-server-mono-http-trap]].
+2. **`L-2026-07-10b-2` — "The mechanism fired" is not "the payload arrived"; verify at the receiver.**
+   i3-w3 suppressed 88 flawlessly and delivered 0; only the Lumberjacks ledger showed it, never the
+   sender's counter. → practice.
+3. **`L-2026-07-10b-3` — Source-read + observe still miss runtime/environment defects; an external I/O
+   edge needs an end-to-end delivery proof, early.** The decompile was perfect; the failure lived in the
+   HTTP stack it never touches. Refines `L-2026-07-10-5`. → practice.
+4. **`L-2026-07-10b-4` — The mod's `*-send.jsonl` counters buffer on disk; a mid-window SSH poll reads
+   stale.** My monitor's `supp=0` was a flush artifact — trust the receiver live; the mod counter is
+   authoritative only after the auto-stop flush. → memory [[valheim-server-mono-http-trap]].
+5. **`L-2026-07-10b-5` — Run telemetry carries no world-content (tree/vegetation) data; ground-truth
+   spatial targets from the parsed world-save.** The route "dense" labels were *build*-density (bases,
+   markets, ocean — never forest); the real target came from the `ComfyEra16.duckdb` ZDO table + computed
+   prefab hashes. → memory [[valheim-capture-window-playbook]].
+6. **`L-2026-07-10b-6` — The client auto-walk re-arms only on a full relaunch, and teleports land at
+   ground+3m (canopy-wedge) without an explicit Y.** Two operational facts that each cost a window; both
+   now in the playbook (teleport-route.tsv takes an optional Y; float above the canopy at high terrain).
+   → memory [[valheim-capture-window-playbook]].
+7. **`L-2026-07-10b-7` — When I catch myself using Derek as live eyes, reach for subagents + data
+   instead.** Three windows of hand-scouting vs one parallel data job; the standing mandate *was* "use
+   HEARTH + subagents" — I under-reached. → practice; reinforces [[keep-derek-out-of-the-loop]].
+
+## Provenance
+
+- **Git range:** `29fe31f..HEAD` (1 commit, `60a6e66`).
+- **Offloaded (HEARTH `local_generate`, qwen3-coder:30b):** seat-reads + lessons first pass —
+  **edit verdict: `minor-fixes`** (usable skeleton; corrected a factual conflation — the target cell *did*
+  have 1303 trees, "no tree data" is a property of the telemetry *files*, not the cell — plus an internal
+  contradiction in the Product seat, and restored the concrete detail + seat-driver nuance the model
+  flattened).
+- **Frontier (Claude):** factsheet, all seat-reads (rewritten), both views, follow-through grades,
+  lessons, ADR 0003, `DECISIONS-PENDING`, memory, every repo-coherent edit.
+- **`--fleet`:** not requested; this environment still has no repo-aware fleet worker.
+- **Ledger:** no HEARTH `record_event` tool in this environment — skipped (noted for faithfulness).

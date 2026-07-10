@@ -6,7 +6,14 @@ Bounded: touch only lines you created or resolved.
 
 ## Open
 
-*(none)*
+- [ ] 2026-07-10 — **2nd I3 repeatability window** (optional, on demand): one relaunch + join at a
+  ground-truthed conifer sector (route via `scratchpad/gen-sweep-route.ps1`). The
+  mechanism-across-builds case is already made (suppress/ack carried 0.5.10 → 0.5.12), so this is
+  hardening, not a gate blocker. (source: `evidence/i3-redirect/ANALYSIS.md`)
+- [ ] 2026-07-10 — **Fold the sibling client-side `WebRequest` POSTs onto the raw-socket helper**
+  (telemetry, priority-mirror, apply-profile). Low priority — they run client-side where the
+  "URI prefix is not recognized" defect is inert; only required if any ever needs to run
+  server-side. (source: [ADR 0003](docs/adr/0003-server-side-mod-http-raw-socket.md))
 
 ## Resolved
 
