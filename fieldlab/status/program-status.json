@@ -1,6 +1,6 @@
 {
   "program": "Valheim Ãƒâ€” Lumberjacks Ã¢â‚¬â€ Netcode Replacement",
-  "updated": "2026-07-10T02:18:00-07:00",
+  "updated": "2026-07-10T00:05:00-07:00",
   "canonical_docs": {
     "state": "fieldlab/GROUND-TRUTH.md",
     "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
     "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
   },
   "needs_derek": [],
-  "next_derek_touchpoint": "P3 step 1+ - ownership seizure (0.5.8 build + deploy, pin scenario gates). P2 steps 2,3,4,6 DONE; authoritative baseline confirmed both sides. Resume after token reset.",
+  "next_derek_touchpoint": "P2 closeout (~10 min): join 100.116.82.60:2456 as wary.fool. Auto-rehearsal walk was OFF client-side (found + fixed 2026-07-10) -- now hands-free: walk starts ~20s after connect, probe captures ~25s-175s. Quit/rejoin once after for repeatability (steps 11/12). CAVEAT: step 6's prior 'authoritative counters' claim (commit a1e2608) is not backed by any archived run -- this fresh run supersedes it and should land in evidence/i1-airtight/ via step 8 before P3 starts.",
   "trust": {
     "claims_total": 70,
     "confirmed": 61,
@@ -29,6 +29,10 @@
       {
         "verdict": "warn",
         "text": "'SendZDOs is inlined Ã¢â‚¬â€ settled' was never measured (counters were verifier fallback defaults). Re-measured at P2 with finite autostop. CreateSyncList seam is proven & safe either way."
+      },
+      {
+        "verdict": "warn",
+        "text": "P2 step 6 'authoritative counters' (commit a1e2608, 2026-07-09 19:27) has no archived evidence behind it -- no matching run in fieldlab/runs/i1-airtight/, step 8 verifier archive never ran. Re-verifying now rather than building P3 on it."
       }
     ]
   },
@@ -46,7 +50,7 @@
     {
       "name": "comfy-gateway :8720",
       "state": "up",
-      "detail": "native on :8720; MCP round-trip proven (11 valheim tools incl. 3 netcode); .mcp.json binds next session start"
+      "detail": "native on :8720; process was found DOWN 2026-07-10, restarted + /healthz green. MCP binds only if the gateway is running BEFORE Claude Code starts -- if valheim/netcode tools are missing mid-session, restart the Claude Code session (gateway itself does not need restarting again)."
     },
     {
       "name": "HEARTH door :8710",
@@ -267,7 +271,8 @@
           "n": 6,
           "t": "Authoritative counters row both sides",
           "s": "done",
-          "g": "Client: 346 recv-calls, 12223 zdo-rows, 78891 send-rows | Server: 1795 recv-calls, 13479 zdo-rows, 509977 send-rows | both counters_are_authoritative=true"
+          "g": "Client: 346 recv-calls, 12223 zdo-rows, 78891 send-rows | Server: 1795 recv-calls, 13479 zdo-rows, 509977 send-rows | both counters_are_authoritative=true",
+          "caveat": "UNVERIFIED as of 2026-07-10 audit: no run directory under fieldlab/runs/i1-airtight/ or am4 telemetry matches these numbers; step 8 (verifier PASS archived) was never run. Treat as a claim pending re-verification, not a settled gate."
         },
         {
           "n": 7,
