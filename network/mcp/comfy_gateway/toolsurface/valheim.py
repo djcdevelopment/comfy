@@ -61,6 +61,11 @@ AM4_OWNERSHIP_PATH = os.environ.get(
     "COMFY_AM4_OWNERSHIP_PATH",
     AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + OWNERSHIP_CHURN_FILE,
 )
+OWNERSHIP_PIN_FILE = "ownership-pin.jsonl"
+AM4_OWNERSHIP_PIN_PATH = os.environ.get(
+    "COMFY_AM4_OWNERSHIP_PIN_PATH",
+    AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + OWNERSHIP_PIN_FILE,
+)
 SSH_TIMEOUT_S = int(os.environ.get("COMFY_SSH_TIMEOUT_S", "20"))
 # Counter fields the probe emits only on an authoritative lifecycle stop/status row.
 _PROBE_COUNTER_KEYS = (
@@ -310,10 +315,12 @@ def valheim_mcp_health() -> dict:
         "bepinex_log": _file_info(BEPINEX_LOG),
         "netcode_probe_local": _file_info(NETWORK_SENSE_DIR / NETCODE_PROBE_FILE),
         "ownership_churn_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_CHURN_FILE),
+        "ownership_pin_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_PIN_FILE),
         "notes_path": str(DEV_NOTES_PATH),
         "ollama_endpoint": ollama_endpoint,
         "am4": {"ssh_host": AM4_SSH_HOST, "container": AM4_CONTAINER,
-                "probe_path": AM4_PROBE_PATH, "ownership_path": AM4_OWNERSHIP_PATH},
+                "probe_path": AM4_PROBE_PATH, "ownership_path": AM4_OWNERSHIP_PATH,
+                "ownership_pin_path": AM4_OWNERSHIP_PIN_PATH},
         "tools": [
             "valheim_networksense_files",
             "valheim_swarm_clients",
@@ -327,6 +334,8 @@ def valheim_mcp_health() -> dict:
             "valheim_netcode_probe_summary",
             "valheim_tail_ownership_churn",
             "valheim_ownership_churn_summary",
+            "valheim_tail_ownership_pin",
+            "valheim_ownership_pin_status",
             "valheim_server_log_tail",
         ],
     }
@@ -902,6 +911,202 @@ def valheim_ownership_churn_summary(source: str = "am4") -> dict:
     raise ValueError("source must be 'local' or 'am4'")
 
 
+# Counter fields the pin emits only on an authoritative lifecycle pin_stop/pin_start row.
+_OWNERSHIP_PIN_COUNTER_KEYS = (
+    "pinned_count", "captured", "holds", "holds_via_set_owner", "holds_via_internal",
+    "pass_through", "hold_rows_written",
+)
+
+
+def valheim_tail_ownership_pin(source: str = "am4", lines: int = 20) -> dict:
+    """Tail the P3/I2 ownership-pin.jsonl (behaviour-changing pin holds). source='am4' (dedicated
+    server, where the pin runs) or 'local' (OMEN client, normally empty — pin is server-side)."""
+    source = str(source or "").strip().lower()
+    lines = max(1, min(int(lines), 2000))
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, OWNERSHIP_PIN_FILE)
+        return {
+            "source": "local",
+            "file": str(path),
+            "exists": path.exists(),
+            "entries": _tail_json(path, lines),
+        }
+    if source == "am4":
+        try:
+            rc, out, err = _run_ssh(f"tail -n {lines} {AM4_OWNERSHIP_PIN_PATH}")
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PIN_PATH}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PIN_PATH}
+        return {
+            "source": "am4",
+            "ok": True,
+            "ssh_host": AM4_SSH_HOST,
+            "remote_path": AM4_OWNERSHIP_PIN_PATH,
+            "entries": _parse_jsonl_text(out),
+        }
+    raise ValueError("source must be 'local' or 'am4'")
+
+
+def _summarize_pin_rows(rows: list[dict]) -> dict:
+    """Scope to the latest pin_start->pin_stop window and read the P3 gate signal.
+
+    The gate is a two-sided comparison in ONE window: pinned ZDOs are HELD (owner does not
+    transfer) while uncaptured ZDOs pass through normally (the negative control). `holds` split
+    by funnel proves both caveat-#2 paths were exercised: via_set_owner = the server churn funnel
+    (ReleaseNearbyZDOS), via_internal = the revision-silent RPC_ZDOData remote-apply. Lifecycle
+    counters live only on a pin_start/pin_stop row; without one the counts are a FLOOR from detail
+    rows, not authoritative totals (not a gate PASS).
+    """
+    start_idx = None
+    for index, row in enumerate(rows):
+        if str(row.get("event")) == "pin_start":
+            start_idx = index
+    window = rows[start_idx:] if start_idx is not None else rows
+
+    summary_row = None
+    for row in window:
+        if str(row.get("event")) in ("pin_stop", "pin_start") and any(
+                k in row for k in _OWNERSHIP_PIN_COUNTER_KEYS):
+            summary_row = row  # last one wins (pin_stop supersedes pin_start)
+
+    detail = [r for r in window if str(r.get("event")) in ("pin_capture", "pin_hold")]
+    captures = [r for r in detail if str(r.get("event")) == "pin_capture"]
+    holds_via_set_owner = sum(1 for r in detail if str(r.get("via")) == "SetOwner")
+    holds_via_internal = sum(1 for r in detail if str(r.get("via")) == "SetOwnerInternal")
+    distinct_pinned = len({str(r.get("uid")) for r in detail})
+    distinct_sectors = len({(r.get("sector_x"), r.get("sector_y")) for r in detail})
+    distinct_prefabs = len({r.get("prefab") for r in captures})
+    held_owners = sorted({str(r.get("held_owner")) for r in captures})
+
+    stopped = summary_row is not None and str(summary_row.get("event")) == "pin_stop"
+    if summary_row is not None:
+        def _c(key: str) -> int:
+            value = summary_row.get(key)
+            return int(value) if isinstance(value, (int, float)) else 0
+        counters = {key: _c(key) for key in _OWNERSHIP_PIN_COUNTER_KEYS}
+        authoritative = stopped
+        caveat = None if stopped else (
+            "Only a pin_start row is present (run still armed or crashed before pin_stop): "
+            "counters are the arming snapshot, not final totals.")
+    else:
+        counters = {key: None for key in _OWNERSHIP_PIN_COUNTER_KEYS}
+        counters["hold_rows_written"] = len(detail)
+        authoritative = False
+        caveat = ("No pin lifecycle row in window: counts are a FLOOR from detail rows, not "
+                  "measured totals (needs ownershipPinEnabled + a finite netcodeProbeAutoStopSeconds). "
+                  "Not a gate PASS.")
+
+    # The gate reads pass when the pin actually held transfers AND some traffic passed through
+    # (a live negative control), on an authoritative stop row.
+    holds = counters.get("holds") or len(detail)
+    passthrough = counters.get("pass_through")
+    if authoritative and (counters.get("holds") or 0) > 0 and (passthrough or 0) > 0:
+        gate = "held_with_negative_control"
+    elif authoritative and (counters.get("holds") or 0) > 0:
+        gate = "held_no_passthrough_observed"
+    elif not detail and not (counters.get("holds") or 0):
+        gate = "no_pin_activity"
+    else:
+        gate = "inconclusive"
+
+    return {
+        "has_lifecycle_summary": summary_row is not None,
+        "counters_are_authoritative": authoritative,
+        "gate": gate,
+        "counters": counters,
+        "pin": {
+            "captures": len(captures),
+            "distinct_pinned_zdos": distinct_pinned,
+            "distinct_pinned_sectors": distinct_sectors,
+            "distinct_pinned_prefabs": distinct_prefabs,
+            "held_owner_ids": held_owners,             # who the pinned ZDOs stayed owned by
+            "detail_holds_via_set_owner": holds_via_set_owner,   # server churn funnel
+            "detail_holds_via_internal": holds_via_internal,     # RPC_ZDOData remote-apply (caveat #2)
+            "detail_rows": len(detail),
+            "window_rows": len(window),
+        },
+        "window": {
+            "has_start": start_idx is not None,
+            "start_row": window[0] if (start_idx is not None and window) else None,
+        },
+        "caveat": caveat,
+    }
+
+
+def valheim_ownership_pin_status(source: str = "am4") -> dict:
+    """Report the P3/I2 ownership PIN gate: did pinned ZDOs stay pinned while others transferred?
+
+    Reads ownership-pin.jsonl and scopes to the latest pin window. `gate` is the headline:
+    'held_with_negative_control' = the pin held real transfers AND uncaptured traffic passed
+    through (the P3 step 9 + step 10 comparison in one window); 'no_pin_activity' = armed but
+    nothing churned; other values need inspection. `holds` split by funnel confirms BOTH caveat-#2
+    paths (SetOwner + SetOwnerInternal) were covered. counters_are_authoritative=false is NOT a
+    PASS. Provenance (host + sha256 + size + age) exposes stale/copied data. source='am4' (dedicated
+    server, where the pin runs) or 'local'. Pair with valheim_ownership_churn_summary (the observe
+    seam logs the uncaptured transfers in detail) and valheim_save_integrity (the hard reload gate).
+    """
+    source = str(source or "").strip().lower()
+    if source == "local":
+        path = _safe_child(NETWORK_SENSE_DIR, OWNERSHIP_PIN_FILE)
+        if not path.exists():
+            return {"source": "local", "ok": False, "error": "ownership-pin.jsonl not found",
+                    "path": str(path)}
+        raw = path.read_text(encoding="utf-8", errors="replace")
+        rows = _parse_jsonl_text(raw)
+        stat = path.stat()
+        provenance = {
+            "host": "local",
+            "path": str(path),
+            "sha256": hashlib.sha256(raw.encode("utf-8", "replace")).hexdigest(),
+            "size_bytes": stat.st_size,
+            "modified_utc": stat.st_mtime,
+            "age_seconds": round(time.time() - stat.st_mtime, 1),
+        }
+        result = {"source": "local", "ok": True, "provenance": provenance}
+        result.update(_summarize_pin_rows(rows))
+        return result
+    if source == "am4":
+        remote = (
+            f"F={AM4_OWNERSHIP_PIN_PATH}; "
+            f"echo PROV $(sha256sum \"$F\" | cut -d' ' -f1) $(stat -c '%s %Y' \"$F\") $(date +%s); "
+            f"tail -n 100000 \"$F\""
+        )
+        try:
+            rc, out, err = _run_ssh(remote, timeout_s=max(SSH_TIMEOUT_S, 40))
+        except subprocess.TimeoutExpired:
+            return {"source": "am4", "ok": False, "error": "ssh timeout", "ssh_host": AM4_SSH_HOST}
+        except FileNotFoundError:
+            return {"source": "am4", "ok": False, "error": "ssh client not found on PATH"}
+        if rc != 0:
+            return {"source": "am4", "ok": False, "error": err.strip() or f"ssh exit {rc}",
+                    "ssh_host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PIN_PATH}
+        body_lines = out.splitlines()
+        provenance = {"host": AM4_SSH_HOST, "remote_path": AM4_OWNERSHIP_PIN_PATH}
+        if body_lines and body_lines[0].startswith("PROV "):
+            parts = body_lines[0].split()
+            body_lines = body_lines[1:]
+            try:
+                sha, size, mtime, now = parts[1], int(parts[2]), int(parts[3]), int(parts[4])
+                provenance.update({
+                    "sha256": sha,
+                    "size_bytes": size,
+                    "modified_unix": mtime,
+                    "age_seconds": now - mtime,
+                })
+            except (IndexError, ValueError):
+                provenance["prov_parse_error"] = True
+        rows = _parse_jsonl_text("\n".join(body_lines))
+        result = {"source": "am4", "ok": True, "provenance": provenance}
+        result.update(_summarize_pin_rows(rows))
+        return result
+    raise ValueError("source must be 'local' or 'am4'")
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -1107,6 +1312,8 @@ def get_tools() -> list[Callable]:
         valheim_netcode_probe_summary,
         valheim_tail_ownership_churn,
         valheim_ownership_churn_summary,
+        valheim_tail_ownership_pin,
+        valheim_ownership_pin_status,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]

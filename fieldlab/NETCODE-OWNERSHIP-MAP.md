@@ -86,5 +86,39 @@ I1** — highest OwnerRevision wins. A server that keeps bumping the revision ke
    as long as the server's OwnerRevision stays highest. Verify the revision race holds under the pin
    before trusting the "owner stays pinned" gate.
 
+## Corrections confirmed at 0.5.10 implementation (source-grounded, live assembly)
+
+Two findings from re-reading the exact decompiled bodies while building the pin. Both change the
+caveats above and are baked into `OwnershipPinRunner`:
+
+- **The "keep OwnerRevision highest" strategy (caveat #2, option b) has a HOLE.** `RPC_ZDOData`
+  only revision-gates the owner apply on the *stale-data* branch (`num4 <= DataRevision` ->
+  `if (num3 > OwnerRevision) SetOwnerInternal(...)`, ZDOMan:826-834). On the *newer-data* branch
+  (`num4 > DataRevision`, ZDOMan:842-844) it does `OwnerRevision = num3; SetOwnerInternal(owner); ...`
+  **unconditionally** — the owner rides in on any newer DataRevision, bypassing the OwnerRevision
+  gate. So a client that both modifies a pinned object's data AND claims it would flip the owner
+  under strategy (b). **The pin therefore guards `SetOwnerInternal` directly** (scoped to the
+  RPC_ZDOData funnel), which is strictly stronger and closes both :830 and :844. Strategy (a) chosen.
+- **ZDO ownership does NOT persist across save/reload — it is pure runtime session state.**
+  `ZDO.Load` resets every ZDO to `Owned=false; owner=0; OwnerRevision=0; DataRevision=0` (ZDO:1345-1358),
+  and `ZDO.Save` writes only the ExtraData (floats/ints/vec3/strings/byte-arrays/connections) +
+  Persistent/Distant/Type/sector/position/prefab (ZDO:1001+) — **never the owner uid**. On boot the
+  9.15M-ZDO world comes back entirely unowned; the server re-seizes as peers connect. Consequences:
+  (1) the pin is **inherently save-safe** — it only skips runtime owner assignments and writes nothing
+  that is saved, so it cannot corrupt the world; the P3 save-integrity HARD GATE is a data/structure
+  check (ZDO/portal/spawner/location counts), which the pin provably cannot move. (2) "owner stays
+  pinned" is a **live-session** assertion (P3 step 9), not a cross-reload one — owners reset on reload
+  regardless of the pin, which also fully explains caveat #1.
+
+## Pin as built (0.5.10 — `OwnershipPinRunner`)
+
+Selector: **auto-capture** the first `ownershipPinAutoCaptureMax` (default 25) ZDOs that currently
+have a real owner and that the churn funnel tries to transfer (optional `ownershipPinPrefabs` allowlist,
+matched by stable hash). Enforcement: two Harmony prefixes returning `false` (skip original) — on
+`ZDO.SetOwner` scoped to `ReleaseNearbyZDOS` (the release@640 + reseize@645 funnel), and on
+`ZDO.SetOwnerInternal` scoped to `RPC_ZDOData` (the remote-apply funnel). Uncaptured ZDOs transfer
+normally = the built-in negative control. Rollback: `[Netcode] ownershipPinEnabled=false`. Read via
+`valheim_ownership_pin_status`; the observe seam stays on to log the negative-control transfers.
+
 See `TEST-PROGRAM.md` P3, `GROUND-TRUTH.md`. Related: [[netcode-program-dashboard]],
 [[post-i0-distrust-rule]], [[kvm-elimination-guardrail]].

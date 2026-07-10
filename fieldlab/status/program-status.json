@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T02:42:27-07:00",
+    "updated": "2026-07-10T03:20:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [],
-    "next_derek_touchpoint": "I2 OBSERVE DONE + both caveats settled with live data (fieldlab/evidence/i2-observe/, sha256 cad7301f). APPROVED 2026-07-10: build the behaviour-changing pin NEXT SESSION (Derek banked this milestone). START HERE -> OwnershipPinRunner (mod -> 0.5.10): patch ZDOMan.ReleaseNearbyZDOS to skip release(@640)+reseize(@645) for pinned ZDOs; ADD a SetOwnerInternal guard (73% of churn is the revision-silent remote-apply path -- can't skip it) OR keep the pinned OwnerRevision highest so RPC_ZDOData rejects inbound claims; rollback flag; save-integrity HARD GATE on quit->reload (verifier already live). Observe seam stays on to compare pinned vs unpinned. Then ONE launch+join runs the P3 gates (owner stays pinned / negative control / save intact). No action needed until then.",
+    "next_derek_touchpoint": "P3 PIN BUILT + DEPLOYED + ARMED (mod 0.5.10 live on am4 2026-07-10, ownershipPinEnabled=true). OwnershipPinRunner skips the vanilla ownership transfer on <=25 auto-captured ZDOs via two SCOPED Harmony prefixes (ZDO.SetOwner in ReleaseNearbyZDOS scope + ZDO.SetOwnerInternal in RPC_ZDOData scope), so a pinned ZDO's owner does NOT transfer on zone entry; uncaptured ZDOs transfer normally (built-in negative control). Two source corrections recorded in NETCODE-OWNERSHIP-MAP.md: (1) the 'keep OwnerRevision highest' strategy has a HOLE at RPC_ZDOData:842-844 (owner applied on any newer DataRevision WITHOUT the revision gate) -> the pin guards SetOwnerInternal directly (strictly stronger); (2) ZDO ownership is runtime-only (ZDO.Load resets owner=0, Save never writes owner), so the pin is inherently save-safe and 'owner stays pinned' is a LIVE-SESSION assertion. Observe seam stays on; save-integrity baseline captured (clean world, 9.155M ZDOs). DEREK: ONE launch+join from OMEN (still 0.5.8 - the pin is server-side, the client just walks) auto-runs the P3 gates via the probe-coupled window; then read valheim_ownership_pin_status (want gate=held_with_negative_control) + valheim_ownership_churn_summary + valheim_save_integrity check. No action needed until that join.",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -41,6 +41,10 @@
             {
                 "verdict": "good",
                 "text": "I2 observe capture (2026-07-10, mod 0.5.9, observe-only): the ZDO ownership funnel is patch-reachable -- 140 SetOwner changes in a 150s walk, all bumping OwnerRevision (inlining risk retired). Caveat #2 confirmed + quantified: 389 SetOwnerInternal remote-applies (169 at revision 0) the pin must cover. Zero gameplay change; live server-side, archived w/ sha256. Settles I2 before any behaviour-changing pin code."
+            },
+            {
+                "verdict": "good",
+                "text": "P3 ownership PIN built + deployed + armed (mod 0.5.10, 2026-07-10): the first BEHAVIOUR-CHANGING rung. Two scoped Harmony prefixes skip the vanilla transfer on <=25 auto-captured ZDOs (SetOwner in ReleaseNearbyZDOS scope + SetOwnerInternal in RPC_ZDOData scope); patches attach-verified on am4 (Awake 'Telemetry scaffold ready' past CreateAndPatchAll, clean build 0 warnings). Grounded on the live decompiled assembly with 2 caveat corrections: the revision-race has a hole at RPC_ZDOData:842-844 (so guard SetOwnerInternal directly), and ZDO ownership is runtime-only (Load resets owner=0) so the pin cannot corrupt the save. Rollback: ownershipPinEnabled=false. ONE launch+join runs the gates."
             }
         ]
     },
@@ -48,7 +52,7 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.9 loaded | ComfyEra16 (9.15M ZDOs) | probe: autostart=true, autostop=150s, maxDetailRows=20000 | P3 observe seam LIVE (ownershipObserveEnabled=true, ZDO.SetOwner/SetOwnerInternal postfix) | telemetry live"
+            "detail": "UDP 2456-2457 | mod 0.5.10 loaded + Awake-ready (all Harmony patches attached) | ComfyEra16 (9.155M ZDOs) | probe: autostart=true, autostop=150s, maxDetailRows=20000 | P3 PIN ARMED (ownershipPinEnabled=true, autoCaptureMax=25, prefabs=broad) + observe on (ownershipObserveEnabled=true) | save-integrity baseline captured (clean world) | pin + observe are silent until a peer joins"
         },
         {
             "name": "OMEN client",
@@ -58,7 +62,7 @@
         {
             "name": "comfy-gateway :8720",
             "state": "up",
-            "detail": "native on :8720 (healthz green); 26 tools live / 4 providers. +2 P3 ownership read tools built (valheim_tail_ownership_churn / valheim_ownership_churn_summary) - load on next gateway start (not restarted mid-session). Binds next Claude Code session."
+            "detail": "native on :8720 (healthz green); 26 tools + 2 ownership-churn read tools (0.5.9) + 2 ownership-pin read tools (valheim_tail_ownership_pin / valheim_ownership_pin_status, 0.5.10) - all 4 load on next gateway start (not restarted mid-session). Binds next Claude Code session."
         },
         {
             "name": "HEARTH door :8710",
@@ -361,7 +365,8 @@
                 {
                     "n": 3,
                     "t": "HEARTH: extract valheim-serverside pin mechanism",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Pin mechanism extracted DIRECTLY from the live decompiled assembly_valheim.dll (ReleaseNearbyZDOS@623, RPC_ZDOData@792, ZDO.SetOwner@1510, SetOwnerInternal@1519, Save@1001/Load@1345 bodies all confirmed) and recorded in NETCODE-OWNERSHIP-MAP.md with 2 source corrections. Primary-source extraction supersedes a HEARTH doc-extract (post-i0-distrust-rule prefers primary sources)."
                 },
                 {
                     "n": 4,
@@ -372,17 +377,20 @@
                 {
                     "n": 5,
                     "t": "OwnershipPinRunner (guardrail-compliant)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "OwnershipPinRunner + OwnershipPinPatches built (mod 0.5.10, clean build 0 warnings). Two scoped Harmony prefixes return false to skip the vanilla owner change: ZDO.SetOwner gated to ReleaseNearbyZDOS scope (release@640 + reseize@645), ZDO.SetOwnerInternal gated to RPC_ZDOData scope (caveat #2 remote-apply). Auto-captures <=25 owned ZDOs; uncaptured = negative control. Rollback: ownershipPinEnabled=false. Priority.Last keeps the observe prefix ordered first. Attach-verified on am4 (Awake ready past CreateAndPatchAll). Never writes synthetic owners -> save-safe."
                 },
                 {
                     "n": 6,
                     "t": "MCP tool: ownership_pin_status",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "MCP tools valheim_ownership_pin_status + valheim_tail_ownership_pin built + unit-tested (gate=held_with_negative_control on a synthetic authoritative window; floor case correctly flagged non-authoritative). Splits holds by funnel (SetOwner vs SetOwnerInternal), exposes held_owner_ids + provenance (host/sha256/size/age). Loads on next gateway start. Registered in get_tools + valheim_mcp_health."
                 },
                 {
                     "n": 7,
-                    "t": "Deploy 0.5.8 both sides",
-                    "s": "pending"
+                    "t": "Deploy pin to am4 (server-side); OMEN client unchanged",
+                    "s": "done",
+                    "g": "am4: mod 0.5.10 deployed to bepinex/plugins (ROOT cfg, never decoy), boot log 'Loading [ComfyNetworkSense 0.5.10]' + 'Telemetry scaffold ready', pin+observe armed. OMEN stays 0.5.8 by design - the pin is server-side (ReleaseZDOS runs only if IsServer), so the client just needs to join and walk (auto-rehearsal coupling already on 0.5.8)."
                 },
                 {
                     "n": 8,
