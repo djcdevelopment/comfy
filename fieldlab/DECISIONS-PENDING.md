@@ -6,23 +6,22 @@ Bounded: touch only lines you created or resolved.
 
 ## Open
 
-- [ ] 2026-07-10 — **I2 repeatability:** accept the one authoritative gate window as sufficient, or
-  do one more clean player-join for a 2nd authoritative repeatability window? (window 1 was a
-  corroborating floor, cut short by the idle-restart.) Available on demand.
-  (source: [retro L-2026-07-10-4 / step 12](retro/SESSION-RETRO-2026-07-10.md))
-- [ ] 2026-07-10 — **Idle-restart vs timed gates:** how to keep am4's ~30-min `UPDATE_IF_IDLE`
-  save+restart from clipping a 150s gate window — schedule joins clear of the boundary, pause the
-  updater for the window, or lengthen/segment the window? (~8% overlap risk per run.)
-  (source: [retro L-2026-07-10-4](retro/SESSION-RETRO-2026-07-10.md))
-- [ ] 2026-07-10 — **Next phase:** P4 (I3 outbound redirect → Lumberjacks) next, or a 2nd I2
-  repeatability run / other work first? P4 does not strictly require I2.
-  (source: [TEST-PROGRAM.md P4](TEST-PROGRAM.md))
-  - 2026-07-10 (later, Claude): fork question asked, no answer (Derek AFK) — proceeded with the
-    P4 **headless runway** as the fork-neutral move (commits nothing either way; both remaining
-    options only differ in when the join happens). Will re-ask at gate staging whether a
-    window A (I2 repeat on 0.5.10) folds into the same game session before the redirect window.
+*(none)*
 
 ## Resolved
 
 - [x] 2026-07-10 — **Disarm the pin after the I2 gate** → yes; disarmed on am4
   (`ownershipPinEnabled=false`, commit `1f337c7`), back to observe-only baseline for P4.
+- [x] 2026-07-10 — **I2 repeatability:** do one more clean join → **yes** (Derek's blessing,
+  evening session): window A of the P4 gate session. Pin re-armed + save-integrity snapshot
+  taken + server restarted (staged via `scripts/run-redirect-window.ps1 -Stage arm-pin`);
+  **execution pending the join** — the gate itself is not marked until its artifact exists.
+- [x] 2026-07-10 — **Idle-restart vs timed gates:** practice adopted = the arm stage restarts
+  the container itself and the join follows immediately, so the 150s window sits at the start
+  of a fresh ~30-min `UPDATE_IF_IDLE` cycle (encoded in `run-redirect-window.ps1`; the arm
+  output says JOIN NOW). Revisit only if a window clips again.
+- [x] 2026-07-10 — **Next phase:** **P4** with window A (I2 repeat) folded into the same game
+  session, per Derek (two-window shape confirmed via AskUserQuestion, then blessed). Headless
+  runway complete + committed (`ed18c55`, `5d088e9`; Lumberjacks `129677f`); one launch + two
+  joins runs the gates. Note: window A runs on 0.5.11 (pin code carried unchanged from 0.5.10;
+  redirect flag off/inert) — mechanism-across-builds repeatability, recorded honestly.

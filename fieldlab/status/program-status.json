@@ -1,14 +1,16 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T05:25:00-07:00",
+    "updated": "2026-07-10T05:50:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
         "topology": "fieldlab/MULTIPLAYER-NETWORK-SETUP.md",
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
-    "needs_derek": [],
-    "next_derek_touchpoint": "P4 RUNWAY BUILT headlessly (2026-07-10, evening session): I3 design recorded against a fresh ZDOMan/ZDO decompile, Lumberjacks receive endpoint live + smoke-tested (dup/gap math exact), mod 0.5.11 ZdoRedirectRunner built (0 warnings) + deployed BOTH sides UNARMED (am4 boot-verified 'Loading [ComfyNetworkSense 0.5.11]', zdoRedirectEnabled=false; OMEN DLL hash-identical, boot-verifies at next launch), 4 new MCP tools live through comfy-gateway (incl. one-call valheim_zdo_redirect_gate), am4-container->OMEN:4000 reachability proven. Rollback rehearsal is DESIGNED INTO the window (zdoRedirectActiveSeconds=90 < probe 150s: suppression auto-disarms mid-capture, probe records native resuming). NEXT + YOUR CALL: one launch+join runs the P4 gate window when staged. OPEN FORK (asked, unanswered - DECISIONS-PENDING): fold a window A (2nd I2 repeatability join, re-arm pin on the already-proven path) into the same game session before the redirect window B, or run P4 only? Nothing is committed either way until the join is staged.",
+    "needs_derek": [
+        "ONE LAUNCH, TWO JOINS (blessed 2026-07-10): join window A now-or-whenever (pin armed + snapshot taken, world up, waiting; wary.fool -> 100.116.82.60:2456, 150s hands-free). Claude gates it, flips cfg to window B (restart kicks you - rejoin when told), gates the redirect, disarms. Nothing else."
+    ],
+    "next_derek_touchpoint": "GATE SESSION STAGED + BLESSED (2026-07-10 evening): Derek confirmed the two-window shape (window A = 2nd I2 repeatability join, window B = I3 redirect) and gave the go. Runway fully built + committed (comfy ed18c55/5d088e9, Lumberjacks 129677f); all decisions in DECISIONS-PENDING resolved. CURRENT LIVE STATE: window A ARMED AND WAITING - pin re-armed (cap 25, any prefab), redirect off, save-integrity snapshot taken (9,155,594 ZDOs, matches P3 baseline exactly), server restarted + world up, join watcher polling. The join is the ONLY human step: wary.fool -> 100.116.82.60:2456, 150s hands-free, then Claude gates A, flips to window B (rejoin after the kick), gates B (receipts==suppressed via valheim_zdo_redirect_gate + client-stability + rollback-rehearsal + save-integrity), disarms to baseline, archives evidence. GATES STAY PENDING until their artifacts exist - the runway being done is not the rung being proven (trust rule). Armed state is safe to sit indefinitely: pin does nothing on an idle server and the cfg survives idle-restarts.",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -60,7 +62,7 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.11 boot-verified (restart 12:17Z, world loaded + Game server connected 12:18Z) | ComfyEra16 (9.155M ZDOs) | pin disarmed (ownershipPinEnabled=false) + redirect disarmed (zdoRedirectEnabled=false, endpoint=100.124.12.37:4000, activeSeconds=90) | observe on | probe autostart=true/autostop=150s | container->OMEN:4000 reachability PROVEN | silent between sessions"
+            "detail": "UDP 2456-2457 | mod 0.5.11 boot-verified | ComfyEra16 (9.155M ZDOs) | WINDOW A ARMED + WAITING: pin re-armed (ownershipPinEnabled=true, cap 25) for the blessed I2-repeat join, redirect off (zdoRedirectEnabled=false, endpoint=100.124.12.37:4000, activeSeconds=90), save-integrity snapshot stored (matches P3 baseline exactly), world up + fresh restart 12:48Z (join lands clear of the ~30-min updater boundary) | armed-idle is safe indefinitely (no peers = no churn; cfg survives idle-restarts) | probe autostart=true/autostop=150s | container->OMEN:4000 reachability PROVEN"
         },
         {
             "name": "OMEN client",
@@ -484,15 +486,15 @@
                 {
                     "n": 7,
                     "t": "Pre-window: save-integrity snapshot + idle-restart clock",
-                    "s": "pending",
-                    "g": "snapshot + clock note recorded before arming; window timed clear of the ~30-min UPDATE_IF_IDLE boundary"
+                    "s": "done",
+                    "g": "run-redirect-window.ps1 -Stage arm-pin executed 12:48Z: snapshot stored (9,155,594 ZDOs / portals 4472 / spawned 85439 / targets 20255 / locations 18004 - exact P3 baseline match), server restarted (the join lands at the START of a fresh ~30-min updater cycle - the adopted clock practice), world up. Window A (I2 repeat) armed per Derek's blessed two-window shape."
                 },
                 {
                     "n": 8,
-                    "t": "DEREK: launch + join -> tagged-traffic window (auto-route)",
+                    "t": "DEREK: launch + join -> window A (I2 repeat), rejoin -> window B (redirect)",
                     "s": "pending",
                     "o": "derek",
-                    "g": "window rows on both sides; open fork: optional window A (I2 repeat) first in the same session"
+                    "g": "BLESSED + STAGED, awaiting the join (watcher live). Two-window shape confirmed: A = pin repeatability (armed now), B = redirect window (cfg flip + rejoin after A gates). Gates stay pending until their artifacts exist."
                 },
                 {
                     "n": 9,
