@@ -756,6 +756,157 @@ def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     }
 
 
+# --- Save integrity (P3+ HARD gate) ---------------------------------------------------
+# Fingerprint the am4 world's STRUCTURAL state so a quit->reload can be verified intact.
+# Uses the server load-log's semantic counts (ZDOs / portals / spawners / locations), which
+# survive a save-rewrite (a raw .db hash changes on every save) but DROP on corruption/loss,
+# plus the world save-file size/mtime as a reference. Server-authoritative state only; the
+# tool reads logs + stats files over ssh and never modifies the world.
+SAVE_INTEGRITY_BASELINE = Path(os.environ.get(
+    "COMFY_SAVE_INTEGRITY_BASELINE",
+    str(Path(__file__).resolve().parents[3] / "var" / "valheim-save-integrity-baseline.json"),
+))
+AM4_WORLD_DB = os.environ.get(
+    "COMFY_AM4_WORLD_DB",
+    "/home/derek/comfy-valheim-lab/server-state/config/worlds_local/ComfyEra16.db",
+)
+AM4_WORLD_FWL = os.environ.get(
+    "COMFY_AM4_WORLD_FWL",
+    "/home/derek/comfy-valheim-lab/server-state/config/worlds_local/ComfyEra16.fwl",
+)
+# Loaded-world geometry counts that must match EXACTLY across a clean reload; ZDOS is the
+# live total and gets a small tolerance.
+_SAVE_STRUCTURAL_KEYS = ("portals", "spawned", "targets", "locations")
+_SAVE_ZDOS_TOLERANCE = 0.01  # 1%
+
+
+def _last_int(text: str, pattern: str) -> int | None:
+    import re
+    found = re.findall(pattern, text)
+    return int(found[-1]) if found else None
+
+
+def _capture_world_integrity() -> dict:
+    """Fingerprint the am4 world from its most recent load block + save-file stats."""
+    fp: dict = {"captured_utc": time.time(), "source": AM4_SSH_HOST,
+                "container": AM4_CONTAINER, "ok": False}
+    try:
+        rc, out, err = _run_ssh(
+            f"docker logs --since 48h {AM4_CONTAINER} 2>&1 | "
+            f"grep -E 'ZDOS:|ConnectPortals =>|spawned=|Loaded [0-9]+ locations'",
+            timeout_s=max(SSH_TIMEOUT_S, 45),
+        )
+    except subprocess.TimeoutExpired:
+        fp["error"] = "ssh timeout reading container logs"
+        return fp
+    except FileNotFoundError:
+        fp["error"] = "ssh client not found on PATH"
+        return fp
+    if rc not in (0, 1):
+        fp["error"] = err.strip() or f"ssh exit {rc}"
+        return fp
+    fp["zdos"] = _last_int(out, r"ZDOS:(\d+)")
+    fp["portals"] = _last_int(out, r"ConnectPortals => Connected (\d+) portals")
+    fp["spawned"] = _last_int(out, r"spawned=(\d+)")
+    fp["targets"] = _last_int(out, r"targets=(\d+)")
+    fp["locations"] = _last_int(out, r"Loaded (\d+) locations")
+    try:
+        _, sout, _ = _run_ssh(
+            f"stat -c '%n|%s|%Y' {shlex.quote(AM4_WORLD_DB)} {shlex.quote(AM4_WORLD_FWL)} 2>/dev/null"
+        )
+        files: dict = {}
+        for line in sout.splitlines():
+            parts = line.strip().split("|")
+            if len(parts) == 3:
+                files[Path(parts[0]).name] = {"bytes": int(parts[1]), "mtime": int(parts[2])}
+        fp["world_files"] = files
+    except Exception:
+        fp["world_files"] = {}
+    # zdos is emitted continuously (heartbeat); the geometry counts are boot-only.
+    fp["ok"] = fp["zdos"] is not None
+    fp["has_load_block"] = fp["locations"] is not None and fp["portals"] is not None
+    return fp
+
+
+def valheim_save_integrity(action: str = "check", label: str = "") -> dict:
+    """Fingerprint / verify the am4 world's structural integrity for the P3+ save-integrity gate.
+
+    action='snapshot' captures the current world fingerprint (ZDO/portal/spawner/location
+    counts from the server load log + save-file size/mtime) and stores it as the baseline.
+    action='check' (default) re-captures and diffs against the baseline: structural counts
+    (portals/spawned/targets/locations) must match EXACTLY and ZDOS within 1% -> status 'pass';
+    a drop -> 'fail' (possible corruption/loss on reload). action='show' returns the baseline.
+    Read-only: reads am4 logs + stats save files over ssh; nothing is modified.
+    """
+    action = (action or "check").strip().lower()
+    if action == "show":
+        if SAVE_INTEGRITY_BASELINE.exists():
+            return {"ok": True, "action": "show",
+                    "baseline": json.loads(SAVE_INTEGRITY_BASELINE.read_text(encoding="utf-8"))}
+        return {"ok": True, "action": "show", "baseline": None, "note": "no baseline stored"}
+
+    current = _capture_world_integrity()
+    if not current.get("ok"):
+        return {"ok": False, "action": action,
+                "error": current.get("error", "capture failed"), "current": current}
+
+    if action == "snapshot":
+        current["label"] = label or "clean-world baseline"
+        SAVE_INTEGRITY_BASELINE.parent.mkdir(parents=True, exist_ok=True)
+        SAVE_INTEGRITY_BASELINE.write_text(json.dumps(current, indent=2), encoding="utf-8")
+        return {"ok": True, "action": "snapshot", "stored": str(SAVE_INTEGRITY_BASELINE),
+                "fingerprint": current}
+
+    if not SAVE_INTEGRITY_BASELINE.exists():
+        return {"ok": True, "action": "check", "status": "no_baseline",
+                "note": "no baseline stored; run action='snapshot' on a known-good world first",
+                "current": current}
+
+    baseline = json.loads(SAVE_INTEGRITY_BASELINE.read_text(encoding="utf-8"))
+    drift: dict = {}
+    status = "pass"
+    for k in _SAVE_STRUCTURAL_KEYS:
+        b, c = baseline.get(k), current.get(k)
+        if b is None or c is None:
+            drift[k] = {"baseline": b, "current": c, "verdict": "missing"}
+            status = "warn" if status == "pass" else status
+        elif b != c:
+            drift[k] = {"baseline": b, "current": c, "delta": c - b, "verdict": "MISMATCH"}
+            status = "fail"
+        else:
+            drift[k] = {"baseline": b, "current": c, "verdict": "ok"}
+    b, c = baseline.get("zdos"), current.get("zdos")
+    if b and c:
+        rel = abs(c - b) / b
+        if c < b * (1 - _SAVE_ZDOS_TOLERANCE):
+            zv = "MISMATCH"
+            status = "fail"
+        elif rel > _SAVE_ZDOS_TOLERANCE:
+            zv = "warn"
+            status = "warn" if status == "pass" else status
+        else:
+            zv = "ok"
+        drift["zdos"] = {"baseline": b, "current": c, "delta": c - b, "rel": round(rel, 4), "verdict": zv}
+    else:
+        drift["zdos"] = {"baseline": b, "current": c, "verdict": "missing"}
+        status = "warn" if status == "pass" else status
+
+    if not current.get("has_load_block"):
+        status = "warn" if status == "pass" else status
+
+    return {
+        "ok": True, "action": "check", "status": status,
+        "baseline_captured_utc": baseline.get("captured_utc"),
+        "baseline_label": baseline.get("label"),
+        "current_captured_utc": current.get("captured_utc"),
+        "has_recent_load_block": current.get("has_load_block"),
+        "drift": drift,
+        "world_files": {"baseline": baseline.get("world_files"), "current": current.get("world_files")},
+        "note": "structural counts must match exactly; ZDOS within 1%. status=fail => possible "
+                "corruption/loss on reload. Snapshot on a known-good world, then check after a reload.",
+    }
+
+
 def get_tools() -> list[Callable]:
     return [
         valheim_mcp_health,
@@ -776,4 +927,5 @@ def get_tools() -> list[Callable]:
         valheim_tail_netcode_probe,
         valheim_netcode_probe_summary,
         valheim_server_log_tail,
+        valheim_save_integrity,
     ]
