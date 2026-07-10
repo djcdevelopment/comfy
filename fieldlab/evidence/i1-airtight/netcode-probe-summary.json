@@ -1,0 +1,95 @@
+﻿{
+    "schema_version":  1,
+    "rung":  "I1",
+    "status":  "pass_i1_reachable",
+    "generated_at_utc":  "2026-07-10T05:48:44.4459496Z",
+    "network_sense_log_dir":  "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-224834\\comfy-network-sense",
+    "probe_log_path":  "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-224834\\comfy-network-sense\\netcode-probe.jsonl",
+    "installed_version":  "0.5.7.0",
+    "min_version":  "0.5.7",
+    "provenance":  {
+                       "source_host":  "OMEN",
+                       "probe_sha256":  "c1d6ee17eaa5fb4ffd7f213269e19f839209a8e5e3103fed5ea74e8724e9f8c7",
+                       "probe_last_write_utc":  "2026-07-10T05:48:35.8824101Z",
+                       "probe_age_minutes":  0,
+                       "max_age_minutes":  0,
+                       "freshness_enforced":  false,
+                       "is_stale":  false
+                   },
+    "window":  {
+                   "start_utc":  "2026-07-10T05:41:44.3632250Z",
+                   "stop_utc":  "2026-07-10T05:44:14.3734490Z",
+                   "row_count":  20003,
+                   "has_lifecycle_summary":  true
+               },
+    "observed":  {
+                     "recv_funnel_calls":  1642,
+                     "recv_zdo_rows":  29944,
+                     "recv_parse_errors":  0,
+                     "recv_detail_rows":  19397,
+                     "recv_legible":  {
+                                          "sampled":  50,
+                                          "legible":  50
+                                      },
+                     "send_zdos_calls":  2247,
+                     "send_zdos_flushed":  12,
+                     "create_sync_list_calls":  2247,
+                     "send_zdo_rows":  605,
+                     "send_detail_rows":  603,
+                     "send_legible":  {
+                                          "sampled":  50,
+                                          "legible":  50
+                                      },
+                     "send_inlined_fallback_only":  false
+                 },
+    "gates":  [
+                  {
+                      "id":  "mod_deployed",
+                      "status":  "pass",
+                      "observed":  "Installed ComfyNetworkSense version: 0.5.7.0 (min 0.5.7)."
+                  },
+                  {
+                      "id":  "probe_window",
+                      "status":  "pass",
+                      "observed":  "Latest start=07/09/2026 22:41:44, stop=07/09/2026 22:44:14, window rows=20003."
+                  },
+                  {
+                      "id":  "receive_funnel_reachable",
+                      "status":  "pass",
+                      "observed":  "RPC_ZDOData calls=1642, recv ZDOs=29944, detail rows=19397, legible 50/50, parseErr=0."
+                  },
+                  {
+                      "id":  "send_funnel_reachable",
+                      "status":  "pass",
+                      "observed":  "CreateSyncList calls=2247, send ZDOs=605, detail rows=603, legible 50/50."
+                  },
+                  {
+                      "id":  "sendzdos_not_inlined",
+                      "status":  "pass",
+                      "observed":  "SendZDOs postfix calls=2247 (flushed=12). SendZDOs is directly patchable (residual inlining risk retired)."
+                  },
+                  {
+                      "id":  "both_directions",
+                      "status":  "pass",
+                      "observed":  "recvReachable=True, sendReachable=True."
+                  },
+                  {
+                      "id":  "no_vanilla_mutation",
+                      "status":  "pass",
+                      "observed":  "Probe is observation-only: it re-parses a copy of received wire bytes and reads outbound ZDO objects; no ZDOs, owners, revisions, or transforms were written."
+                  },
+                  {
+                      "id":  "probe_freshness",
+                      "status":  "warn",
+                      "observed":  "age=0 min (max=0, record-only); host=OMEN; sha256=c1d6ee17eaa5"
+                  }
+              ],
+    "fail_count":  0,
+    "warn_count":  1,
+    "claims_not_proven":  [
+                              "Ownership seizure (I2)",
+                              "Outbound redirect to Lumberjacks (I3)",
+                              "Inbound injection (I4)",
+                              "Any replacement of vanilla ZDO transport"
+                          ]
+}

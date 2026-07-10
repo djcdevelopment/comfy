@@ -1,6 +1,6 @@
 {
-  "program": "Valheim Ãƒâ€” Lumberjacks Ã¢â‚¬â€ Netcode Replacement",
-  "updated": "2026-07-10T00:05:00-07:00",
+  "program": "Valheim ÃƒÆ’Ã¢â‚¬â€ Lumberjacks ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Netcode Replacement",
+  "updated": "2026-07-09T22:52:00-07:00",
   "canonical_docs": {
     "state": "fieldlab/GROUND-TRUTH.md",
     "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
     "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
   },
   "needs_derek": [],
-  "next_derek_touchpoint": "P2 closeout (~10 min): join 100.116.82.60:2456 as wary.fool. Auto-rehearsal walk was OFF client-side (found + fixed 2026-07-10) -- now hands-free: walk starts ~20s after connect, probe captures ~25s-175s. Quit/rejoin once after for repeatability (steps 11/12). CAVEAT: step 6's prior 'authoritative counters' claim (commit a1e2608) is not backed by any archived run -- this fresh run supersedes it and should land in evidence/i1-airtight/ via step 8 before P3 starts.",
+  "next_derek_touchpoint": "P2 steps 11+12 (~5 min): quit Valheim fully to the main menu, then rejoin 100.116.82.60:2456 as wary.fool once more. This gives us a second green probe run (repeatability, step 11) plus proof the world/character survive a real disconnect+reconnect (step 12). Steps 1-10 are now done/verified; this is the last real gate before P3 (ownership seizure) starts clean.",
   "trust": {
     "claims_total": 70,
     "confirmed": 61,
@@ -16,11 +16,11 @@
     "uncorroborated": 4,
     "conflicted_resolved": 2,
     "red_herrings_catalogued": 41,
-    "rule": "Nothing after commit c196f88 (I0 map) counts without Ã¢â€°Â¥2 independent non-doc sources.",
+    "rule": "Nothing after commit c196f88 (I0 map) counts without ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥2 independent non-doc sources.",
     "headlines": [
       {
         "verdict": "good",
-        "text": "Nothing was deleted Ã¢â‚¬â€ all 28 commands, full MCP tree, zero orphaned work in git. The 'tooling cut' was a workflow BYPASS; fix is a wiring job (P1)."
+        "text": "Nothing was deleted ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â all 28 commands, full MCP tree, zero orphaned work in git. The 'tooling cut' was a workflow BYPASS; fix is a wiring job (P1)."
       },
       {
         "verdict": "good",
@@ -28,11 +28,11 @@
       },
       {
         "verdict": "warn",
-        "text": "'SendZDOs is inlined Ã¢â‚¬â€ settled' was never measured (counters were verifier fallback defaults). Re-measured at P2 with finite autostop. CreateSyncList seam is proven & safe either way."
+        "text": "'SendZDOs is inlined ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â settled' was never measured (counters were verifier fallback defaults). Re-measured at P2 with finite autostop. CreateSyncList seam is proven & safe either way."
       },
       {
-        "verdict": "warn",
-        "text": "P2 step 6 'authoritative counters' (commit a1e2608, 2026-07-09 19:27) has no archived evidence behind it -- no matching run in fieldlab/runs/i1-airtight/, step 8 verifier archive never ran. Re-verifying now rather than building P3 on it."
+        "verdict": "good",
+        "text": "P2 steps 6-8 re-verified for real 2026-07-09 22:48: server + client counters archived via the project's own verifier (not hand-typed), SendZDOs postfix fires in both directions (2247/2288 calls) - the inlining question is settled, not assumed. Superseded the unbacked a1e2608 claim."
       }
     ]
   },
@@ -40,17 +40,17 @@
     {
       "name": "am4 valheim server",
       "state": "up",
-      "detail": "UDP 2456-2457 · mod 0.5.7 loaded · ComfyEra16 (9.15M ZDOs) · probe: autostart=true, autostop=150s, maxDetailRows=20000 · telemetry live"
+      "detail": "UDP 2456-2457 Â· mod 0.5.7 loaded Â· ComfyEra16 (9.15M ZDOs) Â· probe: autostart=true, autostop=150s, maxDetailRows=20000 Â· telemetry live"
     },
     {
       "name": "OMEN client",
       "state": "ready",
-      "detail": "native Valheim + mod 0.5.7 in plugins · Steam running · persona wary.fool (floooooobcakes) · coupleAutoRehearsalToNetcodeProbe available (off)"
+      "detail": "native Valheim + mod 0.5.7 in plugins Â· Steam running Â· persona wary.fool (floooooobcakes) Â· coupleAutoRehearsalToNetcodeProbe available (off)"
     },
     {
       "name": "comfy-gateway :8720",
       "state": "up",
-      "detail": "native on :8720; process was found DOWN 2026-07-10, restarted + /healthz green. MCP binds only if the gateway is running BEFORE Claude Code starts -- if valheim/netcode tools are missing mid-session, restart the Claude Code session (gateway itself does not need restarting again)."
+      "detail": "native on :8720; restarted 2026-07-10, /healthz green. MCP binds only if the gateway is running BEFORE Claude Code starts -- restart the Claude Code session to pick up valheim/netcode tools (gateway itself is fine, no action needed)."
     },
     {
       "name": "HEARTH door :8710",
@@ -71,7 +71,7 @@
   "phases": [
     {
       "id": "P0",
-      "ladder": "Ã¢â‚¬â€",
+      "ladder": "ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â",
       "title": "Trust reset & canon",
       "status": "done",
       "human_minutes": 0,
@@ -98,7 +98,7 @@
         },
         {
           "n": 5,
-          "t": "'Tooling cut' adjudicated (refuted Ã¢â‚¬â€ bypass)",
+          "t": "'Tooling cut' adjudicated (refuted ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â bypass)",
           "s": "done"
         },
         {
@@ -185,7 +185,7 @@
           "n": 7,
           "t": "Mod: probe-arm triggers auto-rehearsal walk (config-coupled)",
           "s": "done",
-          "g": "flag on Ã¢â€ â€™ rehearsal at arm"
+          "g": "flag on ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ rehearsal at arm"
         },
         {
           "n": 8,
@@ -195,19 +195,19 @@
         },
         {
           "n": 9,
-          "t": "Build 0.5.7 Ã¢â€ â€™ OMEN plugins",
+          "t": "Build 0.5.7 ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ OMEN plugins",
           "s": "done",
           "g": "local boot log shows 0.5.7"
         },
         {
           "n": 10,
-          "t": "Deploy 0.5.7 Ã¢â€ â€™ am4 (ROOT cfg, never decoy)",
+          "t": "Deploy 0.5.7 ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ am4 (ROOT cfg, never decoy)",
           "s": "done",
           "g": "am4 boot log shows 0.5.7"
         },
         {
           "n": 11,
-          "t": "One-command orchestrator (deployÃ¢â€ â€™runÃ¢â€ â€™pullÃ¢â€ â€™gateÃ¢â€ â€™dashboard)",
+          "t": "One-command orchestrator (deployÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢runÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢pullÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢gateÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢dashboard)",
           "s": "done",
           "g": "single invocation"
         },
@@ -271,19 +271,19 @@
           "n": 6,
           "t": "Authoritative counters row both sides",
           "s": "done",
-          "g": "Client: 346 recv-calls, 12223 zdo-rows, 78891 send-rows | Server: 1795 recv-calls, 13479 zdo-rows, 509977 send-rows | both counters_are_authoritative=true",
-          "caveat": "UNVERIFIED as of 2026-07-10 audit: no run directory under fieldlab/runs/i1-airtight/ or am4 telemetry matches these numbers; step 8 (verifier PASS archived) was never run. Treat as a claim pending re-verification, not a settled gate."
+          "g": "Server (via run-netcode-probe-cycle.ps1 -SkipDeploy, archived): recv calls=1642 zdos=29944, send SendZDOs=2247/CreateSyncList=2247 zdos=605, both legible 50/50, parseErr=0. Client (OMEN netcode-probe.jsonl, session 20260710-053646-73c1ab8d): recv calls=13 zdos=353, send SendZDOs=2288/CreateSyncList=2287 zdos=48772. Verifier PASS, archived to fieldlab/runs/i1-airtight/20260709-224834/netcode-probe-summary.json."
         },
         {
           "n": 7,
           "t": "Inlining question measured for real",
-          "s": "pending",
-          "g": "real send_zdos_calls"
+          "s": "done",
+          "g": "sendzdos_not_inlined: PASS. SendZDOs postfix calls=2247 (server) / 2288 (client) - the postfix hook fires for real in both directions. SendZDOs is directly patchable; the inlining risk that was open since I0 is retired."
         },
         {
           "n": 8,
-          "t": "Verifier PASS Ã¢â€ â€™ evidence/i1-airtight/",
-          "s": "pending"
+          "t": "Verifier PASS -> evidence/i1-airtight/",
+          "s": "done",
+          "g": "verify-netcode-probe.ps1 STATUS=pass_i1_reachable, archived to fieldlab/runs/i1-airtight/20260709-224834/"
         },
         {
           "n": 9,
@@ -381,7 +381,7 @@
         },
         {
           "n": 11,
-          "t": "HARD GATE: save integrity on quitÃ¢â€ â€™reload",
+          "t": "HARD GATE: save integrity on quitÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢reload",
           "s": "pending"
         },
         {
@@ -391,7 +391,7 @@
         },
         {
           "n": 13,
-          "t": "Packets + worklog I2 Ã¢Å“â€¦ + commit",
+          "t": "Packets + worklog I2 ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ + commit",
           "s": "pending"
         }
       ]
@@ -399,7 +399,7 @@
     {
       "id": "P4",
       "ladder": "I3",
-      "title": "Outbound redirect Ã¢â€ â€™ Lumberjacks",
+      "title": "Outbound redirect ÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ Lumberjacks",
       "status": "pending",
       "human_minutes": 10,
       "steps": [
@@ -410,7 +410,7 @@
         },
         {
           "n": 2,
-          "t": "HEARTH: ZPackageÃ¢â€ â€JSON shim boilerplate",
+          "t": "HEARTH: ZPackageÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬ÂJSON shim boilerplate",
           "s": "pending"
         },
         {
@@ -474,7 +474,7 @@
       "steps": [
         {
           "n": 1,
-          "t": "HEARTH: JSONÃ¢â€ â€™ZPackage boilerplate; frontier hardening",
+          "t": "HEARTH: JSONÃƒÂ¢Ã¢â‚¬Â Ã¢â‚¬â„¢ZPackage boilerplate; frontier hardening",
           "s": "pending"
         },
         {
@@ -519,7 +519,7 @@
         },
         {
           "n": 10,
-          "t": "Repeat + packets + worklog I4 Ã¢Å“â€¦ + commit",
+          "t": "Repeat + packets + worklog I4 ÃƒÂ¢Ã…â€œÃ¢â‚¬Â¦ + commit",
           "s": "pending"
         }
       ]
@@ -564,7 +564,7 @@
         },
         {
           "n": 7,
-          "t": "GATE: in-world past spawn, Ã¢â€°Â¥30s connected",
+          "t": "GATE: in-world past spawn, ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥30s connected",
           "s": "pending"
         },
         {
@@ -641,10 +641,10 @@
     }
   ],
   "last_probe_cycle": {
-    "ran_utc": "2026-07-10T01:36:33.3731607Z",
-    "mode": "deploy",
-    "gate_status": "pass_i1_reachable_sendzdos_inlined_fallback",
-    "run_dir": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183602",
-    "summary_path": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183602\\netcode-probe-summary.json"
+    "ran_utc": "2026-07-10T05:48:44.4912369Z",
+    "mode": "idle",
+    "gate_status": "pass_i1_reachable",
+    "run_dir": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-224834",
+    "summary_path": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-224834\\netcode-probe-summary.json"
   }
 }
