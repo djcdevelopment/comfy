@@ -1,0 +1,22 @@
+{
+  "session_id": "20260710-091847-35528bf8",
+  "window_utc": [
+    "2026-07-10T09:30:09Z",
+    "2026-07-10T09:32:39Z"
+  ],
+  "source": "am4 dedicated server (native Linux Docker), mod 0.5.9 observe-only",
+  "files": {
+    "ownership-churn.jsonl": {
+      "sha256": "cad7301f283581a293d7948e83363f46bbf4687fecd2a2139eaf80bd0bed0e72",
+      "bytes": 170952
+    },
+    "summary.json": {
+      "sha256": "fc14b005cc2d0af7c149bf8aa38585549a73064d4bbbf10b4f5ca8912eff63df",
+      "bytes": 2128
+    },
+    "ANALYSIS.md": {
+      "sha256": "d78452d7d14e9116d0af8305723d5c9ecb2306c96628970de500416abb4b725d",
+      "bytes": 3267
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "tool_summary": {
+    "has_lifecycle_summary": true,
+    "counters_are_authoritative": true,
+    "counters": {
+      "set_owner_rows": 140,
+      "set_owner_internal_rows": 389,
+      "no_op_skipped": 60764,
+      "rows_written": 529
+    },
+    "churn": {
+      "total_change_rows": 529,
+      "via_set_owner": 140,
+      "via_set_owner_internal": 389,
+      "distinct_zdos": 201,
+      "distinct_sectors": 22,
+      "server_side_rows": 529,
+      "server_became_owner": 67,
+      "released_to_unowned": 267,
+      "window_rows": 531
+    },
+    "window": {
+      "has_start": true,
+      "start_row": {
+        "event": "start",
+        "status": "observing",
+        "running": true,
+        "started_utc": "2026-07-10T09:30:09.7952290Z",
+        "set_owner_rows": 0,
+        "set_owner_internal_rows": 0,
+        "no_op_skipped": 0,
+        "rows_written": 0,
+        "capped": false,
+        "max_rows": 20000,
+        "last_error": "",
+        "claim": "Ownership observe reads ZDO ownership only in postfix (after Valheim applied it). It writes no ZDOs, does not change ownership/revisions, and does not alter vanilla replication. Pure measurement for the P3/I2 ownership-seizure work.",
+        "build_version": "0.5.9",
+        "timestamp_utc": "2026-07-10T09:30:09.7956370Z",
+        "session_id": "20260710-091847-35528bf8"
+      }
+    },
+    "caveat": null
+  },
+  "deep_analysis": {
+    "sha256": "cad7301f283581a293d7948e83363f46bbf4687fecd2a2139eaf80bd0bed0e72",
+    "size_bytes": 170952,
+    "session_id": "20260710-091847-35528bf8",
+    "window_utc": [
+      "2026-07-10T09:30:09.7956370Z",
+      "2026-07-10T09:32:39.8169950Z"
+    ],
+    "via_set_owner": {
+      "count": 140,
+      "owner_revision_dist": {
+        "2": 105,
+        "1": 35
+      },
+      "release_to_0": 105,
+      "server_seize_to_self": 0,
+      "all_bumped_revision_ge1": true
+    },
+    "via_set_owner_internal": {
+      "count": 389,
+      "owner_revision_dist": {
+        "0": 169,
+        "1": 163,
+        "2": 57
+      },
+      "at_revision_0": 169
+    }
+  }
+}
