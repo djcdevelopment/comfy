@@ -1,6 +1,6 @@
 {
   "program": "Valheim ÃƒÆ’Ã¢â‚¬â€ Lumberjacks ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Netcode Replacement",
-  "updated": "2026-07-09T22:52:00-07:00",
+  "updated": "2026-07-09T23:12:39-07:00",
   "canonical_docs": {
     "state": "fieldlab/GROUND-TRUTH.md",
     "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
     "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
   },
   "needs_derek": [],
-  "next_derek_touchpoint": "P2 steps 11+12 (~5 min): quit Valheim fully to the main menu, then rejoin 100.116.82.60:2456 as wary.fool once more. This gives us a second green probe run (repeatability, step 11) plus proof the world/character survive a real disconnect+reconnect (step 12). Steps 1-10 are now done/verified; this is the last real gate before P3 (ownership seizure) starts clean.",
+  "next_derek_touchpoint": "P2 steps 11+12 (~5 min): fully exit Valheim to desktop and relaunch (NOT just quit-to-menu -- BepInEx loads mods at process start and the auto-rehearsal is run-once-per-process, so a full restart is required to load mod 0.5.8 AND re-arm the autopilot), then rejoin 100.116.82.60:2456 as wary.fool. Gives a second green probe run (repeatability, step 11) plus proof the world/character survive a real process restart+reconnect (step 12). Mod 0.5.8 now enables god+fly before the teleport walk, so you no longer fall to your death after teleports. Server-side probe re-arm for the second run runs through run-netcode-probe-cycle.ps1. Steps 1-10 done/verified; last gate before P3.",
   "trust": {
     "claims_total": 70,
     "confirmed": 61,
@@ -45,7 +45,7 @@
     {
       "name": "OMEN client",
       "state": "ready",
-      "detail": "native Valheim + mod 0.5.7 in plugins Â· Steam running Â· persona wary.fool (floooooobcakes) Â· coupleAutoRehearsalToNetcodeProbe available (off)"
+      "detail": "native Valheim + mod 0.5.8 in plugins (routeGodFlySafeguard on: god+fly enabled before teleport walks) Â· Steam running Â· persona wary.fool (floooooobcakes) Â· coupleAutoRehearsalToNetcodeProbe available (off)"
     },
     {
       "name": "comfy-gateway :8720",
