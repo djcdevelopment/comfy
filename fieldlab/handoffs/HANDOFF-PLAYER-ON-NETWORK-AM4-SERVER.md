@@ -1,5 +1,12 @@
 # Handoff — Real player on the Valheim network (server relocated to am4)
 
+> **⚠️ SUPERSEDED (2026-07-09 evening).** Kept as the war-story record of how player-two got
+> online. Two facts below are stale: (1) player two of record is now **wary.fool rendered
+> natively on OMEN** (Derek's directive), not the i5; (2) the account table criss-crosses
+> account names and personas — the settled mapping is account `waryfool`→persona Zephar410,
+> account `floooooobcakes`→persona wary.fool. Current state: `../GROUND-TRUTH.md`. Current
+> topology: `../MULTIPLAYER-NETWORK-SETUP.md`. Current plan: `../TEST-PROGRAM.md`.
+
 **Date:** 2026-07-09
 **Outcome:** ✅ A real GPU-rendered player (`Durracktu`, account `floooooobcakes`) is connected to the `ComfyEra16` world. The multi-day "player never connects" blocker is solved.
 

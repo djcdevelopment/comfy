@@ -2,6 +2,11 @@
 
 *Shared openly as homework. Part of this repo is a method for understanding a community before building for it. Part of it is the later build sessions where that understanding finally cashed out into some unusually cross-system tools.*
 
+> **Active program (2026-07-09 →):** the Valheim netcode-replacement effort. State of the world:
+> [fieldlab/GROUND-TRUTH.md](fieldlab/GROUND-TRUTH.md) · plan:
+> [fieldlab/TEST-PROGRAM.md](fieldlab/TEST-PROGRAM.md). Start sessions in `C:\work\comfy` root
+> (never a subdir — memory/MCP don't inherit on Windows).
+
 ## What this repo is
 
 This repo is not one tidy product.

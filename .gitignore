@@ -42,3 +42,6 @@ comfy-tugcow-analysis/
 # Private synthesis built ON TOP of the two analyses above (two more abstraction layers).
 # Derived from private material — same stance: internal only, do not commit.
 comfy-ascent-analysis/
+
+# Session-transcript audit extract: contains raw operator voice transcripts - keep private
+fieldlab-session-audit/

@@ -1,5 +1,9 @@
 # NetworkSense Main-Thread Hitch Debug Plan
 
+> **ERA-BOUND (July 4–8, mod 0.4.x, solo-OMEN).** Superseded as a status doc; the H1–H5
+> hypothesis methodology remains valid and gets reconciled against the new connected baseline in
+> `TEST-PROGRAM.md` P2 step 14. Current state: `GROUND-TRUTH.md`.
+
 Date: 2026-07-04
 
 This plan targets the current blocking issue in the Era16 NetworkSense baseline:

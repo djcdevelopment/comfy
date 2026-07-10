@@ -1,5 +1,14 @@
 # Handoff — Rewire hands-free tooling into the netcode probe (QoL regression fix)
 
+> **POST-AUDIT UPDATE (2026-07-09 evening):** this handoff's gap analysis is confirmed accurate
+> and is absorbed into **`../TEST-PROGRAM.md` Phase P1** (the live plan). Deltas since writing:
+> Gap 3 is **partially closed** — commit `8c59afb` added repo-root `.mcp.json` (comfy-gateway
+> :8720) + `fieldlab/scripts/start-comfy-gateway.ps1`; still loopback-only and nothing listens
+> until the ps1 runs. Gaps 1–2 remain fully open. Open decision #1 is **answered by Derek**:
+> movement source = **wary.fool rendered natively on OMEN** (i5 is optional only), so Gap 1's
+> fix retargets from i5 to the OMEN client. Decision #3: register now (done via `.mcp.json`).
+> The guardrail below **is now saved** to persistent memory (`kvm-elimination-guardrail`).
+>
 > **STATUS 2026-07-09:** I1 is PASS (the "impossible" thing is de-risked). But the I1
 > netcode probe was built as a **standalone console workflow** that bypassed the existing
 > hands-free rig (auto-movement + MCP gateway). Result: Derek was forced back into being a

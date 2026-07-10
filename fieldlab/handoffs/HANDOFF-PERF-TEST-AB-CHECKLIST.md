@@ -1,6 +1,9 @@
 # ComfyNetworkSense Live Test Checklist
 *Solo Developer — Unity/Valheim BepInEx Plugin*
 
+> **ERA-BOUND (July 4–8 perf era, mod 0.4.x, solo-OMEN).** Not the current work. Current state:
+> `../GROUND-TRUTH.md`; live plan: `../TEST-PROGRAM.md` (A/B methodology reconciled at P2).
+
 Condensed operator quick-reference for `NETWORKSENSE-PERF-DEBUG-PLAN.md` Test A / Test B.
 Drafted via HEARTH local_generate (qwen3-coder:30b) — 2026-07-08.
 

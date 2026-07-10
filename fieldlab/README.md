@@ -1,11 +1,18 @@
 # Fieldlab
 
+> **START HERE (2026-07-09):** current state of the world → [GROUND-TRUTH.md](GROUND-TRUTH.md)
+> · live phased plan → [TEST-PROGRAM.md](TEST-PROGRAM.md) · topology + traps →
+> [MULTIPLAYER-NETWORK-SETUP.md](MULTIPLAYER-NETWORK-SETUP.md) · live dashboard → `status/`.
+> The Era16 pickup docs below are **era-bound (July 4–8)** and no longer the entrypoint.
+> ⚠️ The "Autonomous Valheim Lab" (OMEN Docker) topology in this file is **dead** — Docker
+> Desktop publishes no UDP; the server lives on am4 (see the setup runbook).
+
 `fieldlab/` is the working directory for reproducible Thesis Gold experiments.
 
 The purpose is to turn networking and native-runtime claims into field packets that another
 developer, collaborator, or future agent can rerun.
 
-Current NetworkSense Era16 baseline pickup doc:
+Era-bound (July 4–8) NetworkSense Era16 baseline pickup docs:
 
 ```text
 fieldlab/NETWORKSENSE-ERA16-MATRIX.md

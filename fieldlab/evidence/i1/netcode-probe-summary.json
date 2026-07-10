@@ -1,0 +1,81 @@
+﻿{
+    "schema_version":  1,
+    "rung":  "I1",
+    "status":  "pass_i1_reachable_sendzdos_inlined_fallback",
+    "generated_at_utc":  "2026-07-09T14:48:15.8516549Z",
+    "network_sense_log_dir":  "C:\\work\\comfy\\fieldlab\\runs\\i1",
+    "probe_log_path":  "C:\\work\\comfy\\fieldlab\\runs\\i1\\netcode-probe.jsonl",
+    "installed_version":  "0.5.6.0",
+    "min_version":  "0.5.6",
+    "window":  {
+                   "start_utc":  "2026-07-09T14:47:10.2108990Z",
+                   "stop_utc":  null,
+                   "row_count":  5001,
+                   "has_lifecycle_summary":  false
+               },
+    "observed":  {
+                     "recv_funnel_calls":  0,
+                     "recv_zdo_rows":  1154,
+                     "recv_parse_errors":  0,
+                     "recv_detail_rows":  1154,
+                     "recv_legible":  {
+                                          "sampled":  50,
+                                          "legible":  50
+                                      },
+                     "send_zdos_calls":  0,
+                     "send_zdos_flushed":  0,
+                     "create_sync_list_calls":  0,
+                     "send_zdo_rows":  3846,
+                     "send_detail_rows":  3846,
+                     "send_legible":  {
+                                          "sampled":  50,
+                                          "legible":  50
+                                      },
+                     "send_inlined_fallback_only":  true
+                 },
+    "gates":  [
+                  {
+                      "id":  "mod_deployed",
+                      "status":  "pass",
+                      "observed":  "Installed ComfyNetworkSense version: 0.5.6.0 (min 0.5.6)."
+                  },
+                  {
+                      "id":  "probe_window",
+                      "status":  "pass",
+                      "observed":  "Latest start=07/09/2026 07:47:10, stop=, window rows=5001."
+                  },
+                  {
+                      "id":  "receive_funnel_reachable",
+                      "status":  "pass",
+                      "observed":  "RPC_ZDOData calls=0, recv ZDOs=1154, detail rows=1154, legible 50/50, parseErr=0."
+                  },
+                  {
+                      "id":  "send_funnel_reachable",
+                      "status":  "pass",
+                      "observed":  "CreateSyncList calls=0, send ZDOs=3846, detail rows=3846, legible 50/50."
+                  },
+                  {
+                      "id":  "sendzdos_not_inlined",
+                      "status":  "warn",
+                      "observed":  "SendZDOs postfix calls=0 (flushed=0). SendZDOs appears inlined; CreateSyncList fallback seam carried the send observation."
+                  },
+                  {
+                      "id":  "both_directions",
+                      "status":  "pass",
+                      "observed":  "recvReachable=True, sendReachable=True."
+                  },
+                  {
+                      "id":  "no_vanilla_mutation",
+                      "status":  "pass",
+                      "observed":  "Probe is observation-only: it re-parses a copy of received wire bytes and reads outbound ZDO objects; no ZDOs, owners, revisions, or transforms were written."
+                  }
+              ],
+    "fail_count":  0,
+    "warn_count":  1,
+    "claims_not_proven":  [
+                              "Ownership seizure (I2)",
+                              "Outbound redirect to Lumberjacks (I3)",
+                              "Inbound injection (I4)",
+                              "Any replacement of vanilla ZDO transport"
+                          ]
+}

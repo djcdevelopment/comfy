@@ -1,5 +1,9 @@
 # Valheim Netcode Replacement — Worklog & Test Program
 
+> **2026-07-09 post-audit note:** state of the world lives in [GROUND-TRUTH.md](GROUND-TRUTH.md);
+> the live phased plan is [TEST-PROGRAM.md](TEST-PROGRAM.md). This file remains the ladder spine
+> (invariant definitions I0–I7 and their gates).
+
 Date opened: 2026-07-08. Companion to
 `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md` (the grounded feasibility
 pass) and `VALHEIM-LUMBERJACKS-FEASIBILITY.md` (the layer matrix).
@@ -86,27 +90,38 @@ and I6.
     — judgment over decompiled IL, not offloadable.
   - **operator:** none.
 
-### I1 — Interception reachability — 🔧 BUILT & STAGED (2026-07-09), awaiting connected run
+### I1 — Interception reachability — ✅ PASS (2026-07-09, connected session), one loose end
+
+**Status (post-audit, 2026-07-09 evening):** the gate is **PASS** — cross-verified by the
+ground-truth audit against run artifacts, session logs, live am4 state, and docker logs (see
+`GROUND-TRUTH.md`, verdict 3). A real client↔am4-server session (14:46–14:47 UTC) produced
+1,154 recv + 3,846 send ZDO rows, uid/owner legible on all 5,000 detail rows. Both funnels are
+reachable and legible at runtime.
+
+**⚠️ Caveat that survives the PASS:** the run used `autostop=0`, so **no counters row was ever
+emitted** — every `*_calls` value and `parse_errors=0` in the summary is a verifier fallback
+default, not a measurement. Therefore the "SendZDOs is JIT-inlined — settled" headline in the
+I1 handoff is **unverified** (plausible, but the deciding counter never fired). Attaching later
+rungs at `CreateSyncList` is safe regardless — that seam is proven. The airtight re-run
+(finite `autostop`, real counters, which also genuinely settles inlining) is
+**TEST-PROGRAM.md Phase P2**.
 
 **Discovery (2026-07-09):** the first probe run captured a clean **zero** on all three
 funnels — because it ran in a **singleplayer world**. In the decompile, `SendZDOs` is only
 ever invoked as `SendZDOs(m_peers[m_nextSendPeer], …)` and `RPC_ZDOData` only fires on data
 received *from a peer*; with an empty peer list all three funnels (incl. `CreateSyncList`,
 called only from `SendZDOs`) are dormant no matter how much you move. **I1 requires a
-connected session (client↔dedicated-server), not singleplayer.** The probe itself is proven
-sound: patches applied (no Harmony errors, plugin reached "Telemetry scaffold ready"), the
-`start` row and observe-only claim were written, and the zero was clean (not garbage). This
-corrects the original handoff's "load any world and move around" recipe.
+connected session (client↔dedicated-server), not singleplayer.** This corrects the original
+handoff's "load any world and move around" recipe.
 
-**Resolution — 0.5.6 auto-start (for the autonomous Docker lab):** added a `[Netcode]`
-config auto-start that fires once `ZNet.GetPeerConnections() > 0` (no local player needed, so
-it works headless on the dedicated server too), runs a bounded window, and auto-stops with a
-counters row. `run-autonomous-valheim-lab.ps1` now enables it on both the server and client
-configs and verifies whichever `netcode-probe.jsonl` has data. Next: run
-`.\fieldlab\scripts\run-autonomous-valheim-lab.ps1 -Clients 1 -Start` and read the
-`netcode-probe-summary.json` gate.
+**0.5.6 auto-start:** a `[Netcode]` config auto-start fires once
+`ZNet.GetPeerConnections() > 0` (no local player needed, so it works headless on the dedicated
+server too), runs a bounded window, and auto-stops with a counters row. ~~Next: run
+`run-autonomous-valheim-lab.ps1`~~ **DEAD PATH — the OMEN Docker lab topology cannot work
+(Docker Desktop publishes no UDP; containerized clients llvmpipe-crash). The live recipe is the
+am4 + native-OMEN-client topology in `MULTIPLAYER-NETWORK-SETUP.md`.**
 
-**Status:** probe built, compiled clean, and auto-installed (ComfyNetworkSense **0.5.6**).
+**Build:** probe built, compiled clean, and auto-installed (ComfyNetworkSense **0.5.6**).
 Deliverables: command `network_sense_lumberjacks_netcode_probe [start|stop|status]
 [max-detail-rows]`; runner `NetcodeProbeRunner.cs` with three auto-applied `ZDOMan`
 postfixes — `RPC_ZDOData` (receive), `SendZDOs` (residual-inlining-risk send helper),

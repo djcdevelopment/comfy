@@ -1,15 +1,22 @@
 # Handoff — Rung I1: Interception Reachability (+ I6 cheap win)
 
-> **STATUS 2026-07-09: ✅ I1 PASSED** (`pass_i1_reachable_sendzdos_inlined_fallback`, 0 fails)
-> against a live i5 ↔ am4 session. Evidence: `fieldlab/runs/i1/netcode-probe.jsonl` +
-> `netcode-probe-summary.json`. Both funnels reachable & legible:
-> **recv 1,154 ZDOs (RPC_ZDOData), send 3,846 ZDOs (CreateSyncList)**, 50/50 legible uid+owner
-> each, 3,898 distinct ZDOs, 0 malformed — captured at **~1,190 ZDO/s** through a dense-build area.
+> **POST-AUDIT CORRECTION (2026-07-09 evening, see `../GROUND-TRUTH.md`):** the PASS below is
+> **real and cross-verified** (connected session, both funnels reachable & legible). Two claims
+> in the original banner were overreach and are struck:
+> 1. ~~"INLINING QUESTION SETTLED"~~ — the run used `autostop=0`, so the per-seam call counters
+>    were **never emitted**; the summary's `SendZDOs calls=0` is a verifier fallback default,
+>    not a measurement. Inlining remains plausible-but-unverified until the finite-autostop
+>    re-run (TEST-PROGRAM P2 step 7). Attaching at `CreateSyncList` is safe either way.
+> 2. The "~1,190 ZDO/s dense-build traversal" figure is the **4.2-second initial-connect
+>    world-sync burst** hitting the 5,000-row detail cap — not sustained play. Also, which
+>    machine hosted the client (i5 vs the am4 GPU container) is uncorroborated; the gate doesn't
+>    care, the narrative shouldn't either.
 >
-> **INLINING QUESTION SETTLED (the prize):** `SendZDOs` postfix fired **0** times while
-> `CreateSyncList` carried all 3,846 sends → `SendZDOs` **is JIT-inlined** (as feared). Not a
-> kill: the `CreateSyncList` fallback seam one frame up is fully reachable and legible, so I2/I3/I4
-> attach there. Later rungs must **not** rely on a `SendZDOs` hook.
+> **STATUS 2026-07-09: ✅ I1 PASSED** (`pass_i1_reachable_sendzdos_inlined_fallback`, 0 fails)
+> against a live client ↔ am4 session. Evidence: `fieldlab/evidence/i1/` (tracked) and
+> `fieldlab/runs/i1/` (full jsonl). Both funnels reachable & legible:
+> **recv 1,154 ZDOs (RPC_ZDOData), send 3,846 ZDOs (CreateSyncList detail rows)**, uid+owner
+> legible on all 5,000 detail rows, 3,898 distinct ZDOs, 0 malformed in the captured window.
 >
 > **Setup lessons that cost the session:** see `fieldlab/MULTIPLAYER-NETWORK-SETUP.md` — the
 > config-path decoy trap (mod reads the bepinex-root cfg, not the `config/` subdir) and the
@@ -30,14 +37,12 @@
 > peer-gated, so no remote peer ⇒ nothing to observe (the probe itself is proven sound; patches
 > applied, `start` row written). **I1 needs a client↔dedicated-server session.**
 >
-> **Chosen path — autonomous Docker lab.** 0.5.6 added a `[Netcode]` config auto-start that
-> fires on `ZNet.GetPeerConnections() > 0` (headless-safe, no local player needed). Run:
-> ```powershell
-> .\fieldlab\scripts\run-autonomous-valheim-lab.ps1 -Clients 1 -Start
-> ```
-> The lab rebuilds+deploys the mod, brings up server+client, the probe auto-starts on both once
-> the peer connects, auto-stops after 150 s, and a post-run step writes
-> `runs\<id>-valheim-autonomous-lab\telemetry\netcode-probe-summary.json` with the I1 gate.
+> ~~**Chosen path — autonomous Docker lab.**~~ **DEAD PATH (do not follow):** the OMEN Docker
+> lab topology cannot work — Docker Desktop/Windows publishes no UDP and containerized clients
+> llvmpipe-crash (`../GROUND-TRUTH.md` graveyard). The PASS above came from a live client ↔ am4
+> session instead. 0.5.6's `[Netcode]` config auto-start (fires on
+> `ZNet.GetPeerConnections() > 0`, headless-safe) remains the right mechanism — on the
+> **am4 + native-client topology** per `../MULTIPLAYER-NETWORK-SETUP.md`.
 > (Manual fallback if you'd rather use a live client on a real server: connect, then
 > `network_sense_lumberjacks_netcode_probe start` → move ~60 s → `stop`, and I run
 > `verify-netcode-probe.ps1 -LogDir <that client's comfy-network-sense dir>`.)

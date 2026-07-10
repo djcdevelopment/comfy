@@ -1,5 +1,9 @@
 # NetworkSense Era16 Baseline Matrix
 
+> **ERA-BOUND (July 4–8, mod 0.4.x, solo-OMEN).** Superseded as a pickup doc — do not start
+> here. Current state: `GROUND-TRUTH.md`; live plan: `TEST-PROGRAM.md` (the matrix methodology
+> returns at P2's baseline).
+
 This is the pickup document for the Era16 NetworkSense baseline experiment.
 It states the goal, the matrix shape, how each part is populated, and how to
 tell whether the data is real or only staged.
