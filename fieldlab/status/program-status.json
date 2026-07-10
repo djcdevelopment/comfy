@@ -1,6 +1,6 @@
 {
   "program": "Valheim Ãƒâ€” Lumberjacks Ã¢â‚¬â€ Netcode Replacement",
-  "updated": "2026-07-09T18:38:18-07:00",
+  "updated": "2026-07-10T02:18:00-07:00",
   "canonical_docs": {
     "state": "fieldlab/GROUND-TRUTH.md",
     "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
     "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
   },
   "needs_derek": [],
-  "next_derek_touchpoint": "P2 step 4 - log OMEN Steam into floooooobcakes (persona wary.fool), launch Valheim, Join IP 100.116.82.60:2456 (~10 min). P1 complete; rig is hands-free.",
+  "next_derek_touchpoint": "P3 step 1+ - ownership seizure (0.5.8 build + deploy, pin scenario gates). P2 steps 2,3,4,6 DONE; authoritative baseline confirmed both sides. Resume after token reset.",
   "trust": {
     "claims_total": 70,
     "confirmed": 61,
@@ -242,18 +242,21 @@
         {
           "n": 2,
           "t": "Server probe flags: finite autostop, 20k detail cap",
-          "s": "pending"
+          "s": "done",
+          "g": "autostop=150s, maxDetailRows=20000 confirmed live"
         },
         {
           "n": 3,
           "t": "OMEN client cfg: probe + auto-rehearsal on",
-          "s": "pending"
+          "s": "done",
+          "g": "netcodeProbeAutoStartEnabled=true, 25s delay + 150s autostop"
         },
         {
           "n": 4,
           "t": "DEREK: launch + Join 100.116.82.60:2456",
-          "s": "pending",
-          "o": "derek"
+          "s": "done",
+          "o": "derek",
+          "g": "wary.fool logged in, joined, in-world"
         },
         {
           "n": 5,
@@ -263,8 +266,8 @@
         {
           "n": 6,
           "t": "Authoritative counters row both sides",
-          "s": "pending",
-          "g": "has_lifecycle_summary=true"
+          "s": "done",
+          "g": "Client: 346 recv-calls, 12223 zdo-rows, 78891 send-rows | Server: 1795 recv-calls, 13479 zdo-rows, 509977 send-rows | both counters_are_authoritative=true"
         },
         {
           "n": 7,
