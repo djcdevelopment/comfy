@@ -146,3 +146,46 @@ A skeptic who wasn't in the room, worth answering:
   opinion (above), clearly labeled. No `plan_id` to reap next time.
 - **Ledger:** `record_event` (`retrospective.created`) **skipped** — no HEARTH ledger tool in this
   environment. Noted for faithfulness.
+
+## Claude's addendum — candid notes for the record
+
+The things that didn't fit a seat, written for whoever opens the next session (probably me).
+
+**The sequence that worked, keep it.** Observe-first (0.5.9) → source-re-read-at-build (0.5.10) is
+the pattern for *every* behaviour-changing rung. Observe proved the funnel was patch-reachable and
+quantified the churn; it could not have found the `RPC_ZDOData:842-844` hole — only reading the
+decompiled body did. Had I trusted the observe data plus the map, the pin would have shipped with a
+21-hold leak that the live gate would have surfaced as a confusing *partial* pass. The half hour
+spent re-reading `ZDOMan`/`ZDO` before writing a line of behaviour-change paid for itself outright.
+
+**What I'd do differently.** Check am4's restart clock *before* the gate join. The idle-restart
+clipping window 1 cost a re-join and a moment of "did the pin crash the server?" — a known ~30-min
+cycle I could have timed around or paused. Cheap to prevent, mildly expensive to eat.
+
+**The auto-capture non-determinism is a feature with an asterisk.** Right call for *proving the
+invariant*, but no two runs pin the same 25 objects. Anything downstream that must act on *specific*
+objects (a targeted redirect, a named test entity) needs the prefab-allowlist path — which exists but
+is **untested**; first use must re-verify it resolves prefab hashes correctly on the headless server.
+
+**Technical carryover for P4 (I3 outbound redirect).** This session mapped more than the pin needed:
+- The scope-flag discipline generalizes: I3's send-suppression should scope a cheap prefix to exactly
+  the send funnel and nowhere else — the same "one funnel, one flag" move that kept the pin surgical.
+- Ownership being runtime-only bought the pin its save-safety for free; I3 gets the same *if* it only
+  suppresses/emits SEND traffic and writes no persisted ZDO state. Confirm that the same way (does the
+  send path write anything saved? it shouldn't).
+- `RPC_ZDOData`'s newer-data branch (`:842-844`, the unconditional owner apply) is where inbound
+  injection (I4) will land — it is simultaneously the injection seam *and* the frontier to harden.
+- ADR 0002's observe-during-change / one-window gate is directly reusable: leave a send-observe seam
+  on during the redirect run so suppressed-sends and Lumberjacks receipts cross-confirm in one
+  window, exactly as pin-holds vs pass-throughs did here.
+
+**On the cadence.** The "one word in, a proven rung out, one join as the only human step" loop is
+working and worth protecting. The failure mode to watch is *me* treating a pre-greenlight as blanket
+authorization for anything adjacent — arming a behaviour-change on the live world was inside the
+greenlight, but it is exactly the boundary where I should keep saying out loud "this specific step is
+covered, because X."
+
+**The thing I'm least sure of.** QA rests on three signals — clean compile, clean boot, one gate
+window — not a regression battery. The pin is scoped and reversible so the blast radius is bounded,
+but "nothing else on the 9.15M-ZDO world shifted" is *inferred*, not *measured*. Raise the capture cap
+or widen the prefab scope and that inference gets thin fast.
