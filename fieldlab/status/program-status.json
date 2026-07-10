@@ -1,6 +1,6 @@
 {
     "program":  "Valheim ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Lumberjacks ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Netcode Replacement",
-    "updated":  "2026-07-10T00:57:32-07:00",
+    "updated":  "2026-07-10T01:12:07-07:00",
     "canonical_docs":  {
                            "state":  "fieldlab/GROUND-TRUTH.md",
                            "plan":  "fieldlab/TEST-PROGRAM.md",
@@ -10,7 +10,7 @@
     "needs_derek":  [
 
                     ],
-    "next_derek_touchpoint":  "P2 CLOSED. Pre-P3 prep underway (Derek-approved): #1 I2 ownership seam mapped (NETCODE-OWNERSHIP-MAP.md, server-only single-seam pin) DONE; #3 I6 Steam-only proof (P3 steps 1-2) DONE; #2 save-integrity verifier next. I2 CODE (P3 steps 3-13) awaits your steer on approach. Next real launch touchpoint: P3 step 6+ (zone-entry pin trigger) once I2 is built.",
+    "next_derek_touchpoint":  "P2 CLOSED + all Derek-approved pre-P3 prep DONE: #1 I2 ownership seam mapped (server-only single seam, NETCODE-OWNERSHIP-MAP.md); #3 I6 Steam-only proven (P3 steps 1-2); #2 save-integrity verifier built + live on the MCP gateway. NEXT DECISION IS YOURS: go/no-go on the I2 ownership-seizure approach before I write P3 steps 3-13 code (save-integrity is now a hard gate). No launch needed until the I2 pin is built + you trigger a zone-entry test.",
     "trust":  {
                   "claims_total":  70,
                   "confirmed":  61,
@@ -56,7 +56,7 @@
                   {
                       "name":  "comfy-gateway :8720",
                       "state":  "up",
-                      "detail":  "native on :8720; restarted 2026-07-10, /healthz green. MCP binds only if the gateway is running BEFORE Claude Code starts -- restart the Claude Code session to pick up valheim/netcode tools (gateway itself is fine, no action needed)."
+                      "detail":  "native on :8720 (PID restarted 2026-07-10 01:10, healthz green); 26 tools / 4 providers. NEW valheim_save_integrity tool live (world structural fingerprint for the P3+ save hard-gate); clean baseline captured (9.15M ZDO / 4472 portals / 18004 locations). Binds next Claude Code session."
                   },
                   {
                       "name":  "HEARTH door :8710",
