@@ -1,6 +1,6 @@
 {
     "program":  "Valheim ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Â Lumberjacks ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â Netcode Replacement",
-    "updated":  "2026-07-10T00:34:57-07:00",
+    "updated":  "2026-07-10T00:57:32-07:00",
     "canonical_docs":  {
                            "state":  "fieldlab/GROUND-TRUTH.md",
                            "plan":  "fieldlab/TEST-PROGRAM.md",
@@ -10,7 +10,7 @@
     "needs_derek":  [
 
                     ],
-    "next_derek_touchpoint":  "P2 is CLOSED. Next real touchpoint is P3 (I6 Steam-only + I2 ownership seizure): one game launch when asked; save-integrity becomes a HARD gate from here. Optional: P2 step 13 (2-seat capture) still available for a 2-peer baseline (needs waryfool/Zephar410 on the i5).",
+    "next_derek_touchpoint":  "P2 CLOSED. Pre-P3 prep underway (Derek-approved): #1 I2 ownership seam mapped (NETCODE-OWNERSHIP-MAP.md, server-only single-seam pin) DONE; #3 I6 Steam-only proof (P3 steps 1-2) DONE; #2 save-integrity verifier next. I2 CODE (P3 steps 3-13) awaits your steer on approach. Next real launch touchpoint: P3 step 6+ (zone-entry pin trigger) once I2 is built.",
     "trust":  {
                   "claims_total":  70,
                   "confirmed":  61,
@@ -347,12 +347,14 @@
                                      {
                                          "n":  1,
                                          "t":  "I6: server CROSSPLAY=false proof archived",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "am4 env CROSSPLAY=false + SERVER_PUBLIC=false; boot log \u0027Opened Steam server\u0027+\u0027Game server connected\u0027, NO \u0027Opened PlayFab server\u0027. PlayFab-login line is registry auth, not crossplay (ZNet:344-350). Archived evidence/i6-steam-only.md."
                                      },
                                      {
                                          "n":  2,
                                          "t":  "I6: client backend assertion (ZSteamSocket only)",
-                                         "s":  "pending"
+                                         "s":  "done",
+                                         "g":  "Client joined via IP:port 100.116.82.60:2456 -\u003e ZSteamSocket path (ZNet:650/655 Connect(new ZSteamSocket(host))); PlayFab connect needs a join-code/m_serverPlayFabPlayerId (ZNet:385-386), never used. Peer socket = ZSteamSocket. Ladder I6 satisfied. Optional runtime socket assertion folded into the P3 observer slice."
                                      },
                                      {
                                          "n":  3,
