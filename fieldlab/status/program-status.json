@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T05:50:00-07:00",
+    "updated": "2026-07-10T06:05:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,9 +8,9 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "ONE LAUNCH, TWO JOINS (blessed 2026-07-10): join window A now-or-whenever (pin armed + snapshot taken, world up, waiting; wary.fool -> 100.116.82.60:2456, 150s hands-free). Claude gates it, flips cfg to window B (restart kicks you - rejoin when told), gates the redirect, disarms. Nothing else."
+        "ONE JOIN remains: window B (I3 redirect). Next session: run-redirect-window.ps1 -Stage arm -WindowId i3-w1 (arms redirect + snapshot + restart), join on JOIN-NOW, 150s hands-free (suppression auto-disarms at 90s = rollback rehearsal), then -Stage gate / -Stage disarm. Window A (I2 repeat) is DONE and archived."
     ],
-    "next_derek_touchpoint": "GATE SESSION STAGED + BLESSED (2026-07-10 evening): Derek confirmed the two-window shape (window A = 2nd I2 repeatability join, window B = I3 redirect) and gave the go. Runway fully built + committed (comfy ed18c55/5d088e9, Lumberjacks 129677f); all decisions in DECISIONS-PENDING resolved. CURRENT LIVE STATE: window A ARMED AND WAITING - pin re-armed (cap 25, any prefab), redirect off, save-integrity snapshot taken (9,155,594 ZDOs, matches P3 baseline exactly), server restarted + world up, join watcher polling. The join is the ONLY human step: wary.fool -> 100.116.82.60:2456, 150s hands-free, then Claude gates A, flips to window B (rejoin after the kick), gates B (receipts==suppressed via valheim_zdo_redirect_gate + client-stability + rollback-rehearsal + save-integrity), disarms to baseline, archives evidence. GATES STAY PENDING until their artifacts exist - the runway being done is not the rung being proven (trust rule). Armed state is safe to sit indefinitely: pin does nothing on an idle server and the cfg survives idle-restarts.",
+    "next_derek_touchpoint": "WINDOW A PASSED + ARCHIVED (2026-07-10 06:00 PDT): the blessed 2nd I2 repeatability window ran clean on Derek's join - gate=held_with_negative_control, AUTHORITATIVE (clean 150s auto-stop, no idle-restart clipping): 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal), 280 pass-through negative control, save-integrity EXACT across the post-window save->reload. Evidence fieldlab/evidence/i2-repeat/ (pin sha256 b375d9ec, churn d08fa974). P3's soft spot is closed. Session ended on limits before window B - am4 disarmed back to observe-only baseline (pin=false, redirect=false, cfg readback confirmed). REMAINING: window B (I3 redirect) = ONE join next session; everything is staged (mod 0.5.11 deployed both sides, Lumberjacks endpoint live, one-command wrapper): -Stage arm -WindowId i3-w1, join, -Stage gate, -Stage disarm. Bring-up order next session: start-comfy-gateway.ps1 (check the stale-instance trap!), start-lumberjacks-gateway.ps1, then arm.",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -55,6 +55,10 @@
             {
                 "verdict": "good",
                 "text": "P4 runway built headlessly (2026-07-10 evening): I3 redirect designed against a FRESH ZDOMan/ZDO decompile (seam = CreateSyncList postfix @ Priority.High; suppress-with-ack replicates ZDOMan:767/780 bookkeeping so suppressed-count == what native would have sent; send path writes no persisted state -> inherits pin save-safety). Mod 0.5.11 built 0-warnings + deployed both sides UNARMED (am4 boot-verified; empty prefab allowlist REFUSES to arm - fail-safe). Lumberjacks receive endpoint smoke-tested incl. deliberate seq-gap + duplicate detection; am4-container->OMEN:4000 proven; one-call MCP gate valheim_zdo_redirect_gate live. Rollback rehearsal designed INTO the window (activeSeconds 90 < probe 150s). One launch+join runs the gates."
+            },
+            {
+                "verdict": "good",
+                "text": "I2 repeatability CLOSED (2026-07-10 06:00 PDT, window A of the P4 gate session): 2nd fully authoritative pin window on a fresh join - held_with_negative_control, 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal, both funnels again), 280 pass-through live negative control, clean 150s auto-stop with the join timed to a fresh updater cycle (the clock practice worked - no clipping), save-integrity EXACT across the post-window save->reload. Ran on 0.5.11 with pin code carried unchanged = mechanism-across-builds repeatability, recorded honestly. Evidence evidence/i2-repeat/ (b375d9ec/d08fa974). P3's one soft spot is closed; DECISIONS-PENDING is empty."
             }
         ]
     },
@@ -62,7 +66,7 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.11 boot-verified | ComfyEra16 (9.155M ZDOs) | WINDOW A ARMED + WAITING: pin re-armed (ownershipPinEnabled=true, cap 25) for the blessed I2-repeat join, redirect off (zdoRedirectEnabled=false, endpoint=100.124.12.37:4000, activeSeconds=90), save-integrity snapshot stored (matches P3 baseline exactly), world up + fresh restart 12:48Z (join lands clear of the ~30-min updater boundary) | armed-idle is safe indefinitely (no peers = no churn; cfg survives idle-restarts) | probe autostart=true/autostop=150s | container->OMEN:4000 reachability PROVEN"
+            "detail": "UDP 2456-2457 | mod 0.5.11 boot-verified | ComfyEra16 (9.155M ZDOs, save-integrity exact after window A) | DISARMED observe-only baseline (ownershipPinEnabled=false + zdoRedirectEnabled=false, cfg readback confirmed after disarm restart ~13:00Z) | redirect staged for window B: endpoint=100.124.12.37:4000, activeSeconds=90, prefabs set at arm time | probe autostart=true/autostop=150s | container->OMEN:4000 reachability PROVEN | silent between sessions"
         },
         {
             "name": "OMEN client",
@@ -494,7 +498,7 @@
                     "t": "DEREK: launch + join -> window A (I2 repeat), rejoin -> window B (redirect)",
                     "s": "pending",
                     "o": "derek",
-                    "g": "BLESSED + STAGED, awaiting the join (watcher live). Two-window shape confirmed: A = pin repeatability (armed now), B = redirect window (cfg flip + rejoin after A gates). Gates stay pending until their artifacts exist."
+                    "g": "WINDOW A DONE + PASSED (join 05:41 PDT): gate=held_with_negative_control AUTHORITATIVE - 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal), 280 pass-through, clean 150s auto-stop, save-integrity exact across save->reload. Evidence evidence/i2-repeat/ (b375d9ec / d08fa974); worklog I2 updated. WINDOW B (redirect) pending: session ended on limits before the rejoin - one join next session via run-redirect-window.ps1 -Stage arm/gate/disarm."
                 },
                 {
                     "n": 9,

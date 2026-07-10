@@ -182,6 +182,13 @@ for a full signed packet — the standalone verifier already applies the gate.
   guard `SetOwnerInternal` directly) and that ZDO ownership is runtime-only (so the pin
   is inherently save-safe). Evidence: `evidence/i2-pin/` (sha256 `ebeefeb6`). Retro:
   `retro/SESSION-RETRO-2026-07-10.md`. ADRs 0001, 0002.
+- **Repeatability hardened (2026-07-10 evening, window A of the P4 gate session):** a 2nd
+  fully authoritative window on a fresh join — 25 pinned, **232 holds** (222 SetOwner +
+  10 SetOwnerInternal), **280 pass-through** as the live negative control, clean 150s
+  auto-stop (no idle-restart clipping; join timed to a fresh updater cycle), save-integrity
+  exact across the post-window save→reload. Ran on 0.5.11 with the pin code carried
+  unchanged (mechanism-across-builds; recorded honestly in `evidence/i2-repeat/ANALYSIS.md`,
+  sha256 `b375d9ec`). P3's one soft spot is closed.
 
 ### I3 — Outbound redirect
 
