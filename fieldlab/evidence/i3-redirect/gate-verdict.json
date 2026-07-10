@@ -1,0 +1,13 @@
+{
+  "ok": true,
+  "verdict": "receipts_match_no_loss",
+  "window_id": "i3-w4",
+  "mod_suppressed": 1303,
+  "gateway_distinct_seq": 1303,
+  "gateway_missing_seq": 0,
+  "gateway_duplicates": 0,
+  "mod_authoritative": true,
+  "mod_stop_event": "redirect_auto_stop",
+  "mod_unacked_rows": 0,
+  "caveats": []
+}

@@ -1,0 +1,55 @@
+{
+  "rung": "I3",
+  "phase": "P4",
+  "window_id": "i3-w4",
+  "verdict": "receipts_match_no_loss",
+  "authoritative": true,
+  "build_version": "0.5.12",
+  "captured_pdt": "2026-07-10T12:02 PDT",
+  "captured_utc": "2026-07-10T19:02Z",
+  "gate": {
+    "mod_suppressed": 1303,
+    "mod_posted_ok": 1303,
+    "mod_ack_failures": 0,
+    "mod_post_failed_batches": 0,
+    "mod_dropped": 0,
+    "mod_unacked_rows": 0,
+    "mod_stop_event": "redirect_auto_stop",
+    "gateway_receipts": 1303,
+    "gateway_distinct_seq": 1303,
+    "gateway_min_seq": 1,
+    "gateway_max_seq": 1303,
+    "gateway_missing_seq": 0,
+    "gateway_duplicates": 0,
+    "per_species_receipts": {
+      "FirTree_small": 559,
+      "FirTree": 406,
+      "Pinetree_01": 338
+    }
+  },
+  "companion_gates": {
+    "client_stability": "clean (no INVALID_MESSAGE / socket errors)",
+    "rollback_rehearsal": "auto-disarm at 90s (redirect_auto_stop) inside 150s probe",
+    "save_integrity": "pass before + after disarm save->reload; portals 4472 / spawned 85439 / targets 20255 / locations 18004 exact; zdos 9155594 delta 0; ComfyEra16.db byte-identical"
+  },
+  "target": {
+    "world_x": 9376,
+    "world_z": 544,
+    "sector": "146:8",
+    "distance_from_spawn_m": 6447,
+    "ground_y_median": 79.2,
+    "teleport_float_y": 105,
+    "source": "ComfyEra16.duckdb world-save ground truth (9,155,594 real ZDOs), conifer stand, 0 building ZDOs in 256m box"
+  },
+  "provenance": {
+    "server_host": "derek@am4",
+    "redirect_send_remote": "~/comfy-valheim-lab/server-state/config/bepinex/comfy-network-sense/redirect-send.jsonl",
+    "lumberjacks_endpoint": "http://100.124.12.37:4000/valheim/zdo-redirect"
+  },
+  "sha256": {
+    "redirect-send.jsonl": "6ed610ef90188801fda76cb4285d0069e1e17b7df1907106a32f40f0a5f66a30",
+    "lumberjacks-receipts-i3-w4.json": "7bc6ee7c4c1f51cb33cc44eae87ee67a9556e121c9c55121e05d4b9d1bd34a90",
+    "gate-verdict.json": "77b9105b993877b018c8edc662e8bfce490c378bef8cfadca9ab3b98f293a184",
+    "mod-redirect-status.json": "1205e1203e14e609e08b5e5d107cfe613ea0c39f54224bf0984a362a2203debf"
+  }
+}

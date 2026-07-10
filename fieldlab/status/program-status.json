@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T06:05:00-07:00",
+    "updated": "2026-07-10T12:20:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,9 +8,9 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "ONE JOIN remains: window B (I3 redirect). Next session: run-redirect-window.ps1 -Stage arm -WindowId i3-w1 (arms redirect + snapshot + restart), join on JOIN-NOW, 150s hands-free (suppression auto-disarms at 90s = rollback rehearsal), then -Stage gate / -Stage disarm. Window A (I2 repeat) is DONE and archived."
+        "Nothing pending. P4/I3 outbound redirect gate is CLOSED (window i3-w4, receipts_match_no_loss, 1303 conifers, zero loss). Next rung is I4 (P5 inbound injection) - design-ahead work with no human touchpoint until its own capture. If a 2nd I3 repeatability window is wanted, it is one relaunch+join at any ground-truthed conifer sector (route already points at 9376,544)."
     ],
-    "next_derek_touchpoint": "WINDOW A PASSED + ARCHIVED (2026-07-10 06:00 PDT): the blessed 2nd I2 repeatability window ran clean on Derek's join - gate=held_with_negative_control, AUTHORITATIVE (clean 150s auto-stop, no idle-restart clipping): 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal), 280 pass-through negative control, save-integrity EXACT across the post-window save->reload. Evidence fieldlab/evidence/i2-repeat/ (pin sha256 b375d9ec, churn d08fa974). P3's soft spot is closed. Session ended on limits before window B - am4 disarmed back to observe-only baseline (pin=false, redirect=false, cfg readback confirmed). REMAINING: window B (I3 redirect) = ONE join next session; everything is staged (mod 0.5.11 deployed both sides, Lumberjacks endpoint live, one-command wrapper): -Stage arm -WindowId i3-w1, join, -Stage gate, -Stage disarm. Bring-up order next session: start-comfy-gateway.ps1 (check the stale-instance trap!), start-lumberjacks-gateway.ps1, then arm.",
+    "next_derek_touchpoint": "P4/I3 REDIRECT PASSED + CLOSED (2026-07-10 12:02 PDT, window i3-w4, mod 0.5.12): receipts_match_no_loss AUTHORITATIVE - 1303 conifer ZDOs suppressed from CreateSyncList's toSync and delivered to Lumberjacks with distinct_seq 1..1303 contiguous, missing_seq 0, duplicates 0, ack_failures 0, dropped 0; OMEN client stable; rollback rehearsal auto-disarm at 90s; save-integrity EXACT across save->reload. Took 4 windows: i3-w1 parked on an empty control stop, i3-w2 was a rejoin (no relaunch) so the run-once auto-walk never fired, i3-w3 suppressed 88 but exposed a SERVER-ONLY Mono defect (WebRequest.Create throws 'URI prefix not recognized' on the dedicated server) -> fixed with a raw TcpClient POST in 0.5.12. Target was ground-truthed from the world-save DuckDB (conifer stand at 9376,544, 6447m from spawn, floated Y=105 over y79 terrain) after telemetry proved to hold no tree data. am4 disarmed to observe-only baseline (redirect=false, pin=false, readback-confirmed), 0.5.12 loaded both sides, world verified intact. Evidence fieldlab/evidence/i3-redirect/ (redirect-send 6ed610ef, receipts 7bc6ee7c). NEXT: I4 (P5 inbound injection) is design-ahead, no human touchpoint until its capture.",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -59,6 +59,10 @@
             {
                 "verdict": "good",
                 "text": "I2 repeatability CLOSED (2026-07-10 06:00 PDT, window A of the P4 gate session): 2nd fully authoritative pin window on a fresh join - held_with_negative_control, 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal, both funnels again), 280 pass-through live negative control, clean 150s auto-stop with the join timed to a fresh updater cycle (the clock practice worked - no clipping), save-integrity EXACT across the post-window save->reload. Ran on 0.5.11 with pin code carried unchanged = mechanism-across-builds repeatability, recorded honestly. Evidence evidence/i2-repeat/ (b375d9ec/d08fa974). P3's one soft spot is closed; DECISIONS-PENDING is empty."
+            },
+            {
+                "verdict": "good",
+                "text": "P4/I3 outbound REDIRECT CLOSED (2026-07-10 12:02 PDT, window i3-w4, mod 0.5.12): the 3rd behaviour-changing rung. receipts_match_no_loss AUTHORITATIVE - 1303 conifer ZDOs (FirTree_small 559 + FirTree 406 + Pinetree_01 338) removed from ZDOMan.CreateSyncList's toSync before native serialization and delivered to the Lumberjacks gateway with distinct_seq 1..1303 contiguous, missing_seq 0, duplicates 0, ack_failures 0, dropped 0; client stable; rollback auto-disarm at 90s inside the 150s probe; save-integrity EXACT across save->reload (redirect writes no persisted state, same class as the I2 pin). Two hidden bugs found first: (1) the client auto-walk only re-arms on a fresh relaunch (run-once flag) so a menu rejoin runs no walk; (2) SERVER-ONLY Mono defect - WebRequest.Create throws 'The URI prefix is not recognized' on the dedicated server, so i3-w3 suppressed 88 but posted 0 and dropped them all (the live monitor's supp=0 was a disk-flush red herring; Lumberjacks receipts are the real-time truth). Fixed with a raw TcpClient POST (0.5.12). Target ground-truthed from the world-save DuckDB (9376,544 conifer stand, 6447m from spawn, floated Y=105 over y79 terrain) after telemetry proved to carry no tree data. Evidence evidence/i3-redirect/ (redirect-send 6ed610ef, receipts 7bc6ee7c)."
             }
         ]
     },
@@ -66,12 +70,12 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.11 boot-verified | ComfyEra16 (9.155M ZDOs, save-integrity exact after window A) | DISARMED observe-only baseline (ownershipPinEnabled=false + zdoRedirectEnabled=false, cfg readback confirmed after disarm restart ~13:00Z) | redirect staged for window B: endpoint=100.124.12.37:4000, activeSeconds=90, prefabs set at arm time | probe autostart=true/autostop=150s | container->OMEN:4000 reachability PROVEN | silent between sessions"
+            "detail": "UDP 2456-2457 | mod 0.5.12 boot-verified (loads from /config/bepinex/plugins - the only container-mounted path) | ComfyEra16 (9.155M ZDOs, save-integrity exact after i3-w4 save->reload) | DISARMED observe-only baseline (ownershipPinEnabled=false + zdoRedirectEnabled=false, cfg readback confirmed after disarm restart ~19:06Z) | I3 redirect gate PASSED (i3-w4: 1303 conifers, receipts_match_no_loss) | redirect endpoint=100.124.12.37:4000 | probe autostart=true/autostop=150s | container->OMEN:4000 POST proven (raw TcpClient in 0.5.12) | silent between sessions"
         },
         {
             "name": "OMEN client",
             "state": "ready",
-            "detail": "native Valheim + mod 0.5.11 in plugins (hash-identical to build 28cf0353; boot-verifies at next launch) | routeGodFlySafeguard on | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe ON (join -> hands-free dense-route walk)"
+            "detail": "native Valheim + mod 0.5.12 in plugins (client + server version-matched; boot-verified at i3-w4 launch) | routeGodFlySafeguard on | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe ON | NB: auto-walk re-arms only on a fresh RELAUNCH (AutoRehearsalRunOncePerSession), not a menu rejoin | teleport-route.tsv supports an optional Y column for above-canopy floats"
         },
         {
             "name": "comfy-gateway :8720",
@@ -448,8 +452,8 @@
             "id": "P4",
             "ladder": "I3",
             "title": "Outbound redirect -> Lumberjacks",
-            "status": "active",
-            "human_minutes": 10,
+            "status": "done",
+            "human_minutes": 20,
             "steps": [
                 {
                     "n": 1,
@@ -495,42 +499,46 @@
                 },
                 {
                     "n": 8,
-                    "t": "DEREK: launch + join -> window A (I2 repeat), rejoin -> window B (redirect)",
-                    "s": "pending",
+                    "t": "DEREK: launch + join -> redirect capture window",
+                    "s": "done",
                     "o": "derek",
-                    "g": "WINDOW A DONE + PASSED (join 05:41 PDT): gate=held_with_negative_control AUTHORITATIVE - 25 pinned, 232 holds (222 SetOwner + 10 SetOwnerInternal), 280 pass-through, clean 150s auto-stop, save-integrity exact across save->reload. Evidence evidence/i2-repeat/ (b375d9ec / d08fa974); worklog I2 updated. WINDOW B (redirect) pending: session ended on limits before the rejoin - one join next session via run-redirect-window.ps1 -Stage arm/gate/disarm."
+                    "g": "Window A (I2 repeat) PASSED earlier (05:41). Window B (I3 redirect) PASSED window i3-w4 (12:02 PDT, mod 0.5.12) on a fresh-launch join: the single-stop elevated auto-walk floated the player at Y=105 over the ground-truthed conifer stand (9376,544) and 1303 fresh conifers synced. Took 4 windows (control-stop miss, rejoin/run-once no-walk, ocean+POST-bug, then the clean one)."
                 },
                 {
                     "n": 9,
                     "t": "GATE: receipts == suppressed sends, zero seq gaps",
-                    "s": "pending",
-                    "g": "valheim_zdo_redirect_gate = receipts_match_no_loss (mod jsonl vs gateway distinct_seq vs probe cross-confirm)"
+                    "s": "done",
+                    "g": "PASS. valheim_zdo_redirect_gate = receipts_match_no_loss: mod_suppressed 1303 == gateway_distinct_seq 1303 (min 1..max 1303 contiguous), missing_seq 0, duplicates 0, posted_ok 1303, dropped 0, ack_failures 0, mod_unacked_rows 0, mod_authoritative true. Evidence i3-redirect/ (redirect-send 6ed610ef, receipts 7bc6ee7c)."
                 },
                 {
                     "n": 10,
                     "t": "GATE: client stable (no INVALID_MESSAGE/socket errors)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS. OMEN client log clean across the window - no INVALID_MESSAGE / socket errors / connection errors."
                 },
                 {
                     "n": 11,
                     "t": "Rollback rehearsal: auto-disarm mid-window, native resumes",
-                    "s": "pending",
-                    "g": "stop_event=redirect_auto_stop + probe shows tagged native sends resuming"
+                    "s": "done",
+                    "g": "PASS. stop_event=redirect_auto_stop - suppression auto-disarmed at zdoRedirectActiveSeconds=90 while the 150s probe kept running; counters authoritative."
                 },
                 {
                     "n": 12,
                     "t": "HARD GATE: save integrity on quit->reload",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS. save-integrity exact before + after the disarm save->reload: portals 4472 / spawned 85439 / targets 20255 / locations 18004 exact, ZDOS 9155594 delta 0, ComfyEra16.db byte-identical. Redirect writes no persisted ZDO state (Serialize read-only) = strict no-op, same class as the I2 pin."
                 },
                 {
                     "n": 13,
                     "t": "Repeatability run",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Single fully authoritative window (i3-w4). Mechanism-across-builds already shown (suppress/ack carried 0.5.10->0.5.12 unchanged; only the POST transport changed). A 2nd clean window is available on demand (one relaunch+join at any ground-truthed conifer sector)."
                 },
                 {
                     "n": 14,
                     "t": "Evidence i3-redirect/ + worklog I3 + commit + dashboard",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Evidence archived to fieldlab/evidence/i3-redirect/ (redirect-send.jsonl + lumberjacks-receipts + gate-verdict + mod-redirect-status + ANALYSIS.md + PROVENANCE.json, sha256d). Worklog I3 + dashboard updated; committed."
                 }
             ]
         },

@@ -248,6 +248,36 @@ for a full signed packet — the standalone verifier already applies the gate.
   - **Client-stability read:** the client is untouched (server-side suppression only); it just
     receives fewer ZDOs — a normal play condition. Gate reads OMEN logs via MCP for
     `INVALID_MESSAGE`/socket errors.
+- **GATE — PASS (2026-07-10 12:02 PDT, window i3-w4, mod 0.5.12):** `receipts_match_no_loss`,
+  authoritative. **1303 conifer ZDOs** (FirTree_small 559 + FirTree 406 + Pinetree_01 338) removed
+  from `toSync` and delivered to Lumberjacks — `distinct_seq` 1..1303 contiguous, `missing_seq 0`,
+  `duplicates 0`, `ack_failures 0`, `dropped 0`, `posted_ok 1303`. Client log clean. Rollback
+  rehearsal fired (`redirect_auto_stop` at `zdoRedirectActiveSeconds`=90 inside the 150s probe).
+  Save-integrity EXACT across the disarm save→reload (structural counts exact, ZDOS delta 0, `.db`
+  byte-identical) — the redirect writes nothing persisted, as the decompile predicted. Evidence
+  `evidence/i3-redirect/` (redirect-send `6ed610ef`, receipts `7bc6ee7c`).
+- **What it cost — 4 windows + a build fix (honest):**
+  - **i3-w1:** the 90s active window overlapped only `route_01_open_control` (0,0), a deliberately
+    empty control stop → 0 suppressed. Route coverage, not mechanism.
+  - **i3-w2:** a menu *rejoin* ran no walk — the client auto-rehearsal is guarded by
+    `AutoRehearsalRunOncePerSession` and only re-arms on a fresh process **relaunch** → 0 suppressed.
+  - **i3-w3:** route_05_dense (an ocean cell with a small treed island) suppressed **88** conifers
+    correctly (`ack_failures=0`) but **posted 0, dropped all 88** — exposing a **server-only Mono
+    defect**: `WebRequest.Create("http://…")` throws `NotSupportedException("The URI prefix is not
+    recognized.")` on the dedicated server (the stripped runtime's WebRequest prefix table is
+    empty). The client-side siblings (telemetry, priority-mirror) never hit it because the client's
+    table is populated. The live monitor's `supp=0` was a **disk-flush red herring**
+    (`redirect-send.jsonl` buffered on am4); the Lumberjacks receipts are the real-time truth.
+  - **Fix (0.5.12):** replaced the WebRequest POST with a raw `TcpClient` HTTP/1.1 write
+    (`SendHttpPostViaSocket`) — bypasses the prefix table, background-thread safe, throws on non-2xx
+    so the retry/`last_error` path is unchanged. Suppress/ack/rollback semantics identical
+    (0.5.10→0.5.12); only the delivery transport changed.
+  - **Target discipline:** the route "dense" labels were *build*-density, not forest — the telemetry
+    holds **no tree data** at all. The real target came from ground-truthing the parsed world-save
+    (`ComfyEra16.duckdb`, 9.155M ZDOs, tree-prefab hashes computed): a conifer stand at
+    **(9376,544)**, 6447 m from spawn (provably fresh), ground ≈ y79 so the teleport floated at
+    **Y=105** (the route TSV's optional 6th `y` column) to clear the canopy — otherwise the
+    auto-walk wedges in trunks (Derek's live catch) or lands 24 m underground.
 
 ### I4 — Inbound injection
 

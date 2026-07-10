@@ -1,0 +1,70 @@
+{
+  "source": "am4",
+  "ok": true,
+  "provenance": {
+    "host": "derek@am4",
+    "remote_path": "~/comfy-valheim-lab/server-state/config/bepinex/comfy-network-sense/redirect-send.jsonl",
+    "sha256": "6ed610ef90188801fda76cb4285d0069e1e17b7df1907106a32f40f0a5f66a30",
+    "size_bytes": 448315,
+    "modified_unix": 1783710245,
+    "age_seconds": 301
+  },
+  "has_lifecycle_summary": true,
+  "counters_are_authoritative": true,
+  "stop_event": "redirect_auto_stop",
+  "counters": {
+    "seq": 1303,
+    "suppressed": 1303,
+    "ack_failures": 0,
+    "posted_ok": 1303,
+    "post_failed_batches": 0,
+    "requeued": 0,
+    "dropped": 0,
+    "queued": 0,
+    "rows_written": 1303
+  },
+  "redirect": {
+    "detail_rows": 1303,
+    "max_detail_seq": 1303,
+    "distinct_prefabs": [
+      797319082,
+      888684615,
+      1185163063
+    ],
+    "unacked_detail_rows": 0,
+    "window_ids": [
+      "i3-w4"
+    ],
+    "window_rows": 1305
+  },
+  "window": {
+    "has_start": true,
+    "start_row": {
+      "event": "redirect_start",
+      "status": "redirecting",
+      "running": true,
+      "started_utc": "2026-07-10T19:02:35.4472100Z",
+      "window_id": "i3-w4",
+      "endpoint": "http://100.124.12.37:4000",
+      "seq": 0,
+      "suppressed": 0,
+      "ack_failures": 0,
+      "posted_ok": 0,
+      "post_failed_batches": 0,
+      "requeued": 0,
+      "dropped": 0,
+      "queued": 0,
+      "rows_written": 0,
+      "capped": false,
+      "prefab_filter_count": 6,
+      "active_seconds": 90,
+      "reflection_ok": true,
+      "last_error": "",
+      "claim": "ZDO redirect is BEHAVIOUR-CHANGING (server-side). On allowlisted prefabs ONLY it removes ZDOs from CreateSyncList's toSync before native serialization, replicates the native per-peer ack, and posts the wire-equivalent payload to the Lumberjacks gateway. It writes no persisted ZDO state (send path is runtime bookkeeping only; save is the separate clone path). Non-tagged ZDOs sync normally (negative control). Rollback: zdoRedirectEnabled=false; the active-seconds sub-window auto-disarms in-window.",
+      "build_version": "0.5.12",
+      "timestamp_utc": "2026-07-10T19:02:35.4480550Z",
+      "session_id": "20260710-185749-170de0fb"
+    }
+  },
+  "caveat": null
+}
