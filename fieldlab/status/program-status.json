@@ -1,6 +1,6 @@
 {
-  "program": "Valheim Ã— Lumberjacks â€” Netcode Replacement",
-  "updated": "2026-07-09T18:10:00-07:00",
+  "program": "Valheim Ãƒâ€” Lumberjacks Ã¢â‚¬â€ Netcode Replacement",
+  "updated": "2026-07-09T18:38:18-07:00",
   "canonical_docs": {
     "state": "fieldlab/GROUND-TRUTH.md",
     "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
     "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
   },
   "needs_derek": [],
-  "next_derek_touchpoint": "P2 step 4 â€” log OMEN Steam into floooooobcakes (persona wary.fool), launch Valheim, Join IP 100.116.82.60:2456 (~10 min). Not needed until P1 completes.",
+  "next_derek_touchpoint": "P2 step 4 - log OMEN Steam into floooooobcakes (persona wary.fool), launch Valheim, Join IP 100.116.82.60:2456 (~10 min). P1 complete; rig is hands-free.",
   "trust": {
     "claims_total": 70,
     "confirmed": 61,
@@ -16,11 +16,11 @@
     "uncorroborated": 4,
     "conflicted_resolved": 2,
     "red_herrings_catalogued": 41,
-    "rule": "Nothing after commit c196f88 (I0 map) counts without â‰¥2 independent non-doc sources.",
+    "rule": "Nothing after commit c196f88 (I0 map) counts without Ã¢â€°Â¥2 independent non-doc sources.",
     "headlines": [
       {
         "verdict": "good",
-        "text": "Nothing was deleted â€” all 28 commands, full MCP tree, zero orphaned work in git. The 'tooling cut' was a workflow BYPASS; fix is a wiring job (P1)."
+        "text": "Nothing was deleted Ã¢â‚¬â€ all 28 commands, full MCP tree, zero orphaned work in git. The 'tooling cut' was a workflow BYPASS; fix is a wiring job (P1)."
       },
       {
         "verdict": "good",
@@ -28,7 +28,7 @@
       },
       {
         "verdict": "warn",
-        "text": "'SendZDOs is inlined â€” settled' was never measured (counters were verifier fallback defaults). Re-measured at P2 with finite autostop. CreateSyncList seam is proven & safe either way."
+        "text": "'SendZDOs is inlined Ã¢â‚¬â€ settled' was never measured (counters were verifier fallback defaults). Re-measured at P2 with finite autostop. CreateSyncList seam is proven & safe either way."
       }
     ]
   },
@@ -36,17 +36,17 @@
     {
       "name": "am4 valheim server",
       "state": "up",
-      "detail": "UDP 2456-2457 published Â· mod 0.5.6 loaded Â· ComfyEra16 (9.15M ZDOs) Â· telemetry live Â· probe auto-start armed"
+      "detail": "UDP 2456-2457 · mod 0.5.7 loaded · ComfyEra16 (9.15M ZDOs) · probe: autostart=true, autostop=150s, maxDetailRows=20000 · telemetry live"
     },
     {
       "name": "OMEN client",
       "state": "ready",
-      "detail": "native Valheim + mod 0.5.6 installed Â· Steam running Â· will play persona wary.fool (account floooooobcakes)"
+      "detail": "native Valheim + mod 0.5.7 in plugins · Steam running · persona wary.fool (floooooobcakes) · coupleAutoRehearsalToNetcodeProbe available (off)"
     },
     {
       "name": "comfy-gateway :8720",
-      "state": "down-expected",
-      "detail": "wiring valid on disk; starts via start-comfy-gateway.ps1 before a session (P1.1)"
+      "state": "up",
+      "detail": "native on :8720; MCP round-trip proven (11 valheim tools incl. 3 netcode); .mcp.json binds next session start"
     },
     {
       "name": "HEARTH door :8710",
@@ -60,14 +60,14 @@
     },
     {
       "name": "cruft",
-      "state": "warn",
-      "detail": "am4 llvmpipe client container still up (kill at P1.13); OMEN docker-desktop compose teardown queued for next engine start"
+      "state": "ok",
+      "detail": "am4 llvmpipe client container removed + decoy cfg deleted (P1.13 done); only OMEN docker-desktop compose teardown queued for next engine start"
     }
   ],
   "phases": [
     {
       "id": "P0",
-      "ladder": "â€”",
+      "ladder": "Ã¢â‚¬â€",
       "title": "Trust reset & canon",
       "status": "done",
       "human_minutes": 0,
@@ -94,7 +94,7 @@
         },
         {
           "n": 5,
-          "t": "'Tooling cut' adjudicated (refuted â€” bypass)",
+          "t": "'Tooling cut' adjudicated (refuted Ã¢â‚¬â€ bypass)",
           "s": "done"
         },
         {
@@ -138,7 +138,7 @@
       "id": "P1",
       "ladder": "pre-I*",
       "title": "Hands-free rig restoration",
-      "status": "active",
+      "status": "done",
       "human_minutes": 0,
       "steps": [
         {
@@ -150,7 +150,7 @@
         {
           "n": 2,
           "t": "Fresh-session MCP round-trip via .mcp.json",
-          "s": "pending",
+          "s": "done",
           "g": "live tool call returns data"
         },
         {
@@ -181,7 +181,7 @@
           "n": 7,
           "t": "Mod: probe-arm triggers auto-rehearsal walk (config-coupled)",
           "s": "done",
-          "g": "flag on â†’ rehearsal at arm"
+          "g": "flag on Ã¢â€ â€™ rehearsal at arm"
         },
         {
           "n": 8,
@@ -191,19 +191,19 @@
         },
         {
           "n": 9,
-          "t": "Build 0.5.7 â†’ OMEN plugins",
+          "t": "Build 0.5.7 Ã¢â€ â€™ OMEN plugins",
           "s": "done",
           "g": "local boot log shows 0.5.7"
         },
         {
           "n": 10,
-          "t": "Deploy 0.5.7 â†’ am4 (ROOT cfg, never decoy)",
-          "s": "pending",
+          "t": "Deploy 0.5.7 Ã¢â€ â€™ am4 (ROOT cfg, never decoy)",
+          "s": "done",
           "g": "am4 boot log shows 0.5.7"
         },
         {
           "n": 11,
-          "t": "One-command orchestrator (deployâ†’runâ†’pullâ†’gateâ†’dashboard)",
+          "t": "One-command orchestrator (deployÃ¢â€ â€™runÃ¢â€ â€™pullÃ¢â€ â€™gateÃ¢â€ â€™dashboard)",
           "s": "done",
           "g": "single invocation"
         },
@@ -216,13 +216,13 @@
         {
           "n": 13,
           "t": "Cruft cleanup (am4 llvmpipe project, decoy cfg)",
-          "s": "pending",
+          "s": "done",
           "g": "gone or queued"
         },
         {
           "n": 14,
           "t": "Commit + dashboard update",
-          "s": "pending",
+          "s": "done",
           "g": "phase gate: zero-keystroke cycle"
         }
       ]
@@ -274,7 +274,7 @@
         },
         {
           "n": 8,
-          "t": "Verifier PASS â†’ evidence/i1-airtight/",
+          "t": "Verifier PASS Ã¢â€ â€™ evidence/i1-airtight/",
           "s": "pending"
         },
         {
@@ -373,7 +373,7 @@
         },
         {
           "n": 11,
-          "t": "HARD GATE: save integrity on quitâ†’reload",
+          "t": "HARD GATE: save integrity on quitÃ¢â€ â€™reload",
           "s": "pending"
         },
         {
@@ -383,7 +383,7 @@
         },
         {
           "n": 13,
-          "t": "Packets + worklog I2 âœ… + commit",
+          "t": "Packets + worklog I2 Ã¢Å“â€¦ + commit",
           "s": "pending"
         }
       ]
@@ -391,7 +391,7 @@
     {
       "id": "P4",
       "ladder": "I3",
-      "title": "Outbound redirect â†’ Lumberjacks",
+      "title": "Outbound redirect Ã¢â€ â€™ Lumberjacks",
       "status": "pending",
       "human_minutes": 10,
       "steps": [
@@ -402,7 +402,7 @@
         },
         {
           "n": 2,
-          "t": "HEARTH: ZPackageâ†”JSON shim boilerplate",
+          "t": "HEARTH: ZPackageÃ¢â€ â€JSON shim boilerplate",
           "s": "pending"
         },
         {
@@ -466,7 +466,7 @@
       "steps": [
         {
           "n": 1,
-          "t": "HEARTH: JSONâ†’ZPackage boilerplate; frontier hardening",
+          "t": "HEARTH: JSONÃ¢â€ â€™ZPackage boilerplate; frontier hardening",
           "s": "pending"
         },
         {
@@ -511,7 +511,7 @@
         },
         {
           "n": 10,
-          "t": "Repeat + packets + worklog I4 âœ… + commit",
+          "t": "Repeat + packets + worklog I4 Ã¢Å“â€¦ + commit",
           "s": "pending"
         }
       ]
@@ -556,7 +556,7 @@
         },
         {
           "n": 7,
-          "t": "GATE: in-world past spawn, â‰¥30s connected",
+          "t": "GATE: in-world past spawn, Ã¢â€°Â¥30s connected",
           "s": "pending"
         },
         {
@@ -633,10 +633,10 @@
     }
   ],
   "last_probe_cycle": {
-    "ran_utc": "2026-07-10T01:30:03.3270872Z",
-    "mode": "dryrun",
+    "ran_utc": "2026-07-10T01:36:33.3731607Z",
+    "mode": "deploy",
     "gate_status": "pass_i1_reachable_sendzdos_inlined_fallback",
-    "run_dir": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183001",
-    "summary_path": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183001\\netcode-probe-summary.json"
+    "run_dir": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183602",
+    "summary_path": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-183602\\netcode-probe-summary.json"
   }
 }
