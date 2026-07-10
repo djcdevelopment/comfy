@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T03:20:00-07:00",
+    "updated": "2026-07-10T04:05:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,7 +8,7 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [],
-    "next_derek_touchpoint": "P3 PIN BUILT + DEPLOYED + ARMED (mod 0.5.10 live on am4 2026-07-10, ownershipPinEnabled=true). OwnershipPinRunner skips the vanilla ownership transfer on <=25 auto-captured ZDOs via two SCOPED Harmony prefixes (ZDO.SetOwner in ReleaseNearbyZDOS scope + ZDO.SetOwnerInternal in RPC_ZDOData scope), so a pinned ZDO's owner does NOT transfer on zone entry; uncaptured ZDOs transfer normally (built-in negative control). Two source corrections recorded in NETCODE-OWNERSHIP-MAP.md: (1) the 'keep OwnerRevision highest' strategy has a HOLE at RPC_ZDOData:842-844 (owner applied on any newer DataRevision WITHOUT the revision gate) -> the pin guards SetOwnerInternal directly (strictly stronger); (2) ZDO ownership is runtime-only (ZDO.Load resets owner=0, Save never writes owner), so the pin is inherently save-safe and 'owner stays pinned' is a LIVE-SESSION assertion. Observe seam stays on; save-integrity baseline captured (clean world, 9.155M ZDOs). DEREK: ONE launch+join from OMEN (still 0.5.8 - the pin is server-side, the client just walks) auto-runs the P3 gates via the probe-coupled window; then read valheim_ownership_pin_status (want gate=held_with_negative_control) + valheim_ownership_churn_summary + valheim_save_integrity check. No action needed until that join.",
+    "next_derek_touchpoint": "P3 CLOSED (2026-07-10): I2 ownership-seizure PIN gates PASS. Authoritative window (mod 0.5.10, am4, 10:52:45Z->10:55:15Z): 25 ZDOs pinned + 55 ownership changes HELD on BOTH funnels (34 via SetOwner / ReleaseNearbyZDOS + 21 via SetOwnerInternal / RPC_ZDOData), 262 pass-through transfers on uncaptured ZDOs as the live negative control (independently cross-confirmed by the observe seam's 262 via_internal transitions), and save-integrity PASS with the pin engaged (a full save+reload happened while 25 ZDOs were pinned; world matches baseline exactly). The 21 SetOwnerInternal holds are the proof that guarding that path directly was necessary. Evidence: fieldlab/evidence/i2-pin/ (sha256 ebeefeb6). PIN IS PROVEN and currently STILL ARMED on am4 (ownershipPinEnabled=true) - it re-engages on any join's probe window; to return am4 to the observe-only baseline before P4, set ownershipPinEnabled=false + restart (say the word and I'll do it). NEXT: P4 (outbound redirect -> Lumberjacks) or a retro. No action needed; one optional clean re-join gives a 2nd authoritative repeatability window (window 1 was a corroborating floor, cut short by the routine idle-restart).",
     "trust": {
         "claims_total": 72,
         "confirmed": 63,
@@ -45,6 +45,10 @@
             {
                 "verdict": "good",
                 "text": "P3 ownership PIN built + deployed + armed (mod 0.5.10, 2026-07-10): the first BEHAVIOUR-CHANGING rung. Two scoped Harmony prefixes skip the vanilla transfer on <=25 auto-captured ZDOs (SetOwner in ReleaseNearbyZDOS scope + SetOwnerInternal in RPC_ZDOData scope); patches attach-verified on am4 (Awake 'Telemetry scaffold ready' past CreateAndPatchAll, clean build 0 warnings). Grounded on the live decompiled assembly with 2 caveat corrections: the revision-race has a hole at RPC_ZDOData:842-844 (so guard SetOwnerInternal directly), and ZDO ownership is runtime-only (Load resets owner=0) so the pin cannot corrupt the save. Rollback: ownershipPinEnabled=false. ONE launch+join runs the gates."
+            },
+            {
+                "verdict": "good",
+                "text": "P3 CLOSED - I2 ownership PIN gates PASS (mod 0.5.10, 2026-07-10, first behaviour-changing rung). Authoritative window: 25 ZDOs pinned, 55 holds on BOTH funnels (34 SetOwner + 21 SetOwnerInternal), 262 pass-through transfers as the live negative control (cross-confirmed by the observe seam), save-integrity PASS with the pin engaged. Held hands-free, server-side, rollback-gated, touching <=25 of 9.15M ZDOs. The 21 SetOwnerInternal holds vindicate guarding that path directly (the revision-race alone would have leaked them). Evidence fieldlab/evidence/i2-pin/ sha256 ebeefeb6."
             }
         ]
     },
@@ -52,7 +56,7 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.10 loaded + Awake-ready (all Harmony patches attached) | ComfyEra16 (9.155M ZDOs) | probe: autostart=true, autostop=150s, maxDetailRows=20000 | P3 PIN ARMED (ownershipPinEnabled=true, autoCaptureMax=25, prefabs=broad) + observe on (ownershipObserveEnabled=true) | save-integrity baseline captured (clean world) | pin + observe are silent until a peer joins"
+            "detail": "UDP 2456-2457 | mod 0.5.10 | ComfyEra16 (9.155M ZDOs) | P3 PIN PROVEN (gates 9/10/11 PASS 2026-07-10) + STILL ARMED (ownershipPinEnabled=true; re-engages each join's probe window - set false + restart to return to observe-only baseline before P4) | observe on | probe autostart=true/autostop=150s | save-integrity baseline stored | silent between sessions"
         },
         {
             "name": "OMEN client",
@@ -347,7 +351,7 @@
             "id": "P3",
             "ladder": "I6+I2",
             "title": "Steam-only + ownership seizure",
-            "status": "active",
+            "status": "done",
             "human_minutes": 10,
             "steps": [
                 {
@@ -395,32 +399,38 @@
                 {
                     "n": 8,
                     "t": "Pin scenario: zone-entry transfer trigger",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "wary.fool/OMEN join (10:52Z) -> coupled probe+observe+pin window; the hands-free auto-rehearsal walk churned 263+ ownership changes on zone entry, capturing the trigger with no human driving."
                 },
                 {
                     "n": 9,
                     "t": "GATE: owner stays pinned across trigger",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS (authoritative, gate=held_with_negative_control). 25 ZDOs pinned (cap; 3 prefabs, 7 sectors, 2 held owners); 55 ownership changes HELD - 34 via SetOwner (ReleaseNearbyZDOS release/reseize funnel) + 21 via SetOwnerInternal (RPC_ZDOData remote-apply funnel). Owner held constant on both funnels. evidence/i2-pin/ sha256 ebeefeb6."
                 },
                 {
                     "n": 10,
                     "t": "Negative control: unpinned transfers normally",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS. The pin ALLOWED 262 pass-through transfers on uncaptured ZDOs; the observe seam independently logged 262 via_internal + 1 via_setowner transitions on different (unpinned) ZDOs the same window. Vanilla ownership transfer intact for everything not captured - the built-in live negative control."
                 },
                 {
                     "n": 11,
                     "t": "HARD GATE: save integrity on quit->reload",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS. A full world save+reload occurred WHILE the pin held 25 ZDOs (mid-run idle-restart 10:44Z); reloaded world matches the clean pre-pin baseline exactly (portals 4472 / spawned 85439 / targets 20255 / locations 18004 all exact; ZDOS 9.1556M within tolerance). Confirms ZDO ownership is runtime-only (Load resets owner=0, Save never writes it) -> the pin writes nothing persisted and cannot corrupt the save."
                 },
                 {
                     "n": 12,
                     "t": "Repeatability run",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Two independent joins both engaged + held: window 1 (10:43Z, 234 holds, cut short by the routine UPDATE_IF_IDLE save+restart = corroborating floor, no clean stop) + window 2 (10:52Z, 55 holds, authoritative PASS). Mechanism reproduced across both. A 2nd clean authoritative run is available on demand (one join into a window clear of the ~30-min idle-restart boundary)."
                 },
                 {
                     "n": 13,
                     "t": "Packets + worklog I2 + commit",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Evidence archived to fieldlab/evidence/i2-pin/ (ownership-pin.jsonl sha256 ebeefeb6 + ownership-churn.jsonl sha256 816d7630 + ANALYSIS.md), save-integrity PASS captured, map + dashboard updated, committed."
                 }
             ]
         },
