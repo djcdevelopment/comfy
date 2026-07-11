@@ -15,6 +15,8 @@ entry point when you want to understand *why* something was built before opening
 - **Base-layer and lab plans:** [`comfy-base-layer-architecture-plan.md`](comfy-base-layer-architecture-plan.md),
   [`thesis-gold-local-lab-plan.md`](thesis-gold-local-lab-plan.md), and
   [`lumberjacks-native-runtime-era-save-plan.md`](lumberjacks-native-runtime-era-save-plan.md).
+- **CI/CD and cloud strategy:** [`github-integration-strategy.md`](github-integration-strategy.md) —
+  GitHub Actions + GCP integration proposal for the fieldlab test program.
 - **Repository periodization:** [`repo-map/HOTSPOTS.md`](repo-map/HOTSPOTS.md) and the
   [interactive activity heatmap](repo-map/index.html).
 
