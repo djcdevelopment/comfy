@@ -1759,31 +1759,6 @@ def valheim_handshake_preflight(window_id: str = "") -> dict:
     }
 
 
-def _lj_has_window(result: dict) -> bool:
-    """Best-effort: does a Lumberjacks status payload show at least one staged window/fixture?
-
-    Window staging is in-memory + done just-in-time at the armed session, so this is a soft
-    signal for window_steps_remaining, not a hard precondition. Lenient across payload shapes.
-    """
-    if not result.get("ok"):
-        return False
-    status = result.get("status") or {}
-    if not isinstance(status, dict):
-        return False
-    windows = status.get("windows")
-    if isinstance(windows, list) and windows:
-        return True
-    if status.get("window_id"):
-        return True
-    for key in ("queued", "queue", "staged", "fixtures", "pending", "queued_count"):
-        value = status.get(key)
-        if isinstance(value, list) and value:
-            return True
-        if isinstance(value, int) and value > 0:
-            return True
-    return False
-
-
 def valheim_loopback_preflight(window_id: str = "") -> dict:
     """One-call P7/I7 composition pre-flight (READ-ONLY): verify the full stack is ready to arm
     I2 pin + I3 redirect + I4 injection + I5 handshake together for a single in-world
@@ -1824,14 +1799,24 @@ def valheim_loopback_preflight(window_id: str = "") -> dict:
             discriminators.append("permit_list")
         if discriminators:
             fronted.append({"window_id": w.get("window_id"), "discriminators": discriminators})
-    redirect_staged = _lj_has_window(valheim_lumberjacks_receipts(window_id))
-    injection_staged = _lj_has_window(valheim_lumberjacks_injection(window_id))
+    # Precise per-subsystem signals: the status endpoints return a DEFAULT window object with the
+    # window_id populated even for a window that was never created, so a generic "has a window_id"
+    # check false-positives (verified live). Injection is staged only when a fixture command exists
+    # (commands>0); the redirect window is create-on-first-write, so it is reported informationally
+    # (receipts) and never gates a staging step.
+    inj = valheim_lumberjacks_injection(window_id)
+    injection_commands = int((inj.get("status") or {}).get("commands") or 0) if inj.get("ok") else 0
+    injection_staged = injection_commands > 0
+    red = valheim_lumberjacks_receipts(window_id)
+    redirect_receipts = int((red.get("status") or {}).get("receipts") or 0) if red.get("ok") else 0
     checks["lumberjacks"] = {
         "ok": lj_ok,
         "handshake_fronted": bool(fronted),
         "fronted_windows": fronted,
-        "redirect_window_staged": redirect_staged,
         "injection_fixture_staged": injection_staged,
+        "injection_commands": injection_commands,
+        "redirect_receipts": redirect_receipts,
+        "redirect_note": "created on first receipt POST (no pre-staging needed)",
         "url": trace.get("url"),
         "error": trace.get("error"),
     }
@@ -1912,8 +1897,6 @@ def valheim_loopback_preflight(window_id: str = "") -> dict:
     if not fronted:
         steps.append("stage a FRONTED Lumberjacks handshake window (needs_password / ban / "
                      "permit-list) so admission is provably Lumberjacks-decided (I5)")
-    if not redirect_staged:
-        steps.append("stage the Lumberjacks redirect window for the conifer prefab allowlist (I3)")
     if not injection_staged:
         steps.append("stage the Lumberjacks synthetic-fixture (e.g. Wood) injection window (I4)")
     steps.append("arm am4: ownershipPinEnabled + zdoRedirectEnabled + handshakeResponderEnabled = "
