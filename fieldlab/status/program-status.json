@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T20:30:00-07:00",
+    "updated": "2026-07-10T21:05:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -654,7 +654,7 @@
                     "n": 5,
                     "t": "Stage client connect path (Steam-only)",
                     "s": "pending",
-                    "g": "NEXT (headless): am4 mod-side ZRpc/ZPackage handshake shim - Steam-only (I6), rollback-flagged, UNARMED by default, grounded on the 0.221.12 assembly. Hooks RPC_ServerHandshake@727 + RPC_PeerInfo@818, delegates decisions to the Lumberjacks responder, reads a PeerInfo CLONE (SetPos(0) lesson banked from i4). Architecture resolved: ZSteamSocket cannot be Lumberjacks-terminated, so mod-mediation is the only faithful 'fronted' reading (matches I3/I4) - no deeper transport shim needed. Wire decode gets first real-client validation at Derek's launch (step 6)."
+                    "g": "PARTIALLY STAGED (2026-07-10 eve): config surface handshakeResponder* (enabled/endpoint/windowId/poll/active) added + mod built clean 0.5.16 (UNARMED; empty endpoint refuses to arm). Architecture RESOLVED + recorded (worklog I5 block): am4 mod-mediation is the only faithful 'Lumberjacks-fronted' reading (ZSteamSocket can't be HTTP-terminated) - hooks RPC_ServerHandshake@727 + RPC_PeerInfo@818, reads a PeerInfo CLONE (SetPos(0), banked i4 lesson), polls Lumberjacks context via raw TcpClient (server Mono trap, ADR 0003). REMAINING: the RPC interceptor itself is built + wire-validated at the ARMED session (first real-client bytes in-game), not blind (per Derek 2026-07-10). No transport shim needed. Commit mod 90ff17d."
                 },
                 {
                     "n": 6,
