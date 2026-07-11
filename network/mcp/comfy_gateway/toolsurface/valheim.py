@@ -74,6 +74,7 @@ AM4_REDIRECT_PATH = os.environ.get(
     "COMFY_AM4_REDIRECT_PATH",
     AM4_PROBE_PATH.rsplit("/", 1)[0] + "/" + REDIRECT_SEND_FILE,
 )
+INJECTION_APPLY_FILE = "injection-apply.jsonl"
 # Lumberjacks gateway (P4/I3 receipt counter). Runs on OMEN next to this gateway, so
 # localhost by default; the mod on am4 reaches the same service via the tailnet IP.
 LUMBERJACKS_URL = os.environ.get("COMFY_LUMBERJACKS_URL", "http://127.0.0.1:4000")
@@ -328,6 +329,7 @@ def valheim_mcp_health() -> dict:
         "ownership_churn_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_CHURN_FILE),
         "ownership_pin_local": _file_info(NETWORK_SENSE_DIR / OWNERSHIP_PIN_FILE),
         "redirect_send_local": _file_info(NETWORK_SENSE_DIR / REDIRECT_SEND_FILE),
+        "injection_apply_local": _file_info(NETWORK_SENSE_DIR / INJECTION_APPLY_FILE),
         "notes_path": str(DEV_NOTES_PATH),
         "ollama_endpoint": ollama_endpoint,
         "lumberjacks_url": LUMBERJACKS_URL,
@@ -354,6 +356,10 @@ def valheim_mcp_health() -> dict:
             "valheim_zdo_redirect_status",
             "valheim_lumberjacks_receipts",
             "valheim_zdo_redirect_gate",
+            "valheim_tail_zdo_injection",
+            "valheim_zdo_injection_status",
+            "valheim_lumberjacks_injection",
+            "valheim_zdo_injection_gate",
             "valheim_server_log_tail",
         ],
     }
@@ -1371,6 +1377,117 @@ def valheim_zdo_redirect_gate(window_id: str = "", source: str = "am4") -> dict:
     }
 
 
+_INJECTION_COUNTER_KEYS = (
+    "polls", "poll_errors", "received", "applied", "rendered", "rejected",
+    "duplicates", "awaiting_render",
+)
+
+
+def valheim_tail_zdo_injection(lines: int = 50) -> dict:
+    """Tail the local OMEN client's P5/I4 injection lifecycle and readback rows."""
+    lines = max(1, min(int(lines), 2000))
+    path = _safe_child(NETWORK_SENSE_DIR, INJECTION_APPLY_FILE)
+    return {"source": "local", "file": str(path), "exists": path.exists(),
+            "entries": _tail_json(path, lines)}
+
+
+def _summarize_injection_rows(rows: list[dict]) -> dict:
+    start_idx = None
+    for index, row in enumerate(rows):
+        if str(row.get("event")) == "injection_start":
+            start_idx = index
+    window = rows[start_idx:] if start_idx is not None else rows
+    lifecycle = [r for r in window if str(r.get("event")) in (
+        "injection_start", "injection_stop", "injection_auto_stop", "injection_dispose")]
+    summary = lifecycle[-1] if lifecycle else None
+    applied = [r for r in window if str(r.get("event")) == "injection_applied"]
+    rendered = [r for r in window if str(r.get("event")) == "injection_rendered"]
+    rejected = [r for r in window if str(r.get("event")) == "injection_rejected"]
+    stop_event = str(summary.get("event")) if summary else None
+    authoritative = stop_event in ("injection_stop", "injection_auto_stop", "injection_dispose")
+    counters = {}
+    for key in _INJECTION_COUNTER_KEYS:
+        value = summary.get(key) if summary else None
+        counters[key] = int(value) if isinstance(value, (int, float)) else None
+    return {
+        "has_lifecycle_summary": summary is not None,
+        "counters_are_authoritative": authoritative,
+        "stop_event": stop_event,
+        "window_id": str(summary.get("window_id") or "") if summary else "",
+        "authority_id": str(summary.get("authority_id") or "") if summary else "",
+        "counters": counters,
+        "applied_rows": applied,
+        "rendered_rows": rendered,
+        "rejected_rows": rejected,
+        "last_error": str(summary.get("last_error") or "") if summary else "",
+        "caveat": None if authoritative else (
+            "No terminal injection lifecycle row; detail rows are a floor, not a gate result."),
+    }
+
+
+def valheim_zdo_injection_status() -> dict:
+    """Read the OMEN client-side P5/I4 apply/render status with file provenance."""
+    path = _safe_child(NETWORK_SENSE_DIR, INJECTION_APPLY_FILE)
+    if not path.exists():
+        return {"ok": False, "error": "injection-apply.jsonl not found", "path": str(path)}
+    raw = path.read_text(encoding="utf-8", errors="replace")
+    stat = path.stat()
+    result = {
+        "ok": True,
+        "source": "local",
+        "provenance": {"host": "local", "path": str(path),
+            "sha256": hashlib.sha256(raw.encode("utf-8", "replace")).hexdigest(),
+            "size_bytes": stat.st_size, "modified_unix": stat.st_mtime,
+            "age_seconds": round(time.time() - stat.st_mtime, 1)},
+    }
+    result.update(_summarize_injection_rows(_parse_jsonl_text(raw)))
+    return result
+
+
+def valheim_lumberjacks_injection(window_id: str = "") -> dict:
+    """Read Lumberjacks P5 queue, poll, and per-client acknowledgement state."""
+    window_id = str(window_id or "").strip()
+    url = LUMBERJACKS_URL.rstrip("/") + "/valheim/zdo-injection/status"
+    if window_id:
+        url += "/" + urllib.parse.quote(window_id, safe="")
+    try:
+        with urllib.request.urlopen(url, timeout=10) as response:
+            payload = json.loads(response.read().decode("utf-8", "replace"))
+    except (urllib.error.URLError, json.JSONDecodeError, TimeoutError) as error:
+        return {"ok": False, "url": url, "error": str(error)}
+    return {"ok": True, "url": url, "status": payload}
+
+
+def valheim_zdo_injection_gate(window_id: str = "") -> dict:
+    """One-call P5 readback gate: local rendered row plus Lumberjacks rendered ack."""
+    mod = valheim_zdo_injection_status()
+    if not mod.get("ok"):
+        return {"ok": False, "verdict": "inconclusive", "mod": mod}
+    resolved = str(window_id or "").strip() or str(mod.get("window_id") or "")
+    gateway = valheim_lumberjacks_injection(resolved)
+    if not gateway.get("ok"):
+        return {"ok": False, "verdict": "inconclusive", "window_id": resolved,
+                "mod": mod, "gateway": gateway}
+    status = gateway.get("status") or {}
+    acks = status.get("acks") or status.get("Acks") or {}
+    rendered_acks = [a for a in acks.values() if bool(a.get("rendered") or a.get("Rendered"))]
+    rendered_rows = mod.get("rendered_rows") or []
+    owner_matches = bool(rendered_rows) and all(
+        str(row.get("owner") or "") == str(mod.get("authority_id") or "")
+        for row in rendered_rows)
+    if rendered_rows and rendered_acks and owner_matches:
+        verdict = "rendered_with_lumberjacks_owner"
+    elif mod.get("rejected_rows"):
+        verdict = "rejected"
+    else:
+        verdict = "pending"
+    return {"ok": True, "verdict": verdict, "window_id": resolved,
+            "rendered_rows": len(rendered_rows), "rendered_acks": len(rendered_acks),
+            "owner_matches": owner_matches,
+            "mod_authoritative": bool(mod.get("counters_are_authoritative")),
+            "mod": mod, "gateway": gateway}
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -1578,6 +1695,14 @@ def get_tools() -> list[Callable]:
         valheim_ownership_churn_summary,
         valheim_tail_ownership_pin,
         valheim_ownership_pin_status,
+        valheim_tail_zdo_redirect,
+        valheim_zdo_redirect_status,
+        valheim_lumberjacks_receipts,
+        valheim_zdo_redirect_gate,
+        valheim_tail_zdo_injection,
+        valheim_zdo_injection_status,
+        valheim_lumberjacks_injection,
+        valheim_zdo_injection_gate,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]

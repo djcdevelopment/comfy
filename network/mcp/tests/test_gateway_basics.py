@@ -93,6 +93,31 @@ class GatewayBasicsTest(unittest.TestCase):
             self.assertIn("serverPulseIntervalSeconds = 2", text)
             self.assertIn("writeTelemetryLogs = true", text)
 
+    def test_netcode_gate_tools_are_registered(self) -> None:
+        names = {tool.__name__ for tool in valheim.get_tools()}
+        self.assertTrue({
+            "valheim_zdo_redirect_gate",
+            "valheim_zdo_injection_status",
+            "valheim_lumberjacks_injection",
+            "valheim_zdo_injection_gate",
+        }.issubset(names))
+
+    def test_injection_summary_requires_terminal_lifecycle(self) -> None:
+        running = valheim._summarize_injection_rows([
+            {"event": "injection_start", "window_id": "i4-test", "rendered": 0},
+            {"event": "injection_rendered", "window_id": "i4-test", "owner": "7"},
+        ])
+        self.assertFalse(running["counters_are_authoritative"])
+        stopped = valheim._summarize_injection_rows([
+            {"event": "injection_start", "window_id": "i4-test"},
+            {"event": "injection_rendered", "window_id": "i4-test", "owner": "7"},
+            {"event": "injection_auto_stop", "window_id": "i4-test", "authority_id": "7",
+             "polls": 2, "poll_errors": 0, "received": 1, "applied": 1,
+             "rendered": 1, "rejected": 0, "duplicates": 0, "awaiting_render": 0},
+        ])
+        self.assertTrue(stopped["counters_are_authoritative"])
+        self.assertEqual(1, stopped["counters"]["rendered"])
+
 
 if __name__ == "__main__":
     unittest.main()
