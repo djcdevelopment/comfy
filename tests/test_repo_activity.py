@@ -28,6 +28,11 @@ class RepoActivityTests(unittest.TestCase):
         self.assertEqual(repo_activity.era_for("2026-01-02", config), "one")
         self.assertEqual(repo_activity.era_for("2026-03-04", config), "later-2026-03")
 
+    def test_publication_path_boundary(self):
+        self.assertTrue(repo_activity.is_managed_publication_path("docs/repo-map/activity.json"))
+        self.assertTrue(repo_activity.is_managed_publication_path("README.md"))
+        self.assertFalse(repo_activity.is_managed_publication_path("network/runtime.py"))
+
     def test_score_rewards_recency_and_touch_frequency(self):
         config = {
             "recency_half_life_days": 14,
