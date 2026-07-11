@@ -20,19 +20,19 @@ The map below is generated from Git history: first-seen date × last-updated dat
 
 | Area | Activity score | Files | Size KB | Start here |
 |---|---:|---:|---:|---|
-| `fieldlab` | 5661.81 | 113 | 2639.19 | [README](fieldlab/README.md) |
-| `network` | 3267.09 | 77 | 801.57 | [README](network/README.md) |
-| `handoffs` | 2246.15 | 70 | 349.44 | [README](handoffs/README.md) |
-| `docs` | 1025.86 | 29 | 638.55 | [README](docs/README.md) |
-| `data` | 684.75 | 21 | 11403.38 | [README](data/README.md) |
-| `recipes` | 409.04 | 14 | 66.22 | [README](recipes/README.md) |
-| `quest_select_design` | 190.70 | 5 | 327.69 | [README](quest_select_design/README.md) |
-| `discord-search-export` | 143.58 | 3 | 20.79 | [README](discord-search-export/README.md) |
-| `tools` | 119.87 | 2 | 28.50 | [README](tools/README.md) |
-| `framework` | 101.50 | 3 | 9.03 | [README](framework/README.md) |
-| `erasave` | 81.95 | 2 | 59.17 | [README](erasave/README.md) |
+| `fieldlab` | 5660.36 | 113 | 2639.19 | [README](fieldlab/README.md) |
+| `network` | 3266.18 | 77 | 801.57 | [README](network/README.md) |
+| `handoffs` | 2245.59 | 70 | 349.44 | [README](handoffs/README.md) |
+| `docs` | 1046.67 | 29 | 701.34 | [README](docs/README.md) |
+| `data` | 684.56 | 21 | 11403.38 | [README](data/README.md) |
+| `recipes` | 408.94 | 14 | 66.22 | [README](recipes/README.md) |
+| `quest_select_design` | 190.65 | 5 | 327.69 | [README](quest_select_design/README.md) |
+| `discord-search-export` | 143.56 | 3 | 20.79 | [README](discord-search-export/README.md) |
+| `tools` | 124.52 | 2 | 31.99 | [README](tools/README.md) |
+| `framework` | 101.47 | 3 | 9.03 | [README](framework/README.md) |
+| `erasave` | 81.93 | 2 | 59.17 | [README](erasave/README.md) |
 
-Metrics snapshot: `9072d9a8565e`. Regenerate with `python tools/repo_activity.py --write`.
+Metrics snapshot: `c154f3ff34be`. Regenerate with `python tools/repo_activity.py --write`.
 <!-- repo-activity:end -->
 
 ## What this repo is

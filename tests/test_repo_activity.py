@@ -52,6 +52,9 @@ class RepoActivityTests(unittest.TestCase):
         self.assertIn('data-created="${c}"', rendered)
         self.assertIn("Open README", rendered)
         self.assertIn("activePeriod", rendered)
+        self.assertIn("buildTree", rendered)
+        self.assertIn("Expand all", rendered)
+        self.assertNotIn("<table>", rendered)
 
     def test_score_rewards_recency_and_touch_frequency(self):
         config = {
