@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-11T01:45:00-07:00",
+    "updated": "2026-07-11T02:24:05-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,9 +8,9 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "Nothing pending. P6/I5 CLOSED - the handshake rung is LIVE-proven (2026-07-11). Your one touchpoint (connect in-world) is done: OMEN client held ~105s in-world past spawn via a Lumberjacks-decided admission, and a Lumberjacks-side ban flipped the same client to a code-8 reject that vanilla am4 would have accepted - the fronting proof. am4 is back to the disarmed observe-only baseline on 0.5.18 (interceptor deployed, dormant). Next rung is P7/I7 (loopback integrity): compose I2+I3+I4+I5 flags at once and hold one client in-world rendering authoritative Lumberjacks state without desync or save corruption - that is your next in-world touchpoint."
+        "Nothing right now - P7/I7 prep is running autonomously. Your next and only touchpoint is a single launch+join on OMEN (~15 min, the proven pattern) whenever you are up for it; the composed all-flags auto-route + gates then run hands-free."
     ],
-    "next_derek_touchpoint": "P6/I5 HANDSHAKE SATISFACTION PASSED + CLOSED (2026-07-11, window i5-live-w1, mod 0.5.18): the 6th behaviour-changing rung and the first LIVE handshake. A server-side Harmony prefix on ZNet.RPC_PeerInfo (am4) reads a SetPos(0) PeerInfo clone, hands the decoded logical fields to the Lumberjacks responder over raw TcpClient (Mono trap), and enforces the verdict: reject -> Invoke(Error,code)+skip vanilla, accept -> return to vanilla for the real AddPeer. GATE (step 6-7): OMEN client (SteamID 76561198088711642 = account floooooobcakes / persona wary.fool, character Durracktu) got a Lumberjacks-decided ACCEPT and held ~105s in-world past spawn through a death+respawn, 0 disconnects, real vanilla AddPeer. FRONTING (step 8): a Lumberjacks-side ban on the same client flipped admission to a code-8 ErrorBanned reject that vanilla am4 (no such ban) would have accepted - so admission is provably Lumberjacks-decided. Save-integrity exact across the armed session + disarm (ZDOS delta 0); rolled back to observe-only baseline on 0.5.18 (interceptor dormant). Honest caveats: password (F) + steam-ticket (C) are real crypto delegated to vanilla (Lumberjacks fronts version/blacklist/full/duplicate); first armed build 0.5.17 mis-staged the password context (3x code-6 rejects) before 0.5.18 fixed it; only 2 of 6 gate codes surfaced live (8 blacklist + 6 password), the full battery is proven headless (28/28); the Lumberjacks in-memory trace was lost on a gateway bounce so the am4 server log is the authoritative record. Evidence fieldlab/evidence/i5-handshake-live/ (ANALYSIS.md + am4-server-log-decisions.txt sha256 943f2dc2). YOUR NEXT TOUCHPOINT: P7/I7 loopback integrity - compose I2 (ownership pin) + I3 (redirect) + I4 (injection) + I5 (handshake) armed at once and hold one client in-world rendering authoritative Lumberjacks state with no desync and no save corruption. The milestone: one client fully on Lumberjacks.",
+    "next_derek_touchpoint": "P7/I7 LOOPBACK INTEGRITY - the composition ('one client fully on Lumberjacks'). PHASE A PREP DONE autonomously 2026-07-11: (1) Composition de-risked - every pairwise Harmony patch coexistence is ALREADY proven live: observe+pin on ZDO.SetOwner/SetOwnerInternal (P3), redirect(Priority.High)+probe on ZDOMan.CreateSyncList (P4), injection+probe on client ZDOMan.RPC_ZDOData (P5); the I5 handshake hook is on ZNet.RPC_PeerInfo - a method disjoint from every ZDO funnel and firing pre-AddPeer - so P7 is an integration/timing test of SIMULTANEOUS arming, not a new patch-collision surface. (2) No rebuilds - am4 0.5.18 carries the current pin+redirect+handshake, OMEN 0.5.15 carries the current injection (ZdoInjectionRunner untouched since the 0.5.15 build 676df1e). (3) valheim_loopback_preflight built + validated (direct import + live over MCP; comfy-gateway restarted from source, 27 valheim tools, stale-instance trap defeated) - one read-only call gates door + Lumberjacks 3-window staging + am4 disarmed-baseline/all-4-config-keys/version + OMEN injection surface. (4) Compose-all auto-route fieldlab/routes/p7-compose.tsv built + source-verified (schema ComfyNetworkSense.cs:1204). The load-bearing timing: the redirect/injection active windows start at ARM time (~connect+25s) and close ~90s later, so stop 1 is short to reach the ground-truthed conifer stand (9376,544)@Y=105 while the windows are still open (a long stop 1 reproduces the I3-w1 '0 suppressed' miss), and stop 2 dwells 130s through the active-window auto-disarm (rollback rehearsal) and the end of the 150s probe. REMAINING before the window, all AUTONOMOUS: relaunch Lumberjacks + stage the fronted-handshake/redirect/injection windows, arm am4 (pin+redirect+handshake, tailnet endpoints) + OMEN (injection), take the pre-window save snapshot on a fresh idle-restart clock. YOUR TOUCHPOINT: one launch+join on OMEN - a FRESH RELAUNCH (not a menu rejoin, so the auto-walk re-arms) - the composed route then walks all four mechanisms hands-free and the gates auto-evaluate (no desync/crash across the full window + world intact on reload).",
     "trust": {
         "claims_total": 76,
         "confirmed": 65,
@@ -92,7 +92,7 @@
         {
             "name": "comfy-gateway :8720",
             "state": "up",
-            "detail": "native on :8720 (healthz green), RESTARTED 2026-07-11 from source - 40 tools live over MCP (34 valheim). P4/P5 toolsurface + 2 P6/I5 handshake tools (valheim_handshake_trace / valheim_handshake_gate, verdict handshake_satisfied over live MCP, scope=logical_headless_no_live_addpeer) + NEW valheim_handshake_preflight - a READ-ONLY one-call armed-window precondition gate (door / Lumberjacks-fronted-window / am4 disarmed baseline / am4 mod-version >=0.5.16 / OMEN client) that returns preconditions_ready + window_steps_remaining. Stale-instance trap DEFEATED this bring-up: fresh process off the current valheim.py, tools/list diffed AND handshake_gate executed end-to-end over MCP (memory: comfy-gateway-stale-instance-trap)."
+            "detail": "native on :8720 (healthz green). Background-fragile: went DOWN mid-session and was relaunched from source via fieldlab/scripts/start-comfy-gateway.ps1 (detached) 2026-07-11 - a fresh instance off the CURRENT valheim.py (stale-instance trap defeated, verified over MCP). 27 valheim tools incl. NEW valheim_loopback_preflight (P7/I7 full-stack composition preflight - superset of valheim_handshake_preflight: door + Lumberjacks 3-window staging + am4 baseline/keys/version + OMEN injection surface). Full P4/P5/P6 toolsurface (redirect/injection/handshake gates + traces + both preflights) live. Loopback endpoints http://127.0.0.1:4000 (OMEN) / http://100.124.12.37:4000 (am4 tailnet)."
         },
         {
             "name": "HEARTH door :8710",
@@ -101,8 +101,8 @@
         },
         {
             "name": "Lumberjacks gateway :4000/:4005",
-            "state": "up",
-            "detail": "running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). BACKGROUND-FRAGILE: the dotnet-run process is torn down at session/context boundaries and must be relaunched per session (it went down twice on 2026-07-11); handshake/redirect/injection windows are in-memory and reset on restart, so re-stage at the armed session. Hosted the P6/I5 handshake responder for the LIVE gate (accept + ban decisions); the in-memory trace was lost on a post-test bounce - the am4 server log is the authoritative record. /valheim/zdo-redirect + /valheim/zdo-injection live, AND NEW /valheim/handshake (config/begin/peerinfo/status/reset) - the P6/I5 responder. Rebuilt + restarted from source (Lumberjacks 935095b); JSON is snake_case. Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
+            "state": "down-expected",
+            "detail": "DOWN at rest (torn down this session, as expected for the background-fragile dotnet-run process; relaunch at the armed window). running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). BACKGROUND-FRAGILE: the dotnet-run process is torn down at session/context boundaries and must be relaunched per session (it went down twice on 2026-07-11); handshake/redirect/injection windows are in-memory and reset on restart, so re-stage at the armed session. Hosted the P6/I5 handshake responder for the LIVE gate (accept + ban decisions); the in-memory trace was lost on a post-test bounce - the am4 server log is the authoritative record. /valheim/zdo-redirect + /valheim/zdo-injection live, AND NEW /valheim/handshake (config/begin/peerinfo/status/reset) - the P6/I5 responder. Rebuilt + restarted from source (Lumberjacks 935095b); JSON is snake_case. Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
         },
         {
             "name": "cruft",
@@ -691,18 +691,20 @@
             "id": "P7",
             "ladder": "I7",
             "title": "Loopback integrity (the composition)",
-            "status": "pending",
+            "status": "active",
             "human_minutes": 15,
             "steps": [
                 {
                     "n": 1,
                     "t": "Compose I2+I3+I4+I5+I6 flags",
-                    "s": "pending"
+                    "s": "pending",
+                    "g": "PREP DONE (2026-07-11): composition de-risked - every pairwise Harmony patch coexistence is already proven live (observe+pin on ZDO.SetOwner/SetOwnerInternal P3; redirect(Priority.High)+probe on ZDOMan.CreateSyncList P4; injection+probe on client ZDOMan.RPC_ZDOData P5). The I5 handshake hook is on ZNet.RPC_PeerInfo - disjoint from every ZDO funnel and firing pre-AddPeer - so this rung is a simultaneous-arming integration/timing test, NOT a new patch-collision surface. No rebuilds (am4 0.5.18 + OMEN 0.5.15 both carry current runners). Live arming happens in the armed window (Phase B)."
                 },
                 {
                     "n": 2,
                     "t": "Full-stack pre-flight via MCP",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-11): valheim_loopback_preflight built + validated (direct import + live over MCP; comfy-gateway restarted from source off the current valheim.py, 27 valheim tools, stale-instance trap defeated). One READ-ONLY call checks door + Lumberjacks 3-window staging + am4 (reachable / disarmed baseline / all 4 rung config keys present / version >= 0.5.16) + OMEN (injection surface). Every precondition under program control is GREEN now; it returns not_ready only because Lumberjacks is down + the client is not launched (both armed-window actions). Superset of valheim_handshake_preflight."
                 },
                 {
                     "n": 3,

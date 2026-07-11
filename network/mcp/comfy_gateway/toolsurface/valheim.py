@@ -87,6 +87,17 @@ AM4_MOD_CFG = os.environ.get(
 # The mod build that first carries the P6/I5 handshake responder surface. am4 must be at or
 # above this before the armed handshake window can arm the interceptor.
 HANDSHAKE_MIN_MOD_VERSION = os.environ.get("COMFY_HANDSHAKE_MIN_MOD_VERSION", "0.5.16")
+# P7/I7 composition: the mod builds that carry each rung's runner. am4 (server) needs
+# pin (0.5.10) + redirect (0.5.12) + handshake (0.5.16); OMEN (client) needs the injection
+# runner (0.5.15). A 0.5.16+ am4 build has all three server runners AND the full config surface.
+COMPOSE_MIN_MOD_VERSION_AM4 = os.environ.get("COMFY_COMPOSE_MIN_MOD_VERSION_AM4", "0.5.16")
+COMPOSE_MIN_MOD_VERSION_OMEN = os.environ.get("COMFY_COMPOSE_MIN_MOD_VERSION_OMEN", "0.5.15")
+# The am4-side flags the composition arms together (I2 pin + I3 redirect + I5 handshake).
+# I4 injection is the OMEN client's flag; I6 Steam-only is server env (CROSSPLAY=false).
+_COMPOSE_AM4_ARM_FLAGS = ("ownershipPinEnabled", "zdoRedirectEnabled", "handshakeResponderEnabled")
+# Every rung's config key must exist in a build for it to be composition-capable.
+_COMPOSE_CFG_SURFACE = ("ownershipPinEnabled", "zdoRedirectEnabled", "zdoInjectionEnabled",
+                        "handshakeResponderEnabled")
 # Counter fields the probe emits only on an authoritative lifecycle stop/status row.
 _PROBE_COUNTER_KEYS = (
     "recv_funnel_calls", "recv_zdo_rows", "recv_parse_errors",
@@ -371,6 +382,7 @@ def valheim_mcp_health() -> dict:
             "valheim_handshake_trace",
             "valheim_handshake_gate",
             "valheim_handshake_preflight",
+            "valheim_loopback_preflight",
             "valheim_server_log_tail",
         ],
     }
@@ -1747,6 +1759,188 @@ def valheim_handshake_preflight(window_id: str = "") -> dict:
     }
 
 
+def _lj_has_window(result: dict) -> bool:
+    """Best-effort: does a Lumberjacks status payload show at least one staged window/fixture?
+
+    Window staging is in-memory + done just-in-time at the armed session, so this is a soft
+    signal for window_steps_remaining, not a hard precondition. Lenient across payload shapes.
+    """
+    if not result.get("ok"):
+        return False
+    status = result.get("status") or {}
+    if not isinstance(status, dict):
+        return False
+    windows = status.get("windows")
+    if isinstance(windows, list) and windows:
+        return True
+    if status.get("window_id"):
+        return True
+    for key in ("queued", "queue", "staged", "fixtures", "pending", "queued_count"):
+        value = status.get(key)
+        if isinstance(value, list) and value:
+            return True
+        if isinstance(value, int) and value > 0:
+            return True
+    return False
+
+
+def valheim_loopback_preflight(window_id: str = "") -> dict:
+    """One-call P7/I7 composition pre-flight (READ-ONLY): verify the full stack is ready to arm
+    I2 pin + I3 redirect + I4 injection + I5 handshake together for a single in-world
+    'one client fully on Lumberjacks' window.
+
+    A superset of valheim_handshake_preflight: it also checks the redirect + injection
+    subsystems and that BOTH deployed builds carry every runner (am4 has pin/redirect/handshake;
+    OMEN has injection). Same philosophy: 'preconditions_ready' means the rig can BEGIN the armed
+    window (infra up + disarmed baseline + runners present). The per-subsystem Lumberjacks windows
+    are staged just-in-time at the armed session, so they surface under window_steps_remaining, not
+    as blockers. Nothing is mutated; no server restart.
+    """
+    checks: dict = {}
+
+    # 1. door — the gateway exposes all four subsystem gates (this call proves the door is up)
+    tool_names = {t.__name__ for t in get_tools()}
+    compose_tools = {"valheim_ownership_pin_status", "valheim_zdo_redirect_gate",
+                     "valheim_zdo_injection_gate", "valheim_handshake_gate"}
+    door_ok = compose_tools.issubset(tool_names)
+    checks["door"] = {"ok": door_ok, "compose_gates_registered": sorted(compose_tools & tool_names)}
+
+    # 2. lumberjacks — endpoint reachable (hard) + which of the three windows are already staged
+    #    (soft; staging is a just-in-time armed-window step).
+    trace = valheim_handshake_trace(window_id)
+    lj_ok = bool(trace.get("ok"))
+    hs_windows = []
+    if lj_ok:
+        payload = trace.get("status") or {}
+        hs_windows = payload.get("windows") or ([payload] if payload.get("window_id") else [])
+    fronted = []
+    for w in hs_windows:
+        discriminators = []
+        if w.get("need_password"):
+            discriminators.append("needs_password")
+        if int(w.get("banned_hosts", 0) or 0) > 0:
+            discriminators.append("blacklist")
+        if int(w.get("permitted_hosts", 0) or 0) > 0:
+            discriminators.append("permit_list")
+        if discriminators:
+            fronted.append({"window_id": w.get("window_id"), "discriminators": discriminators})
+    redirect_staged = _lj_has_window(valheim_lumberjacks_receipts(window_id))
+    injection_staged = _lj_has_window(valheim_lumberjacks_injection(window_id))
+    checks["lumberjacks"] = {
+        "ok": lj_ok,
+        "handshake_fronted": bool(fronted),
+        "fronted_windows": fronted,
+        "redirect_window_staged": redirect_staged,
+        "injection_fixture_staged": injection_staged,
+        "url": trace.get("url"),
+        "error": trace.get("error"),
+    }
+
+    # 3-5. am4 — reachable, disarmed baseline, all four runner config keys present, mod version
+    code, cfg_text, cfg_err = _run_ssh(f"cat {AM4_MOD_CFG}")
+    am4_reachable = code == 0 and bool(cfg_text.strip())
+    checks["am4_reachable"] = {"ok": am4_reachable, "cfg_path": AM4_MOD_CFG,
+                               "error": None if am4_reachable else (cfg_err.strip() or "unreadable cfg")}
+    am4_baseline_ok = None
+    am4_surface_ok = None
+    arm_flags = {}
+    if am4_reachable:
+        flags = _parse_cfg_flags(cfg_text)
+        for key in _COMPOSE_CFG_SURFACE:
+            arm_flags[key] = _cfg_bool(flags, key)
+        armed = [k for k in _COMPOSE_CFG_SURFACE if arm_flags.get(k) is True]
+        am4_baseline_ok = not armed
+        missing_keys = [k for k in _COMPOSE_CFG_SURFACE if k not in flags]
+        am4_surface_ok = not missing_keys
+        checks["am4_baseline"] = {"ok": am4_baseline_ok, "flags": arm_flags,
+                                  "armed_unexpectedly": armed,
+                                  "compose_surface_present": am4_surface_ok,
+                                  "missing_keys": missing_keys}
+    else:
+        checks["am4_baseline"] = {"ok": None, "note": "am4 unreachable"}
+
+    am4_version = _grep_mod_version_am4() if am4_reachable else None
+    am4_version_ok = (bool(am4_version)
+                      and _version_tuple(am4_version) >= _version_tuple(COMPOSE_MIN_MOD_VERSION_AM4))
+    checks["am4_mod_version"] = {"ok": am4_version_ok, "am4": am4_version,
+                                 "required_min": COMPOSE_MIN_MOD_VERSION_AM4}
+
+    # 6. omen client — cfg present + injection runner surface (hard, readable at rest) +
+    #    build version from the boot log (soft; null when the client is not launched this session).
+    omen_cfg_present = NETWORK_SENSE_CFG.exists()
+    omen_surface_ok = None
+    omen_injection_at_rest = None
+    if omen_cfg_present:
+        try:
+            omen_flags = _parse_cfg_flags(
+                NETWORK_SENSE_CFG.read_text(encoding="utf-8", errors="replace"))
+        except OSError:
+            omen_flags = {}
+        omen_surface_ok = "zdoInjectionEnabled" in omen_flags
+        omen_injection_at_rest = _cfg_bool(omen_flags, "zdoInjectionEnabled")
+    omen_version = None
+    if BEPINEX_LOG.exists():
+        for ln in reversed(_tail_lines(BEPINEX_LOG, MAX_TAIL_LINES)):
+            if "ComfyNetworkSense" in ln:
+                parts = [p for p in ln.replace("[", " ").replace("]", " ").split()
+                         if p and p[0].isdigit() and "." in p]
+                if parts:
+                    omen_version = parts[-1]
+                    break
+    omen_version_ok = (bool(omen_version)
+                       and _version_tuple(omen_version) >= _version_tuple(COMPOSE_MIN_MOD_VERSION_OMEN))
+    checks["omen_client"] = {
+        "ok": bool(omen_cfg_present and omen_surface_ok),
+        "cfg_present": omen_cfg_present,
+        "injection_surface_present": omen_surface_ok,
+        "injection_armed_at_rest": omen_injection_at_rest,
+        "version": omen_version,
+        "version_ok_soft": omen_version_ok,
+        "required_min": COMPOSE_MIN_MOD_VERSION_OMEN,
+        "note": None if omen_version
+                else "client not launched this session; version unread (soft, non-blocking)",
+    }
+
+    # Hard preconditions to BEGIN the armed window: infra up + disarmed baseline + both builds
+    # carry every runner. Lumberjacks window staging + OMEN boot-version are NOT blockers.
+    hard_ok = bool(door_ok and lj_ok and am4_reachable and am4_baseline_ok
+                   and am4_surface_ok and am4_version_ok
+                   and omen_cfg_present and omen_surface_ok)
+    verdict = "preconditions_ready" if hard_ok else "not_ready"
+
+    steps = []
+    if not fronted:
+        steps.append("stage a FRONTED Lumberjacks handshake window (needs_password / ban / "
+                     "permit-list) so admission is provably Lumberjacks-decided (I5)")
+    if not redirect_staged:
+        steps.append("stage the Lumberjacks redirect window for the conifer prefab allowlist (I3)")
+    if not injection_staged:
+        steps.append("stage the Lumberjacks synthetic-fixture (e.g. Wood) injection window (I4)")
+    steps.append("arm am4: ownershipPinEnabled + zdoRedirectEnabled + handshakeResponderEnabled = "
+                 "true (tailnet endpoints http://100.124.12.37:4000 + matching window ids); restart am4")
+    steps.append("arm OMEN: zdoInjectionEnabled = true (endpoint http://127.0.0.1:4000 + window id)")
+    steps.append("take the pre-window save-integrity snapshot on a fresh idle-restart clock")
+    steps.append("DEREK: launch + join; the composed auto-route walks all four mechanisms in one window")
+    steps.append("wire-validate the composition holds (no desync/crash) + run each subsystem gate")
+
+    return {
+        "ok": True,
+        "verdict": verdict,
+        "ready_to_begin_armed_window": hard_ok,
+        "checks": checks,
+        "compose_target": {
+            "am4_arm": list(_COMPOSE_AM4_ARM_FLAGS),
+            "omen_arm": ["zdoInjectionEnabled"],
+            "env_invariant": "I6 Steam-only (CROSSPLAY=false, already set on am4)",
+        },
+        "window_steps_remaining": steps,
+        "scope": "physical_rig_preconditions_only_composition_validated_in_game",
+        "note": "preconditions_ready means the rig can BEGIN the P7/I7 armed window; it does NOT "
+                "mean the composition passed. The live gate is P7 steps 5-6 (one client in-world, "
+                "no desync/crash, world intact on reload).",
+    }
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -1965,6 +2159,7 @@ def get_tools() -> list[Callable]:
         valheim_handshake_trace,
         valheim_handshake_gate,
         valheim_handshake_preflight,
+        valheim_loopback_preflight,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]
