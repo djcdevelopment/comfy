@@ -1,0 +1,87 @@
+{
+  "timezone": "America/Los_Angeles",
+  "history_weeks_minimum": 12,
+  "recency_half_life_days": 14,
+  "recent_burst_days": 3,
+  "weights": {
+    "recency": 0.45,
+    "touch_frequency": 0.25,
+    "active_lifespan": 0.15,
+    "recent_burst": 0.15
+  },
+  "size_weight": {
+    "floor": 0.6,
+    "ceiling": 1.0
+  },
+  "exclude_prefixes": [
+    ".claude/worktrees/"
+  ],
+  "categories": [
+    {
+      "name": "Understanding and method",
+      "prefixes": ["docs/", "framework/"]
+    },
+    {
+      "name": "Data and projections",
+      "prefixes": ["data/", "recipes/", "quest_select_design/", "erasave/"]
+    },
+    {
+      "name": "Builds and handoffs",
+      "prefixes": ["handoffs/"]
+    },
+    {
+      "name": "Network research and runtime",
+      "prefixes": ["network/"]
+    },
+    {
+      "name": "Active experimental lab",
+      "prefixes": ["fieldlab/"]
+    },
+    {
+      "name": "Collaboration and export tooling",
+      "prefixes": ["discord-search-export/"]
+    },
+    {
+      "name": "Repository operations",
+      "prefixes": [".claude/", ".agents/", ".github/", "tools/", "tests/"]
+    }
+  ],
+  "eras": [
+    {
+      "id": "formation",
+      "label": "Understanding and vertical-slice formation",
+      "start": "2026-07-01",
+      "end": "2026-07-01"
+    },
+    {
+      "id": "orientation",
+      "label": "Documentation and orientation",
+      "start": "2026-07-02",
+      "end": "2026-07-02"
+    },
+    {
+      "id": "network-scaffold",
+      "label": "Network and telemetry scaffolding",
+      "start": "2026-07-03",
+      "end": "2026-07-07"
+    },
+    {
+      "id": "priority-path",
+      "label": "Collaboration and priority-path work",
+      "start": "2026-07-08",
+      "end": "2026-07-08"
+    },
+    {
+      "id": "netcode-sprint",
+      "label": "Fieldlab netcode-replacement sprint",
+      "start": "2026-07-09",
+      "end": "2026-07-10"
+    }
+  ],
+  "outputs": {
+    "json": "docs/repo-map/activity.json",
+    "markdown": "docs/repo-map/HOTSPOTS.md",
+    "svg": "docs/repo-map/activity.svg",
+    "html": "docs/repo-map/index.html"
+  }
+}

@@ -7,6 +7,33 @@
 > [fieldlab/TEST-PROGRAM.md](fieldlab/TEST-PROGRAM.md). Start sessions in `C:\work\comfy` root
 > (never a subdir — memory/MCP don't inherit on Windows).
 
+<!-- repo-activity:start -->
+## Repository activity map
+
+The map below is generated from Git history: first-seen date × last-updated date, weighted by current KB and change activity.
+
+[Explore the interactive heatmap](docs/repo-map/index.html) · [Read the hotspot report](docs/repo-map/HOTSPOTS.md) · [Inspect the raw metrics](docs/repo-map/activity.json)
+
+![GitHub-style repository activity graph](docs/repo-map/activity.svg)
+
+### Current hotspots
+
+| Area | Activity score | Files | Size KB | Start here |
+|---|---:|---:|---:|---|
+| `fieldlab` | 5492.00 | 113 | 2634.82 | [README](fieldlab/README.md) |
+| `network` | 3332.39 | 77 | 793.62 | [README](network/README.md) |
+| `handoffs` | 2279.45 | 70 | 349.44 | [README](handoffs/README.md) |
+| `docs` | 738.40 | 24 | 374.56 | [README](docs/README.md) |
+| `data` | 644.43 | 20 | 11402.26 | [README](data/README.md) |
+| `recipes` | 365.22 | 13 | 64.81 | [README](recipes/README.md) |
+| `quest_select_design` | 146.97 | 4 | 326.92 | [README](quest_select_design/README.md) |
+| `discord-search-export` | 132.47 | 3 | 20.79 | [README](discord-search-export/README.md) |
+| `framework` | 56.75 | 2 | 8.31 | [README](framework/README.md) |
+| `erasave` | 37.74 | 1 | 58.58 | [README](erasave/README.md) |
+
+Metrics snapshot: `adeecbb9674c`. Regenerate with `python tools/repo_activity.py --write`.
+<!-- repo-activity:end -->
+
 ## What this repo is
 
 This repo is not one tidy product.
