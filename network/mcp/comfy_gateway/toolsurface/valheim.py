@@ -79,6 +79,14 @@ INJECTION_APPLY_FILE = "injection-apply.jsonl"
 # localhost by default; the mod on am4 reaches the same service via the tailnet IP.
 LUMBERJACKS_URL = os.environ.get("COMFY_LUMBERJACKS_URL", "http://127.0.0.1:4000")
 SSH_TIMEOUT_S = int(os.environ.get("COMFY_SSH_TIMEOUT_S", "20"))
+# am4 mod config (BepInEx writes it beside the comfy-network-sense/ telemetry dir).
+AM4_MOD_CFG = os.environ.get(
+    "COMFY_AM4_MOD_CFG",
+    "~/comfy-valheim-lab/server-state/config/bepinex/djcdevelopment.valheim.comfynetworksense.cfg",
+)
+# The mod build that first carries the P6/I5 handshake responder surface. am4 must be at or
+# above this before the armed handshake window can arm the interceptor.
+HANDSHAKE_MIN_MOD_VERSION = os.environ.get("COMFY_HANDSHAKE_MIN_MOD_VERSION", "0.5.16")
 # Counter fields the probe emits only on an authoritative lifecycle stop/status row.
 _PROBE_COUNTER_KEYS = (
     "recv_funnel_calls", "recv_zdo_rows", "recv_parse_errors",
@@ -362,6 +370,7 @@ def valheim_mcp_health() -> dict:
             "valheim_zdo_injection_gate",
             "valheim_handshake_trace",
             "valheim_handshake_gate",
+            "valheim_handshake_preflight",
             "valheim_server_log_tail",
         ],
     }
@@ -1578,6 +1587,166 @@ def valheim_handshake_gate(window_id: str = "") -> dict:
             "status": status}
 
 
+def _parse_cfg_flags(text: str) -> dict:
+    """Parse a BepInEx `key = value` cfg body into a flat dict (last write wins, comments skipped)."""
+    flags: dict = {}
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or line.startswith("[") or "=" not in line:
+            continue
+        k, _, v = line.partition("=")
+        flags[k.strip()] = v.strip()
+    return flags
+
+
+def _cfg_bool(flags: dict, key: str) -> bool | None:
+    v = flags.get(key)
+    if v is None:
+        return None
+    return v.strip().lower() == "true"
+
+
+def _version_tuple(v: str) -> tuple:
+    try:
+        return tuple(int(p) for p in str(v).strip().split("."))
+    except ValueError:
+        return ()
+
+
+def _grep_mod_version_am4() -> str | None:
+    """Last 'Loading [ComfyNetworkSense X.Y.Z]' the am4 container logged this boot."""
+    code, out, _ = _run_ssh(
+        f"docker logs {shlex.quote(AM4_CONTAINER)} 2>&1 | grep -oE "
+        r"'ComfyNetworkSense [0-9]+\.[0-9]+\.[0-9]+' | tail -1"
+    )
+    if code == 0 and out.strip():
+        return out.strip().split()[-1]
+    return None
+
+
+def valheim_handshake_preflight(window_id: str = "") -> dict:
+    """One-call P6/I5 armed-window pre-flight (READ-ONLY): verify every precondition for
+    Derek's single live handshake window.
+
+    Distinct from valheim_handshake_gate (which proves the LOGICAL responder headlessly),
+    this checks the physical rig is ready to BEGIN the armed window:
+      - door:            this gateway serves the handshake tools;
+      - lumberjacks:     /valheim/handshake reachable AND a 'fronted' window is configured
+                         (a discriminating gate vanilla am4 lacks: needs_password / a ban /
+                         a permit-list) so the client's admission is provably Lumberjacks-decided;
+      - am4_reachable:   ssh to the dedicated server answers;
+      - am4_baseline:    observe-only/disarmed (ownershipPin + zdoRedirect + zdoInjection all false);
+      - am4_mod_version: at/above the handshake build (HANDSHAKE_MIN_MOD_VERSION);
+      - omen_client:     local mod build present.
+
+    The RPC interceptor is deliberately NOT a precondition: per the banked step-5 decision it
+    is built + wire-validated in-game at the armed window, not headlessly. Its deploy shows up
+    under window_steps_remaining, not as a pre-flight blocker. Verdict: preconditions_ready |
+    not_ready. Nothing is mutated; no server restart.
+    """
+    checks: dict = {}
+
+    # 1. door — the running gateway exposes both handshake tools (this call proves the door is up)
+    tool_names = {t.__name__ for t in get_tools()}
+    door_ok = {"valheim_handshake_trace", "valheim_handshake_gate"}.issubset(tool_names)
+    checks["door"] = {"ok": door_ok, "handshake_tools_registered": door_ok}
+
+    # 2. lumberjacks — handshake endpoint up + a fronted (discriminating) window present
+    trace = valheim_handshake_trace(window_id)
+    lj_ok = bool(trace.get("ok"))
+    windows = []
+    if lj_ok:
+        payload = trace.get("status") or {}
+        windows = payload.get("windows") or ([payload] if payload.get("window_id") else [])
+    fronted = []
+    for w in windows:
+        discriminators = []
+        if w.get("need_password"):
+            discriminators.append("needs_password")
+        if int(w.get("banned_hosts", 0) or 0) > 0:
+            discriminators.append("blacklist")
+        if int(w.get("permitted_hosts", 0) or 0) > 0:
+            discriminators.append("permit_list")
+        if discriminators:
+            fronted.append({"window_id": w.get("window_id"), "discriminators": discriminators})
+    checks["lumberjacks"] = {
+        "ok": lj_ok,
+        "windows": [w.get("window_id") for w in windows],
+        "fronted_windows": fronted,
+        "fronted_configured": bool(fronted),
+        "url": trace.get("url"),
+        "error": trace.get("error"),
+    }
+
+    # 3-5. am4 — reachable, disarmed baseline, mod version (single ssh cfg read + a version grep)
+    code, cfg_text, cfg_err = _run_ssh(f"cat {AM4_MOD_CFG}")
+    am4_reachable = code == 0 and bool(cfg_text.strip())
+    checks["am4_reachable"] = {"ok": am4_reachable, "cfg_path": AM4_MOD_CFG,
+                               "error": None if am4_reachable else (cfg_err.strip() or "unreadable cfg")}
+    baseline_ok = None
+    arm_flags = {}
+    if am4_reachable:
+        flags = _parse_cfg_flags(cfg_text)
+        for key in ("ownershipPinEnabled", "zdoRedirectEnabled", "zdoInjectionEnabled",
+                    "handshakeResponderEnabled"):
+            arm_flags[key] = _cfg_bool(flags, key)
+        armed = [k for k in ("ownershipPinEnabled", "zdoRedirectEnabled", "zdoInjectionEnabled")
+                 if arm_flags.get(k) is True]
+        baseline_ok = not armed
+        checks["am4_baseline"] = {"ok": baseline_ok, "flags": arm_flags,
+                                  "armed_unexpectedly": armed,
+                                  "handshake_surface_present": "handshakeResponderEnabled" in flags}
+    else:
+        checks["am4_baseline"] = {"ok": None, "note": "am4 unreachable"}
+
+    am4_version = _grep_mod_version_am4() if am4_reachable else None
+    version_ok = bool(am4_version) and _version_tuple(am4_version) >= _version_tuple(HANDSHAKE_MIN_MOD_VERSION)
+    checks["am4_mod_version"] = {"ok": version_ok, "am4": am4_version,
+                                 "required_min": HANDSHAKE_MIN_MOD_VERSION}
+
+    # 6. omen client — local mod build present (boot log carries the version line)
+    omen_version = None
+    if BEPINEX_LOG.exists():
+        for ln in reversed(_tail_lines(BEPINEX_LOG, MAX_TAIL_LINES)):
+            if "ComfyNetworkSense" in ln:
+                parts = [p for p in ln.replace("[", " ").replace("]", " ").split()
+                         if p and p[0].isdigit() and "." in p]
+                if parts:
+                    omen_version = parts[-1]
+                    break
+    checks["omen_client"] = {"ok": bool(omen_version), "version": omen_version,
+                             "cfg_present": NETWORK_SENSE_CFG.exists()}
+
+    # Hard preconditions to BEGIN the armed window (infra up + disarmed baseline).
+    hard_ok = bool(door_ok and lj_ok and am4_reachable and baseline_ok)
+    verdict = "preconditions_ready" if hard_ok else "not_ready"
+
+    # Things the armed window itself must still do (NOT pre-flight blockers).
+    window_steps_remaining = []
+    if not checks["lumberjacks"]["fronted_configured"]:
+        window_steps_remaining.append(
+            "configure a fronted Lumberjacks handshake window (a gate vanilla am4 lacks: "
+            "needs_password / ban / permit-list) so admission is provably Lumberjacks-decided")
+    if not version_ok:
+        window_steps_remaining.append(
+            f"deploy the handshake mod build (>= {HANDSHAKE_MIN_MOD_VERSION} + the RPC interceptor) "
+            f"to am4 (currently {am4_version or 'unknown'})")
+    window_steps_remaining.append(
+        "arm + wire-validate the RPC_ServerHandshake/RPC_PeerInfo interceptor in-game "
+        "(first real-client bytes; banked step-5 decision)")
+
+    return {
+        "ok": True,
+        "verdict": verdict,
+        "ready_to_begin_armed_window": hard_ok,
+        "checks": checks,
+        "window_steps_remaining": window_steps_remaining,
+        "scope": "physical_rig_preconditions_only_interceptor_validated_in_game",
+        "note": "preconditions_ready means the rig can BEGIN the armed window; it does NOT mean "
+                "the live handshake passed. The live gate is P6 step 6-7 (Derek in-world >=30s).",
+    }
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -1795,6 +1964,7 @@ def get_tools() -> list[Callable]:
         valheim_zdo_injection_gate,
         valheim_handshake_trace,
         valheim_handshake_gate,
+        valheim_handshake_preflight,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]
