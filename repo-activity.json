@@ -1,5 +1,7 @@
 {
   "timezone": "America/Los_Angeles",
+  "repository_url": "https://github.com/djcdevelopment/comfy",
+  "default_branch": "main",
   "history_weeks_minimum": 12,
   "recency_half_life_days": 14,
   "recent_burst_days": 3,

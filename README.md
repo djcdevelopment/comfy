@@ -20,18 +20,19 @@ The map below is generated from Git history: first-seen date × last-updated dat
 
 | Area | Activity score | Files | Size KB | Start here |
 |---|---:|---:|---:|---|
-| `fieldlab` | 5492.00 | 113 | 2634.82 | [README](fieldlab/README.md) |
-| `network` | 3332.39 | 77 | 793.62 | [README](network/README.md) |
-| `handoffs` | 2279.45 | 70 | 349.44 | [README](handoffs/README.md) |
-| `docs` | 738.40 | 24 | 374.56 | [README](docs/README.md) |
-| `data` | 644.43 | 20 | 11402.26 | [README](data/README.md) |
-| `recipes` | 365.22 | 13 | 64.81 | [README](recipes/README.md) |
-| `quest_select_design` | 146.97 | 4 | 326.92 | [README](quest_select_design/README.md) |
-| `discord-search-export` | 132.47 | 3 | 20.79 | [README](discord-search-export/README.md) |
-| `framework` | 56.75 | 2 | 8.31 | [README](framework/README.md) |
-| `erasave` | 37.74 | 1 | 58.58 | [README](erasave/README.md) |
+| `fieldlab` | 5661.81 | 113 | 2639.19 | [README](fieldlab/README.md) |
+| `network` | 3267.09 | 77 | 801.57 | [README](network/README.md) |
+| `handoffs` | 2246.15 | 70 | 349.44 | [README](handoffs/README.md) |
+| `docs` | 1025.86 | 29 | 638.55 | [README](docs/README.md) |
+| `data` | 684.75 | 21 | 11403.38 | [README](data/README.md) |
+| `recipes` | 409.04 | 14 | 66.22 | [README](recipes/README.md) |
+| `quest_select_design` | 190.70 | 5 | 327.69 | [README](quest_select_design/README.md) |
+| `discord-search-export` | 143.58 | 3 | 20.79 | [README](discord-search-export/README.md) |
+| `tools` | 119.87 | 2 | 28.50 | [README](tools/README.md) |
+| `framework` | 101.50 | 3 | 9.03 | [README](framework/README.md) |
+| `erasave` | 81.95 | 2 | 59.17 | [README](erasave/README.md) |
 
-Metrics snapshot: `adeecbb9674c`. Regenerate with `python tools/repo_activity.py --write`.
+Metrics snapshot: `9072d9a8565e`. Regenerate with `python tools/repo_activity.py --write`.
 <!-- repo-activity:end -->
 
 ## What this repo is

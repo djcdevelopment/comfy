@@ -193,6 +193,29 @@ def era_for(day: str, config: dict[str, Any]) -> str:
     return f"later-{day[:7]}"
 
 
+def report_eras(config: dict[str, Any], files: dict[str, FileActivity]) -> list[dict[str, str]]:
+    eras = [dict(era) for era in config["eras"]]
+    known = {era["id"] for era in eras}
+    later: dict[str, set[str]] = {}
+    for file in files.values():
+        for stamp in (file.created_at, file.updated_at):
+            if not stamp:
+                continue
+            day = stamp.date().isoformat()
+            era_id = era_for(day, config)
+            if era_id not in known:
+                later.setdefault(era_id, set()).add(day)
+    for era_id, days in sorted(later.items(), key=lambda item: min(item[1])):
+        month = era_id.removeprefix("later-")
+        eras.append({
+            "id": era_id,
+            "label": f"Later work ({month})",
+            "start": min(days),
+            "end": max(days),
+        })
+    return eras
+
+
 def aggregate(config: dict[str, Any], files: dict[str, FileActivity], commits: list[dict[str, Any]]) -> dict[str, Any]:
     daily: dict[str, dict[str, Any]] = {}
     for commit in commits:
@@ -224,6 +247,8 @@ def aggregate(config: dict[str, Any], files: dict[str, FileActivity], commits: l
             row["deletions"] += file.deletions
             row["active_days"].update(file.active_days)
             row["score"] += file.score
+            if target is directory:
+                row["is_directory"] = "/" in file.path
         created_era = era_for(file.created_at.date().isoformat(), config)
         updated_era = era_for(file.updated_at.date().isoformat(), config)
         cell = matrix.setdefault((created_era, updated_era), {"files": 0, "size_bytes": 0, "touches": 0, "score": 0.0})
@@ -242,9 +267,13 @@ def aggregate(config: dict[str, Any], files: dict[str, FileActivity], commits: l
             result.append(row)
         return sorted(result, key=lambda item: item["score"], reverse=True)
 
+    directories = finish(directory)
+    for row in directories:
+        candidate = f"{row['name']}/README.md"
+        row["entrypoint"] = candidate if candidate in files else None
     return {
         "daily": [{"date": day, **daily[day]} for day in sorted(daily)],
-        "directories": finish(directory),
+        "directories": directories,
         "categories": finish(category),
         "period_matrix": [
             {"created_era": key[0], "updated_era": key[1], "files": value["files"],
@@ -269,6 +298,8 @@ def serialise(config: dict[str, Any], files: dict[str, FileActivity], commits: l
         "schema_version": 1,
         "source": {
             "commit": revision,
+            "repository_url": config["repository_url"],
+            "default_branch": config["default_branch"],
             "timezone": config["timezone"],
             "first_commit_at": earliest.isoformat(),
             "last_commit_at": latest.isoformat(),
@@ -282,7 +313,7 @@ def serialise(config: dict[str, Any], files: dict[str, FileActivity], commits: l
             "recency_half_life_days": config["recency_half_life_days"],
             "recent_burst_days": config["recent_burst_days"],
         },
-        "eras": config["eras"],
+        "eras": report_eras(config, files),
         **summary,
         "files": [
             {
@@ -296,6 +327,8 @@ def serialise(config: dict[str, Any], files: dict[str, FileActivity], commits: l
                 "deletions": file.deletions,
                 "active_days": len(file.active_days),
                 "recent_touches": file.recent_touches,
+                "created_era": era_for(file.created_at.date().isoformat(), config) if file.created_at else None,
+                "updated_era": era_for(file.updated_at.date().isoformat(), config) if file.updated_at else None,
                 "hotspot_score": file.score,
             }
             for file in sorted(files.values(), key=lambda item: (-item.score, item.path))
@@ -384,25 +417,27 @@ def interactive_html(data: dict[str, Any]) -> str:
 :root{{--ink:#1f2328;--muted:#656d76;--line:#d0d7de;--panel:#f6f8fa;--hot:#216e39}}*{{box-sizing:border-box}}
 body{{max-width:1180px;margin:0 auto;padding:32px 20px;font:14px/1.5 system-ui,sans-serif;color:var(--ink)}}
 h1,h2{{line-height:1.2}}.lede{{color:var(--muted)}}.cards{{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}}
-.card,.panel{{border:1px solid var(--line);border-radius:8px;padding:16px}}.card strong{{display:block;font-size:24px}}
+.card,.panel{{border:1px solid var(--line);border-radius:8px;padding:16px}}.card strong{{display:block;font-size:24px}}.areas{{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px}}.area{{display:block;border:1px solid var(--line);border-radius:8px;padding:12px;text-decoration:none;color:var(--ink)}}.area:hover{{border-color:#0969da;background:#f6f8fa}}.area small{{display:block;color:var(--muted)}}
 .controls{{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:18px 0}}select,input{{padding:7px;border:1px solid var(--line);border-radius:6px}}
 table{{width:100%;border-collapse:collapse}}th,td{{padding:8px;border-bottom:1px solid var(--line);text-align:left}}th{{position:sticky;top:0;background:white}}
-.scroll{{max-height:520px;overflow:auto}}.matrix{{display:grid;gap:4px;align-items:stretch;overflow:auto}}.cell{{min-width:105px;min-height:76px;padding:7px;border-radius:5px;color:white}}.sizebar{{display:block;height:5px;margin-top:5px;border-radius:3px;background:rgba(255,255,255,.72)}}
+.scroll{{max-height:520px;overflow:auto}}.matrix{{display:grid;gap:4px;align-items:stretch;overflow:auto}}.cell{{min-width:105px;min-height:76px;padding:7px;border-radius:5px;color:white}}.cell.clickable{{cursor:pointer;border:0;text-align:left;font:inherit}}.cell.clickable:hover,.cell.clickable:focus{{outline:3px solid #0969da;outline-offset:-3px}}.cell.active{{outline:3px solid #24292f;outline-offset:-3px}}.sizebar{{display:block;height:5px;margin-top:5px;border-radius:3px;background:rgba(255,255,255,.72)}}
 .label{{font-size:11px;color:var(--muted);padding:5px}}code{{font-size:12px}}a{{color:#0969da}}@media(max-width:700px){{body{{padding:18px 10px}}}}
 </style></head><body>
 <h1>Comfy repository activity</h1><p class="lede" id="snapshot"></p>
 <div class="cards" id="cards"></div>
-<h2>Created × last-updated heatmap</h2><p class="lede">The bar reports log-scaled KB; color reports file touches. Hover for the full value.</p><div class="panel"><div class="matrix" id="matrix"></div></div>
-<h2>Hot files</h2><div class="controls"><label>Category <select id="category"></select></label><label>Path <input id="query" placeholder="Filter paths"></label></div>
+<h2>Repository hotspots</h2><p class="lede">Open each area's README when available, or its repository folder otherwise.</p><div class="areas" id="areas"></div>
+<h2>Created × last-updated heatmap</h2><p class="lede">The bar reports log-scaled KB; color reports file touches. Click a cell to drill into its files.</p><div class="panel"><div class="matrix" id="matrix"></div></div>
+<h2 id="hot-files">Hot files</h2><div class="controls"><label>Category <select id="category"></select></label><label>Path <input id="query" placeholder="Filter paths"></label><button id="period" hidden></button></div>
 <div class="panel scroll"><table><thead><tr><th>Path</th><th>Score</th><th>KB</th><th>First seen</th><th>Updated</th><th>Touches</th></tr></thead><tbody id="files"></tbody></table></div>
 <script>const D={payload};
-const fmt=n=>new Intl.NumberFormat().format(n);document.querySelector('#snapshot').textContent=`HEAD ${{D.source.commit.slice(0,12)}} · ${{D.source.first_commit_at.slice(0,10)}} through ${{D.source.last_commit_at.slice(0,10)}} · ${{D.source.timezone}}`;
+const fmt=n=>new Intl.NumberFormat().format(n),repo=D.source.repository_url,branch=D.source.default_branch;document.querySelector('#snapshot').textContent=`HEAD ${{D.source.commit.slice(0,12)}} · ${{D.source.first_commit_at.slice(0,10)}} through ${{D.source.last_commit_at.slice(0,10)}} · ${{D.source.timezone}}`;
 document.querySelector('#cards').innerHTML=[['Commits',D.source.commits],['Tracked files',D.source.tracked_files],['Hotspot areas',D.directories.length],['Active days',D.daily.length]].map(x=>`<div class="card"><strong>${{fmt(x[1])}}</strong>${{x[0]}}</div>`).join('');
+document.querySelector('#areas').innerHTML=D.directories.filter(x=>x.is_directory).map(x=>{{const path=x.entrypoint||x.name,url=x.entrypoint?`${{repo}}/blob/${{branch}}/${{path}}`:`${{repo}}/tree/${{branch}}/${{path}}`;return `<a class="area" href="${{url}}"><strong>${{x.name}}</strong><small>${{x.entrypoint?'Open README':'Open folder'}} · ${{x.files}} files · ${{fmt(x.size_kb)}} KB</small></a>`}}).join('');
 const eras=D.eras.map(x=>x.id), labels=Object.fromEntries(D.eras.map(x=>[x.id,x.label]));const matrix=new Map(D.period_matrix.map(x=>[x.created_era+'|'+x.updated_era,x]));const maxTouch=Math.max(...D.period_matrix.map(x=>x.touches)),maxSize=Math.max(...D.period_matrix.map(x=>x.size_kb));
 const grid=document.querySelector('#matrix');grid.style.gridTemplateColumns=`150px repeat(${{eras.length}},minmax(105px,1fr))`;grid.innerHTML='<div></div>'+eras.map(x=>`<div class="label">Updated: ${{labels[x]}}</div>`).join('');
-eras.forEach(c=>{{grid.insertAdjacentHTML('beforeend',`<div class="label">Created: ${{labels[c]}}</div>`);eras.forEach(u=>{{const x=matrix.get(c+'|'+u);if(!x){{grid.insertAdjacentHTML('beforeend','<div class="cell" style="background:#ebedf0"></div>');return}}const light=78-48*Math.sqrt(x.touches/maxTouch),size=Math.max(4,100*Math.log1p(x.size_kb)/Math.log1p(maxSize));grid.insertAdjacentHTML('beforeend',`<div class="cell" style="background:hsl(137 55% ${{light}}%)" title="${{x.files}} files; ${{x.size_kb}} KB; ${{x.touches}} touches; score ${{x.score}}"><b>${{x.files}} files</b><br>${{fmt(x.size_kb)}} KB<br>${{x.touches}} touches<span class="sizebar" style="width:${{size}}%"></span></div>`);}})}});
+eras.forEach(c=>{{grid.insertAdjacentHTML('beforeend',`<div class="label">Created: ${{labels[c]}}</div>`);eras.forEach(u=>{{const x=matrix.get(c+'|'+u);if(!x){{grid.insertAdjacentHTML('beforeend','<div class="cell" style="background:#ebedf0"></div>');return}}const light=78-48*Math.sqrt(x.touches/maxTouch),size=Math.max(4,100*Math.log1p(x.size_kb)/Math.log1p(maxSize));grid.insertAdjacentHTML('beforeend',`<button class="cell clickable" data-created="${{c}}" data-updated="${{u}}" style="background:hsl(137 55% ${{light}}%)" title="${{x.files}} files; ${{x.size_kb}} KB; ${{x.touches}} touches; score ${{x.score}}"><b>${{x.files}} files</b><br>${{fmt(x.size_kb)}} KB<br>${{x.touches}} touches<span class="sizebar" style="width:${{size}}%"></span></button>`);}})}});
 const select=document.querySelector('#category');select.innerHTML='<option value="">All categories</option>'+[...new Set(D.files.map(x=>x.category))].sort().map(x=>`<option>${{x}}</option>`).join('');
-function render(){{const cat=select.value,q=document.querySelector('#query').value.toLowerCase();document.querySelector('#files').innerHTML=D.files.filter(x=>(!cat||x.category===cat)&&x.path.toLowerCase().includes(q)).slice(0,250).map(x=>`<tr><td><code>${{x.path}}</code><br><small>${{x.category}}</small></td><td>${{x.hotspot_score}}</td><td>${{x.size_kb}}</td><td>${{x.repo_created_at?.slice(0,10)||''}}</td><td>${{x.repo_updated_at?.slice(0,10)||''}}</td><td>${{x.touches}}</td></tr>`).join('')}}select.onchange=render;document.querySelector('#query').oninput=render;render();</script>
+let activePeriod=null;const period=document.querySelector('#period');function render(){{const cat=select.value,q=document.querySelector('#query').value.toLowerCase();document.querySelector('#files').innerHTML=D.files.filter(x=>(!cat||x.category===cat)&&x.path.toLowerCase().includes(q)&&(!activePeriod||(x.created_era===activePeriod[0]&&x.updated_era===activePeriod[1]))).slice(0,250).map(x=>`<tr><td><a href="${{repo}}/blob/${{branch}}/${{x.path}}"><code>${{x.path}}</code></a><br><small>${{x.category}}</small></td><td>${{x.hotspot_score}}</td><td>${{x.size_kb}}</td><td>${{x.repo_created_at?.slice(0,10)||''}}</td><td>${{x.repo_updated_at?.slice(0,10)||''}}</td><td>${{x.touches}}</td></tr>`).join('')}}select.onchange=render;document.querySelector('#query').oninput=render;period.onclick=()=>{{activePeriod=null;period.hidden=true;document.querySelectorAll('.cell.active').forEach(x=>x.classList.remove('active'));render()}};document.querySelectorAll('.cell.clickable').forEach(cell=>cell.onclick=()=>{{document.querySelectorAll('.cell.active').forEach(x=>x.classList.remove('active'));cell.classList.add('active');activePeriod=[cell.dataset.created,cell.dataset.updated];period.textContent=`Clear period: ${{labels[activePeriod[0]]}} → ${{labels[activePeriod[1]]}}`;period.hidden=false;render();document.querySelector('#hot-files').scrollIntoView({{behavior:'smooth'}})}});render();</script>
 </body></html>'''
 
 
