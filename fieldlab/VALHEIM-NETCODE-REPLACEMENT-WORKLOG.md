@@ -399,6 +399,28 @@ stays OMEN↔am4. No deeper transport shim is needed. The hook:
   Lumberjacks*.
 - **Offload split:** integration reasoning is **frontier**; the packet scaffold is
   offloadable; verification is **operator** + me.
+- **Status (2026-07-11, mod 0.5.18): SUBSTANTIALLY PROVEN, blocked on infra (am4 OOM).**
+  All four rungs armed *simultaneously* on the live rig and passed their gates — split
+  across two windows only because the server kept getting OOM-killed mid-run:
+  - **w4:** I2 pin `held_with_negative_control` (25 pinned, 123 holds across both funnels,
+    618 pass-through) + I5 live Lumberjacks-decided ACCEPT + save-integrity delta 0; the
+    server held the **full window** with no composition-caused desync/crash.
+  - **w5** (true quit-to-desktop relaunch): I3 redirect `receipts_match_no_loss` (1983
+    conifers suppressed → Lumberjacks, missing 0, duplicates 0) + I4 injection
+    `rendered_with_lumberjacks_owner` (90 polls, ack render_confirmed, owner
+    5497853135698) + I5 ACCEPT + save-integrity delta 0; the client window completed
+    normally (probe stop + session export) before the OOM disconnect.
+  - **Root cause of every disconnect:** am4 host memory exhaustion (30 GB ~97 % used +
+    swap 100 % full, cgroup `oom_kill=9`, `OOMKilled=true`) → the kernel OOM-kills the
+    Valheim process under far-sector load, masked as `exit 0 expected`. **Not** the
+    composition. Detours ruled out first: container-updater startup-validate (fixed by
+    `supervisorctl restart valheim-server`, not `docker restart`), the `*/15` idle-validate
+    (fixed by pausing `valheim-updater`), a concurrent Codex `--yolo` agent, and a w4
+    menu-rejoin (client automation re-arms only on a full relaunch). See memory
+    `am4-host-oom-restart`.
+  - **Remaining:** one clean single-window four-for-four capture + the repeatability run —
+    blocked purely by host RAM. **Next:** migrate am4 to a GCP VM with headroom, then re-run
+    (the code is proven). Driver: `fieldlab/scripts/run-loopback-window.ps1`.
 
 Beyond I7 (explicitly out of scope for this program, noted so they aren't
 forgotten): multi-client, performance under Era16 density, the two-backend problem

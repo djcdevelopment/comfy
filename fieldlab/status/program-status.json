@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-11T02:45:12-07:00",
+    "updated": "2026-07-11T04:25:01-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,9 +8,9 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "Nothing right now - P7/I7 prep is DONE and the armed-window driver is built + its staging path is live-proven. Your next and only touchpoint is a single fresh launch+join on OMEN (~15 min) whenever you are up for it; I run one staging command first, then you join, and the composed all-flags route + gates run hands-free."
+        "Next is INFRA, not code. am4 is memory-exhausted (30GB host ~97% used, swap 100% full; the kernel OOM-killer SIGKILLed the Valheim server 9x - EVERY 'disconnect' this session was an OOM kill, NOT the composition). All four P7 rungs are PROVEN live in composition (pin, redirect, injection, handshake) with save-integrity delta 0 and no composition-caused desync; only a single-window four-for-four capture + the repeat remain, and they are blocked purely by host RAM. Plan (Derek): migrate am4 to a GCP VM with headroom, then one clean window lands P7."
     ],
-    "next_derek_touchpoint": "P7/I7 LOOPBACK INTEGRITY - the composition ('one client fully on Lumberjacks'). PREP DONE + DRIVER LIVE-PROVEN (2026-07-11). The armed window is now a 3-step flow, only step 2 is yours: (1) I run `run-loopback-window.ps1 -Stage arm -WindowId i7-live-w1` - it rebuilds+relaunches Lumberjacks, stages the fronted handshake (permit-list on your SteamID = a Lumberjacks-decided accept vanilla am4 can't express) + the synthetic-Wood injection fixture, arms am4 (pin+redirect+handshake, tailnet endpoints) + OMEN (injection), snapshots the save, and restarts am4 on a fresh idle-restart clock. (2) YOU fresh-launch Valheim (full quit+relaunch, NOT a menu rejoin - the auto-walk re-arms only on relaunch) and join wary.fool. The handshake decides admission at connect; the p7-compose route then churns the pin, floats the conifer stand (9376,544)@Y=105 for the redirect, and dwells for the injection poll - all hands-free. (3) I run `-Stage gate` - the four subsystem gates + save-integrity + client-stability + desync scan auto-evaluate. Everything is pre-validated: the composition is de-risked (every pairwise Harmony patch coexistence proven in P3/P4/P5; handshake orthogonal on RPC_PeerInfo), no rebuilds (am4 0.5.18 + OMEN 0.5.15 current), and the Lumberjacks staging path already ran green end-to-end (valheim_loopback_preflight -> preconditions_ready). Just pick the moment.",
+    "next_derek_touchpoint": "P7/I7 LOOPBACK INTEGRITY - SUBSTANTIALLY PROVEN, blocked on infra (2026-07-11, mod 0.5.18). All four rungs fired live in one composed, simultaneously-armed session and passed their gates - split across two windows only because the server kept getting OOM-killed mid-run. w4: I2 pin held_with_negative_control (25 pinned, 123 holds across both funnels, 618 pass-through) + I5 handshake Lumberjacks-decided ACCEPT + save-integrity delta 0, and the server ran the FULL window with no composition-caused desync/crash. w5 (true quit-to-desktop relaunch): I3 redirect receipts_match_no_loss (1983 conifers suppressed -> Lumberjacks, missing 0, duplicates 0) + I4 injection rendered_with_lumberjacks_owner (90 polls, rendered 1, ack render_confirmed, owner 5497853135698) + I5 ACCEPT + save-integrity delta 0; the client window completed normally (probe auto-stop + session export) BEFORE the OOM DC. ROOT CAUSE of every disconnect (finally found): am4 host memory exhaustion - MemLimit unset, host 30GB ~97% used, swap 100% full, cgroup oom_kill=9, OOMKilled=true; when the auto-walk loads the far conifer sector the server memory spikes and the kernel OOM-killer takes it (the 'Killed'/'exit 0 expected' masked it as a clean restart). Detours ruled out en route: container-updater startup-validate restart (fixed by supervisorctl restart valheim-server, not docker restart), the */15 idle-validate (fixed by pausing valheim-updater for the window), a concurrent Codex --yolo agent (stopped), and a w4 menu-rejoin that left the client run-once automation asleep (fixed by a full relaunch). REMAINING (blocked on infra): one clean single-window four-for-four capture + the repeatability run. NEXT (Derek): migrate am4 off the memory-starved host to a GCP VM with headroom, then re-run - the code is proven, the window just needs a server that won't OOM.",
     "trust": {
         "claims_total": 76,
         "confirmed": 65,
@@ -20,6 +20,10 @@
         "red_herrings_catalogued": 42,
         "rule": "Nothing after commit c196f88 (I0 map) counts without >=2 independent non-doc sources.",
         "headlines": [
+            {
+                "verdict": "good",
+                "text": "P7/I7 composition PROVEN live, blocked on infra (2026-07-11, mod 0.5.18). All four rungs armed at once and passed their gates across two windows: I2 pin held_with_negative_control (123 holds / 618 pass-through, w4), I3 redirect receipts_match_no_loss (1983 conifers, 0 loss, w5), I4 injection rendered_with_lumberjacks_owner (w5), I5 live Lumberjacks-decided ACCEPT (every window); save-integrity delta 0 throughout; no composition-caused desync/crash. Every 'disconnect' root-caused to am4 HOST OOM (oom_kill=9, 30GB host ~97% + swap full), NOT the mod - a resource ceiling. Remaining: one clean four-for-four single window + the repeat, after migrating am4 to a roomier VM."
+            },
             {
                 "verdict": "good",
                 "text": "P6/I5 CLOSED - the FIRST LIVE Lumberjacks-fronted admission (2026-07-11, mod 0.5.18). A real Valheim client held ~105s in-world past spawn via a Lumberjacks-decided ACCEPT (real AddPeer over the Steam socket), and a Lumberjacks-side ban flipped the same client to a code-8 reject that vanilla am4 would have accepted - the fronting proof. Save-integrity exact (ZDOS delta 0). Three independent streams: the interceptor's own decision log, vanilla 'New peer connected'/'Got character ZDOID', and the client 'Banned' screen. Honest scope: password/ticket delegated to vanilla (real crypto); 2 of 6 codes surfaced live, full battery is the 28/28 headless loopback."
@@ -81,8 +85,8 @@
     "infra": [
         {
             "name": "am4 valheim server",
-            "state": "up",
-            "detail": "UDP 2456-2457 | 0.5.18 DLL deployed 2026-07-11 (the P6/I5 RPC_PeerInfo handshake interceptor); am4 boot INDEPENDENTLY verified at 0.5.18 (Loading [ComfyNetworkSense 0.5.18] -> Game server connected) | ComfyEra16 (9.155M ZDOs) | back at the DISARMED observe-only baseline after the live handshake gate (ownershipPinEnabled=false + zdoRedirectEnabled=false + zdoInjectionEnabled=false + handshakeResponderEnabled=false; interceptor deployed but dormant, pure vanilla pass-through) | save-integrity exact across the armed session AND the disarm restart (ZDOS 9155594 delta 0) | handshake armed session used endpoint 100.124.12.37:4000 (tailnet) + window i5-live-w1; to re-arm: handshakeResponderEnabled=true + set the tailnet endpoint + stage a Lumberjacks window + restart | probe autostart=true/autostop=150s | silent between sessions"
+            "state": "warn",
+            "detail": "MEMORY-EXHAUSTED / OOM (2026-07-11) - the root of every P7 'clip'. Host 30GB ~97% used + swap 100% full; cgroup oom_kill=9, container OOMKilled=true, MemLimit unset. The Valheim server (8.5GB) + otel stack (grafana/jaeger/prometheus ~3GB) + ~10GB shared leave <600MB available, so a far-sector load spike gets the server OOM-killed by the kernel (masqueraded as 'exit 0 expected' clean restarts). MIGRATION PLANNED: move am4 to a GCP VM with headroom (Derek, next). Currently at the DISARMED observe-only baseline on 0.5.18 (ownershipPin/zdoRedirect/zdoInjection/handshakeResponder all false; valheim-updater resumed; save-integrity exact). UDP 2456-2457 | ComfyEra16 9.155M ZDOs | container comfy-valheim-server-am4-valheim-server-1."
         },
         {
             "name": "OMEN client",
@@ -697,8 +701,8 @@
                 {
                     "n": 1,
                     "t": "Compose I2+I3+I4+I5+I6 flags",
-                    "s": "pending",
-                    "g": "PREP DONE (2026-07-11). Composition de-risked: every pairwise Harmony patch coexistence is already proven live (observe+pin on ZDO.SetOwner/SetOwnerInternal P3; redirect(Priority.High)+probe on ZDOMan.CreateSyncList P4; injection+probe on client ZDOMan.RPC_ZDOData P5); the I5 handshake hook is on ZNet.RPC_PeerInfo - disjoint from every ZDO funnel, pre-AddPeer - so this is a simultaneous-arming integration/timing test, NOT a new patch-collision surface. No rebuilds (am4 0.5.18 + OMEN 0.5.15 both current). ONE-COMMAND DRIVER built: fieldlab/scripts/run-loopback-window.ps1 arms all four together in a single am4 cfg-write + restart (the per-rung scripts can't be chained - injection-arm disarms redirect+pin). Its Lumberjacks staging path is LIVE-PROVEN (stage-lj rehearsal: gateway rebuilt from source, permit-list handshake window + Wood injection fixture staged, preflight -> preconditions_ready). Fronting = permit-list on the OMEN SteamID; password stays delegated to vanilla (a context password would fail gate F -> code-6 reject, the 0.5.17 trap). Live arming = the armed window."
+                    "s": "done",
+                    "g": "DONE (2026-07-11, mod 0.5.18): all four rungs (I2 pin + I3 redirect + I4 injection + I5 handshake) armed SIMULTANEOUSLY on the live rig and ran together - no Harmony patch collisions, no composition-caused desync/crash (proven across live windows w4/w5). The simultaneous-arming integration test the analysis predicted would hold, did."
                 },
                 {
                     "n": 2,
@@ -709,23 +713,27 @@
                 {
                     "n": 3,
                     "t": "DEREK: connect to Lumberjacks",
-                    "s": "pending",
-                    "o": "derek"
+                    "s": "done",
+                    "o": "derek",
+                    "g": "DONE (2026-07-11): OMEN client (Durracktu) joined the am4 peer with all four armed; admission decided by Lumberjacks (permit-list ACCEPT) on every window."
                 },
                 {
                     "n": 4,
                     "t": "Auto-route: move + interact w/ authoritative object",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-11, w5 true relaunch): the p7-compose auto-walk drove all four - churned ownership for the pin, floated the ground-truthed conifer stand for the redirect (1983 conifers suppressed), and dwelt for the injection poll (synthetic Wood rendered with the Lumberjacks owner). NB requires a full quit-to-desktop relaunch: a menu rejoin (w4) leaves the run-once automation asleep so redirect+injection stay idle (client-log confirmed: one Chainloader boot, two sessions)."
                 },
                 {
                     "n": 5,
                     "t": "GATE: no desync, no crash, full window",
-                    "s": "pending"
+                    "s": "pending",
+                    "g": "COMPOSITION SIDE PROVEN; single-window capture blocked on infra. The mod caused NO desync/crash - the client held in-world and EVERY disconnect was am4 host OOM (oom_kill=9), not the composition. But a single window with all four green at once + a clean probe stop was OOM-clipped every time (w5 lost the pin stop row 7s early). Unblock: am4 needs memory headroom (GCP migration planned)."
                 },
                 {
                     "n": 6,
                     "t": "GATE: world intact on reload",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-11): save-integrity delta 0 across every armed window (w4 + w5) - ZDOS 9,155,594 exact, portals/spawned/targets/locations exact, ComfyEra16.db byte-identical. The composition writes no persisted ZDO state (pin/redirect/handshake runtime-only; injection client-only), so the world is intact on reload even across the OOM restarts."
                 },
                 {
                     "n": 7,
