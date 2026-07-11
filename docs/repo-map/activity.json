@@ -1,14 +1,14 @@
 {
   "schema_version": 1,
   "source": {
-    "commit": "c154f3ff34be62ff3879a37025fc383e9df52641",
+    "commit": "0a1f935b0ec78c36687d39317ae935e1e144248e",
     "repository_url": "https://github.com/djcdevelopment/comfy",
     "default_branch": "main",
     "timezone": "America/Los_Angeles",
     "first_commit_at": "2026-07-01T02:49:17-07:00",
-    "last_commit_at": "2026-07-11T00:44:41-07:00",
+    "last_commit_at": "2026-07-11T00:49:42-07:00",
     "tracked_files": 351,
-    "commits": 88,
+    "commits": 89,
     "timestamp_policy": "Git author time: first path appearance and most recent path change. Filesystem timestamps are excluded from public scoring."
   },
   "scoring": {
@@ -146,13 +146,13 @@
     },
     {
       "date": "2026-07-11",
-      "commits": 5,
+      "commits": 6,
       "files": 19,
-      "touches": 32,
-      "additions": 8921,
-      "deletions": 1746,
-      "weighted_kb": 110.46099862715988,
-      "activity": 124.74
+      "touches": 39,
+      "additions": 9530,
+      "deletions": 2342,
+      "weighted_kb": 141.8369683914076,
+      "activity": 157.22
     }
   ],
   "directories": [
@@ -162,7 +162,7 @@
       "additions": 27553,
       "deletions": 1837,
       "active_days": 6,
-      "score": 5660.36,
+      "score": 5659.79,
       "is_directory": true,
       "name": "fieldlab",
       "size_kb": 2639.19,
@@ -174,7 +174,7 @@
       "additions": 21485,
       "deletions": 294,
       "active_days": 7,
-      "score": 3266.18,
+      "score": 3265.85,
       "is_directory": true,
       "name": "network",
       "size_kb": 801.57,
@@ -186,7 +186,7 @@
       "additions": 9682,
       "deletions": 189,
       "active_days": 4,
-      "score": 2245.59,
+      "score": 2245.32,
       "is_directory": true,
       "name": "handoffs",
       "size_kb": 349.44,
@@ -194,14 +194,14 @@
     },
     {
       "files": 29,
-      "touches": 34,
-      "additions": 13394,
-      "deletions": 1713,
+      "touches": 38,
+      "additions": 13977,
+      "deletions": 2291,
       "active_days": 4,
-      "score": 1046.67,
+      "score": 1061.0,
       "is_directory": true,
       "name": "docs",
-      "size_kb": 701.34,
+      "size_kb": 703.96,
       "entrypoint": "docs/README.md"
     },
     {
@@ -210,7 +210,7 @@
       "additions": 9026,
       "deletions": 0,
       "active_days": 2,
-      "score": 684.56,
+      "score": 684.52,
       "is_directory": true,
       "name": "data",
       "size_kb": 11403.38,
@@ -222,7 +222,7 @@
       "additions": 1584,
       "deletions": 0,
       "active_days": 2,
-      "score": 408.94,
+      "score": 408.85,
       "is_directory": true,
       "name": "recipes",
       "size_kb": 66.22,
@@ -234,7 +234,7 @@
       "additions": 2105,
       "deletions": 0,
       "active_days": 2,
-      "score": 190.65,
+      "score": 190.64,
       "is_directory": true,
       "name": "quest_select_design",
       "size_kb": 327.69,
@@ -246,7 +246,7 @@
       "additions": 504,
       "deletions": 0,
       "active_days": 1,
-      "score": 143.56,
+      "score": 143.54,
       "is_directory": true,
       "name": "discord-search-export",
       "size_kb": 20.79,
@@ -254,14 +254,14 @@
     },
     {
       "files": 2,
-      "touches": 5,
-      "additions": 624,
-      "deletions": 14,
+      "touches": 6,
+      "additions": 634,
+      "deletions": 19,
       "active_days": 1,
-      "score": 124.52,
+      "score": 128.04,
       "is_directory": true,
       "name": "tools",
-      "size_kb": 31.99,
+      "size_kb": 34.6,
       "entrypoint": "tools/README.md"
     },
     {
@@ -270,7 +270,7 @@
       "additions": 104,
       "deletions": 0,
       "active_days": 2,
-      "score": 117.67,
+      "score": 117.66,
       "is_directory": true,
       "name": ".claude",
       "size_kb": 4.88,
@@ -278,14 +278,14 @@
     },
     {
       "files": 2,
-      "touches": 4,
-      "additions": 109,
+      "touches": 5,
+      "additions": 112,
       "deletions": 0,
       "active_days": 1,
-      "score": 106.43,
+      "score": 108.99,
       "is_directory": true,
       "name": "tests",
-      "size_kb": 4.99,
+      "size_kb": 5.13,
       "entrypoint": null
     },
     {
@@ -294,7 +294,7 @@
       "additions": 163,
       "deletions": 0,
       "active_days": 2,
-      "score": 101.47,
+      "score": 101.46,
       "is_directory": true,
       "name": "framework",
       "size_kb": 9.03,
@@ -306,7 +306,7 @@
       "additions": 630,
       "deletions": 0,
       "active_days": 2,
-      "score": 81.93,
+      "score": 81.92,
       "is_directory": true,
       "name": "erasave",
       "size_kb": 59.17,
@@ -314,9 +314,9 @@
     },
     {
       "files": 1,
-      "touches": 10,
-      "additions": 356,
-      "deletions": 119,
+      "touches": 11,
+      "additions": 369,
+      "deletions": 132,
       "active_days": 6,
       "score": 81.4,
       "is_directory": false,
@@ -342,7 +342,7 @@
       "additions": 89,
       "deletions": 0,
       "active_days": 1,
-      "score": 53.37,
+      "score": 53.36,
       "is_directory": false,
       "name": "repo-activity.json",
       "size_kb": 2.1,
@@ -354,7 +354,7 @@
       "additions": 11,
       "deletions": 0,
       "active_days": 1,
-      "score": 40.77,
+      "score": 40.76,
       "is_directory": false,
       "name": ".mcp.json",
       "size_kb": 0.18,
@@ -404,7 +404,7 @@
       "additions": 27553,
       "deletions": 1837,
       "active_days": 6,
-      "score": 5660.36,
+      "score": 5659.79,
       "name": "Active experimental lab",
       "size_kb": 2639.19
     },
@@ -414,7 +414,7 @@
       "additions": 21485,
       "deletions": 294,
       "active_days": 7,
-      "score": 3266.18,
+      "score": 3265.85,
       "name": "Network research and runtime",
       "size_kb": 801.57
     },
@@ -424,7 +424,7 @@
       "additions": 9682,
       "deletions": 189,
       "active_days": 4,
-      "score": 2245.59,
+      "score": 2245.32,
       "name": "Builds and handoffs",
       "size_kb": 349.44
     },
@@ -434,37 +434,37 @@
       "additions": 13345,
       "deletions": 0,
       "active_days": 2,
-      "score": 1366.08,
+      "score": 1365.93,
       "name": "Data and projections",
       "size_kb": 11856.46
     },
     {
       "files": 32,
-      "touches": 37,
-      "additions": 13557,
-      "deletions": 1713,
+      "touches": 41,
+      "additions": 14140,
+      "deletions": 2291,
       "active_days": 4,
-      "score": 1148.14,
+      "score": 1162.46,
       "name": "Understanding and method",
-      "size_kb": 710.37
+      "size_kb": 712.99
     },
     {
       "files": 7,
-      "touches": 12,
-      "additions": 837,
-      "deletions": 14,
+      "touches": 14,
+      "additions": 850,
+      "deletions": 19,
       "active_days": 3,
-      "score": 348.62,
+      "score": 354.69,
       "name": "Repository operations",
-      "size_kb": 41.86
+      "size_kb": 44.61
     },
     {
       "files": 7,
-      "touches": 26,
-      "additions": 711,
-      "deletions": 119,
+      "touches": 27,
+      "additions": 724,
+      "deletions": 132,
       "active_days": 8,
-      "score": 319.45,
+      "score": 319.43,
       "name": "Repository root",
       "size_kb": 16.82
     },
@@ -474,7 +474,7 @@
       "additions": 504,
       "deletions": 0,
       "active_days": 1,
-      "score": 143.56,
+      "score": 143.54,
       "name": "Collaboration and export tooling",
       "size_kb": 20.79
     }
@@ -486,14 +486,14 @@
       "files": 128,
       "size_kb": 12479.94,
       "touches": 171,
-      "score": 3893.24
+      "score": 3892.78
     },
     {
       "created_era": "formation",
       "updated_era": "later-2026-07",
       "files": 1,
       "size_kb": 8.56,
-      "touches": 10,
+      "touches": 11,
       "score": 81.4
     },
     {
@@ -516,9 +516,9 @@
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
       "files": 15,
-      "size_kb": 370.48,
-      "touches": 25,
-      "score": 831.35
+      "size_kb": 375.85,
+      "touches": 31,
+      "score": 851.8
     },
     {
       "created_era": "netcode-sprint",
@@ -526,7 +526,7 @@
       "files": 2,
       "size_kb": 101.77,
       "touches": 56,
-      "score": 175.65
+      "score": 175.64
     },
     {
       "created_era": "netcode-sprint",
@@ -534,7 +534,7 @@
       "files": 69,
       "size_kb": 2126.12,
       "touches": 102,
-      "score": 3782.1
+      "score": 3781.77
     },
     {
       "created_era": "network-scaffold",
@@ -542,7 +542,7 @@
       "files": 1,
       "size_kb": 86.86,
       "touches": 10,
-      "score": 97.97
+      "score": 97.96
     },
     {
       "created_era": "network-scaffold",
@@ -550,7 +550,7 @@
       "files": 13,
       "size_kb": 252.76,
       "touches": 98,
-      "score": 1000.44
+      "score": 1000.36
     },
     {
       "created_era": "network-scaffold",
@@ -558,7 +558,7 @@
       "files": 96,
       "size_kb": 670.6,
       "touches": 110,
-      "score": 3214.92
+      "score": 3214.51
     },
     {
       "created_era": "network-scaffold",
@@ -566,7 +566,7 @@
       "files": 5,
       "size_kb": 141.82,
       "touches": 17,
-      "score": 348.92
+      "score": 348.91
     },
     {
       "created_era": "orientation",
@@ -574,7 +574,7 @@
       "files": 1,
       "size_kb": 9.46,
       "touches": 1,
-      "score": 32.59
+      "score": 32.58
     },
     {
       "created_era": "priority-path",
@@ -582,7 +582,7 @@
       "files": 16,
       "size_kb": 171.86,
       "touches": 24,
-      "score": 843.55
+      "score": 843.45
     }
   ],
   "files": [
@@ -599,7 +599,7 @@
       "recent_touches": 3,
       "created_era": "network-scaffold",
       "updated_era": "later-2026-07",
-      "hotspot_score": 97.97
+      "hotspot_score": 97.96
     },
     {
       "path": "network/mod/ComfyNetworkSense/ComfyNetworkSense.cs",
@@ -614,7 +614,7 @@
       "recent_touches": 3,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 97.85
+      "hotspot_score": 97.84
     },
     {
       "path": "network/mod/ComfyNetworkSense/Config/PluginConfig.cs",
@@ -629,7 +629,7 @@
       "recent_touches": 3,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 92.13
+      "hotspot_score": 92.12
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/TelemetryCoordinator.cs",
@@ -674,7 +674,7 @@
       "recent_touches": 3,
       "created_era": "netcode-sprint",
       "updated_era": "later-2026-07",
-      "hotspot_score": 88.03
+      "hotspot_score": 88.02
     },
     {
       "path": "fieldlab/status/dashboard.html",
@@ -704,7 +704,7 @@
       "recent_touches": 3,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 86.98
+      "hotspot_score": 86.97
     },
     {
       "path": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md",
@@ -719,22 +719,52 @@
       "recent_touches": 2,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 84.63
+      "hotspot_score": 84.62
     },
     {
       "path": "README.md",
       "category": "Repository root",
       "size_kb": 8.56,
       "repo_created_at": "2026-07-01T02:49:17-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 10,
-      "additions": 356,
-      "deletions": 119,
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 11,
+      "additions": 369,
+      "deletions": 132,
       "active_days": 6,
       "recent_touches": 2,
       "created_era": "formation",
       "updated_era": "later-2026-07",
       "hotspot_score": 81.4
+    },
+    {
+      "path": "docs/repo-map/activity.json",
+      "category": "Understanding and method",
+      "size_kb": 174.33,
+      "repo_created_at": "2026-07-11T00:18:18-07:00",
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 3,
+      "additions": 8069,
+      "deletions": 2214,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "later-2026-07",
+      "updated_era": "later-2026-07",
+      "hotspot_score": 79.48
+    },
+    {
+      "path": "docs/repo-map/index.html",
+      "category": "Understanding and method",
+      "size_kb": 140.12,
+      "repo_created_at": "2026-07-11T00:18:18-07:00",
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 3,
+      "additions": 48,
+      "deletions": 14,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "later-2026-07",
+      "updated_era": "later-2026-07",
+      "hotspot_score": 79.48
     },
     {
       "path": "fieldlab/scripts/run-autonomous-valheim-lab.ps1",
@@ -749,7 +779,7 @@
       "recent_touches": 1,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 79.13
+      "hotspot_score": 79.12
     },
     {
       "path": "network/mod/ComfyNetworkSense/README.md",
@@ -767,34 +797,19 @@
       "hotspot_score": 78.58
     },
     {
-      "path": "docs/repo-map/activity.json",
-      "category": "Understanding and method",
-      "size_kb": 174.31,
+      "path": "tools/repo_activity.py",
+      "category": "Repository operations",
+      "size_kb": 33.4,
       "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 2,
-      "additions": 7528,
-      "deletions": 1673,
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 4,
+      "additions": 607,
+      "deletions": 18,
       "active_days": 1,
       "recent_touches": 1,
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
-      "hotspot_score": 75.44
-    },
-    {
-      "path": "docs/repo-map/index.html",
-      "category": "Understanding and method",
-      "size_kb": 137.53,
-      "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 2,
-      "additions": 37,
-      "deletions": 8,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "later-2026-07",
-      "updated_era": "later-2026-07",
-      "hotspot_score": 75.44
+      "hotspot_score": 77.26
     },
     {
       "path": "fieldlab/README.md",
@@ -809,22 +824,7 @@
       "recent_touches": 1,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 73.98
-    },
-    {
-      "path": "tools/repo_activity.py",
-      "category": "Repository operations",
-      "size_kb": 30.79,
-      "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 3,
-      "additions": 597,
-      "deletions": 13,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "later-2026-07",
-      "updated_era": "later-2026-07",
-      "hotspot_score": 73.74
+      "hotspot_score": 73.97
     },
     {
       "path": "fieldlab/NETWORKSENSE-PERF-DEBUG-PLAN.md",
@@ -884,7 +884,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 72.8
+      "hotspot_score": 72.79
     },
     {
       "path": "fieldlab/VALHEIM-LUMBERJACKS-FEASIBILITY.md",
@@ -899,7 +899,7 @@
       "recent_touches": 2,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 70.66
+      "hotspot_score": 70.65
     },
     {
       "path": "fieldlab/evidence/i3-redirect/redirect-send.jsonl",
@@ -914,7 +914,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 68.53
+      "hotspot_score": 68.52
     },
     {
       "path": "fieldlab/GROUND-TRUTH.md",
@@ -929,7 +929,7 @@
       "recent_touches": 2,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 68.39
+      "hotspot_score": 68.38
     },
     {
       "path": "fieldlab/evidence/i2-repeat/ownership-churn.jsonl",
@@ -974,7 +974,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 67.8
+      "hotspot_score": 67.79
     },
     {
       "path": "fieldlab/evidence/i2-pin/ownership-pin.jsonl",
@@ -989,7 +989,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 67.8
+      "hotspot_score": 67.79
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/ZdoRedirectRunner.cs",
@@ -1004,7 +1004,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 67.74
+      "hotspot_score": 67.73
     },
     {
       "path": "fieldlab/evidence/i2-observe/ownership-churn.jsonl",
@@ -1019,7 +1019,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 67.67
+      "hotspot_score": 67.66
     },
     {
       "path": "network/mcp/tests/test_gateway_basics.py",
@@ -1049,7 +1049,7 @@
       "recent_touches": 1,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 67.28
+      "hotspot_score": 67.27
     },
     {
       "path": ".gitignore",
@@ -1079,7 +1079,7 @@
       "recent_touches": 1,
       "created_era": "network-scaffold",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 66.02
+      "hotspot_score": 66.01
     },
     {
       "path": "fieldlab/TEST-PROGRAM.md",
@@ -1094,7 +1094,22 @@
       "recent_touches": 2,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 66.01
+      "hotspot_score": 66.0
+    },
+    {
+      "path": "docs/repo-map/activity.svg",
+      "category": "Understanding and method",
+      "size_kb": 10.11,
+      "repo_created_at": "2026-07-11T00:18:18-07:00",
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 3,
+      "additions": 100,
+      "deletions": 4,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "later-2026-07",
+      "updated_era": "later-2026-07",
+      "hotspot_score": 65.83
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/LumberjacksShadowAuthorityRunner.cs",
@@ -1124,7 +1139,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 64.99
+      "hotspot_score": 64.98
     },
     {
       "path": "fieldlab/command-plans/valheim-lumberjacks-priority-mirror.ps1",
@@ -1139,7 +1154,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 64.34
+      "hotspot_score": 64.33
     },
     {
       "path": "fieldlab/scripts/verify-netcode-probe.ps1",
@@ -1154,7 +1169,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 64.3
+      "hotspot_score": 64.29
     },
     {
       "path": "fieldlab/handoffs/HANDOFF-I1-INTERCEPTION-REACHABILITY.md",
@@ -1169,7 +1184,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 63.55
+      "hotspot_score": 63.54
     },
     {
       "path": "fieldlab/scripts/run-netcode-probe-cycle.ps1",
@@ -1202,21 +1217,6 @@
       "hotspot_score": 63.18
     },
     {
-      "path": "docs/repo-map/activity.svg",
-      "category": "Understanding and method",
-      "size_kb": 10.11,
-      "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 2,
-      "additions": 98,
-      "deletions": 2,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "later-2026-07",
-      "updated_era": "later-2026-07",
-      "hotspot_score": 62.49
-    },
-    {
       "path": "network/mod/ComfyNetworkSense/Core/Services/ZdoInjectionRunner.cs",
       "category": "Network research and runtime",
       "size_kb": 22.68,
@@ -1229,7 +1229,22 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 62.24
+      "hotspot_score": 62.23
+    },
+    {
+      "path": "tests/test_repo_activity.py",
+      "category": "Repository operations",
+      "size_kb": 3.95,
+      "repo_created_at": "2026-07-11T00:18:18-07:00",
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 4,
+      "additions": 75,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "later-2026-07",
+      "updated_era": "later-2026-07",
+      "hotspot_score": 62.08
     },
     {
       "path": "fieldlab/MULTIPLAYER-NETWORK-SETUP.md",
@@ -1274,7 +1289,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 60.92
+      "hotspot_score": 60.91
     },
     {
       "path": "fieldlab/NETCODE-OWNERSHIP-MAP.md",
@@ -1319,7 +1334,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 59.98
+      "hotspot_score": 59.97
     },
     {
       "path": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md",
@@ -1352,21 +1367,6 @@
       "hotspot_score": 59.53
     },
     {
-      "path": "tests/test_repo_activity.py",
-      "category": "Repository operations",
-      "size_kb": 3.81,
-      "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 3,
-      "additions": 72,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "later-2026-07",
-      "updated_era": "later-2026-07",
-      "hotspot_score": 59.51
-    },
-    {
       "path": "fieldlab/DECISIONS-PENDING.md",
       "category": "Active experimental lab",
       "size_kb": 2.33,
@@ -1379,7 +1379,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 59.43
+      "hotspot_score": 59.42
     },
     {
       "path": "fieldlab/handoffs/HANDOFF-QOL-TOOLING-REWIRE.md",
@@ -1395,6 +1395,21 @@
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
       "hotspot_score": 59.21
+    },
+    {
+      "path": "docs/repo-map/HOTSPOTS.md",
+      "category": "Understanding and method",
+      "size_kb": 3.36,
+      "repo_created_at": "2026-07-11T00:18:18-07:00",
+      "repo_updated_at": "2026-07-11T00:49:42-07:00",
+      "touches": 3,
+      "additions": 117,
+      "deletions": 55,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "later-2026-07",
+      "updated_era": "later-2026-07",
+      "hotspot_score": 58.78
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/OwnershipPinRunner.cs",
@@ -1424,7 +1439,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 58.38
+      "hotspot_score": 58.37
     },
     {
       "path": "fieldlab/NETCODE-HANDSHAKE-CONTRACT.md",
@@ -1469,7 +1484,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 57.13
+      "hotspot_score": 57.12
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/LumberjacksPriorityProbeRunner.cs",
@@ -1484,7 +1499,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 56.75
+      "hotspot_score": 56.74
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/MatrixCheckinRunner.cs",
@@ -1514,22 +1529,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 55.85
-    },
-    {
-      "path": "docs/repo-map/HOTSPOTS.md",
-      "category": "Understanding and method",
-      "size_kb": 3.36,
-      "repo_created_at": "2026-07-11T00:18:18-07:00",
-      "repo_updated_at": "2026-07-11T00:44:41-07:00",
-      "touches": 2,
-      "additions": 88,
-      "deletions": 26,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "later-2026-07",
-      "updated_era": "later-2026-07",
-      "hotspot_score": 55.8
+      "hotspot_score": 55.84
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/OwnershipObserveRunner.cs",
@@ -1544,7 +1544,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 55.47
+      "hotspot_score": 55.46
     },
     {
       "path": "fieldlab/evidence/i5-handshake/handshake-loopback.json",
@@ -1589,7 +1589,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 55.36
+      "hotspot_score": 55.35
     },
     {
       "path": "fieldlab/NETCODE-MAP.md",
@@ -1649,7 +1649,7 @@
       "recent_touches": 1,
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
-      "hotspot_score": 53.37
+      "hotspot_score": 53.36
     },
     {
       "path": "fieldlab/evidence/i4-injection/injection-apply.jsonl",
@@ -1664,7 +1664,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 52.98
+      "hotspot_score": 52.97
     },
     {
       "path": "fieldlab/scenarios/valheim-lumberjacks-shadow-route.yaml",
@@ -1679,7 +1679,7 @@
       "recent_touches": 1,
       "created_era": "network-scaffold",
       "updated_era": "priority-path",
-      "hotspot_score": 52.39
+      "hotspot_score": 52.38
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/ClientTelemetrySampler.cs",
@@ -1709,7 +1709,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 52.27
+      "hotspot_score": 52.26
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/LumberjacksPriorityMirrorRunner.cs",
@@ -1739,7 +1739,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 52.12
+      "hotspot_score": 52.11
     },
     {
       "path": "fieldlab/command-plans/valheim-lumberjacks-priority-gateway-plan.ps1",
@@ -1829,7 +1829,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 50.52
+      "hotspot_score": 50.51
     },
     {
       "path": "fieldlab/docs/adr/0003-server-side-mod-http-raw-socket.md",
@@ -1859,7 +1859,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 50.17
+      "hotspot_score": 50.16
     },
     {
       "path": "fieldlab/scripts/start-comfy-gateway.ps1",
@@ -1934,7 +1934,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 49.38
+      "hotspot_score": 49.37
     },
     {
       "path": "fieldlab/evidence/i6-steam-only.md",
@@ -1949,7 +1949,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 49.27
+      "hotspot_score": 49.26
     },
     {
       "path": "fieldlab/scenarios/valheim-lumberjacks-netcode-probe.yaml",
@@ -1979,7 +1979,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 48.97
+      "hotspot_score": 48.96
     },
     {
       "path": "fieldlab/docs/adr/0001-guard-setownerinternal-directly.md",
@@ -1994,7 +1994,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 48.7
+      "hotspot_score": 48.69
     },
     {
       "path": "fieldlab/evidence/i3-redirect/mod-redirect-status.json",
@@ -2009,7 +2009,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 48.63
+      "hotspot_score": 48.62
     },
     {
       "path": "fieldlab/docs/adr/0002-auto-capture-gate-selector.md",
@@ -2069,7 +2069,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 48.06
+      "hotspot_score": 48.05
     },
     {
       "path": "docs/README.md",
@@ -2099,7 +2099,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 47.67
+      "hotspot_score": 47.66
     },
     {
       "path": "recipes/README.md",
@@ -2114,7 +2114,7 @@
       "recent_touches": 1,
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
-      "hotspot_score": 47.59
+      "hotspot_score": 47.58
     },
     {
       "path": "handoffs/comfy-control-surface/bridge-consumer/bridge_consumer.py",
@@ -2129,7 +2129,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 47.56
+      "hotspot_score": 47.55
     },
     {
       "path": ".claude/skills/checkmechnet/SKILL.md",
@@ -2159,7 +2159,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 46.93
+      "hotspot_score": 46.92
     },
     {
       "path": "fieldlab/autonomous/client-init/20-comfy-valheim-autostart.sh",
@@ -2174,7 +2174,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 46.93
+      "hotspot_score": 46.92
     },
     {
       "path": "tests/test_entrypoint_links.py",
@@ -2189,7 +2189,7 @@
       "recent_touches": 1,
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
-      "hotspot_score": 46.92
+      "hotspot_score": 46.91
     },
     {
       "path": "data/README.md",
@@ -2207,21 +2207,6 @@
       "hotspot_score": 46.76
     },
     {
-      "path": "fieldlab/scenarios/valheim-lumberjacks-priority-load-order.yaml",
-      "category": "Active experimental lab",
-      "size_kb": 2.87,
-      "repo_created_at": "2026-07-08T07:31:13-07:00",
-      "repo_updated_at": "2026-07-08T07:31:13-07:00",
-      "touches": 1,
-      "additions": 62,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 1,
-      "created_era": "priority-path",
-      "updated_era": "priority-path",
-      "hotspot_score": 46.62
-    },
-    {
       "path": ".claude/skills/checkmcp/SKILL.md",
       "category": "Repository operations",
       "size_kb": 2.18,
@@ -2234,6 +2219,21 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
+      "hotspot_score": 46.61
+    },
+    {
+      "path": "fieldlab/scenarios/valheim-lumberjacks-priority-load-order.yaml",
+      "category": "Active experimental lab",
+      "size_kb": 2.87,
+      "repo_created_at": "2026-07-08T07:31:13-07:00",
+      "repo_updated_at": "2026-07-08T07:31:13-07:00",
+      "touches": 1,
+      "additions": 62,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 1,
+      "created_era": "priority-path",
+      "updated_era": "priority-path",
       "hotspot_score": 46.61
     },
     {
@@ -2324,7 +2324,7 @@
       "recent_touches": 1,
       "created_era": "later-2026-07",
       "updated_era": "later-2026-07",
-      "hotspot_score": 45.36
+      "hotspot_score": 45.35
     },
     {
       "path": "fieldlab/evidence/i4-injection/gateway-status.json",
@@ -2339,7 +2339,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 45.11
+      "hotspot_score": 45.1
     },
     {
       "path": "erasave/README.md",
@@ -2369,7 +2369,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 44.53
+      "hotspot_score": 44.52
     },
     {
       "path": "fieldlab/scenarios/valheim-lumberjacks-priority-gateway-plan.yaml",
@@ -2384,7 +2384,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 44.45
+      "hotspot_score": 44.44
     },
     {
       "path": "fieldlab/evidence/i4-injection/PROVENANCE.md",
@@ -2399,7 +2399,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 44.36
+      "hotspot_score": 44.35
     },
     {
       "path": "handoffs/comfy-control-surface/ComfyControlSurface.csproj",
@@ -2414,7 +2414,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 44.27
+      "hotspot_score": 44.26
     },
     {
       "path": "handoffs/comfy-control-surface/bridge-consumer/review_inbox.py",
@@ -2444,7 +2444,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 44.1
+      "hotspot_score": 44.09
     },
     {
       "path": "fieldlab/evidence/i4-injection/save-integrity-baseline.json",
@@ -2474,7 +2474,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 43.89
+      "hotspot_score": 43.88
     },
     {
       "path": "handoffs/REBOOT-HANDOFF.md",
@@ -2519,7 +2519,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 43.34
+      "hotspot_score": 43.33
     },
     {
       "path": "handoffs/comfy-control-surface/README.md",
@@ -2639,7 +2639,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 42.0
+      "hotspot_score": 41.99
     },
     {
       "path": "fieldlab/command-plans/valheim-lumberjacks-bridge-feasibility.ps1",
@@ -2684,7 +2684,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 41.26
+      "hotspot_score": 41.25
     },
     {
       "path": "fieldlab/command-plans/valheim-lumberjacks-shadow-authority.ps1",
@@ -2729,7 +2729,7 @@
       "recent_touches": 1,
       "created_era": "netcode-sprint",
       "updated_era": "netcode-sprint",
-      "hotspot_score": 40.77
+      "hotspot_score": 40.76
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/NetworkSensePerfProbe.cs",
@@ -2744,7 +2744,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 40.7
+      "hotspot_score": 40.69
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/LumberjacksBridgeProbe.cs",
@@ -2774,7 +2774,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 40.15
+      "hotspot_score": 40.14
     },
     {
       "path": "discord-search-export/manifest.json",
@@ -2789,7 +2789,7 @@
       "recent_touches": 1,
       "created_era": "priority-path",
       "updated_era": "priority-path",
-      "hotspot_score": 40.12
+      "hotspot_score": 40.11
     },
     {
       "path": "handoffs/comfy-control-surface/Core/ControlSurfacePanel.cs",
@@ -2849,7 +2849,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 39.63
+      "hotspot_score": 39.62
     },
     {
       "path": "fieldlab/command-plans/era16-density-pressure-matrix.ps1",
@@ -2879,7 +2879,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 38.69
+      "hotspot_score": 38.68
     },
     {
       "path": "data/processed/quest-catalog-rangers.json",
@@ -2999,7 +2999,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 38.21
+      "hotspot_score": 38.2
     },
     {
       "path": "quest_select_design/support.js",
@@ -3029,7 +3029,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 37.68
+      "hotspot_score": 37.67
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/NetworkSensePanel.cs",
@@ -3044,7 +3044,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 37.44
+      "hotspot_score": 37.43
     },
     {
       "path": "fieldlab/command-plans/lumberjacks-native-runtime-smoke.ps1",
@@ -3059,7 +3059,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 37.42
+      "hotspot_score": 37.41
     },
     {
       "path": "docs/method/conversation-extract.md",
@@ -3074,7 +3074,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 37.22
+      "hotspot_score": 37.21
     },
     {
       "path": "handoffs/comfy-control-surface/PROOF.md",
@@ -3089,7 +3089,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 37.22
+      "hotspot_score": 37.21
     },
     {
       "path": "erasave/classification.json",
@@ -3104,7 +3104,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 37.12
+      "hotspot_score": 37.11
     },
     {
       "path": "docs/comfy-base-layer-architecture-plan.md",
@@ -3134,7 +3134,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 36.89
+      "hotspot_score": 36.88
     },
     {
       "path": "network/mcp/comfy_gateway/toolsurface/matrix.py",
@@ -3179,7 +3179,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 36.02
+      "hotspot_score": 36.01
     },
     {
       "path": "fieldlab/command-plans/valheim-era16-teleport-rehearsal.ps1",
@@ -3209,7 +3209,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 35.84
+      "hotspot_score": 35.83
     },
     {
       "path": "quest_select_design/Quest Picker Discovery.dc.html",
@@ -3224,7 +3224,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 35.53
+      "hotspot_score": 35.52
     },
     {
       "path": "handoffs/comfy-control-surface/Core/WorkbenchPaths.cs",
@@ -3254,7 +3254,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 35.4
+      "hotspot_score": 35.39
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/SpawnerConnectionCache.cs",
@@ -3269,7 +3269,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 35.34
+      "hotspot_score": 35.33
     },
     {
       "path": "data/processed/weapons-economy-balance.json",
@@ -3374,7 +3374,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 34.83
+      "hotspot_score": 34.82
     },
     {
       "path": "docs/community-insights.md",
@@ -3389,7 +3389,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 34.59
+      "hotspot_score": 34.58
     },
     {
       "path": "fieldlab/scripts/set-wsl-resource-profile.ps1",
@@ -3404,7 +3404,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 34.54
+      "hotspot_score": 34.53
     },
     {
       "path": "handoffs/comfy-control-surface/Core/Commands/ControlSurfaceCommands.cs",
@@ -3419,7 +3419,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 34.53
+      "hotspot_score": 34.52
     },
     {
       "path": "network/observability-and-experiments.md",
@@ -3494,7 +3494,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 33.56
+      "hotspot_score": 33.55
     },
     {
       "path": "handoffs/comfy-control-surface/support/diagnose.ps1",
@@ -3509,7 +3509,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 33.39
+      "hotspot_score": 33.38
     },
     {
       "path": "fieldlab/command-plans/thesis-gold-progressive-enhancement.ps1",
@@ -3569,22 +3569,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 32.94
-    },
-    {
-      "path": "network/authority-negotiation-ui.md",
-      "category": "Network research and runtime",
-      "size_kb": 7.02,
-      "repo_created_at": "2026-07-03T16:49:06-07:00",
-      "repo_updated_at": "2026-07-03T16:49:06-07:00",
-      "touches": 1,
-      "additions": 239,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "network-scaffold",
-      "updated_era": "network-scaffold",
-      "hotspot_score": 32.68
+      "hotspot_score": 32.93
     },
     {
       "path": "fieldlab/autonomous/valheim-lab.compose.yml",
@@ -3594,6 +3579,21 @@
       "repo_updated_at": "2026-07-04T14:55:51-07:00",
       "touches": 1,
       "additions": 136,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "network-scaffold",
+      "updated_era": "network-scaffold",
+      "hotspot_score": 32.67
+    },
+    {
+      "path": "network/authority-negotiation-ui.md",
+      "category": "Network research and runtime",
+      "size_kb": 7.02,
+      "repo_created_at": "2026-07-03T16:49:06-07:00",
+      "repo_updated_at": "2026-07-03T16:49:06-07:00",
+      "touches": 1,
+      "additions": 239,
       "deletions": 0,
       "active_days": 1,
       "recent_touches": 0,
@@ -3614,7 +3614,7 @@
       "recent_touches": 0,
       "created_era": "orientation",
       "updated_era": "orientation",
-      "hotspot_score": 32.59
+      "hotspot_score": 32.58
     },
     {
       "path": "fieldlab/autonomous/valheim-lab.env.example",
@@ -3644,7 +3644,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 32.38
+      "hotspot_score": 32.37
     },
     {
       "path": "handoffs/comfy-control-surface/Properties/AssemblyInfo.cs",
@@ -3662,21 +3662,6 @@
       "hotspot_score": 32.29
     },
     {
-      "path": "handoffs/comfymods-inspection.md",
-      "category": "Builds and handoffs",
-      "size_kb": 14.02,
-      "repo_created_at": "2026-07-01T09:17:20-07:00",
-      "repo_updated_at": "2026-07-01T09:17:20-07:00",
-      "touches": 1,
-      "additions": 183,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "formation",
-      "updated_era": "formation",
-      "hotspot_score": 32.21
-    },
-    {
       "path": "data/raw/slayer-guild-handbook.txt",
       "category": "Data and projections",
       "size_kb": 11.26,
@@ -3684,6 +3669,21 @@
       "repo_updated_at": "2026-07-01T23:54:38-07:00",
       "touches": 1,
       "additions": 380,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "formation",
+      "updated_era": "formation",
+      "hotspot_score": 32.2
+    },
+    {
+      "path": "handoffs/comfymods-inspection.md",
+      "category": "Builds and handoffs",
+      "size_kb": 14.02,
+      "repo_created_at": "2026-07-01T09:17:20-07:00",
+      "repo_updated_at": "2026-07-01T09:17:20-07:00",
+      "touches": 1,
+      "additions": 183,
       "deletions": 0,
       "active_days": 1,
       "recent_touches": 0,
@@ -3824,7 +3824,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 31.72
+      "hotspot_score": 31.71
     },
     {
       "path": "data/reference/guild-rank-ladders.yaml",
@@ -3854,7 +3854,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 31.33
+      "hotspot_score": 31.32
     },
     {
       "path": "data/raw/new-player-sheet.csv",
@@ -3959,7 +3959,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 30.82
+      "hotspot_score": 30.81
     },
     {
       "path": "fieldlab/scenarios/thesis-gold-progressive-enhancement.yaml",
@@ -3974,7 +3974,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 30.65
+      "hotspot_score": 30.64
     },
     {
       "path": "handoffs/quest-log-retrospective.md",
@@ -4019,7 +4019,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 30.49
+      "hotspot_score": 30.48
     },
     {
       "path": "handoffs/comfy-control-surface/Config/PluginConfig.cs",
@@ -4034,7 +4034,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 30.46
+      "hotspot_score": 30.45
     },
     {
       "path": "handoffs/comfy-control-surface/Core/QuestTriggerService.cs",
@@ -4079,7 +4079,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 30.3
+      "hotspot_score": 30.29
     },
     {
       "path": "handoffs/comfy-control-surface/DESIGN-PROMPT-quest-log.md",
@@ -4094,7 +4094,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 30.19
+      "hotspot_score": 30.18
     },
     {
       "path": "fieldlab/scenarios/valheim-autonomous-lab.yaml",
@@ -4214,7 +4214,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 30.0
+      "hotspot_score": 29.99
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Services/NetworkSensePanelTheme.cs",
@@ -4229,7 +4229,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.99
+      "hotspot_score": 29.98
     },
     {
       "path": "network/mcp/comfy_gateway/kernel/ledger.py",
@@ -4244,7 +4244,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.96
+      "hotspot_score": 29.95
     },
     {
       "path": "network/mcp/comfy_gateway/toolsurface/inference.py",
@@ -4274,7 +4274,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 29.81
+      "hotspot_score": 29.8
     },
     {
       "path": "fieldlab/.claude/skills/checkmcp/SKILL.md",
@@ -4289,7 +4289,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.77
+      "hotspot_score": 29.76
     },
     {
       "path": "handoffs/comfy-control-surface/fixtures/submission.example.json",
@@ -4304,7 +4304,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 29.7
+      "hotspot_score": 29.69
     },
     {
       "path": "data/raw/discord-found-sheet.csv",
@@ -4319,7 +4319,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 29.67
+      "hotspot_score": 29.66
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Models/ClientTelemetrySample.cs",
@@ -4349,7 +4349,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.62
+      "hotspot_score": 29.61
     },
     {
       "path": "handoffs/comfy-control-surface/bridge-consumer/mikers-demo/outbox/20260701-210000-slayer-rank-thrall-demo.json",
@@ -4364,7 +4364,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 29.44
+      "hotspot_score": 29.43
     },
     {
       "path": "network/mcp/comfy_gateway/kernel/auth.py",
@@ -4379,22 +4379,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.43
-    },
-    {
-      "path": "data/raw/new-player-guide-1.txt",
-      "category": "Data and projections",
-      "size_kb": 6.24,
-      "repo_created_at": "2026-07-01T02:49:17-07:00",
-      "repo_updated_at": "2026-07-01T02:49:17-07:00",
-      "touches": 1,
-      "additions": 62,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "formation",
-      "updated_era": "formation",
-      "hotspot_score": 29.32
+      "hotspot_score": 29.42
     },
     {
       "path": "docs/tool-proposal.md",
@@ -4410,6 +4395,21 @@
       "created_era": "formation",
       "updated_era": "formation",
       "hotspot_score": 29.32
+    },
+    {
+      "path": "data/raw/new-player-guide-1.txt",
+      "category": "Data and projections",
+      "size_kb": 6.24,
+      "repo_created_at": "2026-07-01T02:49:17-07:00",
+      "repo_updated_at": "2026-07-01T02:49:17-07:00",
+      "touches": 1,
+      "additions": 62,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "formation",
+      "updated_era": "formation",
+      "hotspot_score": 29.31
     },
     {
       "path": "network/mod/ComfyNetworkSense/UI-DESIGN.md",
@@ -4439,7 +4439,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 29.27
+      "hotspot_score": 29.26
     },
     {
       "path": "handoffs/comfy-control-surface/Core/ControlAction.cs",
@@ -4484,7 +4484,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 29.09
+      "hotspot_score": 29.08
     },
     {
       "path": "handoffs/comfy-control-surface/bridge-consumer/fixtures/20260701-153012-submit-proof-7f3a.json",
@@ -4544,7 +4544,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 28.9
+      "hotspot_score": 28.89
     },
     {
       "path": "recipes/quest-catalogs/example-quest-view.json",
@@ -4559,7 +4559,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 28.9
+      "hotspot_score": 28.89
     },
     {
       "path": "handoffs/comfy-control-surface/QUEST.md",
@@ -4574,7 +4574,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 28.89
+      "hotspot_score": 28.88
     },
     {
       "path": "framework/AGENTS.md",
@@ -4619,7 +4619,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 28.72
+      "hotspot_score": 28.71
     },
     {
       "path": "handoffs/comfy-control-surface/fixtures/actions.single.json",
@@ -4724,21 +4724,6 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 28.04
-    },
-    {
-      "path": "network/mcp/TOOLS.md",
-      "category": "Network research and runtime",
-      "size_kb": 1.19,
-      "repo_created_at": "2026-07-04T01:51:03-07:00",
-      "repo_updated_at": "2026-07-04T01:51:03-07:00",
-      "touches": 1,
-      "additions": 25,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "network-scaffold",
-      "updated_era": "network-scaffold",
       "hotspot_score": 28.03
     },
     {
@@ -4757,6 +4742,21 @@
       "hotspot_score": 28.02
     },
     {
+      "path": "network/mcp/TOOLS.md",
+      "category": "Network research and runtime",
+      "size_kb": 1.19,
+      "repo_created_at": "2026-07-04T01:51:03-07:00",
+      "repo_updated_at": "2026-07-04T01:51:03-07:00",
+      "touches": 1,
+      "additions": 25,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "network-scaffold",
+      "updated_era": "network-scaffold",
+      "hotspot_score": 28.02
+    },
+    {
       "path": "recipes/quest-catalogs/validate.py",
       "category": "Data and projections",
       "size_kb": 2.78,
@@ -4769,7 +4769,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 27.92
+      "hotspot_score": 27.91
     },
     {
       "path": "handoffs/comfy-control-surface/Core/PanelTheme.cs",
@@ -4799,7 +4799,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 27.77
+      "hotspot_score": 27.76
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Models/BenchmarkResult.cs",
@@ -4889,7 +4889,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 27.54
+      "hotspot_score": 27.53
     },
     {
       "path": "docs/adoption-strategy.md",
@@ -4934,7 +4934,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 27.44
+      "hotspot_score": 27.43
     },
     {
       "path": "docs/positioning.md",
@@ -5042,21 +5042,6 @@
       "hotspot_score": 27.11
     },
     {
-      "path": "network/mod/ComfyNetworkSense/Core/Models/NetworkSenseSnapshot.cs",
-      "category": "Network research and runtime",
-      "size_kb": 0.72,
-      "repo_created_at": "2026-07-04T01:51:03-07:00",
-      "repo_updated_at": "2026-07-04T01:51:03-07:00",
-      "touches": 1,
-      "additions": 18,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "network-scaffold",
-      "updated_era": "network-scaffold",
-      "hotspot_score": 27.07
-    },
-    {
       "path": "handoffs/comfy-control-surface/Patches/PanelInputPatches.cs",
       "category": "Builds and handoffs",
       "size_kb": 1.99,
@@ -5072,6 +5057,21 @@
       "hotspot_score": 27.06
     },
     {
+      "path": "network/mod/ComfyNetworkSense/Core/Models/NetworkSenseSnapshot.cs",
+      "category": "Network research and runtime",
+      "size_kb": 0.72,
+      "repo_created_at": "2026-07-04T01:51:03-07:00",
+      "repo_updated_at": "2026-07-04T01:51:03-07:00",
+      "touches": 1,
+      "additions": 18,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "network-scaffold",
+      "updated_era": "network-scaffold",
+      "hotspot_score": 27.06
+    },
+    {
       "path": "docs/perspectives/bruce.md",
       "category": "Understanding and method",
       "size_kb": 2.79,
@@ -5084,7 +5084,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 27.03
+      "hotspot_score": 27.02
     },
     {
       "path": "fieldlab/scripts/bootstrap-lumberjacks.ps1",
@@ -5099,7 +5099,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 27.01
+      "hotspot_score": 27.0
     },
     {
       "path": "handoffs/comfy-control-surface/Core/TrackedQuest.cs",
@@ -5189,7 +5189,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.78
+      "hotspot_score": 26.77
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Models/RavenState.cs",
@@ -5204,7 +5204,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 26.61
+      "hotspot_score": 26.6
     },
     {
       "path": "docs/datasets/weapon-choices.md",
@@ -5234,7 +5234,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 26.57
+      "hotspot_score": 26.56
     },
     {
       "path": "recipes/rank-ladders/PROMPT.md",
@@ -5249,7 +5249,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.57
+      "hotspot_score": 26.56
     },
     {
       "path": "handoffs/waypoints.sample.json",
@@ -5264,7 +5264,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.53
+      "hotspot_score": 26.52
     },
     {
       "path": "recipes/rank-ladders/validate.py",
@@ -5279,7 +5279,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.48
+      "hotspot_score": 26.47
     },
     {
       "path": "network/mod/ComfyNetworkSense/Properties/AssemblyInfo.cs",
@@ -5294,7 +5294,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 26.46
+      "hotspot_score": 26.45
     },
     {
       "path": "docs/perspectives/README.md",
@@ -5324,7 +5324,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.31
+      "hotspot_score": 26.3
     },
     {
       "path": "network/mcp/.dockerignore",
@@ -5354,7 +5354,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.16
+      "hotspot_score": 26.15
     },
     {
       "path": "handoffs/comfy-control-surface/Core/TraceWriter.cs",
@@ -5369,7 +5369,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 26.15
+      "hotspot_score": 26.14
     },
     {
       "path": "network/mcp/etc/start-comfy-gateway.cmd",
@@ -5594,7 +5594,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 25.2
+      "hotspot_score": 25.19
     },
     {
       "path": "network/mcp/comfy_gateway/toolsurface/__init__.py",
@@ -5609,7 +5609,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 25.15
+      "hotspot_score": 25.14
     },
     {
       "path": "network/mcp/comfy_gateway/kernel/__init__.py",
@@ -5684,7 +5684,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 25.02
+      "hotspot_score": 25.01
     },
     {
       "path": "handoffs/comfy-control-surface/fixtures/trace.example.jsonl",
@@ -5714,7 +5714,7 @@
       "recent_touches": 0,
       "created_era": "network-scaffold",
       "updated_era": "network-scaffold",
-      "hotspot_score": 25.0
+      "hotspot_score": 24.99
     },
     {
       "path": "network/mod/ComfyNetworkSense/Core/Enums/HudDetailLevel.cs",
@@ -5744,7 +5744,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 24.98
+      "hotspot_score": 24.97
     },
     {
       "path": "handoffs/valheim-camera-proof/prepare-world-copy.ps1",
@@ -5762,21 +5762,6 @@
       "hotspot_score": 24.93
     },
     {
-      "path": "handoffs/segment-4-runner.md",
-      "category": "Builds and handoffs",
-      "size_kb": 0.81,
-      "repo_created_at": "2026-07-01T09:17:20-07:00",
-      "repo_updated_at": "2026-07-01T09:17:20-07:00",
-      "touches": 1,
-      "additions": 24,
-      "deletions": 0,
-      "active_days": 1,
-      "recent_touches": 0,
-      "created_era": "formation",
-      "updated_era": "formation",
-      "hotspot_score": 24.66
-    },
-    {
       "path": "steward-config.json",
       "category": "Repository root",
       "size_kb": 0.81,
@@ -5790,6 +5775,21 @@
       "created_era": "formation",
       "updated_era": "formation",
       "hotspot_score": 24.66
+    },
+    {
+      "path": "handoffs/segment-4-runner.md",
+      "category": "Builds and handoffs",
+      "size_kb": 0.81,
+      "repo_created_at": "2026-07-01T09:17:20-07:00",
+      "repo_updated_at": "2026-07-01T09:17:20-07:00",
+      "touches": 1,
+      "additions": 24,
+      "deletions": 0,
+      "active_days": 1,
+      "recent_touches": 0,
+      "created_era": "formation",
+      "updated_era": "formation",
+      "hotspot_score": 24.65
     },
     {
       "path": "data/processed/quest-catalog-rangers-anomalies.md",
@@ -5819,7 +5819,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 24.18
+      "hotspot_score": 24.17
     },
     {
       "path": "handoffs/comfy-control-surface/Core/AtomicFile.cs",
@@ -5849,7 +5849,7 @@
       "recent_touches": 0,
       "created_era": "formation",
       "updated_era": "formation",
-      "hotspot_score": 24.03
+      "hotspot_score": 24.02
     }
   ]
 }

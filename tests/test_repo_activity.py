@@ -53,7 +53,10 @@ class RepoActivityTests(unittest.TestCase):
         self.assertIn("Open README", rendered)
         self.assertIn("activePeriod", rendered)
         self.assertIn("buildTree", rendered)
-        self.assertIn("Expand all", rendered)
+        self.assertIn("Expand directories", rendered)
+        self.assertIn("tree-grid", rendered)
+        self.assertIn("weightHtml", rendered)
+        self.assertIn("dirUrl", rendered)
         self.assertNotIn("<table>", rendered)
 
     def test_score_rewards_recency_and_touch_frequency(self):
