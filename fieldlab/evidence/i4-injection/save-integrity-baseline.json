@@ -1,0 +1,23 @@
+{
+  "captured_utc": 1783730774.6342418,
+  "source": "derek@am4",
+  "container": "comfy-valheim-server-am4-valheim-server-1",
+  "ok": true,
+  "zdos": 9155594,
+  "portals": 4472,
+  "spawned": 85439,
+  "targets": 20255,
+  "locations": 18004,
+  "world_files": {
+    "ComfyEra16.db": {
+      "bytes": 1330070771,
+      "mtime": 1783606474
+    },
+    "ComfyEra16.fwl": {
+      "bytes": 72,
+      "mtime": 1783606446
+    }
+  },
+  "has_load_block": true,
+  "label": "i4-w6"
+}

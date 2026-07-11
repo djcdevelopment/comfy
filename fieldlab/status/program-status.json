@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T12:20:00-07:00",
+    "updated": "2026-07-10T18:55:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,14 +8,14 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "Nothing pending. P4/I3 outbound redirect gate is CLOSED (window i3-w4, receipts_match_no_loss, 1303 conifers, zero loss). Next rung is I4 (P5 inbound injection) - design-ahead work with no human touchpoint until its own capture. If a 2nd I3 repeatability window is wanted, it is one relaunch+join at any ground-truthed conifer sector (route already points at 9376,544)."
+        "Nothing pending. P5/I4 inbound injection gate is CLOSED (window i4-w6, one synthetic Wood ZDO applied/rendered with Lumberjacks owner 5497853135698, 90-poll lifecycle, save-integrity exact across server restart and client reconnect). Next rung is I5 handshake satisfaction."
     ],
-    "next_derek_touchpoint": "P4/I3 REDIRECT PASSED + CLOSED (2026-07-10 12:02 PDT, window i3-w4, mod 0.5.12): receipts_match_no_loss AUTHORITATIVE - 1303 conifer ZDOs suppressed from CreateSyncList's toSync and delivered to Lumberjacks with distinct_seq 1..1303 contiguous, missing_seq 0, duplicates 0, ack_failures 0, dropped 0; OMEN client stable; rollback rehearsal auto-disarm at 90s; save-integrity EXACT across save->reload. Took 4 windows: i3-w1 parked on an empty control stop, i3-w2 was a rejoin (no relaunch) so the run-once auto-walk never fired, i3-w3 suppressed 88 but exposed a SERVER-ONLY Mono defect (WebRequest.Create throws 'URI prefix not recognized' on the dedicated server) -> fixed with a raw TcpClient POST in 0.5.12. Target was ground-truthed from the world-save DuckDB (conifer stand at 9376,544, 6447m from spawn, floated Y=105 over y79 terrain) after telemetry proved to hold no tree data. am4 disarmed to observe-only baseline (redirect=false, pin=false, readback-confirmed), 0.5.12 loaded both sides, world verified intact. Evidence fieldlab/evidence/i3-redirect/ (redirect-send 6ed610ef, receipts 7bc6ee7c). NEXT: I4 (P5 inbound injection) is design-ahead, no human touchpoint until its capture.",
+    "next_derek_touchpoint": "P5/I4 INBOUND INJECTION PASSED + CLOSED (2026-07-10/11, window i4-w6, mod 0.5.15): the 5th behaviour-changing rung. A synthetic 'Wood' ZDO staged by the Lumberjacks gateway was polled by the OMEN client (90 polls, 0 poll errors), applied through the live RPC_ZDOData receive funnel, and rendered client-side - received 1 / applied 1 / rendered 1 / rejected 0 / duplicates 0, uid 5497853135698:1, post-apply readback owner=5497853135698 (the configured Lumberjacks authority). The one-call gate returned rendered_with_lumberjacks_owner (it requires BOTH the client injection-apply.jsonl rendered row AND a Lumberjacks rendered ack with owner-match). Injection is CLIENT-ONLY (writes nothing to the server world) so am4 stayed observe-only/disarmed. Three windows preceded it: i4-w2 a poll-parser bug (0.5.13 Mono JsonUtility) -> narrow gateway-shape parser (0.5.15); i4-w4/w5 a locally-built ZPackage passed at its write cursor (EndOfStreamException) -> SetPos(0). Honest caveats: 'rendered in-world' is client-self-reported (the gateway ack is downstream of the client's own POST, not a second independent observer), and only the arm-time save-integrity baseline snapshot is archived (the delta-0 check was tool-computed live at gate, not archived as a before/after pair; a server-side delta of 0 is expected for a client-only inject). Evidence fieldlab/evidence/i4-injection/. NEXT: I5 (P6 handshake satisfaction) - design-ahead, first human touchpoint at its own connect capture (P6 step 6).",
     "trust": {
-        "claims_total": 72,
-        "confirmed": 63,
+        "claims_total": 74,
+        "confirmed": 64,
         "refuted": 3,
-        "uncorroborated": 4,
+        "uncorroborated": 5,
         "conflicted_resolved": 2,
         "red_herrings_catalogued": 41,
         "rule": "Nothing after commit c196f88 (I0 map) counts without >=2 independent non-doc sources.",
@@ -63,6 +63,10 @@
             {
                 "verdict": "good",
                 "text": "P4/I3 outbound REDIRECT CLOSED (2026-07-10 12:02 PDT, window i3-w4, mod 0.5.12): the 3rd behaviour-changing rung. receipts_match_no_loss AUTHORITATIVE - 1303 conifer ZDOs (FirTree_small 559 + FirTree 406 + Pinetree_01 338) removed from ZDOMan.CreateSyncList's toSync before native serialization and delivered to the Lumberjacks gateway with distinct_seq 1..1303 contiguous, missing_seq 0, duplicates 0, ack_failures 0, dropped 0; client stable; rollback auto-disarm at 90s inside the 150s probe; save-integrity EXACT across save->reload (redirect writes no persisted state, same class as the I2 pin). Two hidden bugs found first: (1) the client auto-walk only re-arms on a fresh relaunch (run-once flag) so a menu rejoin runs no walk; (2) SERVER-ONLY Mono defect - WebRequest.Create throws 'The URI prefix is not recognized' on the dedicated server, so i3-w3 suppressed 88 but posted 0 and dropped them all (the live monitor's supp=0 was a disk-flush red herring; Lumberjacks receipts are the real-time truth). Fixed with a raw TcpClient POST (0.5.12). Target ground-truthed from the world-save DuckDB (9376,544 conifer stand, 6447m from spawn, floated Y=105 over y79 terrain) after telemetry proved to carry no tree data. Evidence evidence/i3-redirect/ (redirect-send 6ed610ef, receipts 7bc6ee7c)."
+            },
+            {
+                "verdict": "good",
+                "text": "P5/I4 inbound injection CLOSED (2026-07-10/11, window i4-w6, mod 0.5.15) - the 5th behaviour-changing rung. A synthetic 'Wood' ZDO staged by the Lumberjacks gateway was polled by the OMEN client (90 polls, 0 poll errors), applied through the live RPC_ZDOData receive funnel, and rendered client-side: received 1 / applied 1 / rendered 1 / rejected 0 / duplicates 0, uid 5497853135698:1, post-apply readback owner=5497853135698. The one-call gate requires BOTH the client rendered row AND the Lumberjacks rendered ack with owner-match, and returned rendered_with_lumberjacks_owner. Honest caveats kept off the 'confirmed' pile: injection is CLIENT-ONLY (nothing persists server-side, so the save delta of 0 is expected, not a strong test), 'rendered in-world' is client-self-reported (the gateway ack is downstream of the client's own POST, not an independent observer), and only the arm-time save baseline snapshot is archived (the delta-0 check ran live at gate, not as an archived before/after pair). Clean failure trail first: i4-w2 poll-parser bug (Mono JsonUtility) -> gateway-shape parser; i4-w4/w5 ZPackage read-cursor (EndOfStreamException) -> SetPos(0). Evidence fieldlab/evidence/i4-injection/ (apply-jsonl 2d4e9d19, gateway-status 5e284717, save-baseline b6d444a5)."
             }
         ]
     },
@@ -70,17 +74,17 @@
         {
             "name": "am4 valheim server",
             "state": "up",
-            "detail": "UDP 2456-2457 | mod 0.5.12 boot-verified (loads from /config/bepinex/plugins - the only container-mounted path) | ComfyEra16 (9.155M ZDOs, save-integrity exact after i3-w4 save->reload) | DISARMED observe-only baseline (ownershipPinEnabled=false + zdoRedirectEnabled=false, cfg readback confirmed after disarm restart ~19:06Z) | I3 redirect gate PASSED (i3-w4: 1303 conifers, receipts_match_no_loss) | redirect endpoint=100.124.12.37:4000 | probe autostart=true/autostop=150s | container->OMEN:4000 POST proven (raw TcpClient in 0.5.12) | silent between sessions"
+            "detail": "UDP 2456-2457 | 0.5.15 DLL staged to plugins by the I4 injection deploy (scp+restart); am4 boot last INDEPENDENTLY verified at 0.5.12 - injection is client-only so the server path is unaffected | ComfyEra16 (9.155M ZDOs; i4-w6 save-integrity baseline exact: portals 4472 / spawned 85439 / targets 20255 / locations 18004 / ZDOS 9155594) | DISARMED observe-only baseline (ownershipPinEnabled=false + zdoRedirectEnabled=false + zdoInjectionEnabled=false) | redirect/injection endpoint -> Lumberjacks 100.124.12.37:4000 | probe autostart=true/autostop=150s | container->OMEN:4000 POST proven (raw TcpClient in 0.5.12) | silent between sessions"
         },
         {
             "name": "OMEN client",
             "state": "ready",
-            "detail": "native Valheim + mod 0.5.12 in plugins (client + server version-matched; boot-verified at i3-w4 launch) | routeGodFlySafeguard on | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe ON | NB: auto-walk re-arms only on a fresh RELAUNCH (AutoRehearsalRunOncePerSession), not a menu rejoin | teleport-route.tsv supports an optional Y column for above-canopy floats"
+            "detail": "native Valheim + mod 0.5.15 in plugins (client-side ZdoInjectionRunner; boot-verified in the i4-w6 session, build_version=0.5.15) | routeGodFlySafeguard on | persona wary.fool (floooooobcakes) | coupleAutoRehearsalToNetcodeProbe ON | zdoInjectionEnabled toggled per window, off at rest (quit/relaunch clears the client-only synthetic ZDO) | NB: auto-walk re-arms only on a fresh RELAUNCH (AutoRehearsalRunOncePerSession), not a menu rejoin | teleport-route.tsv supports an optional Y column for above-canopy floats"
         },
         {
             "name": "comfy-gateway :8720",
             "state": "up",
-            "detail": "native on :8720 (healthz green), restarted this session with the P4 toolsurface: 19 valheim tools incl. 4 new redirect tools (valheim_tail_zdo_redirect / valheim_zdo_redirect_status / valheim_lumberjacks_receipts / valheim_zdo_redirect_gate). TRAP BANKED: a stale instance from 01:10 was squatting :8720 serving old code while /healthz answered ok - diff mcp_health tools vs valheim.py at bring-up (memory: comfy-gateway-stale-instance-trap)."
+            "detail": "native on :8720 (healthz green) | P4 toolsurface + 4 new P5/I4 injection tools (valheim_tail_zdo_injection / valheim_zdo_injection_status / valheim_lumberjacks_injection / valheim_zdo_injection_gate; gate verdict rendered_with_lumberjacks_owner requires BOTH a local rendered row AND a Lumberjacks rendered ack with owner-match). NB: the I4 window drove these via a DIRECT toolsurface import in run-injection-window.ps1 (bypassing the :8720 process) - the running :8720 needs a restart to expose them over MCP. TRAP BANKED: a stale instance can squat :8720 serving old code while /healthz answers ok - diff mcp_health tools vs valheim.py at bring-up (memory: comfy-gateway-stale-instance-trap)."
         },
         {
             "name": "HEARTH door :8710",
@@ -90,7 +94,7 @@
         {
             "name": "Lumberjacks gateway :4000/:4005",
             "state": "up",
-            "detail": "running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). /valheim/zdo-redirect receipts+status+reset live, smoke-tested (dup + seq-gap math exact). Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
+            "detail": "running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). /valheim/zdo-redirect receipts+status+reset AND /valheim/zdo-injection stage/next/ack/status/reset live; the I4 poll/ack lifecycle completed with zero poll errors. Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
         },
         {
             "name": "cruft",
@@ -546,58 +550,68 @@
             "id": "P5",
             "ladder": "I4",
             "title": "Inbound injection",
-            "status": "pending",
+            "status": "done",
             "human_minutes": 10,
             "steps": [
                 {
                     "n": 1,
                     "t": "HEARTH: JSON->ZPackage boilerplate; frontier hardening",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "HEARTH unavailable for this run; frontier implementation was built and verified against the live assembly."
                 },
                 {
                     "n": 2,
                     "t": "Injection applier (synthetic-tag-scoped)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "ComfyNetworkSense 0.5.15 applies a synthetic-only ZDO through RPC_ZDOData with authority/prefab/revision/position validation."
                 },
                 {
                     "n": 3,
                     "t": "Lumberjacks push endpoint (synthetic ZDO)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Lumberjacks gateway staged synthetic-wood-1; poll/ack path completed with no poll errors."
                 },
                 {
                     "n": 4,
                     "t": "MCP tools: injection status + readback",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Status and gate tooling returned authoritative lifecycle counters and owner readback."
                 },
                 {
                     "n": 5,
                     "t": "Deploy; version confirmed",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "0.5.15 built with 0 warnings/0 errors, deployed to OMEN, loaded in the verified session."
                 },
                 {
                     "n": 6,
                     "t": "Push while wary.fool in-zone (auto-route)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "i4-w6: synthetic Wood applied and rendered in-world; observed_owner=5497853135698."
                 },
                 {
                     "n": 7,
                     "t": "GATE: object renders, persists, Lumberjacks owner id",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "i4-w6 rendered the object with owner readback 5497853135698; the post-reload reconnect completed cleanly."
                 },
                 {
                     "n": 8,
                     "t": "Malformed-input battery survived",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Malformed action, out-of-envelope position, and truncated JSON fixtures rejected HTTP 400 before the live run."
                 },
                 {
                     "n": 9,
                     "t": "HARD GATE: save integrity both ways",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "PASS after dedicated-server restart and client reconnect: portals/spawned/targets/locations exact, ZDO delta 0, world files byte-identical."
                 },
                 {
                     "n": 10,
                     "t": "Repeat + packets + worklog I4 + commit",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Evidence archived to fieldlab/evidence/i4-injection; worklog and dashboard updated after post-reload gate."
                 }
             ]
         },

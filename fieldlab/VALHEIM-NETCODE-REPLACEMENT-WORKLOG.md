@@ -281,6 +281,18 @@ for a full signed packet — the standalone verifier already applies the gate.
 
 ### I4 — Inbound injection
 
+**CLOSED — 2026-07-10/11, window i4-w6, ComfyNetworkSense 0.5.15.** The Lumberjacks
+gateway staged one synthetic `Wood` ZDO and the OMEN client polled 90 times with zero
+poll errors. The command was applied through the live `RPC_ZDOData` funnel and rendered
+in-world with `observed_owner=5497853135698` (the configured Lumberjacks authority),
+with one received/applied/rendered row and zero rejects, duplicates, or pending renders.
+The first diagnostic window exposed a local-package cursor bug (`EndOfStreamException`);
+rewinding the locally built `ZPackage` with `SetPos(0)` fixed it. Malformed action,
+out-of-envelope position, and truncated JSON fixtures were rejected before the live run.
+After disarm, the dedicated server restarted and the client rejoined; save-integrity
+was exact across reload (portals 4472, spawned 85439, targets 20255, locations 18004,
+ZDO delta 0, world files byte-identical). Evidence: `fieldlab/evidence/i4-injection/`.
+
 - **Invariant:** authoritative state pushed from Lumberjacks can be injected into
   the client's ZDOMan such that the client renders it, without going through a real
   Steam peer.

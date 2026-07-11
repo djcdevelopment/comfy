@@ -30,6 +30,7 @@ obj/
 fieldlab/autonomous/state/
 fieldlab/runs/
 network/mcp/var/
+network/var/
 
 # Private, non-source analysis of miker's exported staff chat (internal only, do not commit)
 comfy-miker-analysis/
