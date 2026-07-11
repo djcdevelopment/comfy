@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-10T18:55:00-07:00",
+    "updated": "2026-07-10T20:30:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,16 +8,16 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "Nothing pending. P5/I4 inbound injection gate is CLOSED (window i4-w6, one synthetic Wood ZDO applied/rendered with Lumberjacks owner 5497853135698, 90-poll lifecycle, save-integrity exact across server restart and client reconnect). Next rung is I5 handshake satisfaction."
+        "Nothing pending. P6/I5 steps 1-4 (the headless handshake foundation) are DONE + committed: the field-by-field contract (two decompile sources agree), the Lumberjacks logical responder + no-game loopback (28/28 + HTTP green), and the MCP one-call gate (verdict handshake_satisfied). This is a LOGICAL/headless proof only - not a live AddPeer. Next headless rung is step 5 (am4 mod-side ZRpc/ZPackage shim, UNARMED). Your first touchpoint remains P6 step 6: launch + connect to the Lumberjacks-fronted peer for the real >=30s in-world gate."
     ],
-    "next_derek_touchpoint": "P5/I4 INBOUND INJECTION PASSED + CLOSED (2026-07-10/11, window i4-w6, mod 0.5.15): the 5th behaviour-changing rung. A synthetic 'Wood' ZDO staged by the Lumberjacks gateway was polled by the OMEN client (90 polls, 0 poll errors), applied through the live RPC_ZDOData receive funnel, and rendered client-side - received 1 / applied 1 / rendered 1 / rejected 0 / duplicates 0, uid 5497853135698:1, post-apply readback owner=5497853135698 (the configured Lumberjacks authority). The one-call gate returned rendered_with_lumberjacks_owner (it requires BOTH the client injection-apply.jsonl rendered row AND a Lumberjacks rendered ack with owner-match). Injection is CLIENT-ONLY (writes nothing to the server world) so am4 stayed observe-only/disarmed. Three windows preceded it: i4-w2 a poll-parser bug (0.5.13 Mono JsonUtility) -> narrow gateway-shape parser (0.5.15); i4-w4/w5 a locally-built ZPackage passed at its write cursor (EndOfStreamException) -> SetPos(0). Honest caveats: 'rendered in-world' is client-self-reported (the gateway ack is downstream of the client's own POST, not a second independent observer), and only the arm-time save-integrity baseline snapshot is archived (the delta-0 check was tool-computed live at gate, not archived as a before/after pair; a server-side delta of 0 is expected for a client-only inject). Evidence fieldlab/evidence/i4-injection/. NEXT: I5 (P6 handshake satisfaction) - design-ahead, first human touchpoint at its own connect capture (P6 step 6).",
+    "next_derek_touchpoint": "P5/I4 INBOUND INJECTION PASSED + CLOSED (2026-07-10/11, window i4-w6, mod 0.5.15): the 5th behaviour-changing rung. A synthetic 'Wood' ZDO staged by the Lumberjacks gateway was polled by the OMEN client (90 polls, 0 poll errors), applied through the live RPC_ZDOData receive funnel, and rendered client-side - received 1 / applied 1 / rendered 1 / rejected 0 / duplicates 0, uid 5497853135698:1, post-apply readback owner=5497853135698 (the configured Lumberjacks authority). The one-call gate returned rendered_with_lumberjacks_owner (it requires BOTH the client injection-apply.jsonl rendered row AND a Lumberjacks rendered ack with owner-match). Injection is CLIENT-ONLY (writes nothing to the server world) so am4 stayed observe-only/disarmed. Three windows preceded it: i4-w2 a poll-parser bug (0.5.13 Mono JsonUtility) -> narrow gateway-shape parser (0.5.15); i4-w4/w5 a locally-built ZPackage passed at its write cursor (EndOfStreamException) -> SetPos(0). Honest caveats: 'rendered in-world' is client-self-reported (the gateway ack is downstream of the client's own POST, not a second independent observer), and only the arm-time save-integrity baseline snapshot is archived (the delta-0 check was tool-computed live at gate, not archived as a before/after pair; a server-side delta of 0 is expected for a client-only inject). Evidence fieldlab/evidence/i4-injection/. UPDATE 2026-07-10 eve: P6/I5 steps 1-4 DONE (headless) - handshake contract (two decompile sources agree: I0 map + fresh ZNet 0.221.12 re-decompile, netver 36, gate 3/8/8/9/6/7), Lumberjacks logical responder (Lumberjacks 935095b) + no-game loopback (28/28 xUnit + HTTP green vs live gateway), MCP one-call gate valheim_handshake_gate=handshake_satisfied (comfy 56e5178). SCOPE: this is a LOGICAL/headless decision proof only, NOT a live AddPeer. Step 5 (am4 mod-side ZRpc/ZPackage shim, Steam-only, UNARMED) is the next headless rung; the REAL handshake gate (client in-world >=30s vs the Lumberjacks-fronted peer) is P6 step 6-7 - Derek's first touchpoint, still pending.",
     "trust": {
-        "claims_total": 74,
-        "confirmed": 64,
+        "claims_total": 76,
+        "confirmed": 65,
         "refuted": 3,
-        "uncorroborated": 5,
+        "uncorroborated": 6,
         "conflicted_resolved": 2,
-        "red_herrings_catalogued": 41,
+        "red_herrings_catalogued": 42,
         "rule": "Nothing after commit c196f88 (I0 map) counts without >=2 independent non-doc sources.",
         "headlines": [
             {
@@ -67,6 +67,10 @@
             {
                 "verdict": "good",
                 "text": "P5/I4 inbound injection CLOSED (2026-07-10/11, window i4-w6, mod 0.5.15) - the 5th behaviour-changing rung. A synthetic 'Wood' ZDO staged by the Lumberjacks gateway was polled by the OMEN client (90 polls, 0 poll errors), applied through the live RPC_ZDOData receive funnel, and rendered client-side: received 1 / applied 1 / rendered 1 / rejected 0 / duplicates 0, uid 5497853135698:1, post-apply readback owner=5497853135698. The one-call gate requires BOTH the client rendered row AND the Lumberjacks rendered ack with owner-match, and returned rendered_with_lumberjacks_owner. Honest caveats kept off the 'confirmed' pile: injection is CLIENT-ONLY (nothing persists server-side, so the save delta of 0 is expected, not a strong test), 'rendered in-world' is client-self-reported (the gateway ack is downstream of the client's own POST, not an independent observer), and only the arm-time save baseline snapshot is archived (the delta-0 check ran live at gate, not as an archived before/after pair). Clean failure trail first: i4-w2 poll-parser bug (Mono JsonUtility) -> gateway-shape parser; i4-w4/w5 ZPackage read-cursor (EndOfStreamException) -> SetPos(0). Evidence fieldlab/evidence/i4-injection/ (apply-jsonl 2d4e9d19, gateway-status 5e284717, save-baseline b6d444a5)."
+            },
+            {
+                "verdict": "good",
+                "text": "P6/I5 steps 1-4 built + verified HEADLESS (2026-07-10 eve): the Lumberjacks handshake responder replicates Funnel 5's ordered connection gate, proven in a no-game loopback - 28/28 xUnit + HTTP driver green vs the live gateway, verdict handshake_satisfied requiring all SIX distinct gate-check labels (both code-8 cases, blacklist vs ticket, kept distinct). Contract grounded in TWO decompile sources (I0 map + fresh ZNet 0.221.12 re-decompile; netver 36, gate 3/8/8/9/6/7, max-players literal 10). HONEST SCOPE: a LOGICAL decision proof (scope=logical_headless_no_live_addpeer), NOT a live Valheim AddPeer - the real client-in-world >=30s gate against the Lumberjacks-fronted peer is P6 step 6-7, still pending (Derek's first touchpoint). Reviewed cross-check by a second agent hardened the naming/gate/version-path before commit. Commits comfy 56e5178 + Lumberjacks 935095b; evidence i5-handshake/ sha256 d705e346."
             }
         ]
     },
@@ -84,7 +88,7 @@
         {
             "name": "comfy-gateway :8720",
             "state": "up",
-            "detail": "native on :8720 (healthz green) | P4 toolsurface + 4 new P5/I4 injection tools (valheim_tail_zdo_injection / valheim_zdo_injection_status / valheim_lumberjacks_injection / valheim_zdo_injection_gate; gate verdict rendered_with_lumberjacks_owner requires BOTH a local rendered row AND a Lumberjacks rendered ack with owner-match). NB: the I4 window drove these via a DIRECT toolsurface import in run-injection-window.ps1 (bypassing the :8720 process) - the running :8720 needs a restart to expose them over MCP. TRAP BANKED: a stale instance can squat :8720 serving old code while /healthz answers ok - diff mcp_health tools vs valheim.py at bring-up (memory: comfy-gateway-stale-instance-trap)."
+            "detail": "native on :8720 (healthz green) | P4 toolsurface + 4 P5/I4 injection tools + 2 P6/I5 handshake tools (valheim_handshake_trace / valheim_handshake_gate; gate verdict handshake_satisfied requires a logical steady-state accept AND all six distinct gate-check labels, scope=logical_headless_no_live_addpeer). NB: verified via a DIRECT toolsurface import (bypassing the :8720 process) - the running :8720 needs a restart to expose the new tools over MCP. TRAP BANKED: a stale instance can squat :8720 serving old code while /healthz answers ok - diff mcp_health tools vs valheim.py at bring-up (memory: comfy-gateway-stale-instance-trap)."
         },
         {
             "name": "HEARTH door :8710",
@@ -94,7 +98,7 @@
         {
             "name": "Lumberjacks gateway :4000/:4005",
             "state": "up",
-            "detail": "running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). /valheim/zdo-redirect receipts+status+reset AND /valheim/zdo-injection stage/next/ack/status/reset live; the I4 poll/ack lifecycle completed with zero poll errors. Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
+            "detail": "running via fieldlab/scripts/start-lumberjacks-gateway.ps1 (0.0.0.0:4000 bind REQUIRED - appsettings defaults to localhost-only). /valheim/zdo-redirect + /valheim/zdo-injection live, AND NEW /valheim/handshake (config/begin/peerinfo/status/reset) - the P6/I5 responder. Rebuilt + restarted from source (Lumberjacks 935095b); JSON is snake_case. Reachable from the am4 server CONTAINER over tailnet (verified). Postgres optional (warning ok)."
         },
         {
             "name": "cruft",
@@ -625,27 +629,32 @@
                 {
                     "n": 1,
                     "t": "HEARTH: field-by-field handshake checklist",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "Contract NETCODE-HANDSHAKE-CONTRACT.md/.json (comfy 56e5178): Funnel 5 formalized field-by-field + ordered gate (36->Err3 / blacklist->8 / ticket->8 / full(>=10)->9 / password->6 / dup->7). TWO decompile sources agree (I0 map + fresh ZNet re-decompile, build 0.221.12, Version.m_networkVersion=36u); full ConnectionStatus enum captured + literal max-players 10 (the c_NetworkVersionMaxPlayerCount=35 const is a catalogued red herring)."
                 },
                 {
                     "n": 2,
                     "t": "Lumberjacks handshake responder (protocol 36)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "ValheimHandshakeService (Lumberjacks 935095b): logical responder - ServerHandshake=>ClientHandshake(needPassword,salt); PeerInfo=>ordered gate then accept+server-PeerInfo or reject+ConnectionStatus code. Mod owns ZPackage bytes, gateway owns logic (I3/I4 precedent). Built clean, DI-wired, endpoints /valheim/handshake/{config,begin,peerinfo,status,reset} live."
                 },
                 {
                     "n": 3,
                     "t": "Loopback shim harness (no game)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "ValheimHandshakeServiceTests + run-handshake-loopback.py: no-game proof - happy path->logical steady-state, full ordered failure battery (BOTH code-8 cases distinct), earliest-failure ordering, accept-then-dup, pre-0.214.301 version shim, malformed fail-closed. xUnit full suite 28/28; HTTP loopback green vs the live rebuilt gateway. Evidence evidence/i5-handshake/ sha256 d705e346."
                 },
                 {
                     "n": 4,
-                    "t": "MCP: handshake trace tail",
-                    "s": "pending"
+                    "t": "MCP: handshake trace tail + one-call gate",
+                    "s": "done",
+                    "g": "valheim_handshake_trace + valheim_handshake_gate (comfy 56e5178): verdict handshake_satisfied requires a logical steady-state accept AND all six DISTINCT gate-check labels (distinguishes blacklist vs ticket, both code 8, which a codes-only check merges); reports scope=logical_headless_no_live_addpeer. Registered in get_tools+valheim_mcp_health; returned handshake_satisfied vs the live loopback window. NB running :8720 needs a restart to expose over MCP (verified via direct import; stale-instance trap)."
                 },
                 {
                     "n": 5,
                     "t": "Stage client connect path (Steam-only)",
-                    "s": "pending"
+                    "s": "pending",
+                    "g": "NEXT (headless): am4 mod-side ZRpc/ZPackage handshake shim - Steam-only (I6), rollback-flagged, UNARMED by default, grounded on the 0.221.12 assembly. Hooks RPC_ServerHandshake@727 + RPC_PeerInfo@818, delegates decisions to the Lumberjacks responder, reads a PeerInfo CLONE (SetPos(0) lesson banked from i4). Architecture resolved: ZSteamSocket cannot be Lumberjacks-terminated, so mod-mediation is the only faithful 'fronted' reading (matches I3/I4) - no deeper transport shim needed. Wire decode gets first real-client validation at Derek's launch (step 6)."
                 },
                 {
                     "n": 6,
