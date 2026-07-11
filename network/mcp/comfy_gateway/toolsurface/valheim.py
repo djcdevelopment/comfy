@@ -360,6 +360,8 @@ def valheim_mcp_health() -> dict:
             "valheim_zdo_injection_status",
             "valheim_lumberjacks_injection",
             "valheim_zdo_injection_gate",
+            "valheim_handshake_trace",
+            "valheim_handshake_gate",
             "valheim_server_log_tail",
         ],
     }
@@ -1488,6 +1490,94 @@ def valheim_zdo_injection_gate(window_id: str = "") -> dict:
             "mod": mod, "gateway": gateway}
 
 
+# --- P6/I5 handshake responder ---------------------------------------------------------
+# The Lumberjacks handshake responder replicates Funnel 5's ordered connection gate
+# (fieldlab/NETCODE-HANDSHAKE-CONTRACT.md). These tools read its per-window trace and
+# compute the one-call gate verdict. The mod (P6 step 5) owns the ZPackage bytes; the
+# responder answers the two logical decisions (ClientHandshake args; accept-or-reject).
+
+# The failure-battery CHECKS a satisfied handshake window must have exercised, by their
+# distinct gate label - this is stricter than counting error codes because blacklist and
+# bad-steam-ticket share code 8 (ErrorBanned) and would otherwise be indistinguishable.
+_HANDSHAKE_BATTERY_CHECKS = {"version", "blacklist", "ticket", "full", "password", "duplicate"}
+
+
+def valheim_handshake_trace(window_id: str = "") -> dict:
+    """Read the Lumberjacks P6/I5 handshake exchange trace + gate counters for a window.
+
+    Omit window_id to list every window; pass one to read that window's record.
+    """
+    window_id = str(window_id or "").strip()
+    url = LUMBERJACKS_URL.rstrip("/") + "/valheim/handshake/status"
+    if window_id:
+        url += "/" + urllib.parse.quote(window_id, safe="")
+    try:
+        with urllib.request.urlopen(url, timeout=10) as response:
+            payload = json.loads(response.read().decode("utf-8", "replace"))
+    except (urllib.error.URLError, json.JSONDecodeError, TimeoutError) as error:
+        return {"ok": False, "url": url, "error": str(error),
+                "hint": "Is the Lumberjacks gateway up with the handshake endpoints? "
+                        "Rebuild + relaunch src/Game.Gateway (--urls http://0.0.0.0:4000)."}
+    return {"ok": True, "url": url, "window_id": window_id, "status": payload}
+
+
+def valheim_handshake_gate(window_id: str = "") -> dict:
+    """One-call P6/I5 gate: a window is handshake_satisfied when the happy path reached the
+    steady-state transition AND the full ordered failure battery surfaced the exact codes."""
+    trace = valheim_handshake_trace(window_id)
+    if not trace.get("ok"):
+        return {"ok": False, "verdict": "inconclusive", "trace": trace}
+
+    payload = trace.get("status") or {}
+    # Resolve to a single window record: /status/{id} returns one; /status returns {windows:[...]}.
+    # The gateway serializes snake_case.
+    if "windows" in payload:
+        windows = payload.get("windows") or []
+        if len(windows) != 1:
+            return {"ok": False, "verdict": "inconclusive",
+                    "error": f"expected exactly one window, found {len(windows)}; pass window_id",
+                    "windows": [w.get("window_id", "") for w in windows]}
+        status = windows[0]
+    else:
+        status = payload
+
+    resolved = str(status.get("window_id") or window_id)
+    accepted = int(status.get("accepted", 0))
+    steady = int(status.get("steady_state_reached", 0))
+    rejected = int(status.get("rejected", 0))
+    by_code = status.get("by_code", {}) or {}
+    exchanges = status.get("exchanges", []) or []
+
+    # Coverage is verified by DISTINCT gate-check label (from the exchange trace), which
+    # distinguishes the two code-8 cases (blacklist vs ticket) that a codes-only check merges.
+    failed_checks = {str(e.get("failed_check")) for e in exchanges
+                     if not e.get("accept") and e.get("failed_check")}
+    missing_checks = sorted(_HANDSHAKE_BATTERY_CHECKS - failed_checks)
+
+    accept_ok = steady >= 1
+    battery_ok = _HANDSHAKE_BATTERY_CHECKS.issubset(failed_checks)
+    if accept_ok and battery_ok:
+        verdict = "handshake_satisfied"
+    elif accept_ok:
+        verdict = "accept_only"
+    elif rejected:
+        verdict = "reject_only"
+    else:
+        verdict = "pending"
+
+    return {"ok": True, "verdict": verdict, "window_id": resolved,
+            "accepted": accepted, "logical_steady_state_reached": steady, "rejected": rejected,
+            "battery_checks_present": sorted(failed_checks),
+            "battery_checks_missing": missing_checks,
+            "by_code": {str(k): v for k, v in by_code.items()},
+            # HONESTY: this is a LOGICAL/headless decision proof only. steady-state here means
+            # the responder's gate accepted and would drive AddPeer - it is NOT an observation of
+            # a real Valheim ZDOMan.AddPeer / in-world peer. The live gate is P6 step 6-7 (Derek
+            # connects in-game; >=30s in-world). See fieldlab/NETCODE-HANDSHAKE-CONTRACT.md.
+            "scope": "logical_headless_no_live_addpeer",
+            "status": status}
+
+
 def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     """Tail the am4 dedicated-server container logs (join/peer/probe lifecycle lines).
 
@@ -1703,6 +1793,8 @@ def get_tools() -> list[Callable]:
         valheim_zdo_injection_status,
         valheim_lumberjacks_injection,
         valheim_zdo_injection_gate,
+        valheim_handshake_trace,
+        valheim_handshake_gate,
         valheim_server_log_tail,
         valheim_save_integrity,
     ]

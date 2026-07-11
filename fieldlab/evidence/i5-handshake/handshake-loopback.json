@@ -1,0 +1,308 @@
+{
+  "utc": "2026-07-11T03:41:13.617443+00:00",
+  "window": "i5-loopback",
+  "base": "http://127.0.0.1:4000",
+  "verdict": "handshake_satisfied",
+  "steady_state": 1,
+  "by_code": {
+    "3": 1,
+    "8": 2,
+    "9": 1,
+    "6": 1,
+    "7": 1
+  },
+  "battery_present": [
+    "3",
+    "6",
+    "7",
+    "8",
+    "9"
+  ],
+  "log": [
+    {
+      "step": "reset",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback",
+        "reset": false
+      }
+    },
+    {
+      "step": "config:default",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "begin:happy",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback",
+        "connection_id": "conn-happy",
+        "client_handshake": {
+          "need_password": false,
+          "salt": "",
+          "network_version": 36
+        }
+      }
+    },
+    {
+      "step": "peerinfo:happy",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "conn-happy",
+        "gate": {
+          "accept": true,
+          "enters_steady_state": true,
+          "error_code": null,
+          "error_name": null,
+          "failed_check": null,
+          "server_peer_info": {
+            "uid": 1,
+            "version": "0.221.12",
+            "net_version": 36,
+            "world_name": "ComfyEra16",
+            "seed": 0,
+            "seed_name": "",
+            "world_uid": 0,
+            "world_gen_version": 0,
+            "net_time": 0
+          }
+        }
+      }
+    },
+    {
+      "step": "peerinfo:bad-version",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-ver",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 3,
+          "error_name": "ErrorVersion",
+          "failed_check": "version",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "config:banned",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "peerinfo:banned",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-ban",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 8,
+          "error_name": "ErrorBanned",
+          "failed_check": "blacklist",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "config:default2",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "peerinfo:bad-ticket",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-tkt",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 8,
+          "error_name": "ErrorBanned",
+          "failed_check": "ticket",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "config:full",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "peerinfo:full",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-full",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 9,
+          "error_name": "ErrorFull",
+          "failed_check": "full",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "config:password",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "peerinfo:bad-password",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-pw",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 6,
+          "error_name": "ErrorPassword",
+          "failed_check": "password",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "config:dup",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "window_id": "i5-loopback"
+      }
+    },
+    {
+      "step": "peerinfo:duplicate",
+      "http": 200,
+      "response": {
+        "ok": true,
+        "connection_id": "c-dup",
+        "gate": {
+          "accept": false,
+          "enters_steady_state": false,
+          "error_code": 7,
+          "error_name": "ErrorAlreadyConnected",
+          "failed_check": "duplicate",
+          "server_peer_info": null
+        }
+      }
+    },
+    {
+      "step": "status",
+      "http": 200,
+      "response": {
+        "window_id": "i5-loopback",
+        "network_version": 36,
+        "need_password": false,
+        "max_players": 10,
+        "current_players": 0,
+        "require_steam_ticket": true,
+        "banned_hosts": 0,
+        "permitted_hosts": 0,
+        "begins": 1,
+        "accepted": 1,
+        "rejected": 6,
+        "steady_state_reached": 1,
+        "by_code": {
+          "3": 1,
+          "8": 2,
+          "9": 1,
+          "6": 1,
+          "7": 1
+        },
+        "exchanges": [
+          {
+            "connection_id": "conn-happy",
+            "accept": true,
+            "entered_steady_state": true,
+            "error_code": null,
+            "error_name": null,
+            "failed_check": null,
+            "utc": "2026-07-11T03:41:13.4413872Z"
+          },
+          {
+            "connection_id": "c-ver",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 3,
+            "error_name": "ErrorVersion",
+            "failed_check": "version",
+            "utc": "2026-07-11T03:41:13.4689639Z"
+          },
+          {
+            "connection_id": "c-ban",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 8,
+            "error_name": "ErrorBanned",
+            "failed_check": "blacklist",
+            "utc": "2026-07-11T03:41:13.4996415Z"
+          },
+          {
+            "connection_id": "c-tkt",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 8,
+            "error_name": "ErrorBanned",
+            "failed_check": "ticket",
+            "utc": "2026-07-11T03:41:13.5313797Z"
+          },
+          {
+            "connection_id": "c-full",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 9,
+            "error_name": "ErrorFull",
+            "failed_check": "full",
+            "utc": "2026-07-11T03:41:13.563398Z"
+          },
+          {
+            "connection_id": "c-pw",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 6,
+            "error_name": "ErrorPassword",
+            "failed_check": "password",
+            "utc": "2026-07-11T03:41:13.5808371Z"
+          },
+          {
+            "connection_id": "c-dup",
+            "accept": false,
+            "entered_steady_state": false,
+            "error_code": 7,
+            "error_name": "ErrorAlreadyConnected",
+            "failed_check": "duplicate",
+            "utc": "2026-07-11T03:41:13.5970897Z"
+          }
+        ],
+        "first_utc": "2026-07-11T03:41:13.4214286Z",
+        "last_utc": "2026-07-11T03:41:13.5970886Z"
+      }
+    }
+  ]
+}

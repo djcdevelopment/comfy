@@ -1,0 +1,32 @@
+{
+  "_source": "fieldlab/NETCODE-HANDSHAKE-CONTRACT.md (I5 / P6 step 1); two static decompile sources (I0 map + fresh re-decompile) agree",
+  "build": "0.221.12",
+  "network_version": 36,
+  "max_players": 10,
+  "connection_status": {
+    "None": 0,
+    "Connecting": 1,
+    "Connected": 2,
+    "ErrorVersion": 3,
+    "ErrorDisconnected": 4,
+    "ErrorConnectFailed": 5,
+    "ErrorPassword": 6,
+    "ErrorAlreadyConnected": 7,
+    "ErrorBanned": 8,
+    "ErrorFull": 9,
+    "ErrorPlatformExcluded": 10,
+    "ErrorCrossplayPrivilege": 11,
+    "ErrorKicked": 12
+  },
+  "gate_order": [
+    { "check": "version", "code": 3, "name": "ErrorVersion" },
+    { "check": "blacklist", "code": 8, "name": "ErrorBanned" },
+    { "check": "ticket", "code": 8, "name": "ErrorBanned" },
+    { "check": "full", "code": 9, "name": "ErrorFull" },
+    { "check": "password", "code": 6, "name": "ErrorPassword" },
+    { "check": "duplicate", "code": 7, "name": "ErrorAlreadyConnected" }
+  ],
+  "peerinfo_common": ["uid:long", "version:string", "netVersion:uint", "refPos:vec3", "playerName:string"],
+  "peerinfo_server": ["worldName:string", "seed:int", "seedName:string", "worldUid:long", "worldGenVersion:int", "netTime:double"],
+  "peerinfo_client": ["passwordHash:string", "steamSessionTicket:bytes"]
+}
