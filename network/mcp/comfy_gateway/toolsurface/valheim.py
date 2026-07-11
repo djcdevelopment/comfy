@@ -47,9 +47,9 @@ AUTONOMOUS_STATE = Path(os.environ.get(
     "",
 ))
 
-# --- am4 dedicated server (netcode probe source of record) ---------------------------
-# The headless Valheim server runs on am4 (native Linux Docker, tailnet). Its probe jsonl
-# and container logs are read over key-based ssh (BatchMode: never prompts, fails fast).
+# --- dedicated server (netcode probe source of record) -------------------------------
+# Defaults retain the proven am4 topology. Environment overrides retarget the same
+# read-only evidence surface to the GCP P7 VM without placing MCP in gameplay logic.
 AM4_SSH_HOST = os.environ.get("COMFY_AM4_SSH", "derek@am4")
 AM4_CONTAINER = os.environ.get(
     "COMFY_AM4_CONTAINER", "comfy-valheim-server-am4-valheim-server-1",

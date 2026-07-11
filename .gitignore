@@ -8,6 +8,15 @@ desktop.ini
 # scratch / local-only
 scratch/
 *.tmp
+
+# Terraform local state and operator-specific inputs
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
 __pycache__/
 
 # generated local bridge outputs
