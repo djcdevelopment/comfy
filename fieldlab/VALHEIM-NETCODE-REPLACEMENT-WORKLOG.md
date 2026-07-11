@@ -333,6 +333,44 @@ ZDO delta 0, world files byte-identical). Evidence: `fieldlab/evidence/i4-inject
     not offloadable.
   - **operator:** in-game connect attempt.
 
+#### I5 design-ahead — steps 1-4 DONE headless (2026-07-10 eve), architecture resolved
+
+- **Contract (step 1):** [NETCODE-HANDSHAKE-CONTRACT.md](NETCODE-HANDSHAKE-CONTRACT.md) — Funnel 5
+  formalized field-by-field + ordered gate, grounded in **two decompile sources** (I0 map +
+  fresh `ZNet` re-decompile, build 0.221.12). Codes 3/8/8/9/6/7; `max-players` literal **10**
+  (the `c_NetworkVersionMaxPlayerCount=35` const is a catalogued red herring).
+- **Responder + loopback (steps 2-3):** `ValheimHandshakeService` (Lumberjacks `935095b`) — a
+  **logical** decision service (mod owns ZPackage bytes, gateway owns logic, per I3/I4). Proven
+  in a no-game loopback: 28/28 xUnit + an HTTP driver green vs the live gateway. The gate
+  verdict requires all **six distinct check labels** (both code-8 cases kept distinct).
+- **MCP gate (step 4):** `valheim_handshake_trace` + `valheim_handshake_gate` (comfy `56e5178`),
+  verdict `handshake_satisfied`, `scope=logical_headless_no_live_addpeer`.
+- **Honest scope:** steps 1-4 prove the **decision logic only**. Not a live `AddPeer`.
+
+**Step 5 architecture (resolved, thrash-risk retired):** "Lumberjacks-fronted" cannot mean a
+socket-level proxy — `ZSteamSocket` is a Steam P2P peer that an HTTP gateway can't terminate.
+So the only faithful reading (and the I3/I4 precedent) is **mod-mediation on am4**: a server-side
+Harmony hook answers the handshake with Lumberjacks-supplied decisions while the Steam socket
+stays OMEN↔am4. No deeper transport shim is needed. The hook:
+- **Prefix `RPC_ServerHandshake(ZRpc)`** (`ZNet:727`): when armed, answer `ClientHandshake`
+  with the Lumberjacks context's `(needPassword, salt)` instead of the vanilla server's.
+- **Prefix `RPC_PeerInfo(ZRpc, ZPackage)`** (`ZNet:818`): read a **clone** of the package
+  (`SetPos(0)` — the banked i4 read-cursor lesson) to extract logical fields, evaluate the
+  cached Lumberjacks gate, and on reject `Invoke("Error", code)` + skip vanilla; on accept let
+  vanilla complete `AddPeer` so the client truly enters the world.
+- **Runner:** polls Lumberjacks `/valheim/handshake/config` for the emulated context via **raw
+  `TcpClient`** (server Mono HTTP trap, ADR 0003 — NOT `WebRequest`), caches it, records a
+  handshake jsonl, arms/auto-disarms on a window like the redirect/injection runners.
+- **Fail-safe:** `handshakeResponderEnabled=false` + empty endpoint ⇒ never arms; the patch is
+  a pure pass-through when disarmed (CreateAndPatchAll always attaches it).
+- **"Fronted" proof:** configure Lumberjacks with a gate the vanilla am4 server lacks (e.g. a
+  password am4 doesn't require, or a ban) so the client's admission is decided by Lumberjacks.
+- **Save-safety:** the handshake writes no persisted ZDO state (pre-`AddPeer`), same class as
+  the I2 pin / I3 redirect.
+- **Validation boundary:** the runner + gate mirror are headless-testable, but the **Harmony
+  attach + ZPackage wire decode get their first real-client bytes only in-game** — so the
+  interceptor is validated at Derek's single launch (P6 step 6-7), not headlessly.
+
 ### I6 — Single-transport constraint (low risk, do early)
 
 - **Invariant:** we can force Steam-only (crossplay/PlayFab disabled) so the swap
