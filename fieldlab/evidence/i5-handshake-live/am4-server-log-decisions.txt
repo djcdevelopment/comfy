@@ -1,0 +1,16 @@
+﻿Jul 11 00:56:21 supervisord: valheim-server 07/11/2026 00:56:21: [ComfyNetworkSense][handshake] ARMED window=i5-live-w1 endpoint=http://100.124.12.37:4000 continuous. Rollback: handshakeResponderEnabled=false.
+Jul 11 01:12:16 supervisord: valheim-server 07/11/2026 01:12:16: Got connection SteamID 76561198088711642
+Jul 11 01:12:22 supervisord: valheim-server 07/11/2026 01:12:22: [ComfyNetworkSense][handshake] REJECT (Lumberjacks-decided) window=i5-live-w1 uid=1835108109 player=Durracktu host=76561198088711642 code=6 check=password -> Invoke(Error,6), skip vanilla.
+Jul 11 01:12:41 supervisord: valheim-server 07/11/2026 01:12:41: Got connection SteamID 76561198088711642
+Jul 11 01:12:44 supervisord: valheim-server 07/11/2026 01:12:44: [ComfyNetworkSense][handshake] REJECT (Lumberjacks-decided) window=i5-live-w1 uid=2264664361 player=Durracktu host=76561198088711642 code=6 check=password -> Invoke(Error,6), skip vanilla.
+Jul 11 01:12:56 supervisord: valheim-server 07/11/2026 01:12:56: Got connection SteamID 76561198088711642
+Jul 11 01:12:59 supervisord: valheim-server 07/11/2026 01:12:59: [ComfyNetworkSense][handshake] REJECT (Lumberjacks-decided) window=i5-live-w1 uid=626101021 player=Durracktu host=76561198088711642 code=6 check=password -> Invoke(Error,6), skip vanilla.
+Jul 11 01:21:24 supervisord: valheim-server 07/11/2026 01:21:24: [ComfyNetworkSense][handshake] ARMED window=i5-live-w1 endpoint=http://100.124.12.37:4000 continuous. Rollback: handshakeResponderEnabled=false.
+Jul 11 01:22:19 supervisord: valheim-server 07/11/2026 01:22:19: Got connection SteamID 76561198088711642
+Jul 11 01:22:22 supervisord: valheim-server 07/11/2026 01:22:22: [ComfyNetworkSense][handshake] ACCEPT (Lumberjacks-decided) window=i5-live-w1 uid=1167002880 player=Durracktu host=76561198088711642 net_version=36 password_present=True (password/ticket crypto delegated to vanilla) -> letting vanilla complete AddPeer.
+Jul 11 01:22:22 supervisord: valheim-server 07/11/2026 01:22:22: Server: New peer connected,sending global keys
+Jul 11 01:22:36 supervisord: valheim-server 07/11/2026 01:22:36: Got character ZDOID from Durracktu : 1167002880:1
+Jul 11 01:22:49 supervisord: valheim-server 07/11/2026 01:22:49: Got character ZDOID from Durracktu : 0:0
+Jul 11 01:22:49 supervisord: valheim-server 07/11/2026 01:22:49: Got character ZDOID from Durracktu : 1167002880:10
+Jul 11 01:28:39 supervisord: valheim-server 07/11/2026 01:28:39: Got connection SteamID 76561198088711642
+Jul 11 01:28:44 supervisord: valheim-server 07/11/2026 01:28:44: [ComfyNetworkSense][handshake] REJECT (Lumberjacks-decided) window=i5-live-w1 uid=386400401 player=Durracktu host=76561198088711642 password_present=True code=8 check=blacklist -> Invoke(Error,8), skip vanilla.
