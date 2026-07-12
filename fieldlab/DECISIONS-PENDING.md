@@ -6,10 +6,6 @@ Bounded: touch only lines you created or resolved.
 
 ## Open
 
-- [ ] 2026-07-10 — **2nd I3 repeatability window** (optional, on demand): one relaunch + join at a
-  ground-truthed conifer sector (route via `scratchpad/gen-sweep-route.ps1`). The
-  mechanism-across-builds case is already made (suppress/ack carried 0.5.10 → 0.5.12), so this is
-  hardening, not a gate blocker. (source: `evidence/i3-redirect/ANALYSIS.md`)
 - [ ] 2026-07-10 — **Fold the sibling client-side `WebRequest` POSTs onto the raw-socket helper**
   (telemetry, priority-mirror, apply-profile). Low priority — they run client-side where the
   "URI prefix is not recognized" defect is inert; only required if any ever needs to run
@@ -17,6 +13,13 @@ Bounded: touch only lines you created or resolved.
 
 ## Resolved
 
+- [x] 2026-07-12 — **2nd I3 repeatability window** → satisfied inside the P7 composition: window
+  `i7-w6` re-proved I3 redirect `receipts_match_no_loss` (3474 == 3474, 0 loss/dup) on a fresh clean
+  GCP window, alongside the other three rungs. (source: `evidence/i7-w6/gate-summary.json`)
+- [x] 2026-07-12 — **P7/I7 close: one vs two live windows** → one fresh clean window (`i7-w6`) +
+  retro-archive of the corroborating partial `i7-gcp-w1`; the two independent windows satisfy
+  repeatability with a single human touchpoint. (source: `retro/SESSION-RETRO-2026-07-12.md`,
+  lesson `L-2026-07-12-5`)
 - [x] 2026-07-10 — **Disarm the pin after the I2 gate** → yes; disarmed on am4
   (`ownershipPinEnabled=false`, commit `1f337c7`), back to observe-only baseline for P4.
 - [x] 2026-07-10 — **I2 repeatability:** do one more clean join → **yes** (Derek's blessing,
