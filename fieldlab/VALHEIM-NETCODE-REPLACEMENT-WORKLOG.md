@@ -4,6 +4,18 @@
 > the live phased plan is [TEST-PROGRAM.md](TEST-PROGRAM.md). This file remains the ladder spine
 > (invariant definitions I0–I7 and their gates).
 
+> **2026-07-11 local / 2026-07-12 UTC P7 result:** the combined GCP deployment passed
+> the live P7/I7 loopback gate on `comfy-lumberjacks-p7` in project
+> `lumberjacks-exp-20260711-djc`. Product scope was the Valheim x Lumberjacks netcode
+> replacement, not the original Godot vertical slice. The deployed stack ran
+> `ComfyEra16`, ComfyNetworkSense 0.5.18, Valheim UDP `2456-2457`, and Lumberjacks
+> `postgres`, `gateway`, `eventlog`, `progression`, and `operatorapi`. Gate summary:
+> handshake accepted and reached steady state; ownership pin held 25 captured ZDOs with
+> live negative control; redirect matched 6316 suppressed sends to 6316 gateway receipts
+> with 0 loss/duplicates; injection rendered with the Lumberjacks owner; client log was
+> clean; save integrity passed; GCP memory stayed healthy with swap unused. The server was
+> disarmed back to observe-only baseline after the gate.
+
 Date opened: 2026-07-08. Companion to
 `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md` (the grounded feasibility
 pass) and `VALHEIM-LUMBERJACKS-FEASIBILITY.md` (the layer matrix).
