@@ -1,0 +1,11 @@
+Jul 11 17:51:46 supervisord: valheim-server 07/11/2026 17:51:46: [ComfyNetworkSense][handshake] ARMED window=i7-gcp-w1 endpoint=http://gateway:4000 continuous. Rollback: handshakeResponderEnabled=false.
+Jul 11 17:54:54 supervisord: valheim-server 07/11/2026 17:54:54: Accepting connection k_EResultOK
+Jul 11 17:54:59 supervisord: valheim-server 07/11/2026 17:54:59: [ComfyNetworkSense][handshake] ACCEPT (Lumberjacks-decided) window=i7-gcp-w1 uid=1272968031 player=Durracktu host=76561198088711642 net_version=36 password_present=True (password/ticket crypto delegated to vanilla) -> letting vanilla complete AddPeer.
+Jul 11 17:54:59 supervisord: valheim-server 07/11/2026 17:54:59: Server: New peer connected,sending global keys
+Jul 11 17:55:24 supervisord: valheim-server [Info   :ComfyNetworkSense] [07/11/2026 17:55:24] Ownership pin auto-started: Ownership pin ARMED (behaviour-changing, server-side). Skips ReleaseNearbyZDOS release/reseize + RPC_ZDOData remote-apply on up to 25 captured ZDOs (any prefab). Rollback: ownershipPinEnabled=false.
+Jul 11 17:55:24 supervisord: valheim-server [Info   :ComfyNetworkSense] [07/11/2026 17:55:24] ZDO redirect auto-started: ZDO redirect ARMED (behaviour-changing, server-side). Suppressing native send for 3 prefab(s) -> http://gateway:4000 window=i7-gcp-w1, auto-disarms after 90s (in-window rollback rehearsal). Rollback: zdoRedirectEnabled=false.
+Jul 11 17:57:56 supervisord: valheim-server [Info   :ComfyNetworkSense] [07/11/2026 17:57:56] Ownership pin auto-stopped: Ownership pin disarmed; vanilla ownership transfer restored.
+Jul 11 18:38:54 supervisord: valheim-server 07/11/2026 18:38:54: Accepting connection k_EResultOK
+Jul 11 18:38:57 supervisord: valheim-server 07/11/2026 18:38:57: Server: New peer connected,sending global keys
+Jul 11 22:56:51 supervisord: valheim-server 07/11/2026 22:56:51: Accepting connection k_EResultOK
+Jul 11 22:56:54 supervisord: valheim-server 07/11/2026 22:56:54: Server: New peer connected,sending global keys

@@ -1,0 +1,36 @@
+{
+  "window_id": "i7-w6",
+  "role": "milestone_capture (P7/I7 step7 - one client fully on Lumberjacks)",
+  "captured_utc": "2026-07-12T07:42:00Z",
+  "host": "comfy-lumberjacks-p7 (GCP n2-highmem-8, us-west1-b, project lumberjacks-exp-20260711-djc, 8.231.129.249)",
+  "mod": {
+    "build_version": "0.5.18",
+    "dll_sha256": "827fc6b2c3f2781039be9e9cb31c3db839a3e93ac38a418527cf17fcdc4f816d"
+  },
+  "client": "OMEN native Valheim; SteamID 76561198088711642 (account floooooobcakes / persona wary.fool / character Durracktu); connection uid 2202545290",
+  "memory_headroom": "~48 GiB free of 62 during the window; no OOM pressure (the am4 blocker eliminated)",
+  "files": {
+    "gate-summary.json": "45bd0cd90b1e558b8682bc115b9ebb5c087db774137bc9869fabd06241f0041b",
+    "gateway-handshake-status.json": "1408bc21a37723fd9d6bb08023a4164c98a1d5a1960bf303c51e019913af15d4",
+    "gateway-redirect-status.json": "3bac9a86dce4a3ab06f46b45293164f2f0a11c794638b217f84947e30e1138a7",
+    "gateway-injection-status.json": "6fe18062b700f234fcf1e6e38fe3a62cbcd50321bd28f0b1ca3c927b98505937",
+    "injection-apply-client.jsonl": "7bc5f8a6e4b3504394d9ac3f77710d04cb2c397a38ee2a453efce8ecd759a12b",
+    "redirect-send-i7-w6-tail.jsonl": "6145f3478e5b65a45945062a4db671ed653b7ee0cfa5ed5f2831bb6d3092e292",
+    "ownership-pin-i7-w6-tail.jsonl": "26e1d44b4cc5b805091d10163af9ac987523bb3d06b3056657729cdebdd2b4de",
+    "server-log-lifecycle.txt": "1a836ca640c51c5d8c772d9d57d3e6d2b62e29739353e0b370a44fdb8c1ec369"
+  },
+  "gate_verdicts": {
+    "i5_handshake": "accept_only (live Lumberjacks-decided ACCEPT + steady state; uid 2202545290, net_version 36)",
+    "i2_pin": "held_with_negative_control (authoritative; 25 pinned / 49 holds / 15606 pass-through; held_owner 2202545290)",
+    "i3_redirect": "receipts_match_no_loss (mod 3474 == gateway 3474; missing 0, duplicates 0; mod-authoritative auto_stop)",
+    "i4_injection": "rendered_with_lumberjacks_owner (rendered 1, owner 5497853135698 matched; 90 polls / 0 errors)",
+    "client_stability": "clean (no INVALID_MESSAGE / socket / desync)",
+    "save_integrity": "see ANALYSIS.md - zdos delta 0 + portals/spawned/locations exact; lone targets -1 is spawner churn across the reload, not composition corruption; authoritative cross-reload check appended at disarm"
+  },
+  "independent_sources_per_trust_rule": [
+    "server-log-lifecycle.txt (server-side, non-doc): ACCEPT + all four auto-started/auto-stopped on one boot, no OOM/crash",
+    "gateway-*.json (Lumberjacks-side, non-doc): handshake accepted=1, redirect distinct_seq 3474, injection render_confirmed owner-match",
+    "mod-side jsonl (redirect-send / ownership-pin / injection-apply, non-doc): authoritative stop rows + hold rows + render rows",
+    "MCP one-call gates (four verdicts) computed over the above"
+  ]
+}

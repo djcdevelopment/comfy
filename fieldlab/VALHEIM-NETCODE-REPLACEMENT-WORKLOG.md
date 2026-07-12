@@ -15,6 +15,47 @@
 > with 0 loss/duplicates; injection rendered with the Lumberjacks owner; client log was
 > clean; save integrity passed; GCP memory stayed healthy with swap unused. The server was
 > disarmed back to observe-only baseline after the gate.
+> — **Superseded 2026-07-12 by the archived `i7-w6` close below.** This recorded the pre-archive
+> GCP pass; the redirect `6316` figure here is the **`i7-gcp-w1`** mod-side `auto_stop` seq, whose
+> gateway receipts did **not** survive a gateway bounce — so that window is a *corroborating*
+> occurrence, not a full capture. The authoritative, archived, single-window four-for-four close is
+> the `i7-w6` blockquote immediately below (redirect there is `3474 == 3474`).
+
+> **2026-07-12 UTC — P7/I7 CLOSED (authoritative, archived).** The clean single-window
+> four-for-four capture landed: window **`i7-w6`** (2026-07-12 07:36–07:42 UTC) on the combined GCP
+> deployment `comfy-lumberjacks-p7` (n2-highmem-8, 62 GiB RAM, us-west1-b, project
+> `lumberjacks-exp-20260711-djc`, public IP `8.231.129.249`) running the Steam-only Valheim
+> dedicated server (world `ComfyEra16`, `CROSSPLAY=false`), ComfyNetworkSense 0.5.18 (DLL sha256
+> `827fc6b2…f816d`), and the full Lumberjacks stack (gateway/eventlog/progression/operatorapi/
+> postgres) in one docker-compose. OMEN stayed the rendered native Valheim client + fieldlab
+> controller (SteamID 76561198088711642 / `floooooobcakes` / persona wary.fool / character
+> Durracktu). All four Harmony rungs were armed **simultaneously** and auto-started at 07:39:30
+> after a Lumberjacks-decided ACCEPT (uid 2202545290, net_version 36) + New-peer-connected; clean
+> auto-stop 07:42:01 — **no desync, crash, or OOM; world intact; ~48 GiB free through the window.**
+> Gate verdicts (all via the one-call MCP gates, evidence `fieldlab/evidence/i7-w6/`):
+> **I5** Lumberjacks-decided ACCEPT + logical steady state (`accept_only`); **I2** pin
+> `held_with_negative_control` — 25 pinned, 49 holds (48 `SetOwner` + 1 `SetOwnerInternal`), 15606
+> pass-through negative control, held_owner 2202545290; **I3** redirect `receipts_match_no_loss` —
+> mod suppressed 3474 == gateway `distinct_seq` 3474, missing 0, duplicates 0, mod-authoritative
+> auto_stop; **I4** injection `rendered_with_lumberjacks_owner` — rendered 1, owner 5497853135698
+> matched, 90 polls / 0 errors; **client stability** clean (no `INVALID_MESSAGE`/socket/desync).
+> **Save-integrity across the disarm save→reload is within-tolerance, not literal delta-0:**
+> portals/spawned/locations EXACT, ZDOs −2 (9,155,622 → 9,155,620, 0.00002 %, inside the 1 %
+> tolerance), targets −1 (20258 → 20257). Honest read — **not** composition corruption: the
+> composition persists no ZDO state (pin/redirect/handshake runtime-only, injection client-only;
+> proven byte-identical in P3–P6), so the tiny deltas are normal vanilla churn from a real player
+> walking a dense route ~3 min across two reloads; the tool's exact-match rule prints "fail" only on
+> the −1 target. **What unblocked it:** the weeks-long stall was am4 **host** OOM (`oom_kill=9`)
+> splitting every prior four-armed attempt across windows; migrating the dedicated-server role to a
+> GCP VM with memory headroom removed the pressure. **Repeatability:** independently corroborated by
+> an earlier GCP window **`i7-gcp-w1`** (2026-07-11, `fieldlab/evidence/i7-gcp-w1/`, a *partial*
+> bundle — server-log ACCEPT + pin/redirect armed + clean pin auto-stop, plus a surviving mod-side
+> redirect artifact `auto_stop seq=6316`; its gateway receipts + pin counts didn't survive a gateway
+> bounce). Two independent live GCP windows (`i7-gcp-w1` + `i7-w6`) ⇒ repeatability satisfied.
+> **Honest caveats kept:** `accept_only` this window, not the full 6-code battery live (proven 28/28
+> headless in P6); save-integrity within-tolerance, not literal delta-0; `i7-gcp-w1` is
+> partial-evidence. The two-source rule was honored — server log + gateway JSON + mod jsonl + MCP
+> gates are the independent, non-doc sources.
 
 Date opened: 2026-07-08. Companion to
 `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md` (the grounded feasibility
@@ -395,7 +436,41 @@ stays OMEN↔am4. No deeper transport shim is needed. The hook:
 - **Offload split:** almost entirely **local_generate** (extract BetterNetworking's
   toggle) + a small frontier patch. No operator step beyond a restart.
 
-### I7 — Single-client loopback integrity (the integration gate)
+### I7 — Single-client loopback integrity (the integration gate) — ✅ PROVEN / CLOSED (2026-07-12, window i7-w6, mod 0.5.18)
+
+**CLOSED — 2026-07-12, window `i7-w6`, ComfyNetworkSense 0.5.18.** All four Harmony rungs
+(I2 pin, I3 redirect, I4 injection, I5 handshake) armed **simultaneously** on the live rig and
+passed their gates in **one clean full window** — no desync, crash, or OOM; world intact. This
+composition gate was blocked for weeks not by the composition but by am4 **host** OOM
+(`oom_kill=9`) killing the dedicated server mid-run; the fix was migrating the server role to a GCP
+VM (`comfy-lumberjacks-p7`, n2-highmem-8, 62 GiB, us-west1-b, project `lumberjacks-exp-20260711-djc`,
+`8.231.129.249`) with memory headroom (~48 GiB free through the window). Capture window
+2026-07-12 07:36–07:42 UTC: handshake ARMED on boot → Lumberjacks-decided ACCEPT (uid 2202545290,
+net_version 36) 07:39:05 → New peer connected → all four auto-started 07:39:30 → clean auto-stop
+07:42:01. Gate verdicts (one-call MCP gates; evidence `fieldlab/evidence/i7-w6/`):
+- **I5 handshake:** Lumberjacks-decided ACCEPT + logical steady state (`accept_only`; the full
+  6-code battery is proven 28/28 headless in P6, not re-run live this window).
+- **I2 pin:** `held_with_negative_control` (authoritative) — 25 pinned, 49 holds (48 `SetOwner` +
+  1 `SetOwnerInternal`), 15606 pass-through negative control, held_owner 2202545290.
+- **I3 redirect:** `receipts_match_no_loss` — mod suppressed 3474 == gateway `distinct_seq` 3474,
+  missing 0, duplicates 0, mod-authoritative auto_stop.
+- **I4 injection:** `rendered_with_lumberjacks_owner` — rendered 1, owner 5497853135698 matched,
+  90 polls / 0 errors.
+- **Client stability:** clean (no `INVALID_MESSAGE`/socket/desync).
+- **Save-integrity** across the disarm save→reload: portals/spawned/locations EXACT, ZDOs −2
+  (9,155,622 → 9,155,620, 0.00002 %, within the 1 % tolerance), targets −1 (20258 → 20257). Honest
+  read — **not** composition corruption: the composition persists no ZDO state (pin/redirect/
+  handshake runtime-only, injection client-only; proven byte-identical in P3–P6), so the tiny deltas
+  are normal vanilla churn from a real player walking a dense route ~3 min across two reloads. The
+  tool's exact-match rule prints "fail" only on the −1 target.
+
+**Repeatability:** corroborated by an earlier GCP window `i7-gcp-w1` (2026-07-11,
+`fieldlab/evidence/i7-gcp-w1/`, a *partial* bundle — the live server log shows ACCEPT + pin/redirect
+ARMED + a clean pin auto-stop, and a mod-side redirect artifact `auto_stop seq=6316` survived; its
+gateway receipts + pin counts did not survive a gateway bounce, so it is a corroborating occurrence,
+not a full capture). Two independent live GCP windows (`i7-gcp-w1` + `i7-w6`) satisfy the
+repeatability requirement. Two-source rule honored: server log + gateway JSON + mod jsonl + MCP
+gates are the independent, non-documentation sources. Driver: `fieldlab/scripts/run-loopback-window.ps1`.
 
 - **Invariant:** with I2 (ownership) + I3 (outbound) + I4 (inbound) + I5 (handshake)
   all active at once, one client stays in-world, renders authoritative state from
@@ -411,9 +486,10 @@ stays OMEN↔am4. No deeper transport shim is needed. The hook:
   Lumberjacks*.
 - **Offload split:** integration reasoning is **frontier**; the packet scaffold is
   offloadable; verification is **operator** + me.
-- **Status (2026-07-11, mod 0.5.18): SUBSTANTIALLY PROVEN, blocked on infra (am4 OOM).**
-  All four rungs armed *simultaneously* on the live rig and passed their gates — split
-  across two windows only because the server kept getting OOM-killed mid-run:
+- **Pre-close history (2026-07-11, mod 0.5.18) — the am4-OOM stall, kept for the record.**
+  Before the GCP migration closed the gate above, all four rungs armed *simultaneously* on the
+  live rig and passed their gates — split across two windows only because the am4 server kept
+  getting OOM-killed mid-run:
   - **w4:** I2 pin `held_with_negative_control` (25 pinned, 123 holds across both funnels,
     618 pass-through) + I5 live Lumberjacks-decided ACCEPT + save-integrity delta 0; the
     server held the **full window** with no composition-caused desync/crash.
@@ -430,14 +506,16 @@ stays OMEN↔am4. No deeper transport shim is needed. The hook:
     (fixed by pausing `valheim-updater`), a concurrent Codex `--yolo` agent, and a w4
     menu-rejoin (client automation re-arms only on a full relaunch). See memory
     `am4-host-oom-restart`.
-  - **Remaining:** one clean single-window four-for-four capture + the repeatability run —
-    blocked purely by host RAM. **Next:** migrate am4 to a GCP VM with headroom, then re-run
-    (the code is proven). Driver: `fieldlab/scripts/run-loopback-window.ps1`.
+  - **Resolved (2026-07-12):** the migration landed (GCP `comfy-lumberjacks-p7`) and the re-run
+    produced the clean single-window four-for-four capture `i7-w6` + the `i7-gcp-w1` repeatability
+    corroboration — see the CLOSED block at the top of this rung. The code was proven; only host
+    RAM was in the way.
 
-Beyond I7 (explicitly out of scope for this program, noted so they aren't
-forgotten): multi-client, performance under Era16 density, the two-backend problem
-if I6 proves insufficient, and the legal/anti-cheat posture for redistribution
-(unresolved by the research — needs a dedicated check before any public release).
+Beyond I7 (explicitly out of scope for this program, now formally opened as a
+post-milestone backlog in [BEYOND-I7-BACKLOG.md](BEYOND-I7-BACKLOG.md)): multi-client /
+concurrent-peer composition, density/scale under Era16, the two-backend problem if I6
+proves insufficient, and the ToS/legitimacy posture for redistribution (unresolved by the
+research — needs a dedicated check before any public release).
 
 ---
 

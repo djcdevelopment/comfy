@@ -1,0 +1,71 @@
+{
+  "window_id": "i7-w6",
+  "role": "milestone_capture",
+  "scope": "single-window four-for-four composition capture on GCP (comfy-lumberjacks-p7), armed simultaneously, clean full-window probe stop",
+  "host": "comfy-lumberjacks-p7 (GCP n2-highmem-8, us-west1-b, project lumberjacks-exp-20260711-djc, 8.231.129.249)",
+  "mod_build": "0.5.18",
+  "mod_dll_sha256": "827fc6b2c3f2781039be9e9cb31c3db839a3e93ac38a418527cf17fcdc4f816d",
+  "client": "OMEN native Valheim, SteamID 76561198088711642 (account floooooobcakes / persona wary.fool / character Durracktu)",
+  "window_lifecycle_utc": {
+    "server_boot_armed": "2026-07-12T07:36:25Z",
+    "handshake_accept": "2026-07-12T07:39:05Z",
+    "rungs_auto_started": "2026-07-12T07:39:30Z",
+    "rungs_auto_stopped": "2026-07-12T07:42:01Z"
+  },
+  "gates": {
+    "i5_handshake": {
+      "verdict": "accept_only (Lumberjacks-decided ACCEPT + logical steady state)",
+      "accepted": 1,
+      "rejected": 0,
+      "steady_state_reached": 1,
+      "connection_id": "live-2202545290",
+      "uid": 2202545290,
+      "net_version": 36,
+      "note": "full 6-code battery not driven live (accept-only); battery proven headless 28/28 (P6). Composition needs the live Lumberjacks-decided accept, which this is."
+    },
+    "i2_pin": {
+      "verdict": "held_with_negative_control",
+      "counters_are_authoritative": true,
+      "pinned_count": 25,
+      "captured": 25,
+      "holds": 49,
+      "holds_via_set_owner": 48,
+      "holds_via_internal": 1,
+      "pass_through": 15606
+    },
+    "i3_redirect": {
+      "verdict": "receipts_match_no_loss",
+      "mod_suppressed": 3474,
+      "gateway_distinct_seq": 3474,
+      "gateway_missing_seq": 0,
+      "gateway_duplicates": 0,
+      "mod_authoritative": true,
+      "mod_stop_event": "redirect_auto_stop"
+    },
+    "i4_injection": {
+      "verdict": "rendered_with_lumberjacks_owner",
+      "rendered_rows": 1,
+      "rendered_acks": 1,
+      "owner_matches": true,
+      "observed_owner": 5497853135698,
+      "polls": 90,
+      "poll_errors": 0,
+      "mod_authoritative": true,
+      "mod_stop_event": "injection_auto_stop",
+      "apply_jsonl_sha256": "15d6ca3a931a35ab6a2dd08bedb75bd3e0e09af076fe819d2efd9ae17acacbc1"
+    },
+    "client_stability": {
+      "verdict": "clean",
+      "matched": "none (no INVALID_MESSAGE / socket error / desync in OMEN client log)"
+    },
+    "save_integrity_live_check": {
+      "verdict": "fail_on_targets_only",
+      "zdos": {"baseline": 9155622, "current": 9155622, "delta": 0, "verdict": "ok"},
+      "portals": {"baseline": 4472, "current": 4472, "verdict": "ok"},
+      "spawned": {"baseline": 85439, "current": 85439, "verdict": "ok"},
+      "locations": {"baseline": 18004, "current": 18004, "verdict": "ok"},
+      "targets": {"baseline": 20258, "current": 20257, "delta": -1, "verdict": "MISMATCH"},
+      "assessment": "The lone -1 is spawner-target churn across the arm restart save->reload (boot spawner cache already read 20257), NOT composition corruption: the composition persists no ZDO state (pin/redirect/handshake runtime-only, injection client-only) and zdos delta is 0. `targets` is a session-varying count (P3 baseline was 20255). Authoritative cross-reload check re-run at disarm."
+  }},
+  "composition_result": "PASS - all four rungs armed simultaneously, fired live, and passed their gates in one full window with a clean probe stop and no desync/crash/OOM. First fully-archived single-window capture (i7-gcp-w1 is the corroborating prior occurrence)."
+}

@@ -1,0 +1,29 @@
+{
+  "window_id": "i7-gcp-w1",
+  "role": "corroborating_first_occurrence",
+  "scope": "PARTIAL - live-window corroboration, NOT a complete four-gate bundle",
+  "captured_utc": "2026-07-12T07:00:00Z",
+  "captured_by": "retro-harvest after the fact (Phase 1 reconciliation); the fresh window i7-w6 is the complete archived capture",
+  "host": "comfy-lumberjacks-p7 (GCP n2-highmem-8, us-west1-b, project lumberjacks-exp-20260711-djc, 8.231.129.249)",
+  "mod": {
+    "build_version": "0.5.18",
+    "dll_sha256": "827fc6b2c3f2781039be9e9cb31c3db839a3e93ac38a418527cf17fcdc4f816d",
+    "session_id": "20260712-005025-b488d679"
+  },
+  "files": {
+    "gcp-server-log-decisions.txt": "06a75bcd7914056f221c82fbbcfb962d51a113eb1caf3338052d007f13281ab7",
+    "redirect-send-i7-gcp-w1.jsonl": "255c1992eae3cd0ca5e86799775f9ebbaac3700a026a04651e29604a365a0634",
+    "environment.txt": "f84978588c782303ccd1bfc3f258052b08d4c028b0b7bd576637b5dd46c8026a"
+  },
+  "corroborates": [
+    "The composition (pin+redirect+handshake armed server-side, injection client-side) ARMED and RAN live on GCP with an accepted client, on a VM with ~48 GiB free (no OOM pressure).",
+    "I5 handshake: ACCEPT (Lumberjacks-decided) for Durracktu, uid=1272968031, host=76561198088711642, net_version=36 -> New peer connected (server log).",
+    "I3 redirect mod-side: authoritative redirect_auto_stop row seq=6316 suppressed=6316 posted_ok=6316 ack_failures=0 dropped=0 (mod send-of-record)."
+  ],
+  "gaps": [
+    "I3 redirect gateway-receipts half NOT reconstructable (Lumberjacks gateway restarted after this window; in-memory receipts lost) - only the mod send count survives, so receipts_match_no_loss cannot be re-adjudicated for this window.",
+    "I2 pin hold-count (doc says 25 pinned / 106 holds) NOT independently reconstructable - ownership-pin.jsonl carries no i7-gcp-w1-tagged rows; the pin ARMED + auto-stopped cleanly per the server log, but the counts are doc-only for this window.",
+    "I4 injection: client-side artifacts (OMEN) cleared on relaunch - not captured here.",
+    "save-integrity before/after pair for this window not archived here."
+  ]
+}

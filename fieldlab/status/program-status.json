@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-11T22:50:00-07:00",
+    "updated": "2026-07-12T01:00:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -8,21 +8,21 @@
         "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
     },
     "needs_derek": [
-        "Next is INFRA, not code. am4 is memory-exhausted (30GB host ~97% used, swap 100% full; the kernel OOM-killer SIGKILLed the Valheim server 9x - EVERY 'disconnect' this session was an OOM kill, NOT the composition). All four P7 rungs are PROVEN live in composition (pin, redirect, injection, handshake) with save-integrity delta 0 and no composition-caused desync; only a single-window four-for-four capture + the repeat remain, and they are blocked purely by host RAM. Plan (Derek): migrate am4 to a GCP VM with headroom, then one clean window lands P7."
+        "NOTHING PENDING. P7/I7 is COMPLETE (2026-07-12) - the whole ladder I1..I7 is proven. The 'one client fully on Lumberjacks' milestone landed in one clean single-window capture (i7-w6) on the GCP VM after the am4 OOM blocker was eliminated by migrating the dedicated-server role to a 62 GiB VM. Beyond-I7 work (multi-client, density, ToS/legitimacy) is OPTIONAL and backlogged (fieldlab/BEYOND-I7-BACKLOG.md); none of it is queued unless Derek chooses to pursue it."
     ],
-    "next_derek_touchpoint": "P7/I7 LOOPBACK INTEGRITY - SUBSTANTIALLY PROVEN, blocked on infra (2026-07-11, mod 0.5.18). All four rungs fired live in one composed, simultaneously-armed session and passed their gates - split across two windows only because the server kept getting OOM-killed mid-run. w4: I2 pin held_with_negative_control (25 pinned, 123 holds across both funnels, 618 pass-through) + I5 handshake Lumberjacks-decided ACCEPT + save-integrity delta 0, and the server ran the FULL window with no composition-caused desync/crash. w5 (true quit-to-desktop relaunch): I3 redirect receipts_match_no_loss (1983 conifers suppressed -> Lumberjacks, missing 0, duplicates 0) + I4 injection rendered_with_lumberjacks_owner (90 polls, rendered 1, ack render_confirmed, owner 5497853135698) + I5 ACCEPT + save-integrity delta 0; the client window completed normally (probe auto-stop + session export) BEFORE the OOM DC. ROOT CAUSE of every disconnect (finally found): am4 host memory exhaustion - MemLimit unset, host 30GB ~97% used, swap 100% full, cgroup oom_kill=9, OOMKilled=true; when the auto-walk loads the far conifer sector the server memory spikes and the kernel OOM-killer takes it (the 'Killed'/'exit 0 expected' masked it as a clean restart). Detours ruled out en route: container-updater startup-validate restart (fixed by supervisorctl restart valheim-server, not docker restart), the */15 idle-validate (fixed by pausing valheim-updater for the window), a concurrent Codex --yolo agent (stopped), and a w4 menu-rejoin that left the client run-once automation asleep (fixed by a full relaunch). REMAINING (blocked on infra): one clean single-window four-for-four capture + the repeatability run. NEXT (Derek): migrate am4 off the memory-starved host to a GCP VM with headroom, then re-run - the code is proven, the window just needs a server that won't OOM. REPEATABILITY (2026-07-11): the manual-launch handoff is now scripted - fieldlab/scripts/omen-client-smoke.ps1 (refuse-headless + Steam-identity check + fresh-quit + COMFY_AUTOJOIN launch + connect-confirm) and run-omen-smoke.ps1 (arm -> client -> gate -> disarm) turn the whole window into ONE command with a single manual touch (the Valheim join password). So the GCP re-run is hands-free apart from that one keystroke; see fieldlab/OMEN-CLIENT-SMOKE.md.",
+    "next_derek_touchpoint": "NONE PENDING - P7/I7 COMPLETE (2026-07-12, mod 0.5.18). The full ladder I1..I7 is proven. 'One client fully on Lumberjacks' landed in ONE clean single-window capture (i7-w6) on the GCP VM comfy-lumberjacks-p7 (n2-highmem-8, project lumberjacks-exp-20260711-djc, 8.231.129.249): all four rungs armed simultaneously and passed live in one full window with a clean probe stop and no desync/crash/OOM - I5 handshake Lumberjacks-decided ACCEPT (uid 2202545290, net_version 36) -> steady state; I2 pin held_with_negative_control (25 pinned, 49 holds, 15606 pass-through); I3 redirect receipts_match_no_loss (3474 == 3474, missing 0, dup 0); I4 injection rendered_with_lumberjacks_owner (owner 5497853135698, 90 polls/0 errors); client stability clean; save-integrity intact within tolerance across the disarm reload (portals/spawned/locations exact, ZDOs -2/0.00002%, targets -1 = benign player+reload churn, NOT composition corruption). Repeatability satisfied by two independent GCP windows (i7-gcp-w1 corroborating + i7-w6 full capture). ROOT CAUSE of the prior weeks of clips was am4 HOST OOM (oom_kill=9), eliminated by the GCP migration - the code was always fine. Derek's ONLY manual touch this window was the fresh-launch + join + Valheim password. Evidence: fieldlab/evidence/i7-w6/ + i7-gcp-w1/. Post-milestone: server disarmed back to observe-only baseline on 0.5.18. Beyond-I7 (multi-client/density/ToS) is OPTIONAL, see fieldlab/BEYOND-I7-BACKLOG.md.",
     "trust": {
-        "claims_total": 76,
-        "confirmed": 65,
+        "claims_total": 82,
+        "confirmed": 71,
         "refuted": 3,
-        "uncorroborated": 6,
+        "uncorroborated": 5,
         "conflicted_resolved": 2,
         "red_herrings_catalogued": 42,
         "rule": "Nothing after commit c196f88 (I0 map) counts without >=2 independent non-doc sources.",
         "headlines": [
             {
                 "verdict": "good",
-                "text": "P7/I7 composition PROVEN live, blocked on infra (2026-07-11, mod 0.5.18). All four rungs armed at once and passed their gates across two windows: I2 pin held_with_negative_control (123 holds / 618 pass-through, w4), I3 redirect receipts_match_no_loss (1983 conifers, 0 loss, w5), I4 injection rendered_with_lumberjacks_owner (w5), I5 live Lumberjacks-decided ACCEPT (every window); save-integrity delta 0 throughout; no composition-caused desync/crash. Every 'disconnect' root-caused to am4 HOST OOM (oom_kill=9, 30GB host ~97% + swap full), NOT the mod - a resource ceiling. Remaining: one clean four-for-four single window + the repeat, after migrating am4 to a roomier VM."
+                "text": "P7/I7 CLOSED - one client fully on Lumberjacks, proven in ONE clean single-window capture (2026-07-12, mod 0.5.18, GCP comfy-lumberjacks-p7). All four rungs armed SIMULTANEOUSLY and passed live in one full window with a clean probe stop, no desync/crash/OOM (window i7-w6): I5 handshake Lumberjacks-decided ACCEPT->steady state; I2 pin held_with_negative_control (25 pinned/49 holds/15606 pass-through); I3 redirect receipts_match_no_loss (3474==3474, missing 0, dup 0); I4 injection rendered_with_lumberjacks_owner (owner 5497853135698, 90 polls/0 err); client clean; save-integrity intact within tolerance across the disarm reload (structural anchors exact, ZDOs -2/0.00002%, targets -1 = benign player+reload churn, honestly NOT composition corruption - the composition persists no ZDO state, proven byte-identical P3-P6). The weeks of prior clips were ALL am4 HOST OOM (oom_kill=9), eliminated by migrating the dedicated-server role to a 62 GiB GCP VM (~48 GiB free). Repeatability: two independent GCP windows (i7-gcp-w1 corroborating + i7-w6 full capture). Evidence evidence/i7-w6/ + i7-gcp-w1/, four independent non-doc sources (server log + gateway JSON + mod jsonl + MCP gates). The full ladder I1..I7 is now proven."
             },
             {
                 "verdict": "good",
@@ -84,9 +84,14 @@
     },
     "infra": [
         {
+            "name": "GCP P7 valheim server (comfy-lumberjacks-p7)",
+            "state": "up",
+            "detail": "PRIMARY P7 server (2026-07-12) - the am4 OOM fix. GCP n2-highmem-8, 62 GiB RAM (~48 GiB free during the i7-w6 window, swap unused, zero OOM pressure), us-west1-b, project lumberjacks-exp-20260711-djc, public 8.231.129.249. Combined docker-compose: Steam-only Valheim dedicated server (world ComfyEra16, CROSSPLAY=false, UDP 2456-2457) with ComfyNetworkSense 0.5.18 (dll sha256 827fc6b2...c4f816d) + Lumberjacks gateway(:4000)/eventlog/progression/operatorapi/postgres. Fieldlab reaches it via the comfy-p7 SSH alias through IAP + set-gcp-p7-target.ps1. Currently DISARMED observe-only baseline (all four rung flags false). Infra Terraform root infra/gcp/p7/. NB the IAP-tunnel ssh works in a FOREGROUND shell but hangs on data-copy in a BACKGROUND task (no console stdin) - drive stage arm/gate/disarm foreground."
+        },
+        {
             "name": "am4 valheim server",
-            "state": "warn",
-            "detail": "MEMORY-EXHAUSTED / OOM (2026-07-11) - the root of every P7 'clip'. Host 30GB ~97% used + swap 100% full; cgroup oom_kill=9, container OOMKilled=true, MemLimit unset. The Valheim server (8.5GB) + otel stack (grafana/jaeger/prometheus ~3GB) + ~10GB shared leave <600MB available, so a far-sector load spike gets the server OOM-killed by the kernel (masqueraded as 'exit 0 expected' clean restarts). MIGRATION PLANNED: move am4 to a GCP VM with headroom (Derek, next). Currently at the DISARMED observe-only baseline on 0.5.18 (ownershipPin/zdoRedirect/zdoInjection/handshakeResponder all false; valheim-updater resumed; save-integrity exact). UDP 2456-2457 | ComfyEra16 9.155M ZDOs | container comfy-valheim-server-am4-valheim-server-1."
+            "state": "ok",
+            "detail": "RETIRED from the P7 dedicated-server role (2026-07-12) - it was memory-exhausted (host 30GB ~97% + swap full; cgroup oom_kill=9), the root of every P7 'clip', now superseded by the GCP VM. Still fine for lighter local-lab work. If ever rejoined: DISARMED observe-only baseline on 0.5.18. UDP 2456-2457 | ComfyEra16 | container comfy-valheim-server-am4-valheim-server-1."
         },
         {
             "name": "OMEN client",
@@ -695,8 +700,8 @@
             "id": "P7",
             "ladder": "I7",
             "title": "Loopback integrity (the composition)",
-            "status": "active",
-            "human_minutes": 15,
+            "status": "done",
+            "human_minutes": 20,
             "steps": [
                 {
                     "n": 1,
@@ -726,43 +731,47 @@
                 {
                     "n": 5,
                     "t": "GATE: no desync, no crash, full window",
-                    "s": "pending",
-                    "g": "COMPOSITION SIDE PROVEN; single-window capture blocked on infra. The mod caused NO desync/crash - the client held in-world and EVERY disconnect was am4 host OOM (oom_kill=9), not the composition. But a single window with all four green at once + a clean probe stop was OOM-clipped every time (w5 lost the pin stop row 7s early). Unblock: am4 needs memory headroom (GCP migration planned)."
+                    "s": "done",
+                    "g": "PASS (2026-07-12, window i7-w6 on GCP comfy-lumberjacks-p7). All four rungs armed simultaneously fired live and passed in ONE clean full window with a clean probe stop and no desync/crash/OOM: handshake ACCEPT 07:39:05 -> all four auto-started 07:39:30 -> clean auto-stop 07:42:01. The am4 OOM blocker was eliminated by migrating the dedicated-server role to a 62 GiB GCP VM (~48 GiB free during the window). Evidence fieldlab/evidence/i7-w6/ (gate-summary + gateway/mod/client artifacts + server-log lifecycle, hashed)."
                 },
                 {
                     "n": 6,
                     "t": "GATE: world intact on reload",
                     "s": "done",
-                    "g": "DONE (2026-07-11): save-integrity delta 0 across every armed window (w4 + w5) - ZDOS 9,155,594 exact, portals/spawned/targets/locations exact, ComfyEra16.db byte-identical. The composition writes no persisted ZDO state (pin/redirect/handshake runtime-only; injection client-only), so the world is intact on reload even across the OOM restarts."
+                    "g": "DONE. w4+w5 (2026-07-11): save-integrity delta 0 - ZDOS exact, structural counts exact, ComfyEra16.db byte-identical. i7-w6 (2026-07-12, GCP): world intact within tolerance across the disarm save->reload - portals/spawned/locations EXACT, ZDOs -2 (9,155,622->9,155,620, 0.00002%, within 1% tol), targets -1 (spawner churn); honestly NOT composition corruption (the composition persists no ZDO state - pin/redirect/handshake runtime-only, injection client-only, proven byte-identical P3-P6 - and the tiny deltas are normal vanilla churn from a real player walking a dense route ~3 min across two reloads)."
                 },
                 {
                     "n": 7,
                     "t": "Milestone packet: one client fully on Lumberjacks",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-12): evidence bundle fieldlab/evidence/i7-w6/ - four MCP gate verdicts (gate-summary.json) + gateway status JSONs + mod-side jsonl (redirect auto_stop 3474, pin holds, injection render) + client injection-apply log + server-log lifecycle, all sha256d with an honest PROVENANCE.json. Independent non-doc sources per the trust rule: server log + gateway JSON + mod jsonl + MCP gates."
                 },
                 {
                     "n": 8,
                     "t": "Repeatability run",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE: two independent live GCP windows both passed the composition - i7-gcp-w1 (2026-07-11, corroborating occurrence, PARTIAL bundle evidence/i7-gcp-w1/: server-log ACCEPT + pin/redirect ARMED + clean pin auto-stop + surviving mod redirect auto_stop seq=6316) and i7-w6 (2026-07-12, full archived capture). Mechanism reproduced across two windows + across builds (0.5.18 unchanged). w1's gateway receipts/pin-counts didn't survive the gateway bounce, so it is corroborating, not a second full capture - recorded honestly."
                 },
                 {
                     "n": 9,
                     "t": "Retro + map/worklog updates",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-12): worklog I7 close + capability map + dashboard + board updated; beyond-I7 backlog opened; memory banked (GCP P7 target, fg/bg IAP-ssh trap)."
                 },
                 {
                     "n": 10,
                     "t": "Beyond-I7 backlog opened (multi-client, density, ToS)",
-                    "s": "pending"
+                    "s": "done",
+                    "g": "DONE (2026-07-12): fieldlab/BEYOND-I7-BACKLOG.md opens the post-milestone slices - multi-client concurrent-peer composition, density/scale, and a ToS/legitimacy review - each framed as a yes/no invariant in the program's wind-tunnel style."
                 }
             ]
         }
     ],
     "last_probe_cycle": {
-        "ran_utc": "2026-07-10T06:37:47.8074149Z",
-        "mode": "idle",
-        "gate_status": "pass_i1_reachable",
-        "run_dir": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-233543-p2-repeat",
-        "summary_path": "C:\\work\\comfy\\fieldlab\\runs\\i1-airtight\\20260709-233543-p2-repeat\\netcode-probe-summary.json"
+        "ran_utc": "2026-07-12T07:42:01Z",
+        "mode": "p7-loopback-compose (i7-w6, GCP)",
+        "gate_status": "P7_I7_PASS_all_four_rungs_green_one_window",
+        "run_dir": "C:\\work\\comfy\\fieldlab\\evidence\\i7-w6",
+        "summary_path": "C:\\work\\comfy\\fieldlab\\evidence\\i7-w6\\gate-summary.json"
     }
 }

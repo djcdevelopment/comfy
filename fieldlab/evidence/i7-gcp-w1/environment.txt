@@ -1,0 +1,7 @@
+== mod SHA ==
+827fc6b2c3f2781039be9e9cb31c3db839a3e93ac38a418527cf17fcdc4f816d  /mnt/comfy-p7/valheim/config/bepinex/plugins/ComfyNetworkSense.dll
+== mem (GiB) ==
+               total        used        free      shared  buff/cache   available
+Mem:              62          14          16           0          32          48
+== hostname ==
+comfy-lumberjacks-p7
