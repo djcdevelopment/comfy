@@ -55,3 +55,7 @@ comfy-ascent-analysis/
 
 # Session-transcript audit extract: contains raw operator voice transcripts - keep private
 fieldlab-session-audit/
+
+# Local operator secrets for the OMEN smoke (Lumberjacks network password) - never commit
+fieldlab/scripts/omen-client-smoke.secrets.ps1
+*.secrets.ps1
