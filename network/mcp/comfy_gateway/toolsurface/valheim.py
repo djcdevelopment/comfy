@@ -54,6 +54,7 @@ AM4_SSH_HOST = os.environ.get("COMFY_AM4_SSH", "derek@am4")
 AM4_CONTAINER = os.environ.get(
     "COMFY_AM4_CONTAINER", "comfy-valheim-server-am4-valheim-server-1",
 )
+AM4_DOCKER = os.environ.get("COMFY_AM4_DOCKER", "docker")
 AM4_PROBE_PATH = os.environ.get(
     "COMFY_AM4_PROBE_PATH",
     "~/comfy-valheim-lab/server-state/config/bepinex/comfy-network-sense/netcode-probe.jsonl",
@@ -1628,7 +1629,7 @@ def _version_tuple(v: str) -> tuple:
 def _grep_mod_version_am4() -> str | None:
     """Last 'Loading [ComfyNetworkSense X.Y.Z]' the am4 container logged this boot."""
     code, out, _ = _run_ssh(
-        f"docker logs {shlex.quote(AM4_CONTAINER)} 2>&1 | grep -oE "
+        f"{AM4_DOCKER} logs {shlex.quote(AM4_CONTAINER)} 2>&1 | grep -oE "
         r"'ComfyNetworkSense [0-9]+\.[0-9]+\.[0-9]+' | tail -1"
     )
     if code == 0 and out.strip():
@@ -1930,7 +1931,7 @@ def valheim_server_log_tail(lines: int = 80, filter_text: str = "") -> dict:
     filter_text overrides the default grep pattern; pass 'ALL' for the unfiltered tail.
     """
     lines = max(1, min(int(lines), 500))
-    base = f"docker logs --tail {lines} {AM4_CONTAINER} 2>&1"
+    base = f"{AM4_DOCKER} logs --tail {lines} {AM4_CONTAINER} 2>&1"
     ftext = str(filter_text or "").strip()
     if ftext.upper() == "ALL":
         remote = base
@@ -1993,7 +1994,7 @@ def _capture_world_integrity() -> dict:
                 "container": AM4_CONTAINER, "ok": False}
     try:
         rc, out, err = _run_ssh(
-            f"docker logs --since 48h {AM4_CONTAINER} 2>&1 | "
+            f"{AM4_DOCKER} logs --since 48h {AM4_CONTAINER} 2>&1 | "
             f"grep -E 'ZDOS:|ConnectPortals =>|spawned=|Loaded [0-9]+ locations'",
             timeout_s=max(SSH_TIMEOUT_S, 45),
         )
