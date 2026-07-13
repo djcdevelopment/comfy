@@ -2,6 +2,38 @@
 
 *Shared openly as homework. Part of this repo is a method for understanding a community before building for it. Part of it is the later build sessions where that understanding finally cashed out into some unusually cross-system tools.*
 
+## The goal
+
+```
+)))))_)
+```
+
+The goal is to enable caring to look like art instead of labor.
+
+Communities don't thrive because people enjoy administrative work. They thrive because people
+enjoy creating experiences, welcoming newcomers, telling stories, organizing events, mentoring
+others, and leaving something better than they found it.
+
+Over time, though, that creativity accumulates operational weight. Spreadsheets grow. Discord
+threads disappear. Rules become harder to apply consistently. Volunteers spend more time
+maintaining the community than creating it.
+
+The objective isn't to automate caring.
+
+The objective is to automate enough of the surrounding labor that people can spend their energy
+on the parts that require empathy, judgment, imagination, and taste.
+
+The system should quietly absorb the bookkeeping, preserve the evidence, connect the artifacts,
+and surface the right information at the right time.
+
+What's left should be the work only people can do.
+
+The measure of success isn't fewer volunteers.
+
+It's volunteers who spend less time administering the community and more time shaping it.
+
+**The goal is to enable caring to look like art instead of labor.**
+
 > **Active program (2026-07-09 →):** the Valheim netcode-replacement effort. State of the world:
 > [fieldlab/GROUND-TRUTH.md](fieldlab/GROUND-TRUTH.md) · plan:
 > [fieldlab/TEST-PROGRAM.md](fieldlab/TEST-PROGRAM.md). Start sessions in `C:\work\comfy` root
