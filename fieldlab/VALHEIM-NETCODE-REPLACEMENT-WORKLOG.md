@@ -57,6 +57,18 @@
 > partial-evidence. The two-source rule was honored — server log + gateway JSON + mod jsonl + MCP
 > gates are the independent, non-doc sources.
 
+> **2026-07-12 (local) — post-close addendum: mod 0.5.19 (additive, no rung).** After the I7
+> close the mod head moved `0.5.18 → 0.5.19` (commit `e7057e8`); **I7 stays CLOSED on 0.5.18** —
+> the build that passed the gate is unchanged, and no ladder rung was added or altered. 0.5.19 is
+> client-only and additive: a `network_sense_godfly [on|off]` console command giving an on-demand
+> god + debug-fly toggle to a client joined to a dedicated server, where vanilla `god`/`fly` are
+> cheat-gated (`IsCheatsEnabled() == ZNet.IsServer()`, false on a client) and `fly` is `onlyServer`.
+> It drives the `Player` API directly — the same path the route-walk safeguard already uses — and is
+> a no-op headless. The commit also lands `fieldlab/handoffs/guest-client-pack/` (guest README +
+> host runbook: BepInEx-from-Thunderstore, join-by-IP, host-side VM-start / arm-accept-all / disarm)
+> as groundwork toward the Beyond-I7 **B1** multi-client slice — not the slice itself. CHANGELOG +
+> COMMANDS updated.
+
 Date opened: 2026-07-08. Companion to
 `VALHEIM-NETCODE-REPLACEMENT-FEASIBILITY-RESEARCH.md` (the grounded feasibility
 pass) and `VALHEIM-LUMBERJACKS-FEASIBILITY.md` (the layer matrix).
