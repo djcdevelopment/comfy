@@ -56,3 +56,13 @@ directly. Future sessions use:
 Gateway HTTP remains private on GCP loopback and OMEN `127.0.0.1:14000`; the GCP
 public TCP 4000 endpoint is closed. Native Valheim/Steam remains available only as
 the explicitly permitted compatibility/fallback transport.
+
+## Empty-server dashboard state
+
+After the client exited, Gateway `a776fdf` was deployed with the zero-peer primary
+heartbeat rule (38/38 Gateway tests passed). The live cutover surface remained fresh
+with `state=lumberjacks-primary`, `stale=false`, `mod_version=0.5.27`, 100% coverage,
+native-only 0, durable/persistence healthy, zero queue pending, and zero active
+consumers. `complete=false` is intentional when no authoritative consumer is online;
+the server mode and deployment heartbeat no longer become falsely stale merely
+because the server is empty.
