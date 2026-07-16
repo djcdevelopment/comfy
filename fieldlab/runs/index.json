@@ -1,0 +1,1026 @@
+﻿{
+    "schema":  "comfy-fieldlab-catalog/v1",
+    "generated_utc":  "2026-07-16T10:13:41.1860571Z",
+    "release_id":  "m0-clean-20260716-r2",
+    "purpose":  "M0/A3 immutable FieldLab evidence catalog: every run folder classified as gold, valid, negative, historical, or superseded.",
+    "classes":  {
+                    "gold":  "Directly backs the validated hash-recorded P7 baseline or another currently-validated claim.",
+                    "valid":  "Completed successfully and still supports a current claim; not the promoted baseline evidence.",
+                    "negative":  "Records a failure, blocked, or refuted result; retained as immutable negative evidence.",
+                    "historical":  "Era-bound evidence from an earlier phase; retained but not load-bearing for current claims.",
+                    "superseded":  "Claim re-proven by the named newer run of the same or stronger scenario."
+                },
+    "excluded_folders":  [
+                             "releases (release bundles, not runs)",
+                             "audits (audit workspace)",
+                             "build-requests (build-request workspace)"
+                         ],
+    "counts":  {
+                   "gold":  1,
+                   "historical":  70,
+                   "negative":  17,
+                   "superseded":  37
+               },
+    "runs":  [
+                 {
+                     "run":  "20260704-054718-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-054718",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-055804-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-055804",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-055835-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-055835",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-060120-thesis-gold-progressive-enhancement"
+                 },
+                 {
+                     "run":  "20260704-060120-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-060120",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-061025-thesis-gold-progressive-enhancement"
+                 },
+                 {
+                     "run":  "20260704-060200-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-060200",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-060549-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-060549",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-061025-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-061025",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-061329-thesis-gold-progressive-enhancement"
+                 },
+                 {
+                     "run":  "20260704-061329-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-061329",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-062338-thesis-gold-progressive-enhancement"
+                 },
+                 {
+                     "run":  "20260704-061853-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-061853",
+                     "class":  "negative",
+                     "reason":  "command_plan_failed",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-061921-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-061921",
+                     "class":  "negative",
+                     "reason":  "blocked_missing_database",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-062038-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-062038",
+                     "class":  "negative",
+                     "reason":  "blocked_missing_database",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-062338-thesis-gold-progressive-enhancement",
+                     "scenario":  "thesis-gold-progressive-enhancement",
+                     "started":  "20260704-062338",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-063121-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-063121",
+                     "class":  "negative",
+                     "reason":  "blocked_missing_database",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-063525-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-063525",
+                     "class":  "negative",
+                     "reason":  "command_plan_failed",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-063626-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-063626",
+                     "class":  "negative",
+                     "reason":  "blocked_missing_database",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-063822-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-063822",
+                     "class":  "negative",
+                     "reason":  "blocked_missing_database",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-064816-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-064816",
+                     "class":  "negative",
+                     "reason":  "fail_probe",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-070538-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-070538",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-071715-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-071715",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-071907-lumberjacks-native-runtime-smoke"
+                 },
+                 {
+                     "run":  "20260704-071907-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-071907",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-073300-lumberjacks-native-runtime-smoke"
+                 },
+                 {
+                     "run":  "20260704-072542-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-072542",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-073020-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-073020",
+                     "class":  "negative",
+                     "reason":  "command_plan_failed",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-073145-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-073145",
+                     "class":  "negative",
+                     "reason":  "command_plan_failed",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-073300-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260704-073300",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-080802-era16-density-pressure-matrix",
+                     "scenario":  "era16-density-pressure-matrix",
+                     "started":  "20260704-080802",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-080822-era16-density-pressure-matrix",
+                     "scenario":  "era16-density-pressure-matrix",
+                     "started":  "20260704-080822",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-080932-era16-density-pressure-matrix",
+                     "scenario":  "era16-density-pressure-matrix",
+                     "started":  "20260704-080932",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083053-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083053",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083118-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083118",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083203-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083203",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083305-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083305",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083332-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083332",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083415-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083415",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083454-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083454",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083529-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083529",
+                     "class":  "negative",
+                     "reason":  "baseline_incomplete",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-083637-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083637",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-083714-valheim-era16-volunteer-readiness-baseline"
+                 },
+                 {
+                     "run":  "20260704-083714-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-083714",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-085746-valheim-era16-volunteer-readiness-baseline"
+                 },
+                 {
+                     "run":  "20260704-084803-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-084803",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-085020-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-084952-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-084952",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-085020-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-085020",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-085758-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-085746-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-085746",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-085944-valheim-era16-volunteer-readiness-baseline"
+                 },
+                 {
+                     "run":  "20260704-085758-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-085758",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-085956-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-085944-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-085944",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-092258-valheim-era16-volunteer-readiness-baseline"
+                 },
+                 {
+                     "run":  "20260704-085956-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-085956",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-090559-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-090559-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-090559",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-092306-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-092029-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092029",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092040-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092040",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092053-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092053",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092113-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092113",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092127-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092127",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092140-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092140",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092208-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092208",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092241-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092241",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092251-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092251",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092257-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092257",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092258-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-092258",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-092354-valheim-era16-volunteer-readiness-baseline"
+                 },
+                 {
+                     "run":  "20260704-092306-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-092306",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260704-092402-valheim-era16-teleport-rehearsal"
+                 },
+                 {
+                     "run":  "20260704-092353-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092353",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092354-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-092354",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092402-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260704-092402",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092441-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092441",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092944-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092944",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-092950-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-092950",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-093016-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-093016",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-093117-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-093117",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-093201-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-093201",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-094427-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-094427",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-095039-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-095039",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-100820-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-100820",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-101421-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-101421",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-102122-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-102122",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-102358-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260704-102358",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-103801-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-103801",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-103822-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-103822",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-103854-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-103854",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-105016-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-105016",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-105050-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-105050",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-113501-valheim-yolo-swarm",
+                     "scenario":  "valheim-yolo-swarm",
+                     "started":  "20260704-113501",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-141320-era16-density-pressure-matrix",
+                     "scenario":  "era16-density-pressure-matrix",
+                     "started":  "20260704-141320",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260704-142501-valheim-era16-volunteer-readiness-baseline",
+                     "scenario":  "valheim-era16-volunteer-readiness-baseline",
+                     "started":  "20260704-142501",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260705-224940-lumberjacks-native-runtime-smoke",
+                     "scenario":  "lumberjacks-native-runtime-smoke",
+                     "started":  "20260705-224940",
+                     "class":  "negative",
+                     "reason":  "fail_probe",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260705-225728-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260705-225728",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260705-230043-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260705-230043-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260705-230043",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260705-230109-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260705-230109-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260705-230109",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260706-011710-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260706-011710-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260706-011710",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260706-011747-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260706-011747-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260706-011747",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260706-013136-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260706-013136-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260706-013136",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260706-013316-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260706-013316-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260706-013316",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260706-014633-valheim-lumberjacks-bridge-feasibility"
+                 },
+                 {
+                     "run":  "20260706-014633-valheim-lumberjacks-bridge-feasibility",
+                     "scenario":  "valheim-lumberjacks-bridge-feasibility",
+                     "started":  "20260706-014633",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260706-015719-valheim-lumberjacks-shadow-authority",
+                     "scenario":  "valheim-lumberjacks-shadow-authority",
+                     "started":  "20260706-015719",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260707-205433-valheim-lumberjacks-shadow-authority"
+                 },
+                 {
+                     "run":  "20260707-205433-valheim-lumberjacks-shadow-authority",
+                     "scenario":  "valheim-lumberjacks-shadow-authority",
+                     "started":  "20260707-205433",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260707-210807-valheim-lumberjacks-shadow-route",
+                     "scenario":  "valheim-lumberjacks-shadow-route",
+                     "started":  "20260707-210807",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260707-224720-valheim-lumberjacks-shadow-route"
+                 },
+                 {
+                     "run":  "20260707-224720-valheim-lumberjacks-shadow-route",
+                     "scenario":  "valheim-lumberjacks-shadow-route",
+                     "started":  "20260707-224720",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-001549-valheim-lumberjacks-shadow-route"
+                 },
+                 {
+                     "run":  "20260708-001549-valheim-lumberjacks-shadow-route",
+                     "scenario":  "valheim-lumberjacks-shadow-route",
+                     "started":  "20260708-001549",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-022138-valheim-lumberjacks-shadow-route"
+                 },
+                 {
+                     "run":  "20260708-022138-valheim-lumberjacks-shadow-route",
+                     "scenario":  "valheim-lumberjacks-shadow-route",
+                     "started":  "20260708-022138",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-032718-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-032718",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-032738-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-032738",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-032910-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-032910-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-032910",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-033021-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-033021-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-033021",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-035932-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-035932-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-035932",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-040111-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-040041-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-040041",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-040111-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-040111",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-041345-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-041345-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-041345",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-041510-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-041510-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-041510",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-042140-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-042140-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-042140",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-042303-valheim-lumberjacks-priority-load-order"
+                 },
+                 {
+                     "run":  "20260708-042303-valheim-lumberjacks-priority-load-order",
+                     "scenario":  "valheim-lumberjacks-priority-load-order",
+                     "started":  "20260708-042303",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-043315-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-043315",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-071750-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-071750",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-072234-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-072234",
+                     "class":  "negative",
+                     "reason":  "fail_priority_mirror_post",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-072837-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-072837",
+                     "class":  "negative",
+                     "reason":  "blocked_eventlog_database_unavailable",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-072940-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-072940",
+                     "class":  "negative",
+                     "reason":  "blocked_eventlog_database_unavailable",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-073029-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-073029",
+                     "class":  "negative",
+                     "reason":  "blocked_eventlog_database_unavailable",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-075942-valheim-lumberjacks-priority-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-mirror",
+                     "started":  "20260708-075942",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-084141-valheim-lumberjacks-priority-live-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-live-mirror",
+                     "started":  "20260708-084141",
+                     "class":  "superseded",
+                     "reason":  "claim re-proven by a newer run of the same scenario",
+                     "superseded_by":  "20260708-091406-valheim-lumberjacks-priority-live-mirror"
+                 },
+                 {
+                     "run":  "20260708-091406-valheim-lumberjacks-priority-live-mirror",
+                     "scenario":  "valheim-lumberjacks-priority-live-mirror",
+                     "started":  "20260708-091406",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-092311-valheim-lumberjacks-priority-gateway-plan",
+                     "scenario":  "valheim-lumberjacks-priority-gateway-plan",
+                     "started":  "20260708-092311",
+                     "class":  "negative",
+                     "reason":  "blocked_gateway_priority_endpoint",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-101308-valheim-lumberjacks-priority-gateway-plan",
+                     "scenario":  "valheim-lumberjacks-priority-gateway-plan",
+                     "started":  "20260708-101308",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-104818-valheim-lumberjacks-priority-gateway-plan",
+                     "scenario":  "valheim-lumberjacks-priority-gateway-plan",
+                     "started":  "20260708-104818",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260708-121319-valheim-era16-teleport-rehearsal",
+                     "scenario":  "valheim-era16-teleport-rehearsal",
+                     "started":  "20260708-121319",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, not load-bearing",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260709-053502-valheim-autonomous-lab",
+                     "scenario":  "valheim-autonomous-lab",
+                     "started":  "20260709-053502",
+                     "class":  "historical",
+                     "reason":  "era-bound evidence from early phase, dead docker topology",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "20260716-011112-valheim-lumberjacks-authoritative-priority-cutover",
+                     "scenario":  "valheim-lumberjacks-authoritative-priority-cutover",
+                     "started":  "20260716-011112",
+                     "class":  "gold",
+                     "reason":  "validated hash-recorded P7 baseline (83,220/83,220 authoritative priority ZDO cutover)",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "i1",
+                     "scenario":  "netcode-probe (i1)",
+                     "started":  null,
+                     "class":  "historical",
+                     "reason":  "i-era working data; curated evidence under fieldlab/evidence/i1",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "i1-airtight",
+                     "scenario":  "netcode-probe (i1 airtight reruns)",
+                     "started":  null,
+                     "class":  "historical",
+                     "reason":  "i-era working data; curated evidence under fieldlab/evidence/i1-airtight",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "i2-observe",
+                     "scenario":  "ownership-churn observation (i2)",
+                     "started":  null,
+                     "class":  "historical",
+                     "reason":  "i-era working data; curated evidence under fieldlab/evidence/i2-observe",
+                     "superseded_by":  null
+                 },
+                 {
+                     "run":  "manual-tcp-probe",
+                     "scenario":  "manual tcp probe",
+                     "started":  null,
+                     "class":  "historical",
+                     "reason":  "empty placeholder folder; no artifacts",
+                     "superseded_by":  null
+                 }
+             ]
+}

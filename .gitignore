@@ -36,8 +36,11 @@ obj/
 *.fch
 
 # Field-lab runtime + generated (not source): container state (~30GB), run packets, gateway var
+# The run catalog (index.json/CATALOG.md) is tracked M0 evidence; run packets stay local.
 fieldlab/autonomous/state/
-fieldlab/runs/
+fieldlab/runs/*
+!fieldlab/runs/index.json
+!fieldlab/runs/CATALOG.md
 network/mcp/var/
 network/var/
 

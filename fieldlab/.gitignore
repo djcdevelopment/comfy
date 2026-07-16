@@ -1,4 +1,7 @@
 private/
-runs/
+runs/*
+!runs/index.json
+!runs/CATALOG.md
+audits/runs/
 *.log
 *.tmp
