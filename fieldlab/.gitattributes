@@ -3,3 +3,4 @@ runs/index.json -text
 runs/CATALOG.md -text
 evidence/p7-gold-run-20260716-011112-authoritative-priority-cutover/** -text
 evidence/p7-primary-v1-authoritative-priority-zdo-20260716-v0531.md -text
+evidence/m0-a4-promotion-drill-20260716/** -text

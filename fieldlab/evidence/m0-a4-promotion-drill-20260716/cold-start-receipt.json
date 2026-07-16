@@ -1,0 +1,15 @@
+﻿{
+    "schema":  "comfy-p7-promotion-drill-cold-start/v1",
+    "release_id":  "m0-clean-20260716-r2",
+    "completed_utc":  "2026-07-16T14:02:43Z",
+    "gateway_image_id":  "sha256:141bd9e5a2ce8bd95f1bd93a9f123637cbc1cffcb0795594fae94e28d7fe86fb",
+    "gateway_started_via":  "docker load + compose image pin, --no-build",
+    "mod_sha256":  "94a3843ef8042adceaca6bc4d5c0c38c7c8dc5a1aa05b5f2a3019879840ba3a8",
+    "checks":  [
+                   "bundle_validation=valid",
+                   "gateway_health=ok",
+                   "gateway_image=sha256:141bd9e5a2ce8bd95f1bd93a9f123637cbc1cffcb0795594fae94e28d7fe86fb",
+                   "mod_runtime_hash=match",
+                   "mod_fallback_hash=match"
+               ]
+}

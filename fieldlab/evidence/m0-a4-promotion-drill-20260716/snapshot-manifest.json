@@ -1,0 +1,12 @@
+﻿{
+    "schema":  "comfy-p7-promotion-drill-snapshot/v1",
+    "release_id":  "m0-clean-20260716-r2",
+    "captured_utc":  "2026-07-16T13:59:16Z",
+    "snapshot_root":  "/mnt/comfy-p7/backups/promotion-drill/20260716T121015Z",
+    "note":  "Environment/config snapshots stay on the VM; this receipt records their hashes only.",
+    "remote_hashes":  [
+                          "a6eeb19904b1ed303634aebfc0487ed85db2e836a65fd1cf4f3787f6d286482e  valheim-config.tgz",
+                          "11655ae41173c46196297411fcce58dd19ec89ef17f4d7990da560a2d1efdfcc  environment",
+                          "ffd3b9eb8189d682f5eea13cbe4a1bbb7b740e1361a203fa3117dcdeff95040c  docker-compose.yml"
+                      ]
+}

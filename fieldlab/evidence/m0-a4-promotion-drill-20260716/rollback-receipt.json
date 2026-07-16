@@ -1,0 +1,14 @@
+﻿{
+    "schema":  "comfy-p7-promotion-drill-rollback/v1",
+    "release_id":  "m0-clean-20260716-r2",
+    "completed_utc":  "2026-07-16T14:04:51Z",
+    "gateway_image_id":  "sha256:358f5e11e35b54367a83d4e52ea3d47c0346e62a82ed357c2ff403eafafcd0a2",
+    "mod_sha256":  "b31697d2a0cbe47b86c32b33d19fb9445e21af0cfe51687cb5afe871a3d7d77b",
+    "checks":  [
+                   "gateway_health=ok",
+                   "gateway_image=sha256:358f5e11e35b54367a83d4e52ea3d47c0346e62a82ed357c2ff403eafafcd0a2",
+                   "mod_runtime_hash=match",
+                   "mod_fallback_hash=match",
+                   "no_source_rebuild=true"
+               ]
+}

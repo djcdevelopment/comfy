@@ -1,0 +1,35 @@
+﻿{
+    "schema":  "comfy-p7-promotion-drill-plan/v1",
+    "release_id":  "m0-clean-20260716-r2",
+    "planned_utc":  "2026-07-16T13:56:04Z",
+    "bundle_root":  "C:\\work\\comfy\\fieldlab\\runs\\releases\\m0-clean-20260716-r2",
+    "bundle_validation":  "valid",
+    "candidate":  {
+                      "image_id":  "sha256:141bd9e5a2ce8bd95f1bd93a9f123637cbc1cffcb0795594fae94e28d7fe86fb",
+                      "image_tag":  "lumberjacks-gateway:drill-m0-clean-20260716-r2",
+                      "mod_sha256":  "94a3843ef8042adceaca6bc4d5c0c38c7c8dc5a1aa05b5f2a3019879840ba3a8"
+                  },
+    "rollback":  {
+                     "image_id":  "sha256:358f5e11e35b54367a83d4e52ea3d47c0346e62a82ed357c2ff403eafafcd0a2",
+                     "mod_sha256":  "b31697d2a0cbe47b86c32b33d19fb9445e21af0cfe51687cb5afe871a3d7d77b",
+                     "mod_backup_path":  "/mnt/comfy-p7/backups/comfynetworksense/20260716T004955Z"
+                 },
+    "target":  {
+                   "ssh":  "comfy-p7",
+                   "compose_root":  "/opt/comfy/infra/gcp/p7",
+                   "gateway":  "comfy-lumberjacks-p7-gateway-1",
+                   "valheim":  "comfy-lumberjacks-p7-valheim-server-1"
+               },
+    "phases":  [
+                   "snapshot",
+                   "cold_start",
+                   "rollback",
+                   "restore"
+               ],
+    "execute":  true,
+    "preconditions":  [
+                          "Scheduled GCP mutation window is open and the Valheim server is empty.",
+                          "RollbackModBackupPath points at an existing runtime.dll/fallback.dll backup pair on the VM.",
+                          "No volunteer or strict evidence window is active."
+                      ]
+}
