@@ -7,6 +7,7 @@ Primary tools for agents:
 - `valheim_mcp_health`: verify gateway paths and local services.
 - `valheim_networksense_files`: list telemetry files.
 - `valheim_networksense_report`: compact deterministic report from recent samples.
+- `valheim_authoritative_status`: inspect the rendered mod's direct Gateway poll/apply/ack state.
 - `valheim_explain_networksense`: report plus local Ollama explanation.
 - `valheim_list_sessions`: find session IDs.
 - `valheim_session_bundle`: collect one session for handoff or comparison.

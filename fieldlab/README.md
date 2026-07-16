@@ -7,6 +7,13 @@
 > ⚠️ The "Autonomous Valheim Lab" (OMEN Docker) topology in this file is **dead** — Docker
 > Desktop publishes no UDP; the server lives on am4 (see the setup runbook).
 
+> **NEXT STAGE (2026-07-15):** the canonical plan for turning the proven P7 cutover
+> into an invited volunteer platform, then a recipient-safe multiplayer cohort, is
+> `C:\work\lumberjacks\docs\network\valheim-volunteer-platform-plan.md`.
+> FieldLab remains the immutable evidence and run-packet workspace for that plan.
+> The scannable living view and commit journal are at
+> `C:\work\lumberjacks\src\Game.Gateway\Community\roadmap.html`.
+
 `fieldlab/` is the working directory for reproducible Thesis Gold experiments.
 
 The purpose is to turn networking and native-runtime claims into field packets that another

@@ -310,6 +310,59 @@ def valheim_networksense_report(sample_count: int = 30) -> dict:
     }
 
 
+def valheim_authoritative_status(sample_count: int = 30) -> dict:
+    """Read the rendered client's mod-owned Lumberjacks poll/apply/ack state.
+
+    The mod emits these fields into telemetry-client.jsonl. This tool never reads
+    or returns the player's enrollment credential.
+    """
+    sample_count = max(1, min(sample_count, MAX_TAIL_LINES))
+    path = NETWORK_SENSE_DIR / "telemetry-client.jsonl"
+    samples = _tail_json(path, sample_count)
+    valid = [row for row in samples if not row.get("_parse_error")]
+    latest = valid[-1] if valid else {}
+    prefix = "zdo_authoritative_"
+    authoritative = {
+        key[len(prefix):]: value
+        for key, value in latest.items()
+        if key.startswith(prefix)
+    }
+
+    if not authoritative:
+        verdict = "unavailable"
+    elif not authoritative.get("enabled"):
+        verdict = "disabled"
+    elif int(authoritative.get("rejected") or 0) > 0:
+        verdict = "rejected"
+    elif any(authoritative.get(name) for name in
+             ("last_poll_error", "last_apply_error", "last_ack_error", "last_telemetry_error")):
+        verdict = "error"
+    elif int(authoritative.get("connected_peers") or 0) == 0:
+        verdict = "waiting_for_peer"
+    elif authoritative.get("state") == "draining" or int(authoritative.get("pending") or 0) > 0:
+        verdict = "draining"
+    else:
+        verdict = "healthy"
+
+    recent_log = [
+        line for line in _tail_lines(BEPINEX_LOG, 200)
+        if "authoritative consumer" in line.lower()
+    ][-20:]
+    modified = path.stat().st_mtime if path.exists() else None
+    return {
+        "ok": bool(authoritative),
+        "verdict": verdict,
+        "source_file": str(path),
+        "source_modified_unix": modified,
+        "source_age_seconds": round(max(0.0, time.time() - modified), 3) if modified else None,
+        "sample_timestamp_utc": latest.get("timestamp_utc"),
+        "session_id": latest.get("session_id"),
+        "build_version": latest.get("build_version"),
+        "authoritative": authoritative,
+        "recent_log": recent_log,
+    }
+
+
 def _all_json(file_name: str, max_entries: int = 5000) -> list[dict]:
     path = _safe_child(NETWORK_SENSE_DIR, file_name)
     if not path.exists():
@@ -362,6 +415,7 @@ def valheim_mcp_health() -> dict:
             "valheim_swarm_clients",
             "valheim_tail_swarm_client",
             "valheim_networksense_report",
+            "valheim_authoritative_status",
             "valheim_session_bundle",
             "valheim_compare_clients",
             "valheim_suggest_next_test",
@@ -2118,6 +2172,7 @@ def get_tools() -> list[Callable]:
         valheim_tail_networksense,
         valheim_tail_bepinex_log,
         valheim_networksense_report,
+        valheim_authoritative_status,
         valheim_explain_networksense,
         valheim_list_sessions,
         valheim_session_bundle,

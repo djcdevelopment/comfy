@@ -257,6 +257,15 @@
       "requires": ["Comfy MCP gateway"],
       "example": "valheim_mcp_health()",
       "returns": "Gateway, telemetry path, and Ollama endpoint status."
+    },
+    {
+      "name": "valheim_authoritative_status",
+      "surface": "mcp_tool",
+      "stability": "dev",
+      "side_effects": ["reads local files"],
+      "requires": ["Comfy MCP gateway", "ComfyNetworkSense 0.5.29+"],
+      "example": "valheim_authoritative_status(sample_count=30)",
+      "returns": "Sanitized live direct-Gateway poll/apply/ack state from the rendered mod."
     }
   ]
 }
