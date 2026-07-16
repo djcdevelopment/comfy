@@ -1,0 +1,56 @@
+{
+  "schema": "comfy-fieldlab/valheim-authoritative-cutover/v1",
+  "captured_utc": "2026-07-16T01:13:13.9614064Z",
+  "session_id": "20260716-011112-f7e72fb4",
+  "consumer_id": "4e4c6475430d",
+  "mode": "lumberjacks-primary",
+  "window_id": "p7-primary-v1",
+  "build_version": "0.5.31",
+  "gateway": {
+    "receipts": 83220,
+    "acknowledged": 83220,
+    "pending": 0,
+    "complete": true,
+    "durable_queue": true,
+    "persistence_healthy": true,
+    "coverage_percent": 100,
+    "coverage_native_only": 0,
+    "native_fallbacks": 0
+  },
+  "client": {
+    "applied": 72946,
+    "superseded": 10274,
+    "acknowledged": 83220,
+    "priority_tagged": 83220,
+    "priority_fast_lane_applied": 47534,
+    "priority_fast_lane_percent": 57.1,
+    "maximum_queue_depth": 960,
+    "poll_batch_max": 1024,
+    "ack_batch_max": 1024,
+    "maximum_applies_per_unity_update": 64,
+    "rejected": 0,
+    "duplicates": 0,
+    "retried": 0,
+    "poll_failures": 0,
+    "ack_failures": 0,
+    "telemetry_failures": 0,
+    "final_fps": 121.165,
+    "final_frame_time_p95_ms": 8.526
+  },
+  "timing": {
+    "first_peer_utc": "2026-07-16T01:11:30.8398832Z",
+    "first_apply_utc": "2026-07-16T01:11:37.5612116Z",
+    "queue_complete_utc": "2026-07-16T01:13:12.9536198Z",
+    "peer_to_first_apply_seconds": 6.7213284,
+    "peer_to_complete_seconds": 102.1137366
+  },
+  "artifact_provenance": {
+    "client_telemetry": "C:\\Program Files (x86)\\Steam\\steamapps\\common\\Valheim\\BepInEx\\config\\comfy-network-sense\\telemetry-client.jsonl",
+    "client_telemetry_closure_line": 303910,
+    "client_telemetry_size_bytes_at_capture": 233984934,
+    "client_telemetry_sha256_at_capture": "8e7141c81a9fd583545250236c934bb7f19be77efc14d187da52e09edb88b60d",
+    "release_manifest": "C:\\work\\comfy\\fieldlab\\runs\\releases\\p7-primary-v1-0.5.31-clean.json",
+    "plugin_sha256": "b31697d2a0cbe47b86c32b33d19fb9445e21af0cfe51687cb5afe871a3d7d77b"
+  },
+  "scope": "One enrolled client; complete observed ZDO delivery window. Steam login, Valheim simulation, native relevance selection, and non-ZDO RPCs remain outside this claim."
+}
