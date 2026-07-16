@@ -1,0 +1,5 @@
+# Hash-bound evidence: recorded SHA-256s must survive checkout byte-identically on every platform.
+runs/index.json -text
+runs/CATALOG.md -text
+evidence/p7-gold-run-20260716-011112-authoritative-priority-cutover/** -text
+evidence/p7-primary-v1-authoritative-priority-zdo-20260716-v0531.md -text
