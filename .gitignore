@@ -62,3 +62,10 @@ fieldlab-session-audit/
 # Local operator secrets for the OMEN smoke (Lumberjacks network password) - never commit
 fieldlab/scripts/omen-client-smoke.secrets.ps1
 *.secrets.ps1
+
+# Vendored metadata reader for New-ReleaseCut.ps1's artifact identity check.
+# Windows PowerShell 5.1 has no GAC entry for System.Reflection.Metadata, so the
+# check cannot load it via Add-Type -AssemblyName. These netstandard2.0 builds do
+# load on .NET Framework 4.8. Vendored so a nuget cache clear cannot silently
+# disarm the one gate that stops a mismatched release from shipping.
+!infra/gcp/p7/scripts/lib/*.dll
