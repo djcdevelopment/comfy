@@ -1,5 +1,14 @@
 # Authoritative ZDO consumer completion plan
 
+> **COMPLETE (2026-07-15).** Every gate below passed and the endpoint landed: the Gateway
+> promoted the live heartbeat to `lumberjacks-primary` with a permanent explicit all-prefab
+> redirect - 100% coverage, native-only 0, 18,705/18,705 receipts/acknowledgements, 0
+> pending/gaps/duplicates (ComfyNetworkSense 0.5.27; evidence
+> `fieldlab/evidence/p7-primary-v1-authoritative-zdo-20260715-v0527.md`). Kept for the record;
+> the active program moved to M-series strict admission in
+> `C:\work\Lumberjacks\docs\plan-m1-strict-admission.md` and the living roadmap
+> (`C:\work\Lumberjacks\docs\roadmap\`).
+
 ## Objective
 
 Promote the existing ZDO redirect path from receipt-only mirroring to an ordered,

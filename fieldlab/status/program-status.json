@@ -1,16 +1,20 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-12T18:30:00-07:00",
+    "updated": "2026-07-18T17:20:00-07:00",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
         "topology": "fieldlab/MULTIPLAYER-NETWORK-SETUP.md",
-        "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md"
+        "ladder": "fieldlab/VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md",
+        "post_i7_program": "C:\\work\\Lumberjacks\\docs\\roadmap\\valheim-volunteer-roadmap.json (living roadmap, M-series milestones) + C:\\work\\Lumberjacks\\docs\\plan-m1-strict-admission.md (active M1 plan + numbered risk register). The I1..I7 ladder below is history; the program's present tense lives there."
     },
     "needs_derek": [
-        "NOTHING PENDING. P7/I7 is COMPLETE (2026-07-12) - the whole ladder I1..I7 is proven. The 'one client fully on Lumberjacks' milestone landed in one clean single-window capture (i7-w6) on the GCP VM after the am4 OOM blocker was eliminated by migrating the dedicated-server role to a 62 GiB VM. Beyond-I7 work (multi-client, density, ToS/legitimacy) is OPTIONAL and backlogged (fieldlab/BEYOND-I7-BACKLOG.md); none of it is queued unless Derek chooses to pursue it."
+        "M1 STAGE 3 HUMAN ITEMS (the only real blockers): (a) a public DNS A record for the volunteer endpoint - ACME will not issue a certificate for a bare IP; (b) an ACME contact address. Firewall 80/443 already opened (comfy 2765ff9). Stage 3 (mod TLS + authenticated identity, fail-closed) and stage 4 (one-use bootstrap) are BUILT + COMMITTED, UNDEPLOYED, shipping OFF by design.",
+        "DECISION owed (risk 12, rebuild-to-verify): the .NET 8 SDK embeds git HEAD in the mod PDB, so the DLL hash moves with every commit and a cut built pre-commit can never be rebuilt from its release commit. Pick one: pin EnableSourceControlManagerQueries=false in the mod csproj (hash attests source alone), OR reorder the cut commit-first-build-second (keeps embedded provenance). Root cause proven 2026-07-18 (comfy 554488d, Lumberjacks 909315b).",
+        "PUSH when ready: both repos are ahead of origin and nothing was pushed autonomously - comfy +16, Lumberjacks +16 (as of 2026-07-18 evening).",
+        "OPTIONAL backlog: M1 stage 4 self-serve bootstrap re-issue (an expired bootstrap currently strands a volunteer until an admin revoke + fresh invite)."
     ],
-    "next_derek_touchpoint": "NONE PENDING - P7/I7 COMPLETE (2026-07-12, mod 0.5.18). The full ladder I1..I7 is proven. 'One client fully on Lumberjacks' landed in ONE clean single-window capture (i7-w6) on the GCP VM comfy-lumberjacks-p7 (n2-highmem-8, project lumberjacks-exp-20260711-djc, 8.231.129.249): all four rungs armed simultaneously and passed live in one full window with a clean probe stop and no desync/crash/OOM - I5 handshake Lumberjacks-decided ACCEPT (uid 2202545290, net_version 36) -> steady state; I2 pin held_with_negative_control (25 pinned, 49 holds, 15606 pass-through); I3 redirect receipts_match_no_loss (3474 == 3474, missing 0, dup 0); I4 injection rendered_with_lumberjacks_owner (owner 5497853135698, 90 polls/0 errors); client stability clean; save-integrity intact within tolerance across the disarm reload (portals/spawned/locations exact, ZDOs -2/0.00002%, targets -1 = benign player+reload churn, NOT composition corruption). Repeatability satisfied by two independent GCP windows (i7-gcp-w1 corroborating + i7-w6 full capture). ROOT CAUSE of the prior weeks of clips was am4 HOST OOM (oom_kill=9), eliminated by the GCP migration - the code was always fine. Derek's ONLY manual touch this window was the fresh-launch + join + Valheim password. Evidence: fieldlab/evidence/i7-w6/ + i7-gcp-w1/. Post-milestone: server disarmed back to observe-only baseline on 0.5.18. Beyond-I7 (multi-client/density/ToS) is OPTIONAL, see fieldlab/BEYOND-I7-BACKLOG.md. POST-CLOSE ADDENDUM (2026-07-12, commit e7057e8): the mod head advanced 0.5.18 -> 0.5.19 - ADDITIVE, client-only, NO rung changed and I7 stays CLOSED on 0.5.18. 0.5.19 adds a network_sense_godfly [on|off] console command (on-demand god + debug-fly for a client on a dedicated server where vanilla god/fly are cheat-gated; drives the Player API directly, no-op headless) plus fieldlab/handoffs/guest-client-pack/ (guest README + host runbook) as groundwork toward the Beyond-I7 B1 multi-client slice, not the slice itself.",
+    "next_derek_touchpoint": "M-SERIES ACTIVE - the post-I7 program lives in the Lumberjacks living roadmap (docs/roadmap/) and plan-m1-strict-admission.md; this file keeps the I1..I7 record. M0 (frozen reproducible release + evidence, promotion drill) CLOSED 2026-07-16. M1 (strict admission) ACTIVE: stages 1-2 closed; gate 3 closed LIVE 2026-07-17 (strict roster flipped, a real join proved it); stages 3-4 built + committed, UNDEPLOYED, shipping OFF. P7 cutover state: lumberjacks-primary since 2026-07-15 (all-prefab redirect, 100% coverage - evidence fieldlab/evidence/p7-primary-v1-authoritative-zdo-20260715-v0527.md). 2026-07-18 autonomous session: (1) release-cut pass path PROVEN via rehearsal cut m1-rehearsal-20260718-r1 - first pass verdict the identity check ever produced; (2) cut early-ship defect FIXED - the mod csproj CopyAssembly convenience was landing release-id DLLs on the live OMEN client BEFORE the identity check ran (comfy 877ff11); (3) risk 12 clone-vs-worktree mystery SOLVED - the SDK embeds git HEAD in the PDB (comfy 554488d, LJ 909315b) - fix is now a decision, see needs_derek. NEXT IN-PERSON: DNS A record + ACME contact, then the stage 3/4 cut + deploy and the owed live verifications (Gateway stopped => strict refuses; the 2-dark rows on the wire; https end to end; plaintext-credential capture check; priority-drain baseline re-run). P7 VM is STOPPED between windows - start it for the next window.",
     "trust": {
         "claims_total": 82,
         "confirmed": 71,
@@ -85,8 +89,8 @@
     "infra": [
         {
             "name": "GCP P7 valheim server (comfy-lumberjacks-p7)",
-            "state": "up",
-            "detail": "PRIMARY P7 server (2026-07-12) - the am4 OOM fix. GCP n2-highmem-8, 62 GiB RAM (~48 GiB free during the i7-w6 window, swap unused, zero OOM pressure), us-west1-b, project lumberjacks-exp-20260711-djc, public 8.231.129.249. Combined docker-compose: Steam-only Valheim dedicated server (world ComfyEra16, CROSSPLAY=false, UDP 2456-2457) with ComfyNetworkSense 0.5.18 (dll sha256 827fc6b2...c4f816d) + Lumberjacks gateway(:4000)/eventlog/progression/operatorapi/postgres. Fieldlab reaches it via the comfy-p7 SSH alias through IAP + set-gcp-p7-target.ps1. Currently DISARMED observe-only baseline (all four rung flags false). Infra Terraform root infra/gcp/p7/. NB the IAP-tunnel ssh works in a FOREGROUND shell but hangs on data-copy in a BACKGROUND task (no console stdin) - drive stage arm/gate/disarm foreground."
+            "state": "stopped",
+            "detail": "PRIMARY P7 server. VM STOPPED (TERMINATED, verified 2026-07-18) between windows - the ordered shutdown lane stops Valheim before the VM (comfy ea369a2). Start for a window: gcloud compute instances start comfy-lumberjacks-p7 (project lumberjacks-exp-20260711-djc, us-west1-b, public 8.231.129.249). Runs release m1-clean-20260717-r1 under the durable env image pin (NOT the M0 release - LJ c51ccee); Gateway state lumberjacks-primary since the 2026-07-15 cutover. n2-highmem-8, 62 GiB. Reach via the comfy-p7 IAP alias + set-gcp-p7-target.ps1; IAP ssh works FOREGROUND only. Infra Terraform root infra/gcp/p7/."
         },
         {
             "name": "am4 valheim server",
@@ -96,7 +100,7 @@
         {
             "name": "OMEN client",
             "state": "ready",
-            "detail": "native Valheim + mod 0.5.15 in plugins (client-side ZdoInjectionRunner; boot-verified in the i4-w6 session, build_version=0.5.15) | routeGodFlySafeguard on | account floooooobcakes / persona wary.fool / character Durracktu, SteamID 76561198088711642 (NOT the waryfool/Zephar410 dota2 smurf; floooooobcakes is the ACCOUNT name, not a character) | coupleAutoRehearsalToNetcodeProbe ON | zdoInjectionEnabled toggled per window, off at rest (quit/relaunch clears the client-only synthetic ZDO) | NB: auto-walk re-arms only on a fresh RELAUNCH (AutoRehearsalRunOncePerSession), not a menu rejoin | teleport-route.tsv supports an optional Y column for above-canopy floats"
+            "detail": "native Valheim + ComfyNetworkSense from the latest tree build in plugins (the csproj CopyAssembly lane auto-copies every mod build; dev-HEAD build as of 2026-07-18 - release cuts no longer auto-copy, comfy 877ff11) | routeGodFlySafeguard on | account floooooobcakes / persona wary.fool / character Durracktu, SteamID 76561198088711642 (NOT the waryfool/Zephar410 dota2 smurf; floooooobcakes is the ACCOUNT name, not a character) | coupleAutoRehearsalToNetcodeProbe ON | zdoInjectionEnabled toggled per window, off at rest (quit/relaunch clears the client-only synthetic ZDO) | NB: auto-walk re-arms only on a fresh RELAUNCH (AutoRehearsalRunOncePerSession), not a menu rejoin | teleport-route.tsv supports an optional Y column for above-canopy floats"
         },
         {
             "name": "comfy-gateway :8720",
@@ -110,8 +114,8 @@
         },
         {
             "name": "Lumberjacks gateway :4000/:4005",
-            "state": "up",
-            "detail": "UP - rebuilt from source + relaunched (0.0.0.0:4000) during the P7 stage-lj rehearsal 2026-07-11; windows staged for i7-live-w1 (permit-list handshake accept + Wood injection fixture). BACKGROUND-FRAGILE: the dotnet process is torn down at session/context boundaries and its windows are in-memory, so the armed-window driver (run-loopback-window.ps1 -Stage arm, or -Stage stage-lj) rebuilds + re-stages just-in-time. 0.0.0.0 bind REQUIRED (appsettings defaults to localhost-only). Reachable from the am4 container over tailnet. Handshake endpoints landed in Lumberjacks 935095b; the driver rebuilds Release from source so a stale DLL can't lack them."
+            "state": "on-demand",
+            "detail": "PRODUCTION gateway runs on P7 (stopped with the VM). The OMEN-local instance is torn down between sessions and its windows are in-memory; the window drivers rebuild Release from source and re-stage just-in-time (0.0.0.0:4000 bind required - appsettings defaults to localhost-only). Reachable from containers over tailnet when up."
         },
         {
             "name": "cruft",
