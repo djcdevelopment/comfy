@@ -1,5 +1,16 @@
 # Beyond-I7 Backlog — post-milestone invariants
 
+> **Cross-reference (2026-07-18):** the M-series living roadmap
+> (`C:\work\Lumberjacks\docs\roadmap\` + `docs/plan-m1-strict-admission.md`) now owns the
+> sequencing of most of this backlog and did not previously point back here (nor here, there).
+> Mapping: **B1** (concurrent-peer composition) is absorbed by **M4b** "prove two real Steam
+> clients" (after M4a recipient isolation); **B2** (density/sustained scale) is absorbed by
+> **M3** "traffic proof definitive and durable" + **M6** "widen in evidence-backed waves".
+> **B3 (ToS/legitimacy) is NOT absorbed by any milestone** — no M-series gate runs the formal
+> ToS/EULA/anti-cheat review, so B3 remains owned here and should hard-gate **M5** (the first
+> external volunteer) when that milestone is opened. Do not re-derive B1/B2 from this file;
+> pick them up through the M-series packets.
+
 **Opened 2026-07-12**, on the close of P7/I7 (the "one client fully on Lumberjacks" milestone —
 see the [worklog I7 rung](VALHEIM-NETCODE-REPLACEMENT-WORKLOG.md) and window `i7-w6`,
 `fieldlab/evidence/i7-w6/`). This is the standing list of what the proof-of-concept swap
