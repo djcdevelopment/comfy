@@ -2,8 +2,8 @@
 
 ## SESSION STATUS
 **Landed:** deterministic guest generator, shared PowerShell module, installer, preflight, receipt-driven uninstall, diagnostics, generated guide, drift checks, canonical package, evidence, and status update.
-**Not landed:** the cross-repository roadmap note; human READY TO JOIN criterion remains open. The Lumberjacks gate found an unrelated dirty `docs/handoffs/AGENT-QUESTIONS.md`, so that repo was not touched.
-**Next step:** when Lumberjacks is clean, run the pending `roadmap:note` command below once and commit its journal plus regenerated HTML.
+**Not landed:** human READY TO JOIN criterion remains open. The roadmap note landed in Lumberjacks commit `a8e7373`.
+**Next step:** none for this package slice; a second human with a second Steam license is still required for the open enrollment criterion.
 **Tests:** 13 total unittest tests passed (8 existing, 5 guest-package); both promoted bundles validated.
 **Live plugin LastWriteTime:** session-start `2026-07-18T16:28:00.4177432-07:00`; session-end `2026-07-18T16:28:00.4177432-07:00` (identical).
 
@@ -36,10 +36,6 @@ _(left blank - Claude fills this in)_
 
 ### ANSWER
 _(left blank - Claude fills this in)_
-
-## PENDING ROADMAP NOTE
-
-`npm run roadmap:note -- --milestone M2 --kind implementation --summary "Immutable self-verifying guest package shipped" --impact "Replaces the prose guest handoff with a deterministic, reversible package, installer, preflight, diagnostics, and receipt-driven uninstall; human enrollment through READY TO JOIN remains open." --verification "13 Comfy unittest tests passed; both promoted release bundles validated; eight injected fault verdicts each named a check and remedy; live plugin LastWriteTime unchanged." --evidence "fieldlab/evidence/m2-guest-package/README.md" --repository "Comfy"`
 
 ---
 
@@ -105,6 +101,8 @@ you do write. Nothing is inert.
 
 ## Cross-repo note
 
-Your `## PENDING ROADMAP NOTE` invocation is correct and complete — you were right not to touch
-Lumberjacks; it was dirty because *I* was writing M4a review findings into it. Land that note
-once the Lumberjacks tree is clean. Verify `--evidence` resolves before running it.
+The public-safe M2 roadmap note landed in Lumberjacks commit `a8e7373` after the tree became clean. The evidence path `fieldlab/evidence/m2-guest-package/README.md` resolves in Comfy.
+
+## Review resolution
+
+F1 is fixed in Comfy commit `00aabd6`: uninstall restores the exact backup when untouched, but removes only package-owned `[Lumberjacks]` keys when the config drifted, preserving post-install user edits. F2 is fixed in the same commit: the generator selects a working `py.exe -3` or `python.exe` without a user-profile path. The dismissed `lumberjacksTelemetryKey` finding was not changed.
