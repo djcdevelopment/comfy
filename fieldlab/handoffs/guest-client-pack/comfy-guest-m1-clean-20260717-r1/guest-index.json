@@ -12,18 +12,18 @@
                   },
                   {
                       "path":  "scripts/Install-ComfyGuest.ps1",
-                      "sha256":  "7ce7f4494765ceafaf45354fee7073227052338f1ff332787971094bc76c461d",
-                      "bytes":  4338
+                      "sha256":  "74062e85e9a17e4ef6f5f507718bc5014c8010c4802ae810d273318c9f2e27f7",
+                      "bytes":  4415
                   },
                   {
                       "path":  "scripts/lib/ComfyGuestCommon.psm1",
-                      "sha256":  "fe2cd7f3ece1301023c44891f368484404064dd4b6ff4e6409029bf49f5ad834",
-                      "bytes":  6393
+                      "sha256":  "0de6ed62b7908756cc24e99d8d6c614c0b8e7b39b8ce0c9d246f83c15e3b5f56",
+                      "bytes":  7463
                   },
                   {
                       "path":  "scripts/Uninstall-ComfyGuest.ps1",
-                      "sha256":  "2ce9461e64e9d5c22da953c601377c90dc0e4fb7b841fd35f7e2677c6b1e0353",
-                      "bytes":  1768
+                      "sha256":  "55b9546874b755bb45925920f8d3436974c4e9054a4829ed5b29d853b3d6f87b",
+                      "bytes":  2734
                   },
                   {
                       "path":  "scripts/Collect-ComfyGuestDiagnostics.ps1",

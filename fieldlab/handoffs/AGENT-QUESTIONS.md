@@ -40,3 +40,71 @@ _(left blank - Claude fills this in)_
 ## PENDING ROADMAP NOTE
 
 `npm run roadmap:note -- --milestone M2 --kind implementation --summary "Immutable self-verifying guest package shipped" --impact "Replaces the prose guest handoff with a deterministic, reversible package, installer, preflight, diagnostics, and receipt-driven uninstall; human enrollment through READY TO JOIN remains open." --verification "13 Comfy unittest tests passed; both promoted release bundles validated; eight injected fault verdicts each named a check and remedy; live plugin LastWriteTime unchanged." --evidence "fieldlab/evidence/m2-guest-package/README.md" --repository "Comfy"`
+
+---
+
+# Review of fe812c4 — findings from Claude (2026-07-18)
+
+Verified independently, not taken on report. I re-ran every claim you made and it held:
+13/13 unittest, both promoted bundles still validate (no D3 regression), packaged DLL hashes
+exactly `94a3843e…`, no SteamIDs or credential values anywhere in the package, no `gateway/` or
+`source/` operator artifacts, and the live plugins DLL `LastWriteTime` is `2026-07-18T16:28:00`
+— hours before this session, so the no-build tripwire genuinely held.
+
+The frozen decisions were all honored, and one was handled better than specified: rather than
+implementing the `LumberjacksModReleaseId` check (which could never pass against this artifact),
+`build-guest-package.ps1` **asserts its absence and fails the build if it ever appears**. That
+turns a dead check into a live guard for the next cut. Good call.
+
+Also confirmed: 8 of 8 preflight check ids are driven to a failing verdict by an injected fault,
+no test in the suite is a tautology, uninstall is genuinely receipt-driven, the generator is
+deterministic (parsed `captured_utc`, sorted entries, no `Get-Date`), and the guide honestly
+discloses the candidate/`byte_match=false`/IL-equal caveat instead of overclaiming. Exit criterion
+1 is correctly left OPEN in `program-status.json`.
+
+Two findings, both minor. Neither blocks anything.
+
+## F1 — MINOR: uninstall silently reverts post-install user config edits
+
+`Uninstall-ComfyGuest.ps1` restores the backed-up config wholesale
+(`Copy-Item -LiteralPath $backup -Destination $full -Force`) rather than removing only the
+`[Lumberjacks]` keys the package added. So any edit a guest makes to their own
+`[General]`/`[HUD]`/`[Automation]` sections *after* installing is silently thrown away on
+uninstall.
+
+This still satisfies M2's exit criterion as written ("uninstall restores the prior state without
+removing files the package does not own") — restoring the backup *is* prior state. But a
+non-developer will read "uninstall" and not expect to lose a month of their own settings, and
+nothing currently warns them.
+
+Cheapest honest fix is documentation, not code: one line in `GUEST-GUIDE.md` under uninstall —
+"restores the configuration file as it was before install; changes you made afterwards are not
+kept." If you'd rather fix it properly, do a section-scoped key removal mirroring the install
+merge, and assert in the test that a post-install edit to `[General]` survives an uninstall.
+
+## F2 — MINOR: the generator only runs on one machine
+
+`build-guest-package.ps1:46` hardcodes
+`$python = 'C:\Users\derek\AppData\Local\Programs\Python\Python312\python.exe'`.
+
+For a deliverable whose entire premise is a reproducible, immutable package, a build script that
+only runs under one user profile is a reproducibility hole — and it will bite the first time this
+is cut on the P7 VM, a fresh clone, or a container. Resolve the interpreter (parameter with that
+path as the default, or probe `py -3` / `python3` and fail with a clear message), and keep the
+determinism assertion that already exists.
+
+## Dismissed — do not act on this
+
+An automated pass flagged that the installer never writes `lumberjacksTelemetryKey`. **That is a
+false alarm; ignore it.** The key binds with default `""` (`PluginConfig.cs:514-515`), its only
+consumer is `LumberjacksTelemetryHeartbeatRunner`, and that runner posts fire-and-forget inside a
+try/catch that at worst logs one de-duplicated warning
+(`LumberjacksTelemetryHeartbeatRunner.cs:32-44`). The bootstrap response does not carry a
+telemetry key, so there is nothing to write. Consumer auth is enrollment-id + client-key, which
+you do write. Nothing is inert.
+
+## Cross-repo note
+
+Your `## PENDING ROADMAP NOTE` invocation is correct and complete — you were right not to touch
+Lumberjacks; it was dirty because *I* was writing M4a review findings into it. Land that note
+once the Lumberjacks tree is clean. Verify `--evidence` resolves before running it.
