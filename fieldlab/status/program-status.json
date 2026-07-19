@@ -1,6 +1,6 @@
 {
     "program": "Valheim x Lumberjacks - Netcode Replacement",
-    "updated": "2026-07-18T18:05:00-07:00",
+    "updated": "2026-07-18",
     "canonical_docs": {
         "state": "fieldlab/GROUND-TRUTH.md",
         "plan": "fieldlab/TEST-PROGRAM.md",
@@ -769,6 +769,40 @@
                     "g": "DONE (2026-07-12): fieldlab/BEYOND-I7-BACKLOG.md opens the post-milestone slices - multi-client concurrent-peer composition, density/scale, and a ToS/legitimacy review - each framed as a yes/no invariant in the program's wind-tunnel style."
                 }
             ]
+        },
+        {
+            "id": "M2",
+            "ladder": "M-series",
+            "title": "Immutable, self-verifying guest package",
+            "status": "in_progress",
+            "human_minutes": 10,
+            "steps": [
+                {
+                    "n": 1,
+                    "t": "Deterministic sealed guest package generator",
+                    "s": "done",
+                    "g": "Copied sealed M1 clean-build DLL; index and zip deterministic; DLL hash verified."
+                },
+                {
+                    "n": 2,
+                    "t": "Transactional installer, preflight, receipt uninstall",
+                    "s": "done",
+                    "g": "Fixture install restored exact config and unrelated plugin; eight injected non-READY faults each produced a check id and remedy."
+                },
+                {
+                    "n": 3,
+                    "t": "Generated guide, diagnostics, and drift checks",
+                    "s": "done",
+                    "g": "Guide render check and manifest mutation check pass; diagnostics self-check found no prohibited values."
+                },
+                {
+                    "n": 4,
+                    "t": "Human enrollment through READY TO JOIN",
+                    "s": "open",
+                    "o": "derek",
+                    "g": "Not closeable in this session. Synthetic install plus fixture Gateway is a machine-checkable proxy only; second human and Steam license still required."
+                }
+            ]
         }
     ],
     "last_probe_cycle": {
@@ -778,4 +812,4 @@
         "run_dir": "C:\\work\\comfy\\fieldlab\\evidence\\i7-w6",
         "summary_path": "C:\\work\\comfy\\fieldlab\\evidence\\i7-w6\\gate-summary.json"
     }
-}
+}\n
