@@ -18,6 +18,12 @@ runtime logs part of Git.
 Evidence JSON, JSONL, and text line endings are pinned to LF by the evidence directory's
 `.gitattributes`, so the recorded SHA-256 values survive Windows checkouts.
 
+Architecture views derived from the accepted seam and repository-owned operations are indexed in
+[`diagrams/README.md`](diagrams/README.md): the
+[`runtime DFD`](diagrams/runtime-data-flow.svg),
+[`hardware and technology topology`](diagrams/hardware-tech-stack.svg), and
+[`contracts, jobs, pipelines, and harnesses`](diagrams/contracts-jobs-pipelines.svg).
+
 ## Problem statement
 
 Comfy and Lumberjacks each had working pieces, but they did not present one explicit, observable
