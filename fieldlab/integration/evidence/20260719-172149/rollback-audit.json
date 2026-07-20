@@ -1,0 +1,52 @@
+{
+  "audited_at": "2026-07-19T16:52:36.2718173-07:00",
+  "original_server": {
+    "container": "comfy-valheim-lab-valheim-server-1",
+    "running": true,
+    "status": "running",
+    "image": "ghcr.io/community-valheim-tools/valheim-server:latest",
+    "runtime_dll_sha256": "4f87c698855aa190c34ac56faf7769107e4027a5ab1852d3dc8cb8f93eb9ed16",
+    "runtime_dll_matches_backup": true
+  },
+  "restored_inputs": [
+    {
+      "name": "server.cfg",
+      "sha256": "63201cb46ac72f5346a958bed42ca0c349a4aaa387cff1b24f1a831e1434c73d",
+      "matches_backup": true
+    },
+    {
+      "name": "server-seed.dll",
+      "sha256": "4f87c698855aa190c34ac56faf7769107e4027a5ab1852d3dc8cb8f93eb9ed16",
+      "matches_backup": true
+    },
+    {
+      "name": "client-shared.cfg",
+      "sha256": "f9ffc0ffac533a44ed31ff743b21764a071046b666891a97eea07df378b01c87",
+      "matches_backup": true
+    },
+    {
+      "name": "client-shared.dll",
+      "sha256": "4f87c698855aa190c34ac56faf7769107e4027a5ab1852d3dc8cb8f93eb9ed16",
+      "matches_backup": true
+    },
+    {
+      "name": "client-runtime.cfg",
+      "sha256": "561fcc8d4f318e2c1731041cbd37a538c9fafd92669650f5d8e82ee8a47eadca",
+      "matches_backup": true
+    },
+    {
+      "name": "client-runtime.dll",
+      "sha256": "4f87c698855aa190c34ac56faf7769107e4027a5ab1852d3dc8cb8f93eb9ed16",
+      "matches_backup": true
+    }
+  ],
+  "windows_live_plugin_last_write_time_start": "2026-07-18T16:28:00.4177432-07:00",
+  "windows_live_plugin_last_write_time_end": "2026-07-18T16:28:00.4177432-07:00",
+  "windows_live_plugin_unchanged": true,
+  "temporary_integration_containers_found": 0,
+  "failed_runs_with_unchanged_tripwire": 11,
+  "successful_runs_with_unchanged_tripwire": 2,
+  "final_runs_with_all_six_inputs_matching_current_restored_state": 11,
+  "comfy_tree_clean_before_acceptance_files": true,
+  "lumberjacks_tree_clean": true
+}

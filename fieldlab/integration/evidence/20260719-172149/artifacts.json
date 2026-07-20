@@ -1,0 +1,11 @@
+{
+  "comfy_commit": "dd7806185e88735be032161860a72c0a59b801a1",
+  "lumberjacks_commit": "e7cef6e9819f4d5f4d462f6d74860611fddb046a",
+  "lumberjacks_code_commit": "fb55441f562ee3410087287d33b609dc05ba1fea",
+  "dll_sha256": "08e3f7b885e8920a51420089f3e860c9dc4926f58f7b2efb30e0b267a55da371",
+  "gateway_image_id": "sha256:4bdee6dcec31a340dedeb1b1f2f7c5f2e26b12f1dac3660b70e7c8714e0f4037",
+  "gateway_payload_sha256": "46cc4ca853c8d4899badf1e7e32f424f2cae99c7d8b4b1234bcd202615ddf481",
+  "effective_release": "m4-integration-20260719-r1",
+  "submission_schema_version": 2,
+  "consumer_delivery_schema_version": 1
+}

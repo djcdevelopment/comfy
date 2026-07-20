@@ -1,0 +1,19 @@
+{
+  "window_id": "comfy-lj-integration-20260719-172149",
+  "recipient_id": "aggregate",
+  "receipts": 1826,
+  "distinct_seq": 1826,
+  "acknowledged": 560,
+  "pending": 1266,
+  "duplicates": 0,
+  "min_seq": 1,
+  "max_seq": 1826,
+  "missing_seq": 0,
+  "seq_tracking_saturated": false,
+  "empty_body_count": 0,
+  "first_utc": "2026-07-19T17:30:14.9934084Z",
+  "last_utc": "2026-07-19T17:30:22.6235354Z",
+  "per_source": {
+    "20260719-172402-f56b3b61": 1826
+  }
+}

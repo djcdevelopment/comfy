@@ -1,0 +1,18 @@
+{
+  "gateway_address": "http://comfy-lj-integration-gateway:4000",
+  "valheim_server_address": "comfy-lj-integration-server:2456",
+  "valheim_server_password": "(configured, redacted)",
+  "transport": "http",
+  "caller_identity": "private-plane (Gateway-derived)",
+  "recipient": "legacy (Gateway-scoped)",
+  "mod_release": "m4-integration-20260719-r1",
+  "expected_release": "m4-integration-20260719-r1",
+  "submission_schema_version": 2,
+  "consumer_delivery_schema_version": 1,
+  "consumer_enabled": true,
+  "consumer_available": "headless Valheim client after join",
+  "comfy_submission_enabled": true,
+  "importance_filtering_enabled": true,
+  "importance_max_priority_rank": 4,
+  "result_ack_mode": "RPC_ZDOData readback + sequence ack + correlated consumer telemetry"
+}

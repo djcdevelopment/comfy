@@ -1,0 +1,29 @@
+{
+  "negative": {
+    "consumer_absent": true,
+    "correlation_id": "1ed03fca7e60461f84f63a111c677987",
+    "decision": "importance_rejected",
+    "gateway_absent": true
+  },
+  "positive": {
+    "consumer_result": "applied",
+    "correlation_id": "cf43899a2861456eb603b5e06f408ee8",
+    "gateway_acknowledged": 560,
+    "gateway_receipts": 1826,
+    "importance_class": "player_critical",
+    "priority_rank": 0
+  },
+  "release": "m4-integration-20260719-r1",
+  "sequence": [
+    "server_candidate",
+    "importance_allowed",
+    "comfy_submitted",
+    "gateway_authenticated_private_plane",
+    "gateway_admitted_release",
+    "gateway_routed_legacy",
+    "consumer_processed",
+    "comfy_observed_result"
+  ],
+  "verdict": "PASS",
+  "window_id": "comfy-lj-integration-20260719-172149"
+}

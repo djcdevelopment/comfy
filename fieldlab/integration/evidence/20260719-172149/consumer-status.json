@@ -1,0 +1,20 @@
+{
+  "stability": "unstable",
+  "window_id": "comfy-lj-integration-20260719-172149",
+  "stale": false,
+  "active_consumers": 1,
+  "applied": 560,
+  "superseded": 0,
+  "acknowledged": 560,
+  "rejected": 0,
+  "duplicates": 0,
+  "retried": 0,
+  "pending": 1024,
+  "priority_tagged": 560,
+  "priority_fast_lane_applied": 560,
+  "last_correlation_id": "662be1d6aec64b83ba8774556bdfcf22",
+  "last_operation_result": "applied",
+  "first_correlation_id": "cf43899a2861456eb603b5e06f408ee8",
+  "first_operation_result": "applied",
+  "last_seen": "2026-07-19T17:30:30.6736761+00:00"
+}

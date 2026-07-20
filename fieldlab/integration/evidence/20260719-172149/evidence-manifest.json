@@ -1,0 +1,126 @@
+{
+  "schema_version": 1,
+  "window_id": "comfy-lj-integration-20260719-172149",
+  "source_run": "fieldlab/runs/comfy-lj-integration-20260719-172149",
+  "source_run_policy": "intentionally generated and ignored by fieldlab/.gitignore",
+  "curation_policy": "Commit the minimum non-sensitive evidence needed to rerun the correlation verifier and audit artifacts; retain hashes for the larger generated sources.",
+  "source_files": [
+    {
+      "path": "artifacts.json",
+      "bytes": 526,
+      "sha256": "d4e6a80d76dd882b56968feaf11de6127879ab272c1778687a998fd54d1e2470"
+    },
+    {
+      "path": "effective-config.json",
+      "bytes": 842,
+      "sha256": "a770bada09640fd87e44aa8bf0fdb95650a9fbc304cb22c8a40cc7b907c2fd31"
+    },
+    {
+      "path": "gateway-status.json",
+      "bytes": 4679,
+      "sha256": "a61d05c3f463720ca937832d76e02088465ccfd9b369b83ab29e5de33c260294"
+    },
+    {
+      "path": "consumer-status.json",
+      "bytes": 647,
+      "sha256": "c244525900b8c12ded372918129abe171d685fd77ecba2e68a33d2655d618726"
+    },
+    {
+      "path": "tripwire.json",
+      "bytes": 131,
+      "sha256": "3a7c9e042ce78d7a82c516dda9b220a7621c4ba5da9dbd573efd7faa07a9c3bb"
+    },
+    {
+      "path": "verdict.json",
+      "bytes": 790,
+      "sha256": "41def640125d312ebf4af3d95e71fdcbc1140c49564c3b937a563aaa6445a9f6"
+    },
+    {
+      "path": "redirect-send.jsonl",
+      "bytes": 11607905,
+      "sha256": "a0a928575643d00c90d7ba80d109ca26d5bf44caf16e82410fc6fa79f9fc3a6a"
+    },
+    {
+      "path": "server-contract.log",
+      "bytes": 2968,
+      "sha256": "cfe8e64acff07ad4f2d6d2b77e4c668192ef0dd758544d9c081b0bac25351bf5"
+    },
+    {
+      "path": "gateway-contract.log",
+      "bytes": 70865,
+      "sha256": "aeb106ae3f7532b26a4aa73abf9643c842f18d37c7252e6416c5910666263eb0"
+    },
+    {
+      "path": "client-contract.log",
+      "bytes": 175007,
+      "sha256": "07338b13f2ee82b97e2c1f0aaa234a4da6fdc41b1b83831aea4e4d1843a50735"
+    },
+    {
+      "path": "gateway/redirect.wal",
+      "bytes": 1129128,
+      "sha256": "6dbc7ddfacd74f766acef8a64844d7fe0e44e25c31fc7484e06856541743354a"
+    }
+  ],
+  "curated_files": [
+    {
+      "path": "artifacts.json",
+      "sha256": "b5aa59c558c908319a60729efd157e88bd0885f401727c3d7440efcae5d58fab",
+      "derivation": "Canonical artifact values plus the Gateway code commit and consumer schema."
+    },
+    {
+      "path": "effective-config.json",
+      "sha256": "feab27c8d708dae57ffbf548eff9597246cb383572ff97f7386381be2fe3b883",
+      "derivation": "Canonicalized full redacted effective configuration."
+    },
+    {
+      "path": "gateway-status.json",
+      "sha256": "cea76e9aba0708d48e10086f99d656dd56757bf4d276544c6312b2e495fa0546",
+      "derivation": "Conservation fields retained; the bulky per-prefab map omitted."
+    },
+    {
+      "path": "consumer-status.json",
+      "sha256": "0d52cab02f5e04ae114a94e3a3cd312961ae49661c832c3250ec9860eaac5de0",
+      "derivation": "Canonicalized complete consumer snapshot."
+    },
+    {
+      "path": "tripwire.json",
+      "sha256": "c5194d8b4dbaede581757d02ce5724575cb4a506193bd99568dd72bd9c8727e9",
+      "derivation": "Canonicalized complete tripwire."
+    },
+    {
+      "path": "verdict.json",
+      "sha256": "41def640125d312ebf4af3d95e71fdcbc1140c49564c3b937a563aaa6445a9f6",
+      "derivation": "Byte-identical verifier output."
+    },
+    {
+      "path": "redirect-trace.jsonl",
+      "sha256": "d71841ca1d463df5a2a13e4d46f89eb5887c0784f9b489227b0f0c5b2ddfe730",
+      "derivation": "Five verbatim rows for the accepted and rejected correlations."
+    },
+    {
+      "path": "server-trace.txt",
+      "sha256": "410cccbcde423fa2579d73b2c184b80c61164b10496f68028eb0ae33ce1091c7",
+      "derivation": "Verbatim server contract observation."
+    },
+    {
+      "path": "gateway-trace.txt",
+      "sha256": "fa727cacdedee098ed734afdc9db30322f491baff40b843d8f71bfe7726e681c",
+      "derivation": "Curated accepted/rejected observations; source log hash is embedded."
+    },
+    {
+      "path": "client-trace.txt",
+      "sha256": "c467e4a54ca3cc9c225b8e709131959444d01768f2edd74bad0d3f84b39b892b",
+      "derivation": "Verbatim client contract and RPC_ZDOData result observations."
+    },
+    {
+      "path": "rollback-audit.json",
+      "sha256": "bb2d62d113feb44ba082ba442237800de73a34d1f9f5ba22686d278352f62cd8",
+      "derivation": "Post-run comparison of backups, live runtime state, tripwires, containers, and repository state."
+    },
+    {
+      "path": "verification.json",
+      "sha256": "704bbd3a2336b7c10137a5f94bb95734f7e39882e71e9e39a2440fbb5ae5a5f8",
+      "derivation": "Acceptance-time rerun of tests, artifact checks, correlation verifier, link/JSON checks, secret scan, and rollback audit."
+    }
+  ]
+}

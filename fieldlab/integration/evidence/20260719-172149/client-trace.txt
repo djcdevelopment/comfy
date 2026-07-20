@@ -1,0 +1,2 @@
+[Info   :ComfyNetworkSense] [07/19/2026 10:28:28] Lumberjacks contract release=m4-integration-20260719-r1 schema_version=2 operation=zdo_redirect
+[Info   :ComfyNetworkSense] [07/19/2026 10:30:23] Authoritative consumer processed correlation_id=cf43899a2861456eb603b5e06f408ee8 result=applied seq=44

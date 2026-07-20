@@ -1,0 +1,76 @@
+{
+  "audited_at": "2026-07-19T16:57:39.5629840-07:00",
+  "verdict": "PASS_WITH_DOCUMENTED_LIMITATIONS",
+  "checks": [
+    {
+      "id": "curated_correlation_verifier",
+      "result": "PASS",
+      "details": "Positive and negative correlations revalidated from the committed compact packet."
+    },
+    {
+      "id": "comfy_contract_tests",
+      "result": "PASS",
+      "passed": 15,
+      "failed": 0
+    },
+    {
+      "id": "comfy_repository_tests",
+      "result": "PASS",
+      "passed": 13,
+      "failed": 0,
+      "warning": "Existing unittest ResourceWarning messages reported unclosed fixture sockets."
+    },
+    {
+      "id": "gateway_tests",
+      "result": "PASS",
+      "passed": 159,
+      "failed": 0,
+      "warning": "Existing build warning reported Microsoft.EntityFrameworkCore 9.0.1/9.0.4 reference conflicts."
+    },
+    {
+      "id": "comfy_dll_identity",
+      "result": "PASS",
+      "sha256": "08e3f7b885e8920a51420089f3e860c9dc4926f58f7b2efb30e0b267a55da371",
+      "file_version": "0.5.31",
+      "release_metadata": "m4-integration-20260719-r1"
+    },
+    {
+      "id": "gateway_image_identity",
+      "result": "PASS",
+      "image_id": "sha256:4bdee6dcec31a340dedeb1b1f2f7c5f2e26b12f1dac3660b70e7c8714e0f4037",
+      "payload_sha256": "46cc4ca853c8d4899badf1e7e32f424f2cae99c7d8b4b1234bcd202615ddf481",
+      "release_metadata": "m4-integration-20260719-r1"
+    },
+    {
+      "id": "git_objects",
+      "result": "PASS",
+      "objects": [
+        "dd7806185e88735be032161860a72c0a59b801a1",
+        "fb55441f562ee3410087287d33b609dc05ba1fea",
+        "e7cef6e9819f4d5f4d462f6d74860611fddb046a"
+      ]
+    },
+    {
+      "id": "acceptance_links",
+      "result": "PASS",
+      "checked": 12,
+      "missing": 0
+    },
+    {
+      "id": "acceptance_json",
+      "result": "PASS",
+      "parsed_before_this_record": 8,
+      "parse_failures": 0
+    },
+    {
+      "id": "public_evidence_secret_scan",
+      "result": "PASS",
+      "details": "Only the literal '(configured, redacted)' password placeholder matched the scan."
+    },
+    {
+      "id": "rollback",
+      "result": "PASS",
+      "details": "Original server running; six inputs and runtime DLL matched backups; plugin timestamp unchanged; zero temporary integration containers."
+    }
+  ]
+}
