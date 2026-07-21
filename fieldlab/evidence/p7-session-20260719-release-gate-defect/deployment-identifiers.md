@@ -21,7 +21,16 @@ from repo records.
 
 > Machine type is `n2-highmem-2`. `docs/google-cloud-stage1-runbook.md:22,30-33`
 > records this VM as `n2-highmem-8` and attributes an earlier cutover OOM to a
-> smaller instance. Unreconciled.
+> smaller instance. ~~Unreconciled.~~
+>
+> **RECONCILED 2026-07-20.** The capture above is correct and the runbook was stale.
+> Re-read from the GCP API on 2026-07-20: machine type `n2-highmem-2`, status
+> `TERMINATED`, disks 40 GB boot + 150 GB state (both `pd-balanced`). The 8 -> 2
+> downsize was a deliberate cost decision, not a regression. The runbook's
+> 2026-07-12 paragraphs are now explicitly marked historical and carry a
+> reconciliation block; `fieldlab/status/program-status.json` (`infra[0].detail`)
+> and `fieldlab/integration/diagrams/hardware-tech-stack.svg` were corrected in the
+> same slice.
 
 ## Durable pin (`/etc/comfy-p7/environment`, mode 0600)
 
