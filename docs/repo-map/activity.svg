@@ -4,93 +4,92 @@
 <style>text{font:10px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif;fill:#57606a}.month{font-size:9px}</style>
 <rect width="100%" height="100%" fill="white"/>
 <text x="0" y="49">Mon</text><text x="0" y="77">Wed</text><text x="0" y="105">Fri</text>
-<text class="month" x="34" y="12">Apr</text>
-<rect x="34" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-20: No activity</title></rect>
-<rect x="34" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-21: No activity</title></rect>
-<rect x="34" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-22: No activity</title></rect>
-<rect x="34" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-23: No activity</title></rect>
-<rect x="34" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-24: No activity</title></rect>
-<rect x="34" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-25: No activity</title></rect>
-<rect x="34" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-26: No activity</title></rect>
-<rect x="48" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-27: No activity</title></rect>
-<rect x="48" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-28: No activity</title></rect>
-<rect x="48" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-29: No activity</title></rect>
-<rect x="48" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-04-30: No activity</title></rect>
-<rect x="48" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-01: No activity</title></rect>
-<rect x="48" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-02: No activity</title></rect>
-<rect x="48" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-03: No activity</title></rect>
-<text class="month" x="62" y="12">May</text>
-<rect x="62" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-04: No activity</title></rect>
-<rect x="62" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-05: No activity</title></rect>
-<rect x="62" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-06: No activity</title></rect>
-<rect x="62" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-07: No activity</title></rect>
-<rect x="62" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-08: No activity</title></rect>
-<rect x="62" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-09: No activity</title></rect>
-<rect x="62" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-10: No activity</title></rect>
-<rect x="76" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-11: No activity</title></rect>
-<rect x="76" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-12: No activity</title></rect>
-<rect x="76" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-13: No activity</title></rect>
-<rect x="76" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-14: No activity</title></rect>
-<rect x="76" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-15: No activity</title></rect>
-<rect x="76" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-16: No activity</title></rect>
-<rect x="76" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-17: No activity</title></rect>
-<rect x="90" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-18: No activity</title></rect>
-<rect x="90" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-19: No activity</title></rect>
-<rect x="90" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-20: No activity</title></rect>
-<rect x="90" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-21: No activity</title></rect>
-<rect x="90" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-22: No activity</title></rect>
-<rect x="90" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-23: No activity</title></rect>
-<rect x="90" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-24: No activity</title></rect>
-<rect x="104" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-25: No activity</title></rect>
-<rect x="104" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-26: No activity</title></rect>
-<rect x="104" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-27: No activity</title></rect>
-<rect x="104" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-28: No activity</title></rect>
-<rect x="104" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-29: No activity</title></rect>
-<rect x="104" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-30: No activity</title></rect>
-<rect x="104" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-31: No activity</title></rect>
-<text class="month" x="118" y="12">Jun</text>
-<rect x="118" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-01: No activity</title></rect>
-<rect x="118" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-02: No activity</title></rect>
-<rect x="118" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-03: No activity</title></rect>
-<rect x="118" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-04: No activity</title></rect>
-<rect x="118" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-05: No activity</title></rect>
-<rect x="118" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-06: No activity</title></rect>
-<rect x="118" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-07: No activity</title></rect>
-<rect x="132" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-08: No activity</title></rect>
-<rect x="132" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-09: No activity</title></rect>
-<rect x="132" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-10: No activity</title></rect>
-<rect x="132" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-11: No activity</title></rect>
-<rect x="132" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-12: No activity</title></rect>
-<rect x="132" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-13: No activity</title></rect>
-<rect x="132" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-14: No activity</title></rect>
-<rect x="146" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-15: No activity</title></rect>
-<rect x="146" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-16: No activity</title></rect>
-<rect x="146" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-17: No activity</title></rect>
-<rect x="146" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-18: No activity</title></rect>
-<rect x="146" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-19: No activity</title></rect>
-<rect x="146" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-20: No activity</title></rect>
-<rect x="146" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-21: No activity</title></rect>
-<rect x="160" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-22: No activity</title></rect>
-<rect x="160" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-23: No activity</title></rect>
-<rect x="160" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-24: No activity</title></rect>
-<rect x="160" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-25: No activity</title></rect>
-<rect x="160" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-26: No activity</title></rect>
-<rect x="160" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-27: No activity</title></rect>
-<rect x="160" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-28: No activity</title></rect>
-<rect x="174" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-29: No activity</title></rect>
-<rect x="174" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-30: No activity</title></rect>
-<rect x="174" y="55" width="11" height="11" rx="2" fill="#216e39"><title>2026-07-01: 17 commits, 133 files, +25906/-122</title></rect>
-<rect x="174" y="69" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-02: 3 commits, 5 files, +628/-178</title></rect>
-<rect x="174" y="83" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-03: 1 commits, 28 files, +3419/-0</title></rect>
-<rect x="174" y="97" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-04: 2 commits, 82 files, +17542/-97</title></rect>
-<rect x="174" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-05: No activity</title></rect>
-<text class="month" x="188" y="12">Jul</text>
-<rect x="188" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-06: No activity</title></rect>
-<rect x="188" y="41" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-07: 1 commits, 36 files, +7219/-102</title></rect>
-<rect x="188" y="55" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-08: 16 commits, 29 files, +6092/-92</title></rect>
-<rect x="188" y="69" width="11" height="11" rx="2" fill="#30a14e"><title>2026-07-09: 14 commits, 43 files, +5794/-929</title></rect>
-<rect x="188" y="83" width="11" height="11" rx="2" fill="#216e39"><title>2026-07-10: 29 commits, 58 files, +12153/-900</title></rect>
-<rect x="188" y="97" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-11: 6 commits, 19 files, +9530/-2342</title></rect>
-<rect x="188" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-12: No activity</title></rect>
-<text x="34" y="145">Weighted activity · snapshot 0a1f935b0ec7</text>
+<text class="month" x="34" y="12">May</text>
+<rect x="34" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-04: No activity</title></rect>
+<rect x="34" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-05: No activity</title></rect>
+<rect x="34" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-06: No activity</title></rect>
+<rect x="34" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-07: No activity</title></rect>
+<rect x="34" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-08: No activity</title></rect>
+<rect x="34" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-09: No activity</title></rect>
+<rect x="34" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-10: No activity</title></rect>
+<rect x="48" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-11: No activity</title></rect>
+<rect x="48" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-12: No activity</title></rect>
+<rect x="48" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-13: No activity</title></rect>
+<rect x="48" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-14: No activity</title></rect>
+<rect x="48" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-15: No activity</title></rect>
+<rect x="48" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-16: No activity</title></rect>
+<rect x="48" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-17: No activity</title></rect>
+<rect x="62" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-18: No activity</title></rect>
+<rect x="62" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-19: No activity</title></rect>
+<rect x="62" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-20: No activity</title></rect>
+<rect x="62" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-21: No activity</title></rect>
+<rect x="62" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-22: No activity</title></rect>
+<rect x="62" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-23: No activity</title></rect>
+<rect x="62" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-24: No activity</title></rect>
+<rect x="76" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-25: No activity</title></rect>
+<rect x="76" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-26: No activity</title></rect>
+<rect x="76" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-27: No activity</title></rect>
+<rect x="76" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-28: No activity</title></rect>
+<rect x="76" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-29: No activity</title></rect>
+<rect x="76" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-30: No activity</title></rect>
+<rect x="76" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-05-31: No activity</title></rect>
+<text class="month" x="90" y="12">Jun</text>
+<rect x="90" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-01: No activity</title></rect>
+<rect x="90" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-02: No activity</title></rect>
+<rect x="90" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-03: No activity</title></rect>
+<rect x="90" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-04: No activity</title></rect>
+<rect x="90" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-05: No activity</title></rect>
+<rect x="90" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-06: No activity</title></rect>
+<rect x="90" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-07: No activity</title></rect>
+<rect x="104" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-08: No activity</title></rect>
+<rect x="104" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-09: No activity</title></rect>
+<rect x="104" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-10: No activity</title></rect>
+<rect x="104" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-11: No activity</title></rect>
+<rect x="104" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-12: No activity</title></rect>
+<rect x="104" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-13: No activity</title></rect>
+<rect x="104" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-14: No activity</title></rect>
+<rect x="118" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-15: No activity</title></rect>
+<rect x="118" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-16: No activity</title></rect>
+<rect x="118" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-17: No activity</title></rect>
+<rect x="118" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-18: No activity</title></rect>
+<rect x="118" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-19: No activity</title></rect>
+<rect x="118" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-20: No activity</title></rect>
+<rect x="118" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-21: No activity</title></rect>
+<rect x="132" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-22: No activity</title></rect>
+<rect x="132" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-23: No activity</title></rect>
+<rect x="132" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-24: No activity</title></rect>
+<rect x="132" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-25: No activity</title></rect>
+<rect x="132" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-26: No activity</title></rect>
+<rect x="132" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-27: No activity</title></rect>
+<rect x="132" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-28: No activity</title></rect>
+<rect x="146" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-29: No activity</title></rect>
+<rect x="146" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-06-30: No activity</title></rect>
+<rect x="146" y="55" width="11" height="11" rx="2" fill="#216e39"><title>2026-07-01: 17 commits, 133 files, +25906/-122</title></rect>
+<rect x="146" y="69" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-02: 3 commits, 5 files, +628/-178</title></rect>
+<rect x="146" y="83" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-03: 1 commits, 28 files, +3419/-0</title></rect>
+<rect x="146" y="97" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-04: 2 commits, 82 files, +17542/-97</title></rect>
+<rect x="146" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-05: No activity</title></rect>
+<text class="month" x="160" y="12">Jul</text>
+<rect x="160" y="27" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-06: No activity</title></rect>
+<rect x="160" y="41" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-07: 1 commits, 36 files, +7219/-102</title></rect>
+<rect x="160" y="55" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-08: 16 commits, 29 files, +6092/-92</title></rect>
+<rect x="160" y="69" width="11" height="11" rx="2" fill="#30a14e"><title>2026-07-09: 14 commits, 43 files, +5794/-929</title></rect>
+<rect x="160" y="83" width="11" height="11" rx="2" fill="#216e39"><title>2026-07-10: 29 commits, 58 files, +12153/-900</title></rect>
+<rect x="160" y="97" width="11" height="11" rx="2" fill="#30a14e"><title>2026-07-11: 18 commits, 48 files, +13406/-2885</title></rect>
+<rect x="160" y="111" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-12: 3 commits, 28 files, +7225/-42</title></rect>
+<rect x="174" y="27" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-13: 20 commits, 13 files, +497/-17</title></rect>
+<rect x="174" y="41" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-14: 28 commits, 17 files, +969/-177</title></rect>
+<rect x="174" y="55" width="11" height="11" rx="2" fill="#40c463"><title>2026-07-15: 5 commits, 46 files, +2063/-331</title></rect>
+<rect x="174" y="69" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-16: 14 commits, 23 files, +3467/-1076</title></rect>
+<rect x="174" y="83" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-17: 13 commits, 19 files, +1083/-127</title></rect>
+<rect x="174" y="97" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-18: 8 commits, 28 files, +1496/-128</title></rect>
+<rect x="174" y="111" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-19: 5 commits, 41 files, +3573/-83</title></rect>
+<rect x="188" y="27" width="11" height="11" rx="2" fill="#9be9a8"><title>2026-07-20: 4 commits, 8 files, +178/-16</title></rect>
+<rect x="188" y="41" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-21: No activity</title></rect>
+<rect x="188" y="55" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-22: No activity</title></rect>
+<rect x="188" y="69" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-23: No activity</title></rect>
+<rect x="188" y="83" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-24: No activity</title></rect>
+<rect x="188" y="97" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-25: No activity</title></rect>
+<rect x="188" y="111" width="11" height="11" rx="2" fill="#ebedf0"><title>2026-07-26: No activity</title></rect>
+<text x="34" y="145">Weighted activity · snapshot 9e37a1f4b940</text>
 </svg>
