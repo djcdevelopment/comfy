@@ -1,100 +1,129 @@
 # Discord Search Exporter (local)
 
-A tiny, auditable Chrome/Edge extension that exports **your own** Discord search
-results to a JSON file **on your machine** — by reading what's already rendered
-on your screen. No account token, no API calls, no server, nothing leaves your
-computer.
+A small, auditable Chrome/Edge extension for exporting Discord search results
+that you own or are authorized to use. It reads only the search-result messages
+already rendered in the browser and produces JSON locally.
 
-It exists because the usual ways to bulk-export Discord (self-token tools,
-giving an AI full browser control) ask you to trust something you can't see.
-This asks you to trust ~150 lines you can read in two minutes.
+This is a private collaborator handoff, not a public release. Start with
+`START-HERE.html`; it contains the complete install, use, privacy, debugging,
+and local-agent guide.
 
-## Why it's safe (and how to verify)
+## Responsible use
 
-- **No permissions.** Open `manifest.json` — there is no `permissions` or
-  `host_permissions` block. The only capability it has is a content script that
-  runs on `discord.com`. It can't touch other sites, tabs, cookies, or storage.
-- **No network.** Open `content.js` and search for `fetch`, `XMLHttpRequest`,
-  `WebSocket`, `sendBeacon`, or any `http` URL. There are none. The only output
-  is a normal browser file download.
-- **No background page.** Nothing runs when you're not on Discord.
+- Export only content you own or have explicit authorization to use.
+- Prefer a narrow search such as `from:yourname`.
+- Treat exported JSON as sensitive: it can contain message text, usernames,
+  timestamps, channel names, and Discord links.
+- Redact or anonymize output before sharing it.
+- Never share Discord tokens, cookies, credentials, invite links, private
+  diagnostic URLs, or raw exports with a support agent.
+- Do not publish or redistribute this package without the owner's permission.
 
-The extension literally can only: read text on a discord.com page, and save it
-as a file you choose to download.
+The extension shows a confirmation before the first collection action in each
+page session. That is a reminder, not a technical ownership check.
 
-## Install (load unpacked)
+## Trust model
 
-1. Go to `chrome://extensions` (or `edge://extensions`).
-2. Turn on **Developer mode** (top-right).
-3. Click **Load unpacked** and select this folder.
-4. Open Discord in the browser and run a search (e.g. `from:yourname`).
+Open `manifest.json` and `content.js` before installing:
 
-A draggable panel appears bottom-left (drag it via the `⠿` handle so it never
-covers Discord's page controls).
+- The manifest declares no `permissions`, `host_permissions`, background page,
+  or service worker.
+- The content script is matched only to `discord.com`.
+- The source contains no `fetch`, `XMLHttpRequest`, `WebSocket`, or
+  `sendBeacon` calls.
+- The extension does have access to Discord's rendered page while it is loaded.
+- Accumulated results are stored in Discord-origin `localStorage` under
+  `dse_accumulator_v1` and `dse_adds_v1` until Reset is used.
+- Save creates a browser download. Copy writes the export JSON to the clipboard.
 
-## Use
+No design can make raw message exports harmless. The safety boundary is local,
+auditable operation plus responsible handling of the resulting data.
 
-Discord search is **paginated** (25 results per page), so the tool works
-page-by-page and accumulates into one collection that survives reloads.
+## Install
 
-1. Run your search in Discord so the results pane is showing (e.g. `from:durracktu`).
-2. Click **🔎 Debug** first (optional). It saves `discord-export-debug.json` —
-   page *structure* only (tag + class names, text *lengths*, no message text), so
-   it's safe to share if selectors need tuning for your Discord version.
-3. On each results page, click **➕ Add page**. The status chip shows
-   `+N new — total M`. Then click Discord's next page and Add again. Repeat to
-   the last page.
-   - `+0 new` means that page was already collected (a duplicate) — normal if you
-     click Add twice; a red flag if it happens on a fresh page (pagination didn't
-     advance).
-   - The **⤓ Save all (M)** button shows the running total at all times.
-   - Progress is stored in the browser, so a reload won't lose it.
-4. When the total stops growing, click **⤓ Save all (M)** once. It downloads a
-   single deduped `discord-search_all_<M>.json`.
-5. **🗑 Reset** clears the in-browser collection (it does not touch saved files) —
-   use it before starting a brand-new search.
+1. Extract the private ZIP.
+2. Open `chrome://extensions` or `edge://extensions`.
+3. Enable **Developer mode**.
+4. Choose **Load unpacked**.
+5. Select the extracted `extension` folder containing `manifest.json`.
+6. Open or reload Discord in the browser.
 
-### If Add page finds 0 messages
+## Quick start
 
-Discord ships obfuscated CSS class names and occasionally changes its DOM. Click
-**Debug**, share the resulting `discord-export-debug.json` (structure only, no
-content), and the selectors at the top of `content.js` (`SEL = {...}`) can be
-retuned. The ones keyed on stable hooks — `message-content-<id>` and
-`<time datetime>` — rarely change.
+1. Run a narrow Discord search, preferably `from:yourname`.
+2. Optionally click **Debug** to confirm the results pane is detectable.
+3. Click **Add page**, read the responsible-use reminder, and confirm.
+4. Use Discord's next-page control and click **Add page** again.
+5. Repeat until the last page. Re-adding a page is harmless; results dedupe by
+   message ID.
+6. Click **Save all** for a JSON download or **Copy JSON** for clipboard output.
+7. Click **Reset** after finishing, especially on a shared computer.
 
-## Output format
+The collection survives reloads. Reset clears the browser collection but does
+not delete downloaded files or clipboard history.
 
-DiscordChatExporter-compatible, so it plugs straight into the anonymizing
-pipeline in `../comfy-tugcow-analysis/ingest_dce.py`:
+## Controls
+
+- **Debug** downloads `discord-export-debug.json` and logs `[DSE debug]` in the
+  browser console. Version 2 omits message text, raw DOM IDs, raw control labels,
+  and raw Discord snowflakes. Review every diagnostic before sharing it.
+- **Reset** clears the accumulated results and page counter after confirmation.
+- **Save all (N)** downloads one timestamp-sorted, deduplicated JSON file.
+- **Copy JSON** copies the same collection as compact JSON.
+- **Add page** reads the currently rendered results page and accumulates it.
+
+## Output
+
+The output is compatible with the common DiscordChatExporter message shape:
 
 ```json
 {
-  "channel": { "name": "search: from:durracktu" },
+  "channel": { "name": "search: from:yourname" },
   "messages": [
-    { "id": "...", "timestamp": "2023-04-01T14:22:00.000Z",
-      "author": { "name": "durracktu" }, "content": "...",
-      "channelName": "self-promotion", "link": "https://discord.com/channels/..." }
+    {
+      "id": "1234567890",
+      "timestamp": "2026-01-01T12:00:00.000Z",
+      "author": { "name": "yourname" },
+      "content": "Example message",
+      "channelName": "example-channel",
+      "link": "https://discord.com/channels/..."
+    }
   ]
 }
 ```
 
-Then locally:
+## Debugging
 
-```
-py ingest_dce.py --input discord-search-export.json --author durracktu
-```
+Open browser developer tools on the Discord tab and select **Console**:
 
-which scrubs @mentions / emails / invite links / any names you list, and emits
-the anonymized `source-tugcow-messages.csv` for analysis.
+- `[DSE debug]` is the structural diagnostic also saved to disk.
+- `[DSE]` reports collection errors.
+- Panel status text reports progress, missing results, duplicate pages, and
+  clipboard/download outcomes.
+
+If **Add page** finds zero messages, confirm the search results are visible and
+that Discord actually advanced to the next page. If the debug report says
+`foundScroller: false` or `contentNodeCount: 0`, Discord may have changed its
+DOM. The selectors are isolated in `SEL` near the top of `content.js`.
+
+Share only the smallest necessary, reviewed diagnostic. Do not send raw export
+JSON merely to diagnose selectors.
 
 ## Limitations
 
-- Exports **only your own messages** if your search is `from:you` — which is the
-  point (you can't export other people's DMs, and shouldn't).
-- Relies on Discord's rendered DOM; a major Discord redesign may need a selector
-  refresh (see the Debug step).
-- One search at a time. Re-run per search query.
+- The extension does not verify message ownership or authorization.
+- It can export any search result visible to the signed-in browser if the user
+  deliberately confirms the reminder.
+- Discord's obfuscated DOM classes can change and require selector maintenance.
+- Discord pagination remains manual.
+- It handles one accumulated search at a time.
+- Reset does not remove already downloaded files.
 
-## License / sharing
+## Remove
 
-No personal data lives in this folder — it's a generic tool. Free to share.
+Use **Reset**, remove the unpacked extension from the browser's extensions page,
+delete downloaded JSON/debug files you no longer need, and delete the extracted
+package if appropriate.
+
+See `START-HERE.html` for the full troubleshooting guide, extension map, audit
+checklist, and privacy-preserving prompts for a local coding agent.

@@ -6,14 +6,13 @@
  *   - search this file for `fetch`, `XMLHttpRequest`, `WebSocket`, `sendBeacon`,
  *     or any URL -> there are none.
  *   - the only thing it does is read text already rendered on your screen and
- *     hand you a file via a normal browser download.
+ *     let you download or copy the resulting JSON after a user action.
  *
- * It injects two buttons (bottom-right) once you're on a Discord search:
- *   [Debug]  -> dumps the STRUCTURE of the search pane (tags + class names,
- *               text lengths only, no message text) so selectors can be tuned
- *               without you having to paste any private content.
- *   [Export] -> scrolls through the whole virtualized results list, collecting
- *               each hit, dedupes by message id, and downloads a JSON file.
+ * It injects a draggable panel (bottom-left) with controls to:
+ *   - create a privacy-minimized structural debug report;
+ *   - add the currently displayed search-results page to a local collection;
+ *   - save or copy the deduplicated collection; and
+ *   - reset the local collection.
  *
  * Output shape is DiscordChatExporter-compatible so it feeds ingest_dce.py:
  *   { "channel": {"name": "..."},
@@ -87,7 +86,14 @@
 
   function searchQueryGuess() {
     const box = document.querySelector('input[aria-label*="Search" i], [class*="searchBar"] input');
-    return (box && box.value) ? box.value.trim() : "search";
+    return (box && box.value) ? box.value.trim() : "unknown query";
+  }
+
+  function makeOutput(rows) {
+    return {
+      channel: { name: `search: ${searchQueryGuess()}` },
+      messages: rows,
+    };
   }
 
   // ---- the scrape loop ------------------------------------------------------
@@ -143,13 +149,26 @@
     const sample = scroller ? scroller.querySelector(SEL.content) : null;
     const root = sample ? messageRootOf(sample) : null;
 
+    // Preserve useful selector shapes while removing Discord snowflakes and
+    // other raw DOM ids that can identify a server, channel, user, or message.
+    const idShape = (value) => {
+      if (!value) return undefined;
+      if (value.startsWith("message-content-")) return "message-content-<id>";
+      if (value.startsWith("message-username-")) return "message-username-<id>";
+      return `<id-present:length-${value.length}>`;
+    };
+    const pathShape = location.pathname
+      .split("/")
+      .map((part) => (/^\d{6,}$/.test(part) ? "<id>" : part))
+      .join("/");
+
     // walk a small subtree recording tag + classes + text LENGTH (not text)
     const structure = (node, depth) => {
       if (!node || depth > 6) return null;
       const kids = [...node.children].slice(0, 8).map((c) => structure(c, depth + 1)).filter(Boolean);
       return {
         tag: node.tagName.toLowerCase(),
-        id: node.id || undefined,
+        idShape: idShape(node.id),
         class: (typeof node.className === "string" ? node.className : "") || undefined,
         textLen: node.childElementCount === 0 ? (node.textContent || "").length : undefined,
         children: kids.length ? kids : undefined,
@@ -169,21 +188,33 @@
       }))
       .filter((x) => x.contentNodes > 0 || x.scrollable);
 
-    // pager candidates: buttons/links near the results (labels + short text only,
-    // never message content) — this is where a "next page" control would show up.
+    // Pager candidates: record only structural metadata and generic navigation
+    // hints. Do not include raw labels or text, which may contain channel names.
     const pagerScope = wrap || document.body;
     const pager = [...pagerScope.querySelectorAll('button, [role="button"], a')]
-      .map((el) => ({
-        tag: el.tagName.toLowerCase(),
-        label: (el.getAttribute("aria-label") || "").slice(0, 40),
-        text: (el.textContent || "").trim().slice(0, 20),
-        disabled: el.getAttribute("aria-disabled") === "true" || el.disabled === true,
-      }))
-      .filter((x) => x.label || x.text)
+      .map((el) => {
+        const label = el.getAttribute("aria-label") || "";
+        const visibleText = (el.textContent || "").trim();
+        const navigationText = `${label} ${visibleText}`.toLowerCase();
+        const hints = ["next", "previous", "prev", "page"]
+          .filter((word) => navigationText.includes(word));
+        return {
+          tag: el.tagName.toLowerCase(),
+          class: (typeof el.className === "string" ? el.className : "").slice(0, 70) || undefined,
+          hasAriaLabel: !!label,
+          labelLen: label.length,
+          textLen: visibleText.length,
+          navigationHints: hints.length ? hints : undefined,
+          disabled: el.getAttribute("aria-disabled") === "true" || el.disabled === true,
+        };
+      })
+      .filter((x) => x.hasAriaLabel || x.textLen)
       .slice(0, 50);
 
     const info = {
-      url: location.pathname,
+      debugFormatVersion: 2,
+      privacyNote: "No message text, raw DOM ids, or raw control labels are included. Review before sharing.",
+      pathShape,
       foundScroller: !!scroller,
       scrollerClass: scroller ? (typeof scroller.className === "string" ? scroller.className : "") : null,
       contentNodeCount: scroller ? scroller.querySelectorAll(SEL.content).length : 0,
@@ -306,11 +337,26 @@
       counts.textContent = `page ${getAdds()} · ${storeCount()} msgs`;
       saveBtn.textContent = `⤓ Save all (${storeCount()})`;
     };
+    let responsibleUseConfirmed = false;
 
     // Add the page currently on screen to the running collection.
     addBtn.onclick = async () => {
       addBtn.disabled = true;
       try {
+        if (!responsibleUseConfirmed) {
+          const query = searchQueryGuess().slice(0, 120);
+          const approved = window.confirm(
+            "Responsible use reminder\n\n" +
+            "Only export messages you own or are authorized to use. " +
+            "Do not share raw exports without consent and appropriate redaction.\n\n" +
+            `Detected search: ${query}\n\nContinue?`
+          );
+          if (!approved) {
+            setStatus("cancelled — narrow the search or confirm authorization");
+            return;
+          }
+          responsibleUseConfirmed = true;
+        }
         setStatus("reading page…");
         const rows = await scrape((n) => setStatus(`reading… ${n}`));
         const store = loadStore();
@@ -338,7 +384,7 @@
       const rows = Object.values(loadStore())
         .sort((a, b) => (a.timestamp || "").localeCompare(b.timestamp || ""));
       if (!rows.length) { setStatus("nothing collected yet — click Add page"); return; }
-      const out = { channel: { name: "search: from:durracktu" }, messages: rows };
+      const out = makeOutput(rows);
       download(`discord-search_all_${rows.length}.json`, out);
       setStatus(`saved ${rows.length} messages`);
     };
@@ -348,11 +394,11 @@
       const rows = Object.values(loadStore())
         .sort((a, b) => (a.timestamp || "").localeCompare(b.timestamp || ""));
       if (!rows.length) { setStatus("nothing collected yet"); return; }
-      const json = JSON.stringify({ channel: { name: "search: from:durracktu" }, messages: rows });
+      const json = JSON.stringify(makeOutput(rows));
       const ok = await copyText(json);
       setStatus(ok
         ? `copied ${rows.length} msgs (${json.length} chars) — paste into Notepad, save as .json`
-        : "copy failed — tell Claude");
+        : "copy failed — see the troubleshooting guide");
     };
 
     resetBtn.onclick = () => {

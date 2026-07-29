@@ -1,0 +1,33 @@
+DISCORD SEARCH EXPORTER — PRIVATE COLLABORATOR HANDOFF
+
+This package is provided privately to its intended recipient for authorized
+project work. It is not a public release or an open invitation to redistribute,
+publish, sell, or deploy the package as a service.
+
+Responsible-use expectations
+
+1. Export only content you own or have explicit authorization to use.
+2. Follow applicable platform rules, project agreements, privacy commitments,
+   retention policies, and laws.
+3. Minimize collection. Prefer narrow searches such as from:yourname.
+4. Treat exports as sensitive. Redact or anonymize message text, usernames,
+   channel names, links, and identifiers before sharing.
+5. Never disclose account tokens, cookies, credentials, invite links, private
+   diagnostic URLs, or unreviewed debug/export files to a support agent.
+6. Delete working data when it is no longer needed.
+7. Do not redistribute or publish this package without the owner's permission.
+
+The source is included so the recipient can audit exactly what runs. Version
+0.2.0 declares no extension permissions, host_permissions, background page, or
+service worker and makes no network requests. Its content script does run on
+discord.com, reads the rendered search-results DOM, uses Discord-origin
+localStorage for its accumulator, and can create downloads or write export JSON
+to the clipboard after user action.
+
+The confirmation shown by the extension is a reminder, not a technical
+ownership or authorization check. The recipient remains responsible for how the
+tool and resulting data are used.
+
+This notice records the intended private use of the package. It is not legal
+advice and is not a substitute for a reviewed license or collaboration
+agreement where one is required.
