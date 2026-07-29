@@ -52,7 +52,9 @@ comfy-miker-analysis/
 comfy-tugcow-analysis/
 *.revealed.csv
 
-# Private synthesis built ON TOP of the two analyses above (two more abstraction layers).
+comfy-etheiry-analysis/
+
+# Private synthesis built on top of three subject-side analyses (two more abstraction layers).
 # Derived from private material — same stance: internal only, do not commit.
 comfy-ascent-analysis/
 
