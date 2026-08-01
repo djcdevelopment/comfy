@@ -10,7 +10,8 @@ entry point when you want to understand *why* something was built before opening
 - **Reusable method:** [`method/the-lens-first-playbook.md`](method/the-lens-first-playbook.md), with
   the conversation ledger and extract beside it.
 - **Adoption and governance:** [`positioning.md`](positioning.md),
-  [`adoption-strategy.md`](adoption-strategy.md), and [`governance.md`](governance.md).
+  [`adoption-strategy.md`](adoption-strategy.md), and [`governance.md`](governance.md), with
+  [`rules-as-decision-records.md`](rules-as-decision-records.md) for where a rule came from.
 - **Built quest slice:** [`quest-vertical-slice-architecture.md`](quest-vertical-slice-architecture.md).
 - **Base-layer and lab plans:** [`comfy-base-layer-architecture-plan.md`](comfy-base-layer-architecture-plan.md),
   [`thesis-gold-local-lab-plan.md`](thesis-gold-local-lab-plan.md), and
