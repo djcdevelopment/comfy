@@ -633,18 +633,27 @@ namespace Comfy.CameraProof
         /// shooting on arrival gets an empty hillside, and that failure is invisible in
         /// the resulting image. Gate on the piece count going quiet, not on a timer.
         /// </summary>
+        private bool _lastWorldSettled;
+
         private IEnumerator WaitForWorld(Vector3 aim, float maxSeconds)
         {
+            _lastWorldSettled = true;
             var start = Time.time;
             var last = -1;
             var stableFor = 0f;
             while (Time.time - start < maxSeconds)
             {
                 var n = PiecesNear(aim, 60f);
-                if (n >= 0 && n == last)
+                // A count of zero is perfectly stable, and completely wrong. During a
+                // loading screen -- which Valheim drops into on some long teleports --
+                // nothing is loaded, the count sits at 0, and "the world has stopped
+                // changing" is technically true of an empty world. Six frames in one run
+                // were captures of the loading screen itself, and they passed this gate
+                // in 1.5 seconds. Stability only counts once something is actually there.
+                if (n > 0 && n == last)
                 {
                     stableFor += 0.5f;
-                    if (stableFor >= 1.5f) yield break;
+                    if (stableFor >= 1.5f) { _lastWorldSettled = true; yield break; }
                 }
                 else
                 {
@@ -654,6 +663,7 @@ namespace Comfy.CameraProof
                 yield return new WaitForSeconds(0.5f);
             }
             Logger.LogWarning($"World did not settle within {maxSeconds:0}s near {JsonVector(aim)}");
+            _lastWorldSettled = PiecesNear(aim, 60f) > 0;
         }
 
         /// <summary>
@@ -828,8 +838,19 @@ namespace Comfy.CameraProof
                 TryAim(yaw, pitch);                  // re-assert after the world loaded
                 yield return new WaitForSeconds(settle);
 
-                var occluded = IsOccluded(target, s.Aim);
                 var pieces = PiecesNear(s.Aim, 60f);
+                if (pieces <= 0)
+                {
+                    // Do not photograph a loading screen. Better a gap in the plan that
+                    // says why than a file that looks like a capture and is not one.
+                    Logger.LogWarning($"[{i + 1}/{plan.Count}] {s.Label} {s.Name}: world never "
+                                      + "arrived (0 pieces) -- shot skipped");
+                    AppendReceipt("{\"run\":" + JsonString(runId) + ",\"index\":" + i
+                                  + ",\"cluster_id\":" + s.ClusterId + ",\"shot\":" + JsonString(s.Name)
+                                  + ",\"skipped\":\"world_never_loaded\"}");
+                    continue;
+                }
+                var occluded = IsOccluded(target, s.Aim);
                 var fileName = $"{s.ClusterId:0000}_{s.Name}.png";
                 var path = Path.Combine(outDir, fileName);
                 ScreenCapture.CaptureScreenshot(path);
