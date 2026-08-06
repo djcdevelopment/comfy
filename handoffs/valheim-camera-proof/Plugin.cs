@@ -760,14 +760,32 @@ namespace Comfy.CameraProof
             SetCaptureChromeHidden(true);
             if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
 
+            var shotIndex = 0;
             for (var i = startIndex; i < plan.Count; i++)
             {
                 var s = plan[i];
+                // Player.m_localPlayer goes transiently null -- death and respawn, a zone
+                // transition, a moment of loading. Treating that as fatal cost 51 shots
+                // and 8 structures at index 429 of 480, three hours into a run, because
+                // one frame happened to catch the gap. Wait for it to come back.
                 var player = GetLocalPlayer();
                 if (player == null)
                 {
-                    Logger.LogError("Orbit capture stopped: no local player.");
-                    break;
+                    Logger.LogWarning($"[{i + 1}/{plan.Count}] no local player; waiting for respawn");
+                    var waited = 0f;
+                    while (player == null && waited < 90f)
+                    {
+                        yield return new WaitForSeconds(2f);
+                        waited += 2f;
+                        player = GetLocalPlayer();
+                    }
+                    if (player == null)
+                    {
+                        Logger.LogError($"Orbit capture stopped at {i + 1}/{plan.Count}: "
+                                        + "player did not return within 90s.");
+                        break;
+                    }
+                    Logger.LogInfo($"  player back after {waited:0}s; continuing");
                 }
 
                 // Never end up inside the hill. The planner has no terrain data at all,
@@ -843,6 +861,7 @@ namespace Comfy.CameraProof
                     .Append("}")
                     .ToString());
 
+                shotIndex++;
                 Logger.LogInfo($"[{i + 1}/{plan.Count}] {s.Label} {s.Name} "
                                + $"pieces={pieces} occluded={occluded}");
             }
@@ -854,7 +873,10 @@ namespace Comfy.CameraProof
             SetLocalPlayerVisible(!_hidePlayerForScreenshots);
             if (priorBoom >= 0f) SetCameraBoom(priorBoom);
             _stillJobRunning = false;
-            Announce($"orbit capture finished -> {outDir}");
+            var done = shotIndex;
+            Announce(done >= plan.Count - startIndex
+                ? $"orbit capture finished: {done}/{plan.Count - startIndex} -> {outDir}"
+                : $"orbit capture ENDED EARLY: {done}/{plan.Count - startIndex} -> {outDir}");
         }
 
         private void AppendReceipt(string json)
