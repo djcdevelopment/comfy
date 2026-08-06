@@ -767,18 +767,8 @@ namespace Comfy.CameraProof
                     target.y = ground.Value + 2f;
                 }
 
-                // Move off an obstructed point before shooting, and re-aim from wherever
-                // we ended up -- the planner's yaw/pitch are only correct for its own
-                // position.
-                target = FindClearView(target, s.Aim, out var clearance);
                 var yaw = s.Yaw;
                 var pitch = s.Pitch;
-                if (clearance != "planned")
-                {
-                    LookAngles(target, s.Aim, out yaw, out pitch);
-                    Logger.LogInfo($"  view was blocked; {clearance}");
-                }
-
                 PlacePlayer(player, target);
                 _holdAt = target;                    // pin against gravity for the whole shot
                 TryAim(yaw, pitch);
@@ -787,6 +777,24 @@ namespace Comfy.CameraProof
 
                 yield return WaitForStablePlayer(target, 15f);
                 yield return WaitForWorld(s.Aim, 25f);
+
+                // Only now is it worth asking whether the view is blocked. A raycast can
+                // only hit colliders that exist, and at placement time the trees have not
+                // streamed in yet -- checking then reports "clear" for a camera that is
+                // about to be buried in a canopy. Run 4 proved it: one frame came back
+                // occluded=true with clearance=planned, the two checks disagreeing purely
+                // because they ran either side of the world loading.
+                var moved = FindClearView(target, s.Aim, out var clearance);
+                if (clearance != "planned")
+                {
+                    Logger.LogInfo($"  view was blocked; {clearance}");
+                    target = moved;
+                    LookAngles(target, s.Aim, out yaw, out pitch);
+                    PlacePlayer(player, target);
+                    _holdAt = target;
+                    yield return WaitForStablePlayer(target, 10f);
+                }
+
                 TryAim(yaw, pitch);                  // re-assert after the world loaded
                 yield return new WaitForSeconds(settle);
 
