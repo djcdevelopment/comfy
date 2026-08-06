@@ -687,27 +687,39 @@ namespace Comfy.CameraProof
             how = "planned";
             if (!IsOccluded(desired, aim)) return desired;
 
-            foreach (var lift in new[] { 8f, 16f, 26f, 40f })
+            // Measured over 202 automated shots: 4% of frames needed recovery, and six
+            // of the eight successful lifts landed on +40 m -- the top of the old ladder.
+            // A ladder that clears by its last rung is one bad tree away from failing, so
+            // it now reaches 60.
+            foreach (var lift in new[] { 8f, 16f, 26f, 40f, 60f })
             {
                 var c = new Vector3(desired.x, desired.y + lift, desired.z);
                 if (!IsOccluded(c, aim)) { how = $"lifted+{lift:0}m"; return c; }
             }
 
+            // Swinging is the fallback for a build the lift ladder could not clear, so
+            // it must not re-test heights the ladder already rejected. The first version
+            // swung at +8 m on a structure that had needed +40 m one azimuth earlier,
+            // which is to say it searched a plane already known to be solid forest.
+            // Sweep bearings at each height, tallest first.
             var offset = desired - aim;
             var radius = new Vector2(offset.x, offset.z).magnitude;
             var baseAngle = Mathf.Atan2(offset.x, offset.z);
-            for (var deg = 15f; deg <= 90f; deg += 15f)
+            foreach (var lift in new[] { 60f, 40f, 26f, 16f })
             {
-                foreach (var sign in new[] { 1f, -1f })
+                for (var deg = 15f; deg <= 90f; deg += 15f)
                 {
-                    var a = baseAngle + Mathf.Deg2Rad * deg * sign;
-                    var c = new Vector3(aim.x + Mathf.Sin(a) * radius,
-                                        desired.y + 8f,
-                                        aim.z + Mathf.Cos(a) * radius);
-                    if (!IsOccluded(c, aim))
+                    foreach (var sign in new[] { 1f, -1f })
                     {
-                        how = $"swung{(sign > 0 ? "+" : "-")}{deg:0}deg";
-                        return c;
+                        var a = baseAngle + Mathf.Deg2Rad * deg * sign;
+                        var c = new Vector3(aim.x + Mathf.Sin(a) * radius,
+                                            desired.y + lift,
+                                            aim.z + Mathf.Cos(a) * radius);
+                        if (!IsOccluded(c, aim))
+                        {
+                            how = $"swung{(sign > 0 ? "+" : "-")}{deg:0}deg+{lift:0}m";
+                            return c;
+                        }
                     }
                 }
             }
