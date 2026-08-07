@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Provenance — every absorbed source</title>
+<style>
+:root{
+  --bg:#0b1013; --paper:#11191d; --panel:#162126; --line:#2c3a3f; --line2:#3d5058;
+  --ink:#edf5f2; --muted:#9eb0ad; --dim:#7b8f8c;
+  --wood:#d7a86e; --amber:#f6c453; --blue:#75c9f1; --green:#68d391; --violet:#c7a7ff;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",sans-serif;
+  --mono:ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:light){
+  :root{
+    --bg:#eceeed; --paper:#f6f7f6; --panel:#e3e8e7; --line:#c6d0ce; --line2:#a8b6b4;
+    --ink:#0e1719; --muted:#4d5f5d; --dim:#687977;
+    --wood:#8a5a22; --amber:#8a6410; --blue:#1a6285; --green:#1f6b42; --violet:#5b3fa0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1013; --paper:#11191d; --panel:#162126; --line:#2c3a3f; --line2:#3d5058;
+  --ink:#edf5f2; --muted:#9eb0ad; --dim:#7b8f8c;
+  --wood:#d7a86e; --amber:#f6c453; --blue:#75c9f1; --green:#68d391; --violet:#c7a7ff;
+}
+:root[data-theme="light"]{
+  --bg:#eceeed; --paper:#f6f7f6; --panel:#e3e8e7; --line:#c6d0ce; --line2:#a8b6b4;
+  --ink:#0e1719; --muted:#4d5f5d; --dim:#687977;
+  --wood:#8a5a22; --amber:#8a6410; --blue:#1a6285; --green:#1f6b42; --violet:#5b3fa0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+p{margin:0}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:600}
+a{color:var(--wood);text-decoration:none;border-bottom:1px solid rgba(215,168,110,.4)}
+a:hover{border-bottom-color:var(--wood)}
+code{font-family:var(--mono);font-size:.86em;color:var(--wood)}
+.wrap{max-width:64rem;margin:0 auto;padding:0 20px}
+section+section{margin-top:3.4rem}
+header+section{margin-top:2rem}
+.eyebrow{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--wood)}
+h2{font-family:var(--mono);font-weight:700;font-size:clamp(1.05rem,2.4vw,1.35rem);
+  letter-spacing:-.01em;line-height:1.25}
+.head{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.muted{color:var(--muted)}
+header{padding:3.4rem 0 0;display:flex;flex-direction:column;gap:1rem}
+.mark{display:flex;align-items:center;gap:.7rem}
+.mark .glyph{width:30px;height:30px;display:grid;place-items:center;border-radius:7px;
+  border:1px solid var(--wood);color:var(--wood);font-family:var(--mono);font-weight:700;
+  font-size:.9rem}
+.mark .name{font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.03em}
+h1{font-family:var(--mono);font-weight:700;letter-spacing:-.02em;line-height:1.15;
+  font-size:clamp(1.35rem,4.6vw,2.3rem);max-width:30ch}
+.rule{height:1px;background:var(--line);margin:.4rem 0}
+dl.meta{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.1rem;margin:0;
+  font-family:var(--mono);font-size:.74rem;color:var(--dim);max-width:46rem}
+dl.meta dt{color:var(--muted);font-weight:700}
+dl.meta dd{margin:0;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:5px;
+  padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.card h3{font-family:var(--mono);font-size:.9rem;font-weight:700}
+.card p{font-size:.9rem;color:var(--muted);line-height:1.55}
+.card.ghost{border-style:dashed;border-color:var(--line2)}
+.tag{align-self:flex-start;font-family:var(--mono);font-size:.6rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:.16rem .45rem;border-radius:999px;
+  border:1px solid currentColor}
+.t-run{color:var(--green)}
+.t-ghost{color:var(--dim)}
+.warn{border-left:2px solid var(--amber);padding:.2rem 0 .2rem 1rem;color:var(--muted);
+  font-size:.94rem;max-width:38rem}
+.diagram{background:var(--paper);border:1px solid var(--line);border-radius:5px;
+  padding:.9rem;overflow-x:auto}
+.diagram svg{display:block;width:100%;height:auto;min-width:560px}
+.caption{font-family:var(--mono);font-size:.7rem;color:var(--dim);line-height:1.7;
+  max-width:44rem;margin-top:.55rem}
+svg text{font-family:var(--mono)}
+.n-box{fill:var(--panel);stroke:var(--line)}
+.n-wood{fill:var(--panel);stroke:var(--wood)}
+.n-amber{fill:var(--panel);stroke:var(--amber)}
+.t-ink{fill:var(--ink);font-size:12.5px;font-weight:600}
+.t-woodtxt{fill:var(--wood);font-size:12.5px;font-weight:700}
+.t-ambertxt{fill:var(--amber);font-size:12px;font-weight:600}
+.t-dim{fill:var(--dim);font-size:10.5px}
+.edge{stroke:var(--dim);stroke-width:1.3;fill:none}
+.edge-soft{stroke:var(--dim);stroke-width:1.3;fill:none;stroke-dasharray:5 4}
+/* ---- row ledger ---- */
+.ledger{display:flex;flex-direction:column;gap:3px}
+.ledger details{background:var(--paper);border:1px solid var(--line);border-radius:5px}
+.ledger details[data-outcome="skipped"]{border-color:var(--amber)}
+.ledger summary{display:flex;align-items:baseline;gap:.7rem;padding:.4rem .8rem;
+  cursor:pointer;font-family:var(--mono);font-size:.78rem;list-style:none;flex-wrap:wrap}
+.ledger summary::-webkit-details-marker{display:none}
+.ledger summary:hover{background:var(--panel)}
+.rowno{color:var(--dim);min-width:7.5ch}
+.chip{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.1rem .4rem;border-radius:999px;border:1px solid currentColor}
+.c-quest{color:var(--green)}
+.c-skipped{color:var(--amber)}
+.c-dim{color:var(--dim)}
+.rname{color:var(--ink);font-weight:600}
+.rbecame{color:var(--muted)}
+.abadge{color:var(--amber);font-weight:700}
+.rbody{padding:.5rem .9rem .9rem;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:.7rem}
+.cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.55rem}
+.cell{min-width:0}
+.cell b{display:block;font-family:var(--mono);font-size:.62rem;font-weight:700;
+  letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
+.cell div{font-family:var(--mono);font-size:.78rem;white-space:pre-wrap;
+  overflow-wrap:anywhere;color:var(--ink)}
+.became{font-size:.85rem;color:var(--muted)}
+.became b{color:var(--ink)}
+.became code{overflow-wrap:anywhere}
+.rowanom{border-left:2px solid var(--amber);padding-left:.8rem;
+  font-size:.85rem;color:var(--muted)}
+.gap{font-family:var(--mono);font-size:.72rem;color:var(--dim);padding:.25rem .8rem}
+.anomlist{display:flex;flex-direction:column;gap:.6rem;max-width:46rem}
+.anomlist .item{border-left:2px solid var(--amber);padding:.15rem 0 .15rem 1rem;
+  font-size:.92rem;color:var(--muted)}
+.anomlist .item b{color:var(--ink)}
+.anomlist .item a{font-family:var(--mono);font-size:.72rem}
+h3.tabname{font-family:var(--mono);font-size:.95rem;font-weight:700;margin:1.6rem 0 .6rem}
+footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem}
+.fine{font-family:var(--mono);font-size:.68rem;color:var(--dim);line-height:1.8;margin:0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="mark">
+    <span class="glyph">A</span>
+    <span class="name">THE ABSORPTION LOOP &middot; PROVENANCE</span>
+  </div>
+  <h1>Every absorbed artifact, and its receipt</h1>
+  <p class="muted" style="max-width:40rem">One page per source: what the harvester
+    read, what it became, and the questions it routed back. Leaders' content passes
+    through verbatim — these pages are the proof.</p>
+  <div class="rule"></div>
+</header>
+<section>
+  <div class="grid"><a class="card" href="provenance-slayers-summons.html" style="border-bottom:1px solid var(--line)"><span class="tag t-run">harvested</span><h3>Slayers</h3><p>slayer-guild-tracker.xlsx</p><p>103 quests &middot; 0 skipped &middot; 21 question(s)</p><p class="muted" style="font-family:var(--mono);font-size:.68rem">retrieved 2026-07-01</p></a>
+<a class="card" href="provenance-rangers-tracker.html" style="border-bottom:1px solid var(--line)"><span class="tag t-run">harvested</span><h3>Rangers</h3><p>ranger-guild-tracker.xlsx</p><p>85 quests &middot; 0 skipped &middot; 1 question(s)</p><p class="muted" style="font-family:var(--mono);font-size:.68rem">retrieved 2026-07-01</p></a>
+<a class="card" href="provenance-creator-events-e18.html" style="border-bottom:1px solid var(--line)"><span class="tag t-run">harvested</span><h3>Creators</h3><p>creator-events-tracker.xlsx</p><p>126 quests &middot; 0 skipped &middot; 27 question(s)</p><p class="muted" style="font-family:var(--mono);font-size:.68rem">retrieved 2026-08-01</p></a>
+<div class="card ghost"><span class="tag t-ghost">not harvested</span><h3>Rangers</h3><p>Fork test: enable once Mistral fills a template. gm-template validates and passes through.</p></div>
+<div class="card ghost"><span class="tag t-ghost">not harvested</span><h3>discord-channel-export</h3><p>Reserved seam for the absorption engine: harvest quests straight from a Discord channel export. Not implemented.</p></div></div>
+</section>
+<footer>
+  <p class="fine">Generated by recipes/quest-catalogs/render_provenance.py.
+    <a href="quest-picker.html">Quest picker</a> &middot;
+    <a href="https://am4.tail8e749c.ts.net/questpicker/">live picker</a></p>
+</footer>
+</div>
+</body>
+</html>

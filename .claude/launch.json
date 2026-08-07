@@ -6,6 +6,13 @@
       "runtimeExecutable": "C:\\Users\\derek\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
       "runtimeArgs": ["-m", "http.server", "8630", "--directory", "data/processed"],
       "port": 8630
+    },
+    {
+      "name": "practice-page-preview",
+      "runtimeExecutable": "C:\\Users\\derek\\AppData\\Local\\Programs\\Python\\Python312\\python.exe",
+      "runtimeArgs": ["-m", "http.server", "8631", "--directory",
+        "C:\\Users\\derek\\AppData\\Local\\Temp\\claude\\C--work-comfy\\8be4f478-0bb3-4f5f-84cc-68286dfaa3a6\\scratchpad"],
+      "port": 8631
     }
   ]
 }

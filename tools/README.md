@@ -1,5 +1,23 @@
 # Repository tools
 
+## Era release train
+
+[`era_release_train.py`](era_release_train.py) encodes the Comfy reset schedule as data. Every
+milestone sits at a fixed offset from the era start date, so the whole staff calendar, comms
+cascade, and staging window derive from a single input. Offsets were reverse-engineered from the
+community "Comfy Reset Schedule (Template)" (E15/E16/E17) and reproduce all eight E17 dates exactly.
+
+```powershell
+# Observed cadence and candidate next-era start dates.
+python .\tools\era_release_train.py --suggest
+
+# Full release train for an era, plus draft reset-channel posts.
+python .\tools\era_release_train.py --era 18 --start 2026-11-14 --posts
+```
+
+Background and the vocabulary it deliberately uses:
+[`../docs/practice-to-profession.md`](../docs/practice-to-profession.md).
+
 ## Activity mapper
 
 [`repo_activity.py`](repo_activity.py) turns the committed Git history into the repository map under

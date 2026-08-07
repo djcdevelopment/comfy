@@ -30,6 +30,13 @@ python .\recipes\quest-catalogs\harvest.py
 python .\recipes\quest-catalogs\validate.py .\data\processed\quest-catalog-slayers.json
 python .\recipes\quest-catalogs\validate.py .\data\processed\quest-catalog-rangers.json
 python .\recipes\quest-catalogs\render_quest_picker.py
+python .\recipes\quest-catalogs\render_provenance.py
 ```
+
+Each harvest also writes a provenance sidecar (`*-provenance.json`), and
+`render_provenance.py` turns those into the leader-facing provenance view
+(`data/processed/provenance-<source-id>.html` + `provenance.html` index): which
+columns became which fields, the fate of every row with verbatim cells, and the
+anomalies joined to the rows they concern.
 
 The committed outputs live under [`../data/processed/`](../data/processed/).

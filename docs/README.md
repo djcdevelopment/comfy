@@ -20,6 +20,9 @@ entry point when you want to understand *why* something was built before opening
   GitHub Actions + GCP integration proposal for the fieldlab test program.
 - **Repository periodization:** [`repo-map/HOTSPOTS.md`](repo-map/HOTSPOTS.md) and the
   [interactive activity heatmap](repo-map/index.html).
+- **Staff craft, named:** [`practice-to-profession.md`](practice-to-profession.md) — what Comfy
+  volunteers already do, in industry terminology, with the reset schedule executable at
+  [`../tools/era_release_train.py`](../tools/era_release_train.py).
 
 ## What belongs here
 

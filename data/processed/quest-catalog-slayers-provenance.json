@@ -1,0 +1,5025 @@
+{
+  "schema_version": 1,
+  "mode": "sheet",
+  "source": {
+    "id": "slayers-summons",
+    "guild": "Slayers",
+    "era": 17,
+    "adapter": "sheet-xlsx",
+    "path": "../../data/raw/slayer-guild-tracker.xlsx",
+    "tab": "Summons list for bot",
+    "url": "https://docs.google.com/spreadsheets/d/1Xij6i1JIUT8iAdVgMDuwy9JzZGvMaU0xv85pSJZmElM",
+    "retrieved": "2026-07-01"
+  },
+  "tabs": [
+    {
+      "tab": "Summons list for bot",
+      "header_row": 1,
+      "columns": [
+        {
+          "index": 0,
+          "letter": "A",
+          "header": "Name",
+          "fields": [
+            "name",
+            "quest_id"
+          ],
+          "note": "quest_id is a slug of the name"
+        },
+        {
+          "index": 1,
+          "letter": "B",
+          "header": "Coopable?",
+          "fields": [
+            "coopable"
+          ],
+          "note": null
+        },
+        {
+          "index": 2,
+          "letter": "C",
+          "header": "Category",
+          "fields": [
+            "category"
+          ],
+          "note": null
+        },
+        {
+          "index": 3,
+          "letter": "D",
+          "header": "Turn-in Requirements",
+          "fields": [
+            "requirements",
+            "evidence.video_alternative"
+          ],
+          "note": "verbatim; emoji grammar cross-checked against the bot command"
+        },
+        {
+          "index": 4,
+          "letter": "E",
+          "header": "Bot Template",
+          "fields": [
+            "bot_command",
+            "auto_checked",
+            "evidence"
+          ],
+          "note": "the command's slots become the evidence spec"
+        }
+      ],
+      "rows": [
+        {
+          "row": 1,
+          "outcome": "header",
+          "cells": {
+            "A": "Name",
+            "B": "Coopable?",
+            "C": "Category",
+            "D": "Turn-in Requirements",
+            "E": "Bot Template"
+          }
+        },
+        {
+          "row": 2,
+          "outcome": "quest",
+          "quest_id": "air_drop",
+          "cells": {
+            "A": "Air Drop",
+            "B": "False",
+            "C": "General summons",
+            "D": "Kill a Deathsquito with a thrown Spear\n📸 Deathsquito while holding a Spear\n📸 Kiling Deathsquito, no longer holding Spear",
+            "E": "/slayer summons summons_type:Air Drop image: image2:"
+          }
+        },
+        {
+          "row": 3,
+          "outcome": "quest",
+          "quest_id": "cold_shot",
+          "cells": {
+            "A": "Cold Shot",
+            "B": "False",
+            "C": "General summons",
+            "D": "Kill a Drake with a Spear with a thrown Spear\n📸 Drake while holding a Spear\n📸 Kiling Drake, no longer holding Spear",
+            "E": "/slayer summons summons_type:Cold Shot image: image2:"
+          }
+        },
+        {
+          "row": 4,
+          "outcome": "quest",
+          "quest_id": "crow_s_nest",
+          "cells": {
+            "A": "Crow's Nest",
+            "B": "False",
+            "C": "General summons",
+            "D": "Jump atop the mast of one of the Drakkars at the Slayer HQ\n📸 View of HQ from your perch",
+            "E": "/slayer summons summons_type:Crow's Nest image:"
+          }
+        },
+        {
+          "row": 5,
+          "outcome": "quest",
+          "quest_id": "dodge_a_wrench",
+          "cells": {
+            "A": "Dodge a Wrench",
+            "B": "False",
+            "C": "General summons",
+            "D": "Play a game of Harpoon Ball - staff-hosted Slayer PvP event\n🔗 Event summary posted in #Slayer Announcements",
+            "E": "/slayer summons summons_type:Dodge a Wrench summons_url:"
+          }
+        },
+        {
+          "row": 6,
+          "outcome": "quest",
+          "quest_id": "master_killer",
+          "cells": {
+            "A": "Master Killer",
+            "B": "False",
+            "C": "General summons",
+            "D": "Prove you cleared the Mistlands and Ashlands\n📸 Turn in: 1 stack each of Seeker Meat, Scale Hide, Charred Bones, Bonemaw Tooth",
+            "E": "/slayer summons summons_type:Master Killer image:"
+          }
+        },
+        {
+          "row": 7,
+          "outcome": "quest",
+          "quest_id": "misty_meat",
+          "cells": {
+            "A": "Misty Meat",
+            "B": "True",
+            "C": "General summons",
+            "D": "Drag a Serpent onto land and dispose of it\n📸 Dragging the Serpent on land\n📸 Killing Serpent",
+            "E": "/slayer summons summons_type:Misty Meat image: image2:"
+          }
+        },
+        {
+          "row": 8,
+          "outcome": "quest",
+          "quest_id": "rare_killer",
+          "cells": {
+            "A": "Rare Killer",
+            "B": "False",
+            "C": "General summons",
+            "D": "Kill the rare enemies and make their heads roll\n📸 Turn in or mount in your quarters: 1 each of Fallen Valkyrie, Rancid Remains, and Wraith Trophies",
+            "E": "/slayer summons summons_type:Misty Meat image:"
+          }
+        },
+        {
+          "row": 9,
+          "outcome": "quest",
+          "quest_id": "hard_and_wild",
+          "cells": {
+            "A": "Hard and Wild",
+            "B": "False",
+            "C": "General summons",
+            "D": "Trap 2 wild Boars: one must be 1+ star. Start the taming process and display a sign: \"Free Boars from the Slayers\"\n📸 Wild, fenced, starred Boar with status: 1-99% tame",
+            "E": "/slayer summons summons_type:Hard and Wild image:"
+          }
+        },
+        {
+          "row": 10,
+          "outcome": "quest",
+          "quest_id": "fenrir_s_children",
+          "cells": {
+            "A": "Fenrir's Children",
+            "B": "False",
+            "C": "General summons",
+            "D": "Trap 2 wild Wolves: one must be 1+ star. Start the taming process and display a sign: \"Free Wolves from the Slayers\"\n📸 Wild, fenced, starred Wolf with status: 1-99% tame",
+            "E": "/slayer summons summons_type:Fenrir's Children image:"
+          }
+        },
+        {
+          "row": 11,
+          "outcome": "quest",
+          "quest_id": "can_i_pick_your_brain_1",
+          "cells": {
+            "A": "Can I Pick Your Brain 1",
+            "B": "False",
+            "C": "General summons",
+            "D": "Stagger a Troll by shooting it in the head for extra damage\n📸 A staggered Troll with a damage number near its head, your bow or crossbow equipped",
+            "E": "/slayer summons summons_type:Can I Pick Your Brain 1 image:"
+          }
+        },
+        {
+          "row": 12,
+          "outcome": "quest",
+          "quest_id": "can_i_pick_your_brain_2",
+          "cells": {
+            "A": "Can I Pick Your Brain 2",
+            "B": "False",
+            "C": "General summons",
+            "D": "Jump on a Stone Golem's head and hit it with your Pickaxe\n📸 Swinging your Pickaxe on top of a Stone Golem",
+            "E": "/slayer summons summons_type:Can I Pick Your Brain 2 image:"
+          }
+        },
+        {
+          "row": 13,
+          "outcome": "quest",
+          "quest_id": "can_i_pick_your_brain_3",
+          "cells": {
+            "A": "Can I Pick Your Brain 3",
+            "B": "False",
+            "C": "General summons",
+            "D": "Land the killing blow on a Gjall with a thrown Spear\n📸 Holding a Spear and looking at Gjall\n📸 Gjallsplosion! (spear thrown)",
+            "E": "/slayer summons summons_type:Can I Pick Your Brain 3 image: image2:"
+          }
+        },
+        {
+          "row": 14,
+          "outcome": "quest",
+          "quest_id": "can_i_pick_your_brain_4",
+          "cells": {
+            "A": "Can I Pick Your Brain 4",
+            "B": "False",
+            "C": "General summons",
+            "D": "Lure a Seeker Soldier into smashing a Jotunn Skull for you\n📸 Seeker Soldier next to a Skull with a hole in it",
+            "E": "/slayer summons summons_type:Can I Pick Your Brain 4 image:"
+          }
+        },
+        {
+          "row": 15,
+          "outcome": "quest",
+          "quest_id": "legendary_lobotomizer",
+          "cells": {
+            "A": "Legendary Lobotomizer",
+            "B": "False",
+            "C": "General summons",
+            "D": "Complete all 4 Can I Pick Your Brain summons (above)",
+            "E": "No submission, auto-checked"
+          }
+        },
+        {
+          "row": 16,
+          "outcome": "quest",
+          "quest_id": "too_hot_for_you_1",
+          "cells": {
+            "A": "Too Hot for You 1",
+            "B": "False",
+            "C": "General summons",
+            "D": "Kill an enemy in any Dungeon by building a fire under it and walling it off with cooking racks. Deconstruct when done!\n📸 Burning enemy with campfire and cooking racks visible",
+            "E": "/slayer summons summons_type:Too Hot for You 1 image:"
+          }
+        },
+        {
+          "row": 17,
+          "outcome": "quest",
+          "quest_id": "too_hot_for_you_2",
+          "cells": {
+            "A": "Too Hot For You 2",
+            "B": "False",
+            "C": "General summons",
+            "D": "Parry an Abomination over the flame of a Surtling spawner\n📸 Abomination staggered and on fire",
+            "E": "/slayer summons summons_type:Too Hot for You 2 image:"
+          }
+        },
+        {
+          "row": 18,
+          "outcome": "quest",
+          "quest_id": "too_hot_for_you_3",
+          "cells": {
+            "A": "Too Hot For You 3",
+            "B": "False",
+            "C": "General summons",
+            "D": "Lure an enemy into Ashlands waters and watch it boil alive\n📸 Enemy losing HP while over boiling water",
+            "E": "/slayer summons summons_type:Too Hot for You 3 image:"
+          }
+        },
+        {
+          "row": 19,
+          "outcome": "quest",
+          "quest_id": "too_hot_for_you_4",
+          "cells": {
+            "A": "Too Hot for You 4",
+            "B": "False",
+            "C": "General summons",
+            "D": "Dodge roll a lava blob explosion\n📸 You *not* on fire with lava blob explosion effects all around",
+            "E": "/slayer summons summons_type:Too Hot for You 4 image:"
+          }
+        },
+        {
+          "row": 20,
+          "outcome": "quest",
+          "quest_id": "legendary_cook",
+          "cells": {
+            "A": "Legendary Cook",
+            "B": "False",
+            "C": "General summons",
+            "D": "Complete all 4 Too Hot for You summons (above)",
+            "E": "No submission, auto-checked"
+          }
+        },
+        {
+          "row": 21,
+          "outcome": "quest",
+          "quest_id": "deer_destroyer",
+          "cells": {
+            "A": "Deer Destroyer",
+            "B": "True",
+            "C": "General summons",
+            "D": "In a group of 2-4: Defeat Eikthyr completely unarmed: only fists\n📸 Group fighting Eikthyr barehanded - no solo!\n🤜🤛 Tag all players - they will get credit too",
+            "E": "/slayer summons summons_type:Deer Destroyer image: participants:"
+          }
+        },
+        {
+          "row": 22,
+          "outcome": "quest",
+          "quest_id": "elder_extinguisher",
+          "cells": {
+            "A": "Elder Extinguisher",
+            "B": "True",
+            "C": "General summons",
+            "D": "In a group of 2-4: Defeat Elder by swinging Torches at it\n📸 Group fighting Elder with Torches - no solo!\n🤜🤛 Tag all players - they will get credit too",
+            "E": "/slayer summons summons_type:Elder Extinguisher image: participants:"
+          }
+        },
+        {
+          "row": 23,
+          "outcome": "quest",
+          "quest_id": "bonkin_bonemass",
+          "cells": {
+            "A": "Bonkin Bonemass",
+            "B": "True",
+            "C": "General summons",
+            "D": "In a group of 2-4: Defeat Bonemass with only wooden Clubs\n📸 Group fighting Bonemass with Clubs - no solo!\n🤜🤛 Tag all players - they will get credit too",
+            "E": "/slayer summons summons_type:Bonkin Bonemass image: participants:"
+          }
+        },
+        {
+          "row": 24,
+          "outcome": "quest",
+          "quest_id": "melee_moder",
+          "cells": {
+            "A": "Melee Moder",
+            "B": "True",
+            "C": "General summons",
+            "D": "📸 Defeat Moder with melee weapons only - solo or group fight, but all players submit separately",
+            "E": "/slayer summons summons_type:Melee Moder image:"
+          }
+        },
+        {
+          "row": 25,
+          "outcome": "quest",
+          "quest_id": "got_your_back",
+          "cells": {
+            "A": "Got Your Back",
+            "B": "False",
+            "C": "General summons",
+            "D": "Run behind Yagluth's tailbone and kite him around to prevent him attacking - solo or group fight, but all players submit separately\n📸 You behind Yagluth while he does no attack animations",
+            "E": "/slayer summons summons_type:Got Your Back image:"
+          }
+        },
+        {
+          "row": 26,
+          "outcome": "quest",
+          "quest_id": "game_of_thrones",
+          "cells": {
+            "A": "Game of Thrones",
+            "B": "False",
+            "C": "General summons",
+            "D": "Defeat The Queen with Frost or Fire weapons/arrows - solo or group fight, but all players submit separately\n📸 You fighting The Queen with Frost or Fire weapons (no magic)",
+            "E": "/slayer summons summons_type:Game of Thones image:"
+          }
+        },
+        {
+          "row": 27,
+          "outcome": "quest",
+          "quest_id": "friendly_fissure",
+          "cells": {
+            "A": "Friendly Fissure",
+            "B": "False",
+            "C": "General summons",
+            "D": "Lure a Fallen Valkyrie or Morgen into Fader's Fissure (ground spikes) attack and watch it burn to death\n📸 Fallen Valkyrie or Morgen burning in Fader's green flames",
+            "E": "/slayer summons summons_type:Friendly Fissure image:"
+          }
+        },
+        {
+          "row": 28,
+          "outcome": "quest",
+          "quest_id": "legendary_boss_rusher",
+          "cells": {
+            "A": "Legendary Boss Rusher",
+            "B": "False",
+            "C": "General summons",
+            "D": "Complete all 7 Forsaken-related Boss Rush summons (above)",
+            "E": "No submission, auto-checked"
+          }
+        },
+        {
+          "row": 29,
+          "outcome": "quest",
+          "quest_id": "ancient_berserker_weapon",
+          "cells": {
+            "A": "Ancient Berserker Weapon",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Find a Berserker weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+            "E": "/slayer summons summons_type:Ancient Berserker Weapon image: image2:"
+          }
+        },
+        {
+          "row": 30,
+          "outcome": "quest",
+          "quest_id": "arsenal_of_a_berserker",
+          "cells": {
+            "A": "Arsenal of a Berserker",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "On an armor stand in your quarters, permanently mount your:\n📸 Berserker armor (Carapace set) and\n📸 Dual-wielded weapons",
+            "E": "/slayer summons summons_type:Arsenal of a Berserker image: image2:"
+          }
+        },
+        {
+          "row": 31,
+          "outcome": "quest",
+          "quest_id": "build_dedication",
+          "cells": {
+            "A": "Build: Dedication",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Build a huge, statue-sized viking weapon, at least 6m tall.\nCould be turned into a Slayer Ancient Weapon Site!\n📸x4 of your Build",
+            "E": "/slayer summons summons_type:Build: Dedication image: image2: image3: image4:"
+          }
+        },
+        {
+          "row": 32,
+          "outcome": "quest",
+          "quest_id": "burning_man",
+          "cells": {
+            "A": "Burning Man",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Fight a horde of 5+ Ashlands enemies including:\n📸 A Morgen or a Fallen Valkyrie, and\n📸 Win, showing their drops",
+            "E": "/slayer summons summons_type:Burning Man image: image2:"
+          }
+        },
+        {
+          "row": 33,
+          "outcome": "quest",
+          "quest_id": "burnt_bonemaw",
+          "cells": {
+            "A": "Burnt Bonemaw",
+            "B": "True",
+            "C": "Berserker summons",
+            "D": "Drag a Bonemaw into the Ashlands Lava and kill it - can co-op\n🤜🤛 Tag another player to credit both of you\n📸 You both killing the Bonemaw over lava",
+            "E": "/slayer summons summons_type:Burnt Bonemaw image: participants:"
+          }
+        },
+        {
+          "row": 34,
+          "outcome": "quest",
+          "quest_id": "coup_de_grace",
+          "cells": {
+            "A": "Coup de Grace",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Jump out of your boat in the Ocean and\n📸  Kill a Serpent before you splash land, to get the\n📸 (show inventory) Serpent Scales before they sink!",
+            "E": "/slayer summons summons_type:Coup de Grace image: image2:"
+          }
+        },
+        {
+          "row": 35,
+          "outcome": "quest",
+          "quest_id": "exterminator",
+          "cells": {
+            "A": "Exterminator",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Find and destroy the Mini-Bosses of Valheim:\n📸 Turn in or mount in your quarters: 1 each of Brenna, Geirrhafa, Zil, Thungr Trophies",
+            "E": "/slayer summons summons_type:Exterminator image:"
+          }
+        },
+        {
+          "row": 36,
+          "outcome": "quest",
+          "quest_id": "fort_night",
+          "cells": {
+            "A": "Fort Night",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Taking another player to a Charred Fortress you found, and as a\n🔗 Protection Contract, help them clear it. Take no loot as always.\n📸 You both clearing the fortress",
+            "E": "/slayer summons summons_type:Fort Night image: summons_url:"
+          }
+        },
+        {
+          "row": 37,
+          "outcome": "quest",
+          "quest_id": "god_of_thunder",
+          "cells": {
+            "A": "God of Thunder",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Using a gemmed weapon, trigger a massive chain lightning proc!\n📸 5+ enemies getting zapped",
+            "E": "/slayer summons summons_type:God of Thunder image:"
+          }
+        },
+        {
+          "row": 38,
+          "outcome": "quest",
+          "quest_id": "helldiver",
+          "cells": {
+            "A": "Helldiver",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Use a catapult to\n📸 (Superman pose) launch yourself into a Charred Fortress and\n📸 (empty fortress) eliminate all enemies within!",
+            "E": "/slayer summons summons_type:Helldiver image: image2:"
+          }
+        },
+        {
+          "row": 39,
+          "outcome": "quest",
+          "quest_id": "helldiver_legendary",
+          "cells": {
+            "A": "Helldiver Legendary",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Do Helldiver totally naked: No feather cape, no magic\nDeaths are expected, Helldivers are expendable!",
+            "E": "/slayer summons summons_type:Helldiver Legendary image: image2:"
+          }
+        },
+        {
+          "row": 40,
+          "outcome": "quest",
+          "quest_id": "iron_price",
+          "cells": {
+            "A": "Iron Price",
+            "B": "True",
+            "C": "Berserker summons",
+            "D": "📸 Fight another player to the death over a weapon - describe what weapon was worth your lives! Follow boosting rules!\n🤜🤛 Tag your opponent - you both receive credit",
+            "E": "/slayer summons summons_type:Iron Price image: participants: summons_notes:"
+          }
+        },
+        {
+          "row": 41,
+          "outcome": "quest",
+          "quest_id": "raging",
+          "cells": {
+            "A": "Raging",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Prove your strength. 📸 Kill a Seeker Soldier while naked and using dual-wielded weapons\n📸 Survive, showing its drops",
+            "E": "/slayer summons summons_type:Raging image: image2:"
+          }
+        },
+        {
+          "row": 42,
+          "outcome": "quest",
+          "quest_id": "this_is_sparta",
+          "cells": {
+            "A": "This is SPARTA",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Using Flesh Rippers, 📸 kick an enemy 📸 into a mountain well!",
+            "E": "/slayer summons summons_type:This is SPARTA image: image2:"
+          }
+        },
+        {
+          "row": 43,
+          "outcome": "quest",
+          "quest_id": "trial_by_fire",
+          "cells": {
+            "A": "Trial by Fire",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "In the Slayer event, Trial By Fire: Defeat the Fuling Berserker\n📸 Show drops",
+            "E": "/slayer summons summons_type:Trial by Fire image:"
+          }
+        },
+        {
+          "row": 44,
+          "outcome": "quest",
+          "quest_id": "trial_by_fire_legendary",
+          "cells": {
+            "A": "Trial by Fire Legendary",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "In the Slayer event, Trial By Fire: Defeat Lord Reto\n📸 Show drops",
+            "E": "/slayer summons summons_type:Trial by Fire Legendary image:"
+          }
+        },
+        {
+          "row": 45,
+          "outcome": "quest",
+          "quest_id": "who_seeks_the_seekers",
+          "cells": {
+            "A": "Who Seeks the Seekers",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Using Dual-wielded or Lightning weapons,\n📸 Fight through an Infested Mine with multiple Seeker Soldiers\n🔗 Post coordinates @Slayers to help others get Soldier Trophies",
+            "E": "/slayer summons summons_type:Who Seeks the Seekers image: summons_url:"
+          }
+        },
+        {
+          "row": 46,
+          "outcome": "quest",
+          "quest_id": "wicked_purge",
+          "cells": {
+            "A": "Wicked Purge",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Using Dual-wielded or Lightning weapons 📸 kill everything at a Fuling Camp and 📸 show the ruins left in your wake",
+            "E": "/slayer summons summons_type:Wicked Purge image: image2:"
+          }
+        },
+        {
+          "row": 47,
+          "outcome": "quest",
+          "quest_id": "berserker_event",
+          "cells": {
+            "A": "Berserker Event",
+            "B": "False",
+            "C": "Berserker summons",
+            "D": "Rip and tear, until it is done.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+            "E": "/slayer summons summons_type:Berserker Event image: image2:"
+          }
+        },
+        {
+          "row": 48,
+          "outcome": "quest",
+          "quest_id": "ancient_brute_weapon",
+          "cells": {
+            "A": "Ancient Brute Weapon",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Find a Brute weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+            "E": "/slayer summons summons_type:Ancient Brute Weapon image: image2:"
+          }
+        },
+        {
+          "row": 49,
+          "outcome": "quest",
+          "quest_id": "arsenal_of_a_brute",
+          "cells": {
+            "A": "Arsenal of a Brute",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "On an armor stand in your quarters, permanently mount your:\n📸 Brute armor (Padded set) and\n📸 Two-handed weapon",
+            "E": "/slayer summons summons_type:Arsenal of a Brute image: image2:"
+          }
+        },
+        {
+          "row": 50,
+          "outcome": "quest",
+          "quest_id": "build_fight_club",
+          "cells": {
+            "A": "Build: Fight Club",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Build a battle arena for you and your friends.\nCould be turned into a Slayer PvP Event!\n📸x4 of your Build",
+            "E": "/slayer summons summons_type:Dedication image: image2: image3: image4:"
+          }
+        },
+        {
+          "row": 51,
+          "outcome": "quest",
+          "quest_id": "banger",
+          "cells": {
+            "A": "Banger",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Jump on a Gjall and 📸 beat its brains with a Two-handed Hammer!",
+            "E": "/slayer summons summons_type:Banger image:"
+          }
+        },
+        {
+          "row": 52,
+          "outcome": "quest",
+          "quest_id": "bloodborne",
+          "cells": {
+            "A": "Bloodborne",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Transport 📸 four Ticks to your Slayer Quarters! Starred ticks count as two!",
+            "E": "/slayer summons summons_type:Bloodborne image:"
+          }
+        },
+        {
+          "row": 53,
+          "outcome": "quest",
+          "quest_id": "bloody_blade",
+          "cells": {
+            "A": "Bloody Blade",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "With a Brutal Slayer two-handed sword,\n📸 Fight a Seeker Soldier while missing more than half your HP\n📸 Then kill it! - show drops",
+            "E": "/slayer summons summons_type:Bloody Blade image: image2:"
+          }
+        },
+        {
+          "row": 54,
+          "outcome": "quest",
+          "quest_id": "blood_soaked",
+          "cells": {
+            "A": "Blood soaked",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "With a Bloodstone-enhanced or a two-handed weapon,\n📸 Find two Morgens together...\n📸 and kill them at the same time! - show drops",
+            "E": "/slayer summons summons_type:Blood Soaked image: image2:"
+          }
+        },
+        {
+          "row": 55,
+          "outcome": "quest",
+          "quest_id": "cattle_prod",
+          "cells": {
+            "A": "Cattle Prod",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "📸 Hit 3 Lox at once with a Himminafl secondary (spin attack)",
+            "E": "/slayer summons summons_type:Cattle Prod image: image2:"
+          }
+        },
+        {
+          "row": 56,
+          "outcome": "quest",
+          "quest_id": "flawless_victory",
+          "cells": {
+            "A": "Flawless Victory",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Participate in a staff-hosted Eichenwalde PvP event\n(Not the Creator version)\n🔗 Link summary post from #Slayers",
+            "E": "/slayer summons summons_type:Earthshatter summons_url:"
+          }
+        },
+        {
+          "row": 57,
+          "outcome": "quest",
+          "quest_id": "flawless_victory_legendary",
+          "cells": {
+            "A": "Flawless Victory Legendary",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "At a staff-hosted Eichenwalde PvP event,\n📸 Kill multiple opponents with one Earthshatter (single-use Demolisher with that tag)",
+            "E": "/slayer summons summons_type:Earthshatter Legendary image:"
+          }
+        },
+        {
+          "row": 58,
+          "outcome": "quest",
+          "quest_id": "golem_executioner",
+          "cells": {
+            "A": "Golem Executioner",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "📸 Wield a two-handed sledgehammer facing two Stone Golems\n📸 and reduce them both to rubble",
+            "E": "/slayer summons summons_type:Golem Executioner image: image2:"
+          }
+        },
+        {
+          "row": 59,
+          "outcome": "quest",
+          "quest_id": "hold_my_mead",
+          "cells": {
+            "A": "Hold my Mead",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Jump off a high point in the Mistlands or Ashlands, taking \n📸 Severe fall damage (over 50). With a blood-enhanced weapon, 📸 Kill an enemy in one blow.",
+            "E": "/slayer summons summons_type:Hold my Mead image: image2:"
+          }
+        },
+        {
+          "row": 60,
+          "outcome": "quest",
+          "quest_id": "homewrecker",
+          "cells": {
+            "A": "Homewrecker",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "📸 Demolish a Dvergr Tower with a sledgehammer and\n📸 Stash away the drops nearby, off-site (don't block Regen!) in chests with a sign: \"Free Dvergr mats from the Slayers.\"",
+            "E": "/slayer summons summons_type:Homewrecker image: image2:"
+          }
+        },
+        {
+          "row": 61,
+          "outcome": "quest",
+          "quest_id": "kilo_strike",
+          "cells": {
+            "A": "Kilo Strike",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Do over 1000 damage in a single strike!\n📸 Damage number over 1000 - see how high you can hit!",
+            "E": "/slayer summons summons_type:Kilo Strike image: image2:"
+          }
+        },
+        {
+          "row": 62,
+          "outcome": "quest",
+          "quest_id": "kilo_strike_legendary",
+          "cells": {
+            "A": "Kilo Strike Legendary",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Reach over 📸 2500 damage in a single strike!",
+            "E": "/slayer summons summons_type:Kilo Strike Legendary image: image2:"
+          }
+        },
+        {
+          "row": 63,
+          "outcome": "quest",
+          "quest_id": "rude_awakening",
+          "cells": {
+            "A": "Rude Awakening",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "📸 Backstab (surprise attack) a Forsaken Boss as it spawns, by performing a two-handed sword secondary (big stab)",
+            "E": "/slayer summons summons_type:Rude Awakening image:"
+          }
+        },
+        {
+          "row": 64,
+          "outcome": "quest",
+          "quest_id": "supreme_king",
+          "cells": {
+            "A": "Supreme King",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Using only the Brutal Slayer or Krom and no magic,\n📸 Kill The Queen in a solo battle\n📸 Show drops",
+            "E": "/slayer summons summons_type:Supreme King image: image2:"
+          }
+        },
+        {
+          "row": 65,
+          "outcome": "quest",
+          "quest_id": "warrior_s_tale",
+          "cells": {
+            "A": "Warrior's Tale",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Return to the site of a major battle you once had, and \n📸 Write a story about it on signs built next to a campfire and chair",
+            "E": "/slayer summons summons_type:Warrior's Tale image:"
+          }
+        },
+        {
+          "row": 66,
+          "outcome": "quest",
+          "quest_id": "brute_event",
+          "cells": {
+            "A": "Brute Event",
+            "B": "False",
+            "C": "Brute summons",
+            "D": "Kill everything that moves!\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+            "E": "/slayer summons summons_type:Brute Event image: image2:"
+          }
+        },
+        {
+          "row": 67,
+          "outcome": "quest",
+          "quest_id": "ancient_knight_weapon",
+          "cells": {
+            "A": "Ancient Knight Weapon",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Find a Knight weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+            "E": "/slayer summons summons_type:Ancient Knight Weapon image: image2:"
+          }
+        },
+        {
+          "row": 68,
+          "outcome": "quest",
+          "quest_id": "arsenal_of_a_knight",
+          "cells": {
+            "A": "Arsenal of a Knight",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "On an armor stand in your quarters, permanently mount your:\n📸 Knight armor (Silver, Iron, or Bronze set) and\n📸 One-handed weapon and shield",
+            "E": "/slayer summons summons_type:Arsenal of a Knight image: image2:"
+          }
+        },
+        {
+          "row": 69,
+          "outcome": "quest",
+          "quest_id": "build_training_grounds",
+          "cells": {
+            "A": "Build: Training Grounds",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Build a Training area where players can level their skills.\nCould be turned into a Slayer Training Hall!\n📸x4 of your Build",
+            "E": "/slayer summons summons_type:Dedication image: image2: image3: image4:"
+          }
+        },
+        {
+          "row": 70,
+          "outcome": "quest",
+          "quest_id": "can_t_touch_this",
+          "cells": {
+            "A": "Can't Touch This",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Block or parry over 200 damage from one incoming blow!\nNo magic bubbles, must be a physical shield or weapon\n📸 Show damage text: Blocked 200+",
+            "E": "/slayer summons summons_type:Can't Touch This image:"
+          }
+        },
+        {
+          "row": 71,
+          "outcome": "quest",
+          "quest_id": "challenger",
+          "cells": {
+            "A": "Challenger",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Complete 10 Protection Contracts",
+            "E": "No submission required, auto-checked"
+          }
+        },
+        {
+          "row": 72,
+          "outcome": "quest",
+          "quest_id": "diplomat",
+          "cells": {
+            "A": "Diplomat",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Provide Slayer Protection for a Guild-related event or activity\n🔗 Thank-you post or approved bounty",
+            "E": "/slayer summons summons_type:Diplomat summons_url:"
+          }
+        },
+        {
+          "row": 73,
+          "outcome": "quest",
+          "quest_id": "dragon_rider",
+          "cells": {
+            "A": "Dragon Rider",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "📸 Stand atop a flying Drake\nAlso counts for the Daring Drifter Explorer Adventure",
+            "E": "/slayer summons summons_type:Dragon Rider image:"
+          }
+        },
+        {
+          "row": 74,
+          "outcome": "quest",
+          "quest_id": "dragon_rider_legendary",
+          "cells": {
+            "A": "Dragon Rider Legendary",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "📸 Stand on Moder's back while she is flying!",
+            "E": "/slayer summons summons_type:Dragon Rider Legendary image:"
+          }
+        },
+        {
+          "row": 75,
+          "outcome": "quest",
+          "quest_id": "float_like_a_butterfly",
+          "cells": {
+            "A": "Float Like a Butterfly",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Without using protection magic or Anti-Sting potions:\n📸 Stare down a Deathsquito completely naked and unarmed\n📸 and kill it with your bare hands - show drops",
+            "E": "/slayer summons summons_type:Float Like a Butterfly image: image2:"
+          }
+        },
+        {
+          "row": 76,
+          "outcome": "quest",
+          "quest_id": "float_like_a_butterfly_legendary",
+          "cells": {
+            "A": "Float Like a Butterfly Legendary",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Do Float Like a Butterfly with no food at all!",
+            "E": "/slayer summons summons_type:Float Like a Butterfly Legendary image: image2:"
+          }
+        },
+        {
+          "row": 77,
+          "outcome": "quest",
+          "quest_id": "gold_price",
+          "cells": {
+            "A": "Gold Price",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Earn at least 10 of these Merchant Tokens:\nArmorer, Bedazzled, Blacksmith, Rootin' Tootin' and Shootin'\n🔗 Your approved tokens using /merchant count",
+            "E": "/slayer summons summons_type:Gold Price summons_url:"
+          }
+        },
+        {
+          "row": 78,
+          "outcome": "quest",
+          "quest_id": "knight_of_odin",
+          "cells": {
+            "A": "Knight of Odin",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Complete a set of 6 Creator Capes and redeem your Odin Cape!\n📸 Show off its tag",
+            "E": "/slayer summons summons_type:Knight of Odin image:"
+          }
+        },
+        {
+          "row": 79,
+          "outcome": "quest",
+          "quest_id": "parry_master",
+          "cells": {
+            "A": "Parry Master",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Complete the Parry Hunting Grounds event\n📸 Show the aftermath of the final fight",
+            "E": "/slayer summons summons_type:Parry Master image:"
+          }
+        },
+        {
+          "row": 80,
+          "outcome": "quest",
+          "quest_id": "realm_protector",
+          "cells": {
+            "A": "Realm Protector",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "📸 Turn in or mount the heads of all 7 Forsaken Bosses.",
+            "E": "/slayer summons summons_type:Realm Protector image:"
+          }
+        },
+        {
+          "row": 81,
+          "outcome": "quest",
+          "quest_id": "standard_bearer",
+          "cells": {
+            "A": "Standard-bearer",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Participate in a staff-hosted Capture the Flag event\n🔗 Link summary post from #Slayers",
+            "E": "/slayer summons summons_type:Standard-bearer summons_url:"
+          }
+        },
+        {
+          "row": 82,
+          "outcome": "quest",
+          "quest_id": "silver_tempest",
+          "cells": {
+            "A": "Silver Tempest",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "The Knights need upgraded equipment to fend off the undead.\nCraft a Silver Sword and Shield and\n📸 Turn in or mount them in your quarters",
+            "E": "/slayer summons summons_type:Silver Tempest image:"
+          }
+        },
+        {
+          "row": 83,
+          "outcome": "quest",
+          "quest_id": "veteran",
+          "cells": {
+            "A": "Veteran",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Run two Combat Creator Events with a non-basemate player who hasn't already completed it this era\n🔗🔗 Thank-you posts mentioning who the first-timers are",
+            "E": "/slayer summons summons_type:Veteran summons_url:"
+          }
+        },
+        {
+          "row": 84,
+          "outcome": "quest",
+          "quest_id": "witch_hunter",
+          "cells": {
+            "A": "Witch Hunter",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Burn a Fuling Shaman to death by \n📸 dragging it into the Bonfire at a Fuling camp",
+            "E": "/slayer summons summons_type:Witch Hunter image:"
+          }
+        },
+        {
+          "row": 85,
+          "outcome": "quest",
+          "quest_id": "knight_event",
+          "cells": {
+            "A": "Knight Event",
+            "B": "False",
+            "C": "Knight summons",
+            "D": "Find out what happened to Geirrhafa.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+            "E": "/slayer summons summons_type:Knight Event image: image2:"
+          }
+        },
+        {
+          "row": 86,
+          "outcome": "quest",
+          "quest_id": "ancient_rogue_weapon",
+          "cells": {
+            "A": "Ancient Rogue Weapon",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Find a Rogue weapon site and defeat the elite enemy within\n📸 Fighting the enemy\n📸 Reading the text on the Runestone",
+            "E": "/slayer summons summons_type:Ancient Rogue Weapon image: image2:"
+          }
+        },
+        {
+          "row": 87,
+          "outcome": "quest",
+          "quest_id": "arsenal_of_a_rogue",
+          "cells": {
+            "A": "Arsenal of a Rogue",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "On an armor stand in your quarters, permanently mount your:\n📸 Rogue armor (Root, Fenris, or Ask set) and\n📸 Bow, Crossbow, or Knife",
+            "E": "/slayer summons summons_type:Arsenal of a Rogue image: image2:"
+          }
+        },
+        {
+          "row": 88,
+          "outcome": "quest",
+          "quest_id": "build_shrine_of_smoke",
+          "cells": {
+            "A": "Build: Shrine of Smoke",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Build a shrine to a Slayer you wish to honor and write a story about their deeds on signs.\n📸x4 of your Build",
+            "E": "/slayer summons summons_type:Dedication image: image2: image3: image4:"
+          }
+        },
+        {
+          "row": 89,
+          "outcome": "quest",
+          "quest_id": "airshot",
+          "cells": {
+            "A": "Airshot",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Kill a Blob mid-jump\n📸 Blobsplosion in the air!",
+            "E": "/slayer summons summons_type:Airshot image:"
+          }
+        },
+        {
+          "row": 90,
+          "outcome": "quest",
+          "quest_id": "air_superiority",
+          "cells": {
+            "A": "Air Superiority",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Jump off a 📸 high place with a feather cape and\n📸 Shoot a flying enemy in midair",
+            "E": "/slayer summons summons_type:Air Superiority image: image2:"
+          }
+        },
+        {
+          "row": 91,
+          "outcome": "quest",
+          "quest_id": "air_superiority_legendary",
+          "cells": {
+            "A": "Air Superiority Legendary",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Instead of jumping, use a catapult to\n📸 launch yourself into the sky and\n📸 shoot a flying enemy while flying (Superman-posed) in midair",
+            "E": "/slayer summons summons_type:Air Superiority Legendary image: image2:"
+          }
+        },
+        {
+          "row": 92,
+          "outcome": "quest",
+          "quest_id": "back_stabber",
+          "cells": {
+            "A": "Back Stabber",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Befriend a Dvergr - 📸 dance with them - and then 📸 kill them with a knife",
+            "E": "/slayer summons summons_type:Back Stabber image: image2:"
+          }
+        },
+        {
+          "row": 93,
+          "outcome": "quest",
+          "quest_id": "bird_of_prey",
+          "cells": {
+            "A": "Bird of Prey",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "📸 Kill a Volture from a great distance in one shot",
+            "E": "/slayer summons summons_type:Bird of Prey image:"
+          }
+        },
+        {
+          "row": 94,
+          "outcome": "quest",
+          "quest_id": "bomb_voyage",
+          "cells": {
+            "A": "Bomb Voyage",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Throw down a basalt bomb at your feet in the Ashlands lava to temporarily escape from enemies\n📸 Taunt them while you're out of reach",
+            "E": "/slayer summons summons_type:Bomb Voyage image:"
+          }
+        },
+        {
+          "row": 95,
+          "outcome": "quest",
+          "quest_id": "clash_of_titans",
+          "cells": {
+            "A": "Clash of Titans",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Find out whose strength is greatest: Get a 1v1 fight going between a Troll, Abomination, Golem, or Lox\n📸 Show the spectacle and note who won",
+            "E": "/slayer summons summons_type:Clash of Titans image: summons_notes:"
+          }
+        },
+        {
+          "row": 96,
+          "outcome": "quest",
+          "quest_id": "death_from_above",
+          "cells": {
+            "A": "Death from Above",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Eliminate the flying threats spawncamping your fellow Vikings:\n📸 Turn in or mount in your quarters: 1 each of Volture, Gjall, and Deathsquito Trophies",
+            "E": "/slayer summons summons_type:Death from Above image: "
+          }
+        },
+        {
+          "row": 97,
+          "outcome": "quest",
+          "quest_id": "full_house",
+          "cells": {
+            "A": "Full House",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "📸 Turn in a complete Charred skeleton: 1 each of Warrior, Warlock, and Marksman Trophies",
+            "E": "/slayer summons summons_type:Death from Above image: "
+          }
+        },
+        {
+          "row": 98,
+          "outcome": "quest",
+          "quest_id": "gjallarhorn_come",
+          "cells": {
+            "A": "Gjallarhorn Come",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Lure a Gjall into a different biome and\n📸 Watch it set your enemies aflame\n",
+            "E": "/slayer summons summons_type:Gjallarhorn Come image: "
+          }
+        },
+        {
+          "row": 99,
+          "outcome": "quest",
+          "quest_id": "redeemer",
+          "cells": {
+            "A": "Redeemer",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "With only a bow and knife eliminate a fallen Valkeryie over the flames of the Ashlands\n📸 Screenshot of their death by weapon or short video",
+            "E": "/slayer summons summons_type:Redeemer image:"
+          }
+        },
+        {
+          "row": 100,
+          "outcome": "quest",
+          "quest_id": "raid_shadow_legends",
+          "cells": {
+            "A": "Raid Shadow Legends",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "📸 Complete the Mysterious Mist in a group (no soloing)\n🤜🤛 Tag all participants - everyone gets credit",
+            "E": "/slayer summons summons_type:Shadow Hunter image: participants:"
+          }
+        },
+        {
+          "row": 101,
+          "outcome": "quest",
+          "quest_id": "silent_killer",
+          "cells": {
+            "A": "Silent Killer",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "📸 Sneak up behind a Troll",
+            "E": "/slayer summons summons_type:Silent Killer image:"
+          }
+        },
+        {
+          "row": 102,
+          "outcome": "quest",
+          "quest_id": "silent_killer_legendary",
+          "cells": {
+            "A": "Silent Killer Legendary",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "📸 Sneak up behind a 📸 starred Troll and, with a knife, \n📸 Kill it in one blow",
+            "E": "/slayer summons summons_type:Silent Killer Legendary image: image2:"
+          }
+        },
+        {
+          "row": 103,
+          "outcome": "quest",
+          "quest_id": "tower_defense",
+          "cells": {
+            "A": "Tower Defense",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Participate in Tower Defense staff-hosted event\n🔗 Link summary post from #Slayers",
+            "E": "/slayer summons summons_type:Tower Defense summons_url:"
+          }
+        },
+        {
+          "row": 104,
+          "outcome": "quest",
+          "quest_id": "rogue_event",
+          "cells": {
+            "A": "Rogue Event",
+            "B": "False",
+            "C": "Rogue summons",
+            "D": "Choose 1 path to the Castle. Strike down anyone in your way.\n📸 All gear from event placed in obliterator\n📸 What's left in the obliterator after pulling the lever",
+            "E": "/slayer summons summons_type:Rogue Event image: image2:"
+          }
+        },
+        {
+          "row": 105,
+          "outcome": "blank"
+        },
+        {
+          "row": 106,
+          "outcome": "blank"
+        },
+        {
+          "row": 107,
+          "outcome": "blank"
+        },
+        {
+          "row": 108,
+          "outcome": "blank"
+        },
+        {
+          "row": 109,
+          "outcome": "blank"
+        },
+        {
+          "row": 110,
+          "outcome": "blank"
+        },
+        {
+          "row": 111,
+          "outcome": "blank"
+        },
+        {
+          "row": 112,
+          "outcome": "blank"
+        },
+        {
+          "row": 113,
+          "outcome": "blank"
+        },
+        {
+          "row": 114,
+          "outcome": "blank"
+        },
+        {
+          "row": 115,
+          "outcome": "blank"
+        },
+        {
+          "row": 116,
+          "outcome": "blank"
+        },
+        {
+          "row": 117,
+          "outcome": "blank"
+        },
+        {
+          "row": 118,
+          "outcome": "blank"
+        },
+        {
+          "row": 119,
+          "outcome": "blank"
+        },
+        {
+          "row": 120,
+          "outcome": "blank"
+        },
+        {
+          "row": 121,
+          "outcome": "blank"
+        },
+        {
+          "row": 122,
+          "outcome": "blank"
+        },
+        {
+          "row": 123,
+          "outcome": "blank"
+        },
+        {
+          "row": 124,
+          "outcome": "blank"
+        },
+        {
+          "row": 125,
+          "outcome": "blank"
+        },
+        {
+          "row": 126,
+          "outcome": "blank"
+        },
+        {
+          "row": 127,
+          "outcome": "blank"
+        },
+        {
+          "row": 128,
+          "outcome": "blank"
+        },
+        {
+          "row": 129,
+          "outcome": "blank"
+        },
+        {
+          "row": 130,
+          "outcome": "blank"
+        },
+        {
+          "row": 131,
+          "outcome": "blank"
+        },
+        {
+          "row": 132,
+          "outcome": "blank"
+        },
+        {
+          "row": 133,
+          "outcome": "blank"
+        },
+        {
+          "row": 134,
+          "outcome": "blank"
+        },
+        {
+          "row": 135,
+          "outcome": "blank"
+        },
+        {
+          "row": 136,
+          "outcome": "blank"
+        },
+        {
+          "row": 137,
+          "outcome": "blank"
+        },
+        {
+          "row": 138,
+          "outcome": "blank"
+        },
+        {
+          "row": 139,
+          "outcome": "blank"
+        },
+        {
+          "row": 140,
+          "outcome": "blank"
+        },
+        {
+          "row": 141,
+          "outcome": "blank"
+        },
+        {
+          "row": 142,
+          "outcome": "blank"
+        },
+        {
+          "row": 143,
+          "outcome": "blank"
+        },
+        {
+          "row": 144,
+          "outcome": "blank"
+        },
+        {
+          "row": 145,
+          "outcome": "blank"
+        },
+        {
+          "row": 146,
+          "outcome": "blank"
+        },
+        {
+          "row": 147,
+          "outcome": "blank"
+        },
+        {
+          "row": 148,
+          "outcome": "blank"
+        },
+        {
+          "row": 149,
+          "outcome": "blank"
+        },
+        {
+          "row": 150,
+          "outcome": "blank"
+        },
+        {
+          "row": 151,
+          "outcome": "blank"
+        },
+        {
+          "row": 152,
+          "outcome": "blank"
+        },
+        {
+          "row": 153,
+          "outcome": "blank"
+        },
+        {
+          "row": 154,
+          "outcome": "blank"
+        },
+        {
+          "row": 155,
+          "outcome": "blank"
+        },
+        {
+          "row": 156,
+          "outcome": "blank"
+        },
+        {
+          "row": 157,
+          "outcome": "blank"
+        },
+        {
+          "row": 158,
+          "outcome": "blank"
+        },
+        {
+          "row": 159,
+          "outcome": "blank"
+        },
+        {
+          "row": 160,
+          "outcome": "blank"
+        },
+        {
+          "row": 161,
+          "outcome": "blank"
+        },
+        {
+          "row": 162,
+          "outcome": "blank"
+        },
+        {
+          "row": 163,
+          "outcome": "blank"
+        },
+        {
+          "row": 164,
+          "outcome": "blank"
+        },
+        {
+          "row": 165,
+          "outcome": "blank"
+        },
+        {
+          "row": 166,
+          "outcome": "blank"
+        },
+        {
+          "row": 167,
+          "outcome": "blank"
+        },
+        {
+          "row": 168,
+          "outcome": "blank"
+        },
+        {
+          "row": 169,
+          "outcome": "blank"
+        },
+        {
+          "row": 170,
+          "outcome": "blank"
+        },
+        {
+          "row": 171,
+          "outcome": "blank"
+        },
+        {
+          "row": 172,
+          "outcome": "blank"
+        },
+        {
+          "row": 173,
+          "outcome": "blank"
+        },
+        {
+          "row": 174,
+          "outcome": "blank"
+        },
+        {
+          "row": 175,
+          "outcome": "blank"
+        },
+        {
+          "row": 176,
+          "outcome": "blank"
+        },
+        {
+          "row": 177,
+          "outcome": "blank"
+        },
+        {
+          "row": 178,
+          "outcome": "blank"
+        },
+        {
+          "row": 179,
+          "outcome": "blank"
+        },
+        {
+          "row": 180,
+          "outcome": "blank"
+        },
+        {
+          "row": 181,
+          "outcome": "blank"
+        },
+        {
+          "row": 182,
+          "outcome": "blank"
+        },
+        {
+          "row": 183,
+          "outcome": "blank"
+        },
+        {
+          "row": 184,
+          "outcome": "blank"
+        },
+        {
+          "row": 185,
+          "outcome": "blank"
+        },
+        {
+          "row": 186,
+          "outcome": "blank"
+        },
+        {
+          "row": 187,
+          "outcome": "blank"
+        },
+        {
+          "row": 188,
+          "outcome": "blank"
+        },
+        {
+          "row": 189,
+          "outcome": "blank"
+        },
+        {
+          "row": 190,
+          "outcome": "blank"
+        },
+        {
+          "row": 191,
+          "outcome": "blank"
+        },
+        {
+          "row": 192,
+          "outcome": "blank"
+        },
+        {
+          "row": 193,
+          "outcome": "blank"
+        },
+        {
+          "row": 194,
+          "outcome": "blank"
+        },
+        {
+          "row": 195,
+          "outcome": "blank"
+        },
+        {
+          "row": 196,
+          "outcome": "blank"
+        },
+        {
+          "row": 197,
+          "outcome": "blank"
+        },
+        {
+          "row": 198,
+          "outcome": "blank"
+        },
+        {
+          "row": 199,
+          "outcome": "blank"
+        },
+        {
+          "row": 200,
+          "outcome": "blank"
+        },
+        {
+          "row": 201,
+          "outcome": "blank"
+        },
+        {
+          "row": 202,
+          "outcome": "blank"
+        },
+        {
+          "row": 203,
+          "outcome": "blank"
+        },
+        {
+          "row": 204,
+          "outcome": "blank"
+        },
+        {
+          "row": 205,
+          "outcome": "blank"
+        },
+        {
+          "row": 206,
+          "outcome": "blank"
+        },
+        {
+          "row": 207,
+          "outcome": "blank"
+        },
+        {
+          "row": 208,
+          "outcome": "blank"
+        },
+        {
+          "row": 209,
+          "outcome": "blank"
+        },
+        {
+          "row": 210,
+          "outcome": "blank"
+        },
+        {
+          "row": 211,
+          "outcome": "blank"
+        },
+        {
+          "row": 212,
+          "outcome": "blank"
+        },
+        {
+          "row": 213,
+          "outcome": "blank"
+        },
+        {
+          "row": 214,
+          "outcome": "blank"
+        },
+        {
+          "row": 215,
+          "outcome": "blank"
+        },
+        {
+          "row": 216,
+          "outcome": "blank"
+        },
+        {
+          "row": 217,
+          "outcome": "blank"
+        },
+        {
+          "row": 218,
+          "outcome": "blank"
+        },
+        {
+          "row": 219,
+          "outcome": "blank"
+        },
+        {
+          "row": 220,
+          "outcome": "blank"
+        },
+        {
+          "row": 221,
+          "outcome": "blank"
+        },
+        {
+          "row": 222,
+          "outcome": "blank"
+        },
+        {
+          "row": 223,
+          "outcome": "blank"
+        },
+        {
+          "row": 224,
+          "outcome": "blank"
+        },
+        {
+          "row": 225,
+          "outcome": "blank"
+        },
+        {
+          "row": 226,
+          "outcome": "blank"
+        },
+        {
+          "row": 227,
+          "outcome": "blank"
+        },
+        {
+          "row": 228,
+          "outcome": "blank"
+        },
+        {
+          "row": 229,
+          "outcome": "blank"
+        },
+        {
+          "row": 230,
+          "outcome": "blank"
+        },
+        {
+          "row": 231,
+          "outcome": "blank"
+        },
+        {
+          "row": 232,
+          "outcome": "blank"
+        },
+        {
+          "row": 233,
+          "outcome": "blank"
+        },
+        {
+          "row": 234,
+          "outcome": "blank"
+        },
+        {
+          "row": 235,
+          "outcome": "blank"
+        },
+        {
+          "row": 236,
+          "outcome": "blank"
+        },
+        {
+          "row": 237,
+          "outcome": "blank"
+        },
+        {
+          "row": 238,
+          "outcome": "blank"
+        },
+        {
+          "row": 239,
+          "outcome": "blank"
+        },
+        {
+          "row": 240,
+          "outcome": "blank"
+        },
+        {
+          "row": 241,
+          "outcome": "blank"
+        },
+        {
+          "row": 242,
+          "outcome": "blank"
+        },
+        {
+          "row": 243,
+          "outcome": "blank"
+        },
+        {
+          "row": 244,
+          "outcome": "blank"
+        },
+        {
+          "row": 245,
+          "outcome": "blank"
+        },
+        {
+          "row": 246,
+          "outcome": "blank"
+        },
+        {
+          "row": 247,
+          "outcome": "blank"
+        },
+        {
+          "row": 248,
+          "outcome": "blank"
+        },
+        {
+          "row": 249,
+          "outcome": "blank"
+        },
+        {
+          "row": 250,
+          "outcome": "blank"
+        },
+        {
+          "row": 251,
+          "outcome": "blank"
+        },
+        {
+          "row": 252,
+          "outcome": "blank"
+        },
+        {
+          "row": 253,
+          "outcome": "blank"
+        },
+        {
+          "row": 254,
+          "outcome": "blank"
+        },
+        {
+          "row": 255,
+          "outcome": "blank"
+        },
+        {
+          "row": 256,
+          "outcome": "blank"
+        },
+        {
+          "row": 257,
+          "outcome": "blank"
+        },
+        {
+          "row": 258,
+          "outcome": "blank"
+        },
+        {
+          "row": 259,
+          "outcome": "blank"
+        },
+        {
+          "row": 260,
+          "outcome": "blank"
+        },
+        {
+          "row": 261,
+          "outcome": "blank"
+        },
+        {
+          "row": 262,
+          "outcome": "blank"
+        },
+        {
+          "row": 263,
+          "outcome": "blank"
+        },
+        {
+          "row": 264,
+          "outcome": "blank"
+        },
+        {
+          "row": 265,
+          "outcome": "blank"
+        },
+        {
+          "row": 266,
+          "outcome": "blank"
+        },
+        {
+          "row": 267,
+          "outcome": "blank"
+        },
+        {
+          "row": 268,
+          "outcome": "blank"
+        },
+        {
+          "row": 269,
+          "outcome": "blank"
+        },
+        {
+          "row": 270,
+          "outcome": "blank"
+        },
+        {
+          "row": 271,
+          "outcome": "blank"
+        },
+        {
+          "row": 272,
+          "outcome": "blank"
+        },
+        {
+          "row": 273,
+          "outcome": "blank"
+        },
+        {
+          "row": 274,
+          "outcome": "blank"
+        },
+        {
+          "row": 275,
+          "outcome": "blank"
+        },
+        {
+          "row": 276,
+          "outcome": "blank"
+        },
+        {
+          "row": 277,
+          "outcome": "blank"
+        },
+        {
+          "row": 278,
+          "outcome": "blank"
+        },
+        {
+          "row": 279,
+          "outcome": "blank"
+        },
+        {
+          "row": 280,
+          "outcome": "blank"
+        },
+        {
+          "row": 281,
+          "outcome": "blank"
+        },
+        {
+          "row": 282,
+          "outcome": "blank"
+        },
+        {
+          "row": 283,
+          "outcome": "blank"
+        },
+        {
+          "row": 284,
+          "outcome": "blank"
+        },
+        {
+          "row": 285,
+          "outcome": "blank"
+        },
+        {
+          "row": 286,
+          "outcome": "blank"
+        },
+        {
+          "row": 287,
+          "outcome": "blank"
+        },
+        {
+          "row": 288,
+          "outcome": "blank"
+        },
+        {
+          "row": 289,
+          "outcome": "blank"
+        },
+        {
+          "row": 290,
+          "outcome": "blank"
+        },
+        {
+          "row": 291,
+          "outcome": "blank"
+        },
+        {
+          "row": 292,
+          "outcome": "blank"
+        },
+        {
+          "row": 293,
+          "outcome": "blank"
+        },
+        {
+          "row": 294,
+          "outcome": "blank"
+        },
+        {
+          "row": 295,
+          "outcome": "blank"
+        },
+        {
+          "row": 296,
+          "outcome": "blank"
+        },
+        {
+          "row": 297,
+          "outcome": "blank"
+        },
+        {
+          "row": 298,
+          "outcome": "blank"
+        },
+        {
+          "row": 299,
+          "outcome": "blank"
+        },
+        {
+          "row": 300,
+          "outcome": "blank"
+        },
+        {
+          "row": 301,
+          "outcome": "blank"
+        },
+        {
+          "row": 302,
+          "outcome": "blank"
+        },
+        {
+          "row": 303,
+          "outcome": "blank"
+        },
+        {
+          "row": 304,
+          "outcome": "blank"
+        },
+        {
+          "row": 305,
+          "outcome": "blank"
+        },
+        {
+          "row": 306,
+          "outcome": "blank"
+        },
+        {
+          "row": 307,
+          "outcome": "blank"
+        },
+        {
+          "row": 308,
+          "outcome": "blank"
+        },
+        {
+          "row": 309,
+          "outcome": "blank"
+        },
+        {
+          "row": 310,
+          "outcome": "blank"
+        },
+        {
+          "row": 311,
+          "outcome": "blank"
+        },
+        {
+          "row": 312,
+          "outcome": "blank"
+        },
+        {
+          "row": 313,
+          "outcome": "blank"
+        },
+        {
+          "row": 314,
+          "outcome": "blank"
+        },
+        {
+          "row": 315,
+          "outcome": "blank"
+        },
+        {
+          "row": 316,
+          "outcome": "blank"
+        },
+        {
+          "row": 317,
+          "outcome": "blank"
+        },
+        {
+          "row": 318,
+          "outcome": "blank"
+        },
+        {
+          "row": 319,
+          "outcome": "blank"
+        },
+        {
+          "row": 320,
+          "outcome": "blank"
+        },
+        {
+          "row": 321,
+          "outcome": "blank"
+        },
+        {
+          "row": 322,
+          "outcome": "blank"
+        },
+        {
+          "row": 323,
+          "outcome": "blank"
+        },
+        {
+          "row": 324,
+          "outcome": "blank"
+        },
+        {
+          "row": 325,
+          "outcome": "blank"
+        },
+        {
+          "row": 326,
+          "outcome": "blank"
+        },
+        {
+          "row": 327,
+          "outcome": "blank"
+        },
+        {
+          "row": 328,
+          "outcome": "blank"
+        },
+        {
+          "row": 329,
+          "outcome": "blank"
+        },
+        {
+          "row": 330,
+          "outcome": "blank"
+        },
+        {
+          "row": 331,
+          "outcome": "blank"
+        },
+        {
+          "row": 332,
+          "outcome": "blank"
+        },
+        {
+          "row": 333,
+          "outcome": "blank"
+        },
+        {
+          "row": 334,
+          "outcome": "blank"
+        },
+        {
+          "row": 335,
+          "outcome": "blank"
+        },
+        {
+          "row": 336,
+          "outcome": "blank"
+        },
+        {
+          "row": 337,
+          "outcome": "blank"
+        },
+        {
+          "row": 338,
+          "outcome": "blank"
+        },
+        {
+          "row": 339,
+          "outcome": "blank"
+        },
+        {
+          "row": 340,
+          "outcome": "blank"
+        },
+        {
+          "row": 341,
+          "outcome": "blank"
+        },
+        {
+          "row": 342,
+          "outcome": "blank"
+        },
+        {
+          "row": 343,
+          "outcome": "blank"
+        },
+        {
+          "row": 344,
+          "outcome": "blank"
+        },
+        {
+          "row": 345,
+          "outcome": "blank"
+        },
+        {
+          "row": 346,
+          "outcome": "blank"
+        },
+        {
+          "row": 347,
+          "outcome": "blank"
+        },
+        {
+          "row": 348,
+          "outcome": "blank"
+        },
+        {
+          "row": 349,
+          "outcome": "blank"
+        },
+        {
+          "row": 350,
+          "outcome": "blank"
+        },
+        {
+          "row": 351,
+          "outcome": "blank"
+        },
+        {
+          "row": 352,
+          "outcome": "blank"
+        },
+        {
+          "row": 353,
+          "outcome": "blank"
+        },
+        {
+          "row": 354,
+          "outcome": "blank"
+        },
+        {
+          "row": 355,
+          "outcome": "blank"
+        },
+        {
+          "row": 356,
+          "outcome": "blank"
+        },
+        {
+          "row": 357,
+          "outcome": "blank"
+        },
+        {
+          "row": 358,
+          "outcome": "blank"
+        },
+        {
+          "row": 359,
+          "outcome": "blank"
+        },
+        {
+          "row": 360,
+          "outcome": "blank"
+        },
+        {
+          "row": 361,
+          "outcome": "blank"
+        },
+        {
+          "row": 362,
+          "outcome": "blank"
+        },
+        {
+          "row": 363,
+          "outcome": "blank"
+        },
+        {
+          "row": 364,
+          "outcome": "blank"
+        },
+        {
+          "row": 365,
+          "outcome": "blank"
+        },
+        {
+          "row": 366,
+          "outcome": "blank"
+        },
+        {
+          "row": 367,
+          "outcome": "blank"
+        },
+        {
+          "row": 368,
+          "outcome": "blank"
+        },
+        {
+          "row": 369,
+          "outcome": "blank"
+        },
+        {
+          "row": 370,
+          "outcome": "blank"
+        },
+        {
+          "row": 371,
+          "outcome": "blank"
+        },
+        {
+          "row": 372,
+          "outcome": "blank"
+        },
+        {
+          "row": 373,
+          "outcome": "blank"
+        },
+        {
+          "row": 374,
+          "outcome": "blank"
+        },
+        {
+          "row": 375,
+          "outcome": "blank"
+        },
+        {
+          "row": 376,
+          "outcome": "blank"
+        },
+        {
+          "row": 377,
+          "outcome": "blank"
+        },
+        {
+          "row": 378,
+          "outcome": "blank"
+        },
+        {
+          "row": 379,
+          "outcome": "blank"
+        },
+        {
+          "row": 380,
+          "outcome": "blank"
+        },
+        {
+          "row": 381,
+          "outcome": "blank"
+        },
+        {
+          "row": 382,
+          "outcome": "blank"
+        },
+        {
+          "row": 383,
+          "outcome": "blank"
+        },
+        {
+          "row": 384,
+          "outcome": "blank"
+        },
+        {
+          "row": 385,
+          "outcome": "blank"
+        },
+        {
+          "row": 386,
+          "outcome": "blank"
+        },
+        {
+          "row": 387,
+          "outcome": "blank"
+        },
+        {
+          "row": 388,
+          "outcome": "blank"
+        },
+        {
+          "row": 389,
+          "outcome": "blank"
+        },
+        {
+          "row": 390,
+          "outcome": "blank"
+        },
+        {
+          "row": 391,
+          "outcome": "blank"
+        },
+        {
+          "row": 392,
+          "outcome": "blank"
+        },
+        {
+          "row": 393,
+          "outcome": "blank"
+        },
+        {
+          "row": 394,
+          "outcome": "blank"
+        },
+        {
+          "row": 395,
+          "outcome": "blank"
+        },
+        {
+          "row": 396,
+          "outcome": "blank"
+        },
+        {
+          "row": 397,
+          "outcome": "blank"
+        },
+        {
+          "row": 398,
+          "outcome": "blank"
+        },
+        {
+          "row": 399,
+          "outcome": "blank"
+        },
+        {
+          "row": 400,
+          "outcome": "blank"
+        },
+        {
+          "row": 401,
+          "outcome": "blank"
+        },
+        {
+          "row": 402,
+          "outcome": "blank"
+        },
+        {
+          "row": 403,
+          "outcome": "blank"
+        },
+        {
+          "row": 404,
+          "outcome": "blank"
+        },
+        {
+          "row": 405,
+          "outcome": "blank"
+        },
+        {
+          "row": 406,
+          "outcome": "blank"
+        },
+        {
+          "row": 407,
+          "outcome": "blank"
+        },
+        {
+          "row": 408,
+          "outcome": "blank"
+        },
+        {
+          "row": 409,
+          "outcome": "blank"
+        },
+        {
+          "row": 410,
+          "outcome": "blank"
+        },
+        {
+          "row": 411,
+          "outcome": "blank"
+        },
+        {
+          "row": 412,
+          "outcome": "blank"
+        },
+        {
+          "row": 413,
+          "outcome": "blank"
+        },
+        {
+          "row": 414,
+          "outcome": "blank"
+        },
+        {
+          "row": 415,
+          "outcome": "blank"
+        },
+        {
+          "row": 416,
+          "outcome": "blank"
+        },
+        {
+          "row": 417,
+          "outcome": "blank"
+        },
+        {
+          "row": 418,
+          "outcome": "blank"
+        },
+        {
+          "row": 419,
+          "outcome": "blank"
+        },
+        {
+          "row": 420,
+          "outcome": "blank"
+        },
+        {
+          "row": 421,
+          "outcome": "blank"
+        },
+        {
+          "row": 422,
+          "outcome": "blank"
+        },
+        {
+          "row": 423,
+          "outcome": "blank"
+        },
+        {
+          "row": 424,
+          "outcome": "blank"
+        },
+        {
+          "row": 425,
+          "outcome": "blank"
+        },
+        {
+          "row": 426,
+          "outcome": "blank"
+        },
+        {
+          "row": 427,
+          "outcome": "blank"
+        },
+        {
+          "row": 428,
+          "outcome": "blank"
+        },
+        {
+          "row": 429,
+          "outcome": "blank"
+        },
+        {
+          "row": 430,
+          "outcome": "blank"
+        },
+        {
+          "row": 431,
+          "outcome": "blank"
+        },
+        {
+          "row": 432,
+          "outcome": "blank"
+        },
+        {
+          "row": 433,
+          "outcome": "blank"
+        },
+        {
+          "row": 434,
+          "outcome": "blank"
+        },
+        {
+          "row": 435,
+          "outcome": "blank"
+        },
+        {
+          "row": 436,
+          "outcome": "blank"
+        },
+        {
+          "row": 437,
+          "outcome": "blank"
+        },
+        {
+          "row": 438,
+          "outcome": "blank"
+        },
+        {
+          "row": 439,
+          "outcome": "blank"
+        },
+        {
+          "row": 440,
+          "outcome": "blank"
+        },
+        {
+          "row": 441,
+          "outcome": "blank"
+        },
+        {
+          "row": 442,
+          "outcome": "blank"
+        },
+        {
+          "row": 443,
+          "outcome": "blank"
+        },
+        {
+          "row": 444,
+          "outcome": "blank"
+        },
+        {
+          "row": 445,
+          "outcome": "blank"
+        },
+        {
+          "row": 446,
+          "outcome": "blank"
+        },
+        {
+          "row": 447,
+          "outcome": "blank"
+        },
+        {
+          "row": 448,
+          "outcome": "blank"
+        },
+        {
+          "row": 449,
+          "outcome": "blank"
+        },
+        {
+          "row": 450,
+          "outcome": "blank"
+        },
+        {
+          "row": 451,
+          "outcome": "blank"
+        },
+        {
+          "row": 452,
+          "outcome": "blank"
+        },
+        {
+          "row": 453,
+          "outcome": "blank"
+        },
+        {
+          "row": 454,
+          "outcome": "blank"
+        },
+        {
+          "row": 455,
+          "outcome": "blank"
+        },
+        {
+          "row": 456,
+          "outcome": "blank"
+        },
+        {
+          "row": 457,
+          "outcome": "blank"
+        },
+        {
+          "row": 458,
+          "outcome": "blank"
+        },
+        {
+          "row": 459,
+          "outcome": "blank"
+        },
+        {
+          "row": 460,
+          "outcome": "blank"
+        },
+        {
+          "row": 461,
+          "outcome": "blank"
+        },
+        {
+          "row": 462,
+          "outcome": "blank"
+        },
+        {
+          "row": 463,
+          "outcome": "blank"
+        },
+        {
+          "row": 464,
+          "outcome": "blank"
+        },
+        {
+          "row": 465,
+          "outcome": "blank"
+        },
+        {
+          "row": 466,
+          "outcome": "blank"
+        },
+        {
+          "row": 467,
+          "outcome": "blank"
+        },
+        {
+          "row": 468,
+          "outcome": "blank"
+        },
+        {
+          "row": 469,
+          "outcome": "blank"
+        },
+        {
+          "row": 470,
+          "outcome": "blank"
+        },
+        {
+          "row": 471,
+          "outcome": "blank"
+        },
+        {
+          "row": 472,
+          "outcome": "blank"
+        },
+        {
+          "row": 473,
+          "outcome": "blank"
+        },
+        {
+          "row": 474,
+          "outcome": "blank"
+        },
+        {
+          "row": 475,
+          "outcome": "blank"
+        },
+        {
+          "row": 476,
+          "outcome": "blank"
+        },
+        {
+          "row": 477,
+          "outcome": "blank"
+        },
+        {
+          "row": 478,
+          "outcome": "blank"
+        },
+        {
+          "row": 479,
+          "outcome": "blank"
+        },
+        {
+          "row": 480,
+          "outcome": "blank"
+        },
+        {
+          "row": 481,
+          "outcome": "blank"
+        },
+        {
+          "row": 482,
+          "outcome": "blank"
+        },
+        {
+          "row": 483,
+          "outcome": "blank"
+        },
+        {
+          "row": 484,
+          "outcome": "blank"
+        },
+        {
+          "row": 485,
+          "outcome": "blank"
+        },
+        {
+          "row": 486,
+          "outcome": "blank"
+        },
+        {
+          "row": 487,
+          "outcome": "blank"
+        },
+        {
+          "row": 488,
+          "outcome": "blank"
+        },
+        {
+          "row": 489,
+          "outcome": "blank"
+        },
+        {
+          "row": 490,
+          "outcome": "blank"
+        },
+        {
+          "row": 491,
+          "outcome": "blank"
+        },
+        {
+          "row": 492,
+          "outcome": "blank"
+        },
+        {
+          "row": 493,
+          "outcome": "blank"
+        },
+        {
+          "row": 494,
+          "outcome": "blank"
+        },
+        {
+          "row": 495,
+          "outcome": "blank"
+        },
+        {
+          "row": 496,
+          "outcome": "blank"
+        },
+        {
+          "row": 497,
+          "outcome": "blank"
+        },
+        {
+          "row": 498,
+          "outcome": "blank"
+        },
+        {
+          "row": 499,
+          "outcome": "blank"
+        },
+        {
+          "row": 500,
+          "outcome": "blank"
+        },
+        {
+          "row": 501,
+          "outcome": "blank"
+        },
+        {
+          "row": 502,
+          "outcome": "blank"
+        },
+        {
+          "row": 503,
+          "outcome": "blank"
+        },
+        {
+          "row": 504,
+          "outcome": "blank"
+        },
+        {
+          "row": 505,
+          "outcome": "blank"
+        },
+        {
+          "row": 506,
+          "outcome": "blank"
+        },
+        {
+          "row": 507,
+          "outcome": "blank"
+        },
+        {
+          "row": 508,
+          "outcome": "blank"
+        },
+        {
+          "row": 509,
+          "outcome": "blank"
+        },
+        {
+          "row": 510,
+          "outcome": "blank"
+        },
+        {
+          "row": 511,
+          "outcome": "blank"
+        },
+        {
+          "row": 512,
+          "outcome": "blank"
+        },
+        {
+          "row": 513,
+          "outcome": "blank"
+        },
+        {
+          "row": 514,
+          "outcome": "blank"
+        },
+        {
+          "row": 515,
+          "outcome": "blank"
+        },
+        {
+          "row": 516,
+          "outcome": "blank"
+        },
+        {
+          "row": 517,
+          "outcome": "blank"
+        },
+        {
+          "row": 518,
+          "outcome": "blank"
+        },
+        {
+          "row": 519,
+          "outcome": "blank"
+        },
+        {
+          "row": 520,
+          "outcome": "blank"
+        },
+        {
+          "row": 521,
+          "outcome": "blank"
+        },
+        {
+          "row": 522,
+          "outcome": "blank"
+        },
+        {
+          "row": 523,
+          "outcome": "blank"
+        },
+        {
+          "row": 524,
+          "outcome": "blank"
+        },
+        {
+          "row": 525,
+          "outcome": "blank"
+        },
+        {
+          "row": 526,
+          "outcome": "blank"
+        },
+        {
+          "row": 527,
+          "outcome": "blank"
+        },
+        {
+          "row": 528,
+          "outcome": "blank"
+        },
+        {
+          "row": 529,
+          "outcome": "blank"
+        },
+        {
+          "row": 530,
+          "outcome": "blank"
+        },
+        {
+          "row": 531,
+          "outcome": "blank"
+        },
+        {
+          "row": 532,
+          "outcome": "blank"
+        },
+        {
+          "row": 533,
+          "outcome": "blank"
+        },
+        {
+          "row": 534,
+          "outcome": "blank"
+        },
+        {
+          "row": 535,
+          "outcome": "blank"
+        },
+        {
+          "row": 536,
+          "outcome": "blank"
+        },
+        {
+          "row": 537,
+          "outcome": "blank"
+        },
+        {
+          "row": 538,
+          "outcome": "blank"
+        },
+        {
+          "row": 539,
+          "outcome": "blank"
+        },
+        {
+          "row": 540,
+          "outcome": "blank"
+        },
+        {
+          "row": 541,
+          "outcome": "blank"
+        },
+        {
+          "row": 542,
+          "outcome": "blank"
+        },
+        {
+          "row": 543,
+          "outcome": "blank"
+        },
+        {
+          "row": 544,
+          "outcome": "blank"
+        },
+        {
+          "row": 545,
+          "outcome": "blank"
+        },
+        {
+          "row": 546,
+          "outcome": "blank"
+        },
+        {
+          "row": 547,
+          "outcome": "blank"
+        },
+        {
+          "row": 548,
+          "outcome": "blank"
+        },
+        {
+          "row": 549,
+          "outcome": "blank"
+        },
+        {
+          "row": 550,
+          "outcome": "blank"
+        },
+        {
+          "row": 551,
+          "outcome": "blank"
+        },
+        {
+          "row": 552,
+          "outcome": "blank"
+        },
+        {
+          "row": 553,
+          "outcome": "blank"
+        },
+        {
+          "row": 554,
+          "outcome": "blank"
+        },
+        {
+          "row": 555,
+          "outcome": "blank"
+        },
+        {
+          "row": 556,
+          "outcome": "blank"
+        },
+        {
+          "row": 557,
+          "outcome": "blank"
+        },
+        {
+          "row": 558,
+          "outcome": "blank"
+        },
+        {
+          "row": 559,
+          "outcome": "blank"
+        },
+        {
+          "row": 560,
+          "outcome": "blank"
+        },
+        {
+          "row": 561,
+          "outcome": "blank"
+        },
+        {
+          "row": 562,
+          "outcome": "blank"
+        },
+        {
+          "row": 563,
+          "outcome": "blank"
+        },
+        {
+          "row": 564,
+          "outcome": "blank"
+        },
+        {
+          "row": 565,
+          "outcome": "blank"
+        },
+        {
+          "row": 566,
+          "outcome": "blank"
+        },
+        {
+          "row": 567,
+          "outcome": "blank"
+        },
+        {
+          "row": 568,
+          "outcome": "blank"
+        },
+        {
+          "row": 569,
+          "outcome": "blank"
+        },
+        {
+          "row": 570,
+          "outcome": "blank"
+        },
+        {
+          "row": 571,
+          "outcome": "blank"
+        },
+        {
+          "row": 572,
+          "outcome": "blank"
+        },
+        {
+          "row": 573,
+          "outcome": "blank"
+        },
+        {
+          "row": 574,
+          "outcome": "blank"
+        },
+        {
+          "row": 575,
+          "outcome": "blank"
+        },
+        {
+          "row": 576,
+          "outcome": "blank"
+        },
+        {
+          "row": 577,
+          "outcome": "blank"
+        },
+        {
+          "row": 578,
+          "outcome": "blank"
+        },
+        {
+          "row": 579,
+          "outcome": "blank"
+        },
+        {
+          "row": 580,
+          "outcome": "blank"
+        },
+        {
+          "row": 581,
+          "outcome": "blank"
+        },
+        {
+          "row": 582,
+          "outcome": "blank"
+        },
+        {
+          "row": 583,
+          "outcome": "blank"
+        },
+        {
+          "row": 584,
+          "outcome": "blank"
+        },
+        {
+          "row": 585,
+          "outcome": "blank"
+        },
+        {
+          "row": 586,
+          "outcome": "blank"
+        },
+        {
+          "row": 587,
+          "outcome": "blank"
+        },
+        {
+          "row": 588,
+          "outcome": "blank"
+        },
+        {
+          "row": 589,
+          "outcome": "blank"
+        },
+        {
+          "row": 590,
+          "outcome": "blank"
+        },
+        {
+          "row": 591,
+          "outcome": "blank"
+        },
+        {
+          "row": 592,
+          "outcome": "blank"
+        },
+        {
+          "row": 593,
+          "outcome": "blank"
+        },
+        {
+          "row": 594,
+          "outcome": "blank"
+        },
+        {
+          "row": 595,
+          "outcome": "blank"
+        },
+        {
+          "row": 596,
+          "outcome": "blank"
+        },
+        {
+          "row": 597,
+          "outcome": "blank"
+        },
+        {
+          "row": 598,
+          "outcome": "blank"
+        },
+        {
+          "row": 599,
+          "outcome": "blank"
+        },
+        {
+          "row": 600,
+          "outcome": "blank"
+        },
+        {
+          "row": 601,
+          "outcome": "blank"
+        },
+        {
+          "row": 602,
+          "outcome": "blank"
+        },
+        {
+          "row": 603,
+          "outcome": "blank"
+        },
+        {
+          "row": 604,
+          "outcome": "blank"
+        },
+        {
+          "row": 605,
+          "outcome": "blank"
+        },
+        {
+          "row": 606,
+          "outcome": "blank"
+        },
+        {
+          "row": 607,
+          "outcome": "blank"
+        },
+        {
+          "row": 608,
+          "outcome": "blank"
+        },
+        {
+          "row": 609,
+          "outcome": "blank"
+        },
+        {
+          "row": 610,
+          "outcome": "blank"
+        },
+        {
+          "row": 611,
+          "outcome": "blank"
+        },
+        {
+          "row": 612,
+          "outcome": "blank"
+        },
+        {
+          "row": 613,
+          "outcome": "blank"
+        },
+        {
+          "row": 614,
+          "outcome": "blank"
+        },
+        {
+          "row": 615,
+          "outcome": "blank"
+        },
+        {
+          "row": 616,
+          "outcome": "blank"
+        },
+        {
+          "row": 617,
+          "outcome": "blank"
+        },
+        {
+          "row": 618,
+          "outcome": "blank"
+        },
+        {
+          "row": 619,
+          "outcome": "blank"
+        },
+        {
+          "row": 620,
+          "outcome": "blank"
+        },
+        {
+          "row": 621,
+          "outcome": "blank"
+        },
+        {
+          "row": 622,
+          "outcome": "blank"
+        },
+        {
+          "row": 623,
+          "outcome": "blank"
+        },
+        {
+          "row": 624,
+          "outcome": "blank"
+        },
+        {
+          "row": 625,
+          "outcome": "blank"
+        },
+        {
+          "row": 626,
+          "outcome": "blank"
+        },
+        {
+          "row": 627,
+          "outcome": "blank"
+        },
+        {
+          "row": 628,
+          "outcome": "blank"
+        },
+        {
+          "row": 629,
+          "outcome": "blank"
+        },
+        {
+          "row": 630,
+          "outcome": "blank"
+        },
+        {
+          "row": 631,
+          "outcome": "blank"
+        },
+        {
+          "row": 632,
+          "outcome": "blank"
+        },
+        {
+          "row": 633,
+          "outcome": "blank"
+        },
+        {
+          "row": 634,
+          "outcome": "blank"
+        },
+        {
+          "row": 635,
+          "outcome": "blank"
+        },
+        {
+          "row": 636,
+          "outcome": "blank"
+        },
+        {
+          "row": 637,
+          "outcome": "blank"
+        },
+        {
+          "row": 638,
+          "outcome": "blank"
+        },
+        {
+          "row": 639,
+          "outcome": "blank"
+        },
+        {
+          "row": 640,
+          "outcome": "blank"
+        },
+        {
+          "row": 641,
+          "outcome": "blank"
+        },
+        {
+          "row": 642,
+          "outcome": "blank"
+        },
+        {
+          "row": 643,
+          "outcome": "blank"
+        },
+        {
+          "row": 644,
+          "outcome": "blank"
+        },
+        {
+          "row": 645,
+          "outcome": "blank"
+        },
+        {
+          "row": 646,
+          "outcome": "blank"
+        },
+        {
+          "row": 647,
+          "outcome": "blank"
+        },
+        {
+          "row": 648,
+          "outcome": "blank"
+        },
+        {
+          "row": 649,
+          "outcome": "blank"
+        },
+        {
+          "row": 650,
+          "outcome": "blank"
+        },
+        {
+          "row": 651,
+          "outcome": "blank"
+        },
+        {
+          "row": 652,
+          "outcome": "blank"
+        },
+        {
+          "row": 653,
+          "outcome": "blank"
+        },
+        {
+          "row": 654,
+          "outcome": "blank"
+        },
+        {
+          "row": 655,
+          "outcome": "blank"
+        },
+        {
+          "row": 656,
+          "outcome": "blank"
+        },
+        {
+          "row": 657,
+          "outcome": "blank"
+        },
+        {
+          "row": 658,
+          "outcome": "blank"
+        },
+        {
+          "row": 659,
+          "outcome": "blank"
+        },
+        {
+          "row": 660,
+          "outcome": "blank"
+        },
+        {
+          "row": 661,
+          "outcome": "blank"
+        },
+        {
+          "row": 662,
+          "outcome": "blank"
+        },
+        {
+          "row": 663,
+          "outcome": "blank"
+        },
+        {
+          "row": 664,
+          "outcome": "blank"
+        },
+        {
+          "row": 665,
+          "outcome": "blank"
+        },
+        {
+          "row": 666,
+          "outcome": "blank"
+        },
+        {
+          "row": 667,
+          "outcome": "blank"
+        },
+        {
+          "row": 668,
+          "outcome": "blank"
+        },
+        {
+          "row": 669,
+          "outcome": "blank"
+        },
+        {
+          "row": 670,
+          "outcome": "blank"
+        },
+        {
+          "row": 671,
+          "outcome": "blank"
+        },
+        {
+          "row": 672,
+          "outcome": "blank"
+        },
+        {
+          "row": 673,
+          "outcome": "blank"
+        },
+        {
+          "row": 674,
+          "outcome": "blank"
+        },
+        {
+          "row": 675,
+          "outcome": "blank"
+        },
+        {
+          "row": 676,
+          "outcome": "blank"
+        },
+        {
+          "row": 677,
+          "outcome": "blank"
+        },
+        {
+          "row": 678,
+          "outcome": "blank"
+        },
+        {
+          "row": 679,
+          "outcome": "blank"
+        },
+        {
+          "row": 680,
+          "outcome": "blank"
+        },
+        {
+          "row": 681,
+          "outcome": "blank"
+        },
+        {
+          "row": 682,
+          "outcome": "blank"
+        },
+        {
+          "row": 683,
+          "outcome": "blank"
+        },
+        {
+          "row": 684,
+          "outcome": "blank"
+        },
+        {
+          "row": 685,
+          "outcome": "blank"
+        },
+        {
+          "row": 686,
+          "outcome": "blank"
+        },
+        {
+          "row": 687,
+          "outcome": "blank"
+        },
+        {
+          "row": 688,
+          "outcome": "blank"
+        },
+        {
+          "row": 689,
+          "outcome": "blank"
+        },
+        {
+          "row": 690,
+          "outcome": "blank"
+        },
+        {
+          "row": 691,
+          "outcome": "blank"
+        },
+        {
+          "row": 692,
+          "outcome": "blank"
+        },
+        {
+          "row": 693,
+          "outcome": "blank"
+        },
+        {
+          "row": 694,
+          "outcome": "blank"
+        },
+        {
+          "row": 695,
+          "outcome": "blank"
+        },
+        {
+          "row": 696,
+          "outcome": "blank"
+        },
+        {
+          "row": 697,
+          "outcome": "blank"
+        },
+        {
+          "row": 698,
+          "outcome": "blank"
+        },
+        {
+          "row": 699,
+          "outcome": "blank"
+        },
+        {
+          "row": 700,
+          "outcome": "blank"
+        },
+        {
+          "row": 701,
+          "outcome": "blank"
+        },
+        {
+          "row": 702,
+          "outcome": "blank"
+        },
+        {
+          "row": 703,
+          "outcome": "blank"
+        },
+        {
+          "row": 704,
+          "outcome": "blank"
+        },
+        {
+          "row": 705,
+          "outcome": "blank"
+        },
+        {
+          "row": 706,
+          "outcome": "blank"
+        },
+        {
+          "row": 707,
+          "outcome": "blank"
+        },
+        {
+          "row": 708,
+          "outcome": "blank"
+        },
+        {
+          "row": 709,
+          "outcome": "blank"
+        },
+        {
+          "row": 710,
+          "outcome": "blank"
+        },
+        {
+          "row": 711,
+          "outcome": "blank"
+        },
+        {
+          "row": 712,
+          "outcome": "blank"
+        },
+        {
+          "row": 713,
+          "outcome": "blank"
+        },
+        {
+          "row": 714,
+          "outcome": "blank"
+        },
+        {
+          "row": 715,
+          "outcome": "blank"
+        },
+        {
+          "row": 716,
+          "outcome": "blank"
+        },
+        {
+          "row": 717,
+          "outcome": "blank"
+        },
+        {
+          "row": 718,
+          "outcome": "blank"
+        },
+        {
+          "row": 719,
+          "outcome": "blank"
+        },
+        {
+          "row": 720,
+          "outcome": "blank"
+        },
+        {
+          "row": 721,
+          "outcome": "blank"
+        },
+        {
+          "row": 722,
+          "outcome": "blank"
+        },
+        {
+          "row": 723,
+          "outcome": "blank"
+        },
+        {
+          "row": 724,
+          "outcome": "blank"
+        },
+        {
+          "row": 725,
+          "outcome": "blank"
+        },
+        {
+          "row": 726,
+          "outcome": "blank"
+        },
+        {
+          "row": 727,
+          "outcome": "blank"
+        },
+        {
+          "row": 728,
+          "outcome": "blank"
+        },
+        {
+          "row": 729,
+          "outcome": "blank"
+        },
+        {
+          "row": 730,
+          "outcome": "blank"
+        },
+        {
+          "row": 731,
+          "outcome": "blank"
+        },
+        {
+          "row": 732,
+          "outcome": "blank"
+        },
+        {
+          "row": 733,
+          "outcome": "blank"
+        },
+        {
+          "row": 734,
+          "outcome": "blank"
+        },
+        {
+          "row": 735,
+          "outcome": "blank"
+        },
+        {
+          "row": 736,
+          "outcome": "blank"
+        },
+        {
+          "row": 737,
+          "outcome": "blank"
+        },
+        {
+          "row": 738,
+          "outcome": "blank"
+        },
+        {
+          "row": 739,
+          "outcome": "blank"
+        },
+        {
+          "row": 740,
+          "outcome": "blank"
+        },
+        {
+          "row": 741,
+          "outcome": "blank"
+        },
+        {
+          "row": 742,
+          "outcome": "blank"
+        },
+        {
+          "row": 743,
+          "outcome": "blank"
+        },
+        {
+          "row": 744,
+          "outcome": "blank"
+        },
+        {
+          "row": 745,
+          "outcome": "blank"
+        },
+        {
+          "row": 746,
+          "outcome": "blank"
+        },
+        {
+          "row": 747,
+          "outcome": "blank"
+        },
+        {
+          "row": 748,
+          "outcome": "blank"
+        },
+        {
+          "row": 749,
+          "outcome": "blank"
+        },
+        {
+          "row": 750,
+          "outcome": "blank"
+        },
+        {
+          "row": 751,
+          "outcome": "blank"
+        },
+        {
+          "row": 752,
+          "outcome": "blank"
+        },
+        {
+          "row": 753,
+          "outcome": "blank"
+        },
+        {
+          "row": 754,
+          "outcome": "blank"
+        },
+        {
+          "row": 755,
+          "outcome": "blank"
+        },
+        {
+          "row": 756,
+          "outcome": "blank"
+        },
+        {
+          "row": 757,
+          "outcome": "blank"
+        },
+        {
+          "row": 758,
+          "outcome": "blank"
+        },
+        {
+          "row": 759,
+          "outcome": "blank"
+        },
+        {
+          "row": 760,
+          "outcome": "blank"
+        },
+        {
+          "row": 761,
+          "outcome": "blank"
+        },
+        {
+          "row": 762,
+          "outcome": "blank"
+        },
+        {
+          "row": 763,
+          "outcome": "blank"
+        },
+        {
+          "row": 764,
+          "outcome": "blank"
+        },
+        {
+          "row": 765,
+          "outcome": "blank"
+        },
+        {
+          "row": 766,
+          "outcome": "blank"
+        },
+        {
+          "row": 767,
+          "outcome": "blank"
+        },
+        {
+          "row": 768,
+          "outcome": "blank"
+        },
+        {
+          "row": 769,
+          "outcome": "blank"
+        },
+        {
+          "row": 770,
+          "outcome": "blank"
+        },
+        {
+          "row": 771,
+          "outcome": "blank"
+        },
+        {
+          "row": 772,
+          "outcome": "blank"
+        },
+        {
+          "row": 773,
+          "outcome": "blank"
+        },
+        {
+          "row": 774,
+          "outcome": "blank"
+        },
+        {
+          "row": 775,
+          "outcome": "blank"
+        },
+        {
+          "row": 776,
+          "outcome": "blank"
+        },
+        {
+          "row": 777,
+          "outcome": "blank"
+        },
+        {
+          "row": 778,
+          "outcome": "blank"
+        },
+        {
+          "row": 779,
+          "outcome": "blank"
+        },
+        {
+          "row": 780,
+          "outcome": "blank"
+        },
+        {
+          "row": 781,
+          "outcome": "blank"
+        },
+        {
+          "row": 782,
+          "outcome": "blank"
+        },
+        {
+          "row": 783,
+          "outcome": "blank"
+        },
+        {
+          "row": 784,
+          "outcome": "blank"
+        },
+        {
+          "row": 785,
+          "outcome": "blank"
+        },
+        {
+          "row": 786,
+          "outcome": "blank"
+        },
+        {
+          "row": 787,
+          "outcome": "blank"
+        },
+        {
+          "row": 788,
+          "outcome": "blank"
+        },
+        {
+          "row": 789,
+          "outcome": "blank"
+        },
+        {
+          "row": 790,
+          "outcome": "blank"
+        },
+        {
+          "row": 791,
+          "outcome": "blank"
+        },
+        {
+          "row": 792,
+          "outcome": "blank"
+        },
+        {
+          "row": 793,
+          "outcome": "blank"
+        },
+        {
+          "row": 794,
+          "outcome": "blank"
+        },
+        {
+          "row": 795,
+          "outcome": "blank"
+        },
+        {
+          "row": 796,
+          "outcome": "blank"
+        },
+        {
+          "row": 797,
+          "outcome": "blank"
+        },
+        {
+          "row": 798,
+          "outcome": "blank"
+        },
+        {
+          "row": 799,
+          "outcome": "blank"
+        },
+        {
+          "row": 800,
+          "outcome": "blank"
+        },
+        {
+          "row": 801,
+          "outcome": "blank"
+        },
+        {
+          "row": 802,
+          "outcome": "blank"
+        },
+        {
+          "row": 803,
+          "outcome": "blank"
+        },
+        {
+          "row": 804,
+          "outcome": "blank"
+        },
+        {
+          "row": 805,
+          "outcome": "blank"
+        },
+        {
+          "row": 806,
+          "outcome": "blank"
+        },
+        {
+          "row": 807,
+          "outcome": "blank"
+        },
+        {
+          "row": 808,
+          "outcome": "blank"
+        },
+        {
+          "row": 809,
+          "outcome": "blank"
+        },
+        {
+          "row": 810,
+          "outcome": "blank"
+        },
+        {
+          "row": 811,
+          "outcome": "blank"
+        },
+        {
+          "row": 812,
+          "outcome": "blank"
+        },
+        {
+          "row": 813,
+          "outcome": "blank"
+        },
+        {
+          "row": 814,
+          "outcome": "blank"
+        },
+        {
+          "row": 815,
+          "outcome": "blank"
+        },
+        {
+          "row": 816,
+          "outcome": "blank"
+        },
+        {
+          "row": 817,
+          "outcome": "blank"
+        },
+        {
+          "row": 818,
+          "outcome": "blank"
+        },
+        {
+          "row": 819,
+          "outcome": "blank"
+        },
+        {
+          "row": 820,
+          "outcome": "blank"
+        },
+        {
+          "row": 821,
+          "outcome": "blank"
+        },
+        {
+          "row": 822,
+          "outcome": "blank"
+        },
+        {
+          "row": 823,
+          "outcome": "blank"
+        },
+        {
+          "row": 824,
+          "outcome": "blank"
+        },
+        {
+          "row": 825,
+          "outcome": "blank"
+        },
+        {
+          "row": 826,
+          "outcome": "blank"
+        },
+        {
+          "row": 827,
+          "outcome": "blank"
+        },
+        {
+          "row": 828,
+          "outcome": "blank"
+        },
+        {
+          "row": 829,
+          "outcome": "blank"
+        },
+        {
+          "row": 830,
+          "outcome": "blank"
+        },
+        {
+          "row": 831,
+          "outcome": "blank"
+        },
+        {
+          "row": 832,
+          "outcome": "blank"
+        },
+        {
+          "row": 833,
+          "outcome": "blank"
+        },
+        {
+          "row": 834,
+          "outcome": "blank"
+        },
+        {
+          "row": 835,
+          "outcome": "blank"
+        },
+        {
+          "row": 836,
+          "outcome": "blank"
+        },
+        {
+          "row": 837,
+          "outcome": "blank"
+        },
+        {
+          "row": 838,
+          "outcome": "blank"
+        },
+        {
+          "row": 839,
+          "outcome": "blank"
+        },
+        {
+          "row": 840,
+          "outcome": "blank"
+        },
+        {
+          "row": 841,
+          "outcome": "blank"
+        },
+        {
+          "row": 842,
+          "outcome": "blank"
+        },
+        {
+          "row": 843,
+          "outcome": "blank"
+        },
+        {
+          "row": 844,
+          "outcome": "blank"
+        },
+        {
+          "row": 845,
+          "outcome": "blank"
+        },
+        {
+          "row": 846,
+          "outcome": "blank"
+        },
+        {
+          "row": 847,
+          "outcome": "blank"
+        },
+        {
+          "row": 848,
+          "outcome": "blank"
+        },
+        {
+          "row": 849,
+          "outcome": "blank"
+        },
+        {
+          "row": 850,
+          "outcome": "blank"
+        },
+        {
+          "row": 851,
+          "outcome": "blank"
+        },
+        {
+          "row": 852,
+          "outcome": "blank"
+        },
+        {
+          "row": 853,
+          "outcome": "blank"
+        },
+        {
+          "row": 854,
+          "outcome": "blank"
+        },
+        {
+          "row": 855,
+          "outcome": "blank"
+        },
+        {
+          "row": 856,
+          "outcome": "blank"
+        },
+        {
+          "row": 857,
+          "outcome": "blank"
+        },
+        {
+          "row": 858,
+          "outcome": "blank"
+        },
+        {
+          "row": 859,
+          "outcome": "blank"
+        },
+        {
+          "row": 860,
+          "outcome": "blank"
+        },
+        {
+          "row": 861,
+          "outcome": "blank"
+        },
+        {
+          "row": 862,
+          "outcome": "blank"
+        },
+        {
+          "row": 863,
+          "outcome": "blank"
+        },
+        {
+          "row": 864,
+          "outcome": "blank"
+        },
+        {
+          "row": 865,
+          "outcome": "blank"
+        },
+        {
+          "row": 866,
+          "outcome": "blank"
+        },
+        {
+          "row": 867,
+          "outcome": "blank"
+        },
+        {
+          "row": 868,
+          "outcome": "blank"
+        },
+        {
+          "row": 869,
+          "outcome": "blank"
+        },
+        {
+          "row": 870,
+          "outcome": "blank"
+        },
+        {
+          "row": 871,
+          "outcome": "blank"
+        },
+        {
+          "row": 872,
+          "outcome": "blank"
+        },
+        {
+          "row": 873,
+          "outcome": "blank"
+        },
+        {
+          "row": 874,
+          "outcome": "blank"
+        },
+        {
+          "row": 875,
+          "outcome": "blank"
+        },
+        {
+          "row": 876,
+          "outcome": "blank"
+        },
+        {
+          "row": 877,
+          "outcome": "blank"
+        },
+        {
+          "row": 878,
+          "outcome": "blank"
+        },
+        {
+          "row": 879,
+          "outcome": "blank"
+        },
+        {
+          "row": 880,
+          "outcome": "blank"
+        },
+        {
+          "row": 881,
+          "outcome": "blank"
+        },
+        {
+          "row": 882,
+          "outcome": "blank"
+        },
+        {
+          "row": 883,
+          "outcome": "blank"
+        },
+        {
+          "row": 884,
+          "outcome": "blank"
+        },
+        {
+          "row": 885,
+          "outcome": "blank"
+        },
+        {
+          "row": 886,
+          "outcome": "blank"
+        },
+        {
+          "row": 887,
+          "outcome": "blank"
+        },
+        {
+          "row": 888,
+          "outcome": "blank"
+        },
+        {
+          "row": 889,
+          "outcome": "blank"
+        },
+        {
+          "row": 890,
+          "outcome": "blank"
+        },
+        {
+          "row": 891,
+          "outcome": "blank"
+        },
+        {
+          "row": 892,
+          "outcome": "blank"
+        },
+        {
+          "row": 893,
+          "outcome": "blank"
+        },
+        {
+          "row": 894,
+          "outcome": "blank"
+        },
+        {
+          "row": 895,
+          "outcome": "blank"
+        },
+        {
+          "row": 896,
+          "outcome": "blank"
+        },
+        {
+          "row": 897,
+          "outcome": "blank"
+        },
+        {
+          "row": 898,
+          "outcome": "blank"
+        },
+        {
+          "row": 899,
+          "outcome": "blank"
+        },
+        {
+          "row": 900,
+          "outcome": "blank"
+        },
+        {
+          "row": 901,
+          "outcome": "blank"
+        },
+        {
+          "row": 902,
+          "outcome": "blank"
+        },
+        {
+          "row": 903,
+          "outcome": "blank"
+        },
+        {
+          "row": 904,
+          "outcome": "blank"
+        },
+        {
+          "row": 905,
+          "outcome": "blank"
+        },
+        {
+          "row": 906,
+          "outcome": "blank"
+        },
+        {
+          "row": 907,
+          "outcome": "blank"
+        },
+        {
+          "row": 908,
+          "outcome": "blank"
+        },
+        {
+          "row": 909,
+          "outcome": "blank"
+        },
+        {
+          "row": 910,
+          "outcome": "blank"
+        },
+        {
+          "row": 911,
+          "outcome": "blank"
+        },
+        {
+          "row": 912,
+          "outcome": "blank"
+        },
+        {
+          "row": 913,
+          "outcome": "blank"
+        },
+        {
+          "row": 914,
+          "outcome": "blank"
+        },
+        {
+          "row": 915,
+          "outcome": "blank"
+        },
+        {
+          "row": 916,
+          "outcome": "blank"
+        },
+        {
+          "row": 917,
+          "outcome": "blank"
+        },
+        {
+          "row": 918,
+          "outcome": "blank"
+        },
+        {
+          "row": 919,
+          "outcome": "blank"
+        },
+        {
+          "row": 920,
+          "outcome": "blank"
+        },
+        {
+          "row": 921,
+          "outcome": "blank"
+        },
+        {
+          "row": 922,
+          "outcome": "blank"
+        },
+        {
+          "row": 923,
+          "outcome": "blank"
+        },
+        {
+          "row": 924,
+          "outcome": "blank"
+        },
+        {
+          "row": 925,
+          "outcome": "blank"
+        },
+        {
+          "row": 926,
+          "outcome": "blank"
+        },
+        {
+          "row": 927,
+          "outcome": "blank"
+        },
+        {
+          "row": 928,
+          "outcome": "blank"
+        },
+        {
+          "row": 929,
+          "outcome": "blank"
+        },
+        {
+          "row": 930,
+          "outcome": "blank"
+        },
+        {
+          "row": 931,
+          "outcome": "blank"
+        },
+        {
+          "row": 932,
+          "outcome": "blank"
+        },
+        {
+          "row": 933,
+          "outcome": "blank"
+        },
+        {
+          "row": 934,
+          "outcome": "blank"
+        },
+        {
+          "row": 935,
+          "outcome": "blank"
+        },
+        {
+          "row": 936,
+          "outcome": "blank"
+        },
+        {
+          "row": 937,
+          "outcome": "blank"
+        },
+        {
+          "row": 938,
+          "outcome": "blank"
+        },
+        {
+          "row": 939,
+          "outcome": "blank"
+        },
+        {
+          "row": 940,
+          "outcome": "blank"
+        },
+        {
+          "row": 941,
+          "outcome": "blank"
+        },
+        {
+          "row": 942,
+          "outcome": "blank"
+        },
+        {
+          "row": 943,
+          "outcome": "blank"
+        },
+        {
+          "row": 944,
+          "outcome": "blank"
+        },
+        {
+          "row": 945,
+          "outcome": "blank"
+        },
+        {
+          "row": 946,
+          "outcome": "blank"
+        },
+        {
+          "row": 947,
+          "outcome": "blank"
+        },
+        {
+          "row": 948,
+          "outcome": "blank"
+        },
+        {
+          "row": 949,
+          "outcome": "blank"
+        },
+        {
+          "row": 950,
+          "outcome": "blank"
+        },
+        {
+          "row": 951,
+          "outcome": "blank"
+        },
+        {
+          "row": 952,
+          "outcome": "blank"
+        },
+        {
+          "row": 953,
+          "outcome": "blank"
+        },
+        {
+          "row": 954,
+          "outcome": "blank"
+        },
+        {
+          "row": 955,
+          "outcome": "blank"
+        },
+        {
+          "row": 956,
+          "outcome": "blank"
+        },
+        {
+          "row": 957,
+          "outcome": "blank"
+        },
+        {
+          "row": 958,
+          "outcome": "blank"
+        },
+        {
+          "row": 959,
+          "outcome": "blank"
+        },
+        {
+          "row": 960,
+          "outcome": "blank"
+        },
+        {
+          "row": 961,
+          "outcome": "blank"
+        },
+        {
+          "row": 962,
+          "outcome": "blank"
+        },
+        {
+          "row": 963,
+          "outcome": "blank"
+        },
+        {
+          "row": 964,
+          "outcome": "blank"
+        },
+        {
+          "row": 965,
+          "outcome": "blank"
+        },
+        {
+          "row": 966,
+          "outcome": "blank"
+        },
+        {
+          "row": 967,
+          "outcome": "blank"
+        },
+        {
+          "row": 968,
+          "outcome": "blank"
+        },
+        {
+          "row": 969,
+          "outcome": "blank"
+        },
+        {
+          "row": 970,
+          "outcome": "blank"
+        },
+        {
+          "row": 971,
+          "outcome": "blank"
+        },
+        {
+          "row": 972,
+          "outcome": "blank"
+        },
+        {
+          "row": 973,
+          "outcome": "blank"
+        },
+        {
+          "row": 974,
+          "outcome": "blank"
+        },
+        {
+          "row": 975,
+          "outcome": "blank"
+        },
+        {
+          "row": 976,
+          "outcome": "blank"
+        },
+        {
+          "row": 977,
+          "outcome": "blank"
+        },
+        {
+          "row": 978,
+          "outcome": "blank"
+        },
+        {
+          "row": 979,
+          "outcome": "blank"
+        },
+        {
+          "row": 980,
+          "outcome": "blank"
+        },
+        {
+          "row": 981,
+          "outcome": "blank"
+        },
+        {
+          "row": 982,
+          "outcome": "blank"
+        },
+        {
+          "row": 983,
+          "outcome": "blank"
+        },
+        {
+          "row": 984,
+          "outcome": "blank"
+        },
+        {
+          "row": 985,
+          "outcome": "blank"
+        },
+        {
+          "row": 986,
+          "outcome": "blank"
+        }
+      ]
+    }
+  ],
+  "anomalies": [
+    {
+      "kind": "duplicate_credit",
+      "row": null,
+      "tab": null,
+      "quest_id": "rare_killer",
+      "quest_name": "Rare Killer",
+      "message": "bot command credits `Misty Meat` which is also credited by **Misty Meat** — likely a copy-paste slip in the source. The bot would credit the wrong quest."
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "rare_killer",
+      "quest_name": "Rare Killer",
+      "message": "bot command credits `Misty Meat` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "game_of_thrones",
+      "quest_name": "Game of Thrones",
+      "message": "bot command credits `Game of Thones` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_dedication",
+      "quest_name": "Build: Dedication",
+      "message": "requirements text shows 1 camera emoji but the bot command has 4 image slot(s). Which is right?"
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_fight_club",
+      "quest_name": "Build: Fight Club",
+      "message": "bot command credits `Dedication` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_fight_club",
+      "quest_name": "Build: Fight Club",
+      "message": "requirements text shows 1 camera emoji but the bot command has 4 image slot(s). Which is right?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "cattle_prod",
+      "quest_name": "Cattle Prod",
+      "message": "requirements text shows 1 camera emoji but the bot command has 2 image slot(s). Which is right?"
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "flawless_victory",
+      "quest_name": "Flawless Victory",
+      "message": "bot command credits `Earthshatter` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "flawless_victory_legendary",
+      "quest_name": "Flawless Victory Legendary",
+      "message": "bot command credits `Earthshatter Legendary` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "kilo_strike",
+      "quest_name": "Kilo Strike",
+      "message": "requirements text shows 1 camera emoji but the bot command has 2 image slot(s). Which is right?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "kilo_strike_legendary",
+      "quest_name": "Kilo Strike Legendary",
+      "message": "requirements text shows 1 camera emoji but the bot command has 2 image slot(s). Which is right?"
+    },
+    {
+      "kind": "duplicate_credit",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_training_grounds",
+      "quest_name": "Build: Training Grounds",
+      "message": "bot command credits `Dedication` which is also credited by **Build: Fight Club** — likely a copy-paste slip in the source. The bot would credit the wrong quest."
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_training_grounds",
+      "quest_name": "Build: Training Grounds",
+      "message": "bot command credits `Dedication` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_training_grounds",
+      "quest_name": "Build: Training Grounds",
+      "message": "requirements text shows 1 camera emoji but the bot command has 4 image slot(s). Which is right?"
+    },
+    {
+      "kind": "duplicate_credit",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_shrine_of_smoke",
+      "quest_name": "Build: Shrine of Smoke",
+      "message": "bot command credits `Dedication` which is also credited by **Build: Fight Club** — likely a copy-paste slip in the source. The bot would credit the wrong quest."
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_shrine_of_smoke",
+      "quest_name": "Build: Shrine of Smoke",
+      "message": "bot command credits `Dedication` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "build_shrine_of_smoke",
+      "quest_name": "Build: Shrine of Smoke",
+      "message": "requirements text shows 1 camera emoji but the bot command has 4 image slot(s). Which is right?"
+    },
+    {
+      "kind": "duplicate_credit",
+      "row": null,
+      "tab": null,
+      "quest_id": "full_house",
+      "quest_name": "Full House",
+      "message": "bot command credits `Death from Above` which is also credited by **Death from Above** — likely a copy-paste slip in the source. The bot would credit the wrong quest."
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "full_house",
+      "quest_name": "Full House",
+      "message": "bot command credits `Death from Above` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "credit_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "raid_shadow_legends",
+      "quest_name": "Raid Shadow Legends",
+      "message": "bot command credits `Shadow Hunter` — not the quest's own name. Typo or intentional?"
+    },
+    {
+      "kind": "evidence_mismatch",
+      "row": null,
+      "tab": null,
+      "quest_id": "silent_killer_legendary",
+      "quest_name": "Silent Killer Legendary",
+      "message": "requirements text shows 3 camera emoji but the bot command has 2 image slot(s). Which is right?"
+    }
+  ],
+  "counts": {
+    "rows_seen": 986,
+    "quests": 103,
+    "skipped": 0,
+    "blank": 882,
+    "anomalies": 21
+  }
+}

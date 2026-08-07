@@ -1,0 +1,5192 @@
+{
+  "schema_version": 1,
+  "guild": "Creators",
+  "era": 18,
+  "source": {
+    "kind": "creator-events-xlsx",
+    "detail": "../../data/raw/creator-events-tracker.xlsx :: Events (E18)",
+    "url": null,
+    "retrieved": "2026-08-01"
+  },
+  "quests": [
+    {
+      "quest_id": "alt_f4",
+      "name": "Alt + F4",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Splitnir the Storming L8, Leather Tunic L19, Leather Pants L19, Midsommer Crown L48, Feather Cape L10, Staff of Protection L5, Wooden Spear L135, Wooden Sword L115",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Awaiting Approval",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Splitnir the Storming L8",
+          "Leather Tunic L19",
+          "Leather Pants L19",
+          "Midsommer Crown L48",
+          "Feather Cape L10",
+          "Staff of Protection L5",
+          "Wooden Spear L135",
+          "Wooden Sword L115"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Lanterns (Pickables with extended timers), 3997g, 1 of each Ashlands Gem, No more than 4 stacks: Smokepuffs, Fiddleheads, Magecaps, Jotun puffs, Sap, Cloudberries, Marinated Greens, Scale Hide, Proustite Powder, Ashwood, Pot Shards, Charcoal Resin",
+          "1 The Queen Trophy\n1.5s Refined Eitr\n1s Bell Fragment\n3s Black Marble\n1 Iolite\n1 Dyrnwyn Blade Fragment\n1 Geirrhafa Trophy\n20 Crystal\n3 Leech Trophy\n2s Dandelion\n12 Black Metal\n36 Wolf Meat\n60 Coins\n16 Asksvin Tail\n4 Celestial Feather\n36 Bloodbag\n50 Wolf Fang\n36 Wolf Pelt\n4 Hare Meat\n8 Bear Meat\n8 Scale Hide\n16 Asksvin Hide\n16 Bear Hide\n8 Asksvin Bladder\n4 Bear Paw"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "bare_necessities",
+      "name": "Bare Necessities",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Paws of the Bear L17, Bronze Buckler L10, Finewood Bow L14, Cultivator L9, Patterns of the Bear L11, Headdress of the Bear L11, Loincloth of the Bear L11, Simple dress natural L22",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Padded",
+        "uniques": [
+          "Paws of the Bear L17",
+          "Bronze Buckler L10",
+          "Finewood Bow L14",
+          "Cultivator L9",
+          "Patterns of the Bear L11",
+          "Headdress of the Bear L11",
+          "Loincloth of the Bear L11",
+          "Simple dress natural L22"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Meginjord, 1 of each L1 Wooden Weapon, Less than 4 stacks of: Tasty meads, Onion Soup, Wolf Skewer, Poison resistance meads, Fire resistance meads, Entrails, blob trophies, Fire arrows, Frost arrows, Cloudberries"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "boarly_there",
+      "name": "Boarly There",
+      "category": "Maze",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Fenris Hood L8, Fenris Chest L8, Fenris Legs L8, Bronze Axe L15, Bronze Atgeir L13, Bronze Buckler L10, Huntsman Bow L12, Iron Pickaxe L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Padded",
+        "uniques": [
+          "Fenris Hood L8",
+          "Fenris Chest L8",
+          "Fenris Legs L8",
+          "Bronze Axe L15",
+          "Bronze Atgeir L13",
+          "Bronze Buckler L10",
+          "Huntsman Bow L12",
+          "Iron Pickaxe L7"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Lanterns (placed as pickables with extended cooldowns,12 at the start of the maze, for lighting), No More than 4 stacks of: Flax, Cloudberries, Barley, Wisp, Yggdrasil Wood, Needle arrows, frost arrows, a single stack of: Misthare Supreme, Fish n Bread, and the pickables from two potted plants - Each pot contains 1x Magecaps, 1x Jotunn Puffs, and 1x Onion seeds"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dance_dance_revolution",
+      "name": "Dance Dance Revolution",
+      "category": "Pop-up",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Cape Test L4, Celebratory Cap L4, Torch L2+",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "TBD",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "N/A",
+        "uniques": [
+          "Cape Test L4",
+          "Celebratory Cap L4",
+          "Torch L2+"
+        ],
+        "blue_mushrooms": "1.0",
+        "total_gold": "",
+        "other_loot": [
+          "A blue mushroom, and A stack per participant: Red Jute, Salad, Ratatosk Mead, Lantern, and a Sparkler"
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "ice_to_meet_you",
+      "name": "Ice to Meet You",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "Magic Discouraged",
+      "reward": "Ash Fang L8, Flametal Helm L5, Nidhögg L9, Cape tunic red L33, Staff of Fracturing L3, Embla Chest L3, Embla Hood L3, Embla Legs L3",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Ash Fang L8",
+          "Flametal Helm L5",
+          "Nidhögg L9",
+          "Cape tunic red L33",
+          "Staff of Fracturing L3",
+          "Embla Chest L3",
+          "Embla Hood L3",
+          "Embla Legs L3"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "No more than 2 stacks of: Smokepuffs, Sap, Fiddleheads, Volture eggs, Vineberries, Volture meat, Crystal, Freeze Glands, Obsidian, Fire arrows, Bile bombs, Charred skulls"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ring_of_fire",
+      "name": "Ring of Fire",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Bronze Spear L18, Staff of Frost L10, Frostner L11, Fenris Legs L8, Mistwalker L6, Carapace Buckler L5, Feather Cape L4, Carapace Shield L3",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Bronze Spear L18",
+          "Staff of Frost L10",
+          "Frostner L11",
+          "Fenris Legs L8",
+          "Mistwalker L6",
+          "Carapace Buckler L5",
+          "Feather Cape L4",
+          "Carapace Shield L3"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Meginjord, Fire resistance potions, Frost resistance potions, L5 Northern Salmon, Soft Tissue, Yagluth drops, and a little bit of Royal Jelly and Sap, 2k gold, Rubies"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "rocky_road",
+      "name": "Rocky Road",
+      "category": "Story Dungeon",
+      "coopable": true,
+      "requirements": "Bows and Axes only, Any Armor, No Magic",
+      "reward": "Battleaxe L24, Black Metal Pickaxe L8, Draugr Fang L23, Scythe L12, Lox Cape L14, Simple dress natural L33",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Battleaxe L24",
+          "Black Metal Pickaxe L8",
+          "Draugr Fang L23",
+          "Scythe L12",
+          "Lox Cape L14",
+          "Simple dress natural L33"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 iolite, 1 jade, 1 blood gems\nL1 Midsummer crown, L1 Fishing rod, Lox saddle, tankards, 17 dvergr lanterns, 4 dvergr tankards, 3 fireworks, 3 acorns\navg. 700 gold + mob drops\n9 ruby, 9 silver necklace, 6 amber pearl\n3 bees, 3 fuling totems\n3 ratatosk, 3 lightfoot, and 3 troll's endurance meads\n9 stamina meads\nL1 iron pickaxe x2\n150 silver arrows, 150 fire arrows, 300 frost arrows\navg. 1-3 stacks Rasp & Blueberries, Cloudberries, Red & Yellow Mushrooms, Thistle & Dandelions, Barley & Flax\n~2.5 stacks mineable Guck\n~4.25 stacks mineable Silver\n~2.25 stacks Copper scrap\n~2 stacks Finewood\nfuling drops (black metal), destructible goblin roofs (deer hide)\nqueen drops from boss fight\n1 destructible obliterator and 134 destructible barrels that are integral to the event"
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "thanks_iron_gate",
+      "name": "Thanks, Iron Gate",
+      "category": "Parkour",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Black Metal Axe L13, Serpent Scale Shield L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Black Metal Axe L13",
+          "Serpent Scale Shield L16"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "Torches, 6 of each blob bomb (Poison, Elite Poison,Frost,Tar, Lava),999g"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_aerial_hunt",
+      "name": "The Aerial Hunt",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Huntsman Bow L26, Ancient Bark Spear L23, Splitnir L15, Fenris Hood L12, Feather Cape L9, Staff of Protection L6, Staff of Fracturing L4, Staff of Embers L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Huntsman Bow L26",
+          "Ancient Bark Spear L23",
+          "Splitnir L15",
+          "Fenris Hood L12",
+          "Feather Cape L9",
+          "Staff of Protection L6",
+          "Staff of Fracturing L4",
+          "Staff of Embers L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Charred Bones, Volture eggs, Volture Meat, Celestial Feathers, Needles, Charred Arrows, Freeze Glands, Feathers, chains, Bile Bombs, 2997g"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_emperor_s_new_clothes",
+      "name": "The Emperor's New Clothes",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Cultivator L6, Dvergr Circlet L11, Bronze Axe L6, Antler Pickaxe L19, Beaded dress blue L19, Cape Test L7, Straw Hat L7, Harvest Tunic L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Iron",
+        "uniques": [
+          "Cultivator L6",
+          "Dvergr Circlet L11",
+          "Bronze Axe L6",
+          "Antler Pickaxe L19",
+          "Beaded dress blue L19",
+          "Cape Test L7",
+          "Straw Hat L7",
+          "Harvest Tunic L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Barber Station, Meginjord, Copper, Bronze, Yellow Mushrooms, Neck Tails, Raspberries"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "what_s_in_the_box",
+      "name": "What's In The Box?",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Storm Ripper L29, Demolisher L12, Black Metal Atgeir L17, ShieldIronSquare L29, Fenris Chest L13, Frostner L13, Mistwalker L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "*riel",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Storm Ripper L29",
+          "Demolisher L12",
+          "Black Metal Atgeir L17",
+          "ShieldIronSquare L29",
+          "Fenris Chest L13",
+          "Frostner L13",
+          "Mistwalker L8"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Rocks, Charred Bones, Volture eggs, Blob Trophies, Growth Trophies, 1 of each gem,1800g. and a Level 20 Lantern as an additional unique"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "acrophobia",
+      "name": "Acrophobia",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Staff of the Wild L4, Fenris Chest L13, Fenris Legs L13, Fenris Legs L13, Bronze Buckler L17, Porcupine L16, Draugr Fang L22, Black Metal Axe L14",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of the Wild L4",
+          "Fenris Chest L13",
+          "Fenris Legs L13",
+          "Fenris Legs L13",
+          "Bronze Buckler L17",
+          "Porcupine L16",
+          "Draugr Fang L22",
+          "Black Metal Axe L14"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 stacks gold, 4 stacks endgame food, 4 stacks of various meads, 6 molten cores, various mob drops(fulings, goblin bros, charred, golems, draugr, skeletons, cultist, geirhaffa, the queen, seeker soldiers) Iron + Silver to mine, 2x bees, 5 acorns, fiddle heads, smokepuffs 2x stacks each, i dvergr extractor, lore reto drop. 2 dragon eggs. various trees to chop."
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "black_friday",
+      "name": "Black Friday",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Nidhögg the Thundering L4, Root Fang L3, Frostner L14, Early Axes L14, Asksvin Cloak L10, Ask Chest L4, Ask Hood L4, Ask Legs L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Nidhögg the Thundering L4",
+          "Root Fang L3",
+          "Frostner L14",
+          "Early Axes L14",
+          "Asksvin Cloak L10",
+          "Ask Chest L4",
+          "Ask Hood L4",
+          "Ask Legs L4"
+        ],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [
+          "Level 5 tuna. tons of draugr drops. Couple of fuling drops."
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "punk_hazard",
+      "name": "Punk Hazard",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Straw Hat L17, Feather Cape L10, Silver Sword L9, Staff of Embers L5, Beaded tunic red L33, Troll Pants L16, Staff of Frost L17, Staff of Protection L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Straw Hat L17",
+          "Feather Cape L10",
+          "Silver Sword L9",
+          "Staff of Embers L5",
+          "Beaded tunic red L33",
+          "Troll Pants L16",
+          "Staff of Frost L17",
+          "Staff of Protection L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "potions(decor), tar, charred, bonemass, voltures, valk, surtling, lord reto, beserkers and shamans. 2 stacks roasted crust pie. 2 ish stacks of piquant pie.  few stacks of salad. couple of totems. one of each gem. couple of gold piles. plains pie picnic feast. black forest buffet platter. cultists drops. couple of food decor like ygg porridge. drynwn tip,  2 bees. golem drops. morgen drops. drake drops. about a cart of blackmetal."
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "retro_rampage",
+      "name": "Retro Rampage",
+      "category": "Questline",
+      "coopable": false,
+      "requirements": "",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "",
+        "gear_level": "",
+        "uniques": [],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Questline"
+      }
+    },
+    {
+      "quest_id": "rotwood",
+      "name": "Rotwood",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Bronze Buckler L5, Headdress of the Bear L7, Loincloth of the Bear L7, Patterns of the Bear L7, Hoe L6, Stagbreaker L8, Copper Knife L11, Bronze Axe L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Iron",
+        "uniques": [
+          "Bronze Buckler L5",
+          "Headdress of the Bear L7",
+          "Loincloth of the Bear L7",
+          "Patterns of the Bear L7",
+          "Hoe L6",
+          "Stagbreaker L8",
+          "Copper Knife L11",
+          "Bronze Axe L6"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "swamp enemy drops, 400g, bonemass drops, withered bones(just a couple), poison resist meads, red mushrooms, 2x bees, sausages, muckshakes, and turnip stew. 2 stacks finewood. bloodbags."
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "backrooms",
+      "name": "Backrooms",
+      "category": "Puzzle",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Bloodgeon (Flametal Mace) L4, Iron Buckler L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Bloodgeon (Flametal Mace) L4",
+          "Iron Buckler L16"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 stacks of tar, 2 bees, 4 molten cores, and 6 kvastur trophies. Material drops from kvastur, tar, ulv, morgen. Portal kit and lvl 1 build hammer with avo creator tag."
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "thiller_bark_part_1",
+      "name": "Thiller Bark Part 1",
+      "category": "Story Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Staff of Embers L5, Embla Chest L4, Embla Hood L4, Embla Legs L4, Dead Raiser L5, Nidhögg the Bleeding L6, Staff of Protection L5, Huntsman Bow L25",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Embers L5",
+          "Embla Chest L4",
+          "Embla Hood L4",
+          "Embla Legs L4",
+          "Dead Raiser L5",
+          "Nidhögg the Bleeding L6",
+          "Staff of Protection L5",
+          "Huntsman Bow L25"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "abom drops, draugr drops, zil drop, bonemass drops, wraith, ghost, skeleton drops. 4 stacks ashwood. 12 big tar lumps to pick up. 5 stacks smokepuffs, 5 stks, grausten, 3 ish stacks of varying meads(decor for the most part) food decor(2 ish stacks of varying food), gjall trophy, seeker soldier trophy, variours decor trophies. bear trophy, lots of chains"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "honey_i_shrunk_the_vikings",
+      "name": "Honey I Shrunk the Vikings",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Root Fang L4, Nidhögg the Bleeding L7, Storm Star (Flametal Mace) L3, Midsommer Crown L47",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Root Fang L4",
+          "Nidhögg the Bleeding L7",
+          "Storm Star (Flametal Mace) L3",
+          "Midsommer Crown L47"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "Pickable large tar lumps(around 6 ish lumps?) Dvergr drops, seeker soldier drops, queen drops, neck drops. Fine wood 6 stacks.  5 fuling totems. 10 acorns.  15ish dvergr lanturns. 4 stacks smokepuffs."
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "wal_mart",
+      "name": "Wal-Mart",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Nidhögg the Primal L4, Primal Berserkir Axes L3, Black Metal Pickaxe L10, Brutal Slayer L11, Iron Buckler L16, Vilebone Cage L8, Vilebone Drapes L8, Vilebone Visage L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Avocado",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Nidhögg the Primal L4",
+          "Primal Berserkir Axes L3",
+          "Black Metal Pickaxe L10",
+          "Brutal Slayer L11",
+          "Iron Buckler L16",
+          "Vilebone Cage L8",
+          "Vilebone Drapes L8",
+          "Vilebone Visage L8"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Level 5 angler fish. fuling drops, zil and thungr drop, beserker drop,draugr drop, draugr elite drops, kvastur drops, oozer/ooze drops, 20 of each raw meat. . 1 stack of each mead. 1 iolite, 3 bells,  4 stacks of tar. 5 fuling totems, 2 stacks volture eggs, 2 bees, a few tagged dvergr lanturns and tankards,  2 stacks ashwood, 2 stacks of finewood, 2 deathsquito drops,, 5 molten cores. crystal"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "peak",
+      "name": "PEAK",
+      "category": "Parkour",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Root Fang L3, Ask Hood L5, Ask Chest L5, Ask Legs L5, Midsommer Crown L47, Harpoon L14, Dead Raiser L5, Wooden Atgeir L90",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Awesomefatguy",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Root Fang L3",
+          "Ask Hood L5",
+          "Ask Chest L5",
+          "Ask Legs L5",
+          "Midsommer Crown L47",
+          "Harpoon L14",
+          "Dead Raiser L5",
+          "Wooden Atgeir L90"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "tbd,X3 level 1 Harpoon, x4 meginjord, x4 \"scouts uniform\" lvl 1 harvest tunic leather trousers and dverger circlet, 8 stacks of poison arrows, 4 stacks refined eitr, 1 of each gem, 4 stacks yag wood, 4 stacks piquant pie, 4 stacks roasted crust pie, 4 acorns, various low level potions to use in the event, stacks volture eggs, 4 stacks of gold (1 stack per person) 2 stacks smoke puffs. 2 stacks surtling cores 1 stack thunder stones, 1 stack black cores and 4 stacks of fire works for using at the end."
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "rumpelstiltskin_s_holiday_home",
+      "name": "Rumpelstiltskin's Holiday Home",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Wooden Sledge L185, Padded Helm L12, Flametal Chest L6, Padded Legs L12, Krom L19, Silver Sword L8, Knight Shield L8, Ripper L33",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Awesomefatguy",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Wooden Sledge L185",
+          "Padded Helm L12",
+          "Flametal Chest L6",
+          "Padded Legs L12",
+          "Krom L19",
+          "Silver Sword L8",
+          "Knight Shield L8",
+          "Ripper L33"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_bo_ol_of_wa_ar",
+      "name": "The Bo'ol of Wa'ar",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Troll Hood L7, Leather Pants L10, Troll Tunic L7, Battleaxe L4, Huntsman Bow L4, Bronze Sword L6, Silver Knife L4, Bronze Buckler L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Awesomefatguy",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Iron",
+        "uniques": [
+          "Troll Hood L7",
+          "Leather Pants L10",
+          "Troll Tunic L7",
+          "Battleaxe L4",
+          "Huntsman Bow L4",
+          "Bronze Sword L6",
+          "Silver Knife L4",
+          "Bronze Buckler L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "8 mineable iron nodes, 5 mineable copper nodes, 100 each of carrot, onion and turnip seeds. 200 silver arrows, 4 bees. 50 freeze glands and mob drops. 4 poison potions, 10 turnip stew, a few pickable lanturns"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ticks_r_us",
+      "name": "Ticks R Us",
+      "category": "Maze",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Staff of Protection L6, Feather Cape L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Awesomefatguy",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Protection L6",
+          "Feather Cape L9"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "75 Royal Jelly, 2 stacks Blood Bags, a bunch of random junk pickable food"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dverger_depths",
+      "name": "Dverger Depths",
+      "category": "Story Dungeon",
+      "coopable": true,
+      "requirements": "No trollstav or wilds",
+      "reward": "Black Metal Pickaxe L10, Serving Tray L9, Root Fang L3, Carapace Helm L8, Carapace Chest L8, Carapace Legs L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Baconbaby",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Black Metal Pickaxe L10",
+          "Serving Tray L9",
+          "Root Fang L3",
+          "Carapace Helm L8",
+          "Carapace Chest L8",
+          "Carapace Legs L8"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "2k gold, 1 bloodstones, 2 jade, 2s ygg wood, 3 breakable extractors, 1s eitr,  2s royal jelly, 1s ratatosk"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "hildir_s_house_of_horrors",
+      "name": "Hildir's House of Horrors",
+      "category": "Puzzle",
+      "coopable": false,
+      "requirements": "No sledging, No trollstav",
+      "reward": "Dead Raiser L6, Harvest Dress L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Baconbaby",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Dead Raiser L6",
+          "Harvest Dress L16"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "999g, 1 lvl5 tetra, 1 Iolite, 1 barber kit, 1 Bear trophy, 1 Seeker soldier trophy, 3 fuling totems, 5 herbs of the hidden hills, 1s ectoplasm"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "spheriously",
+      "name": "Spheriously?",
+      "category": "Maze",
+      "coopable": false,
+      "requirements": "No feather capes, no lightfoot mead",
+      "reward": "Huntsman Bow L4, Root Chest L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Chef",
+        "status": "TBD",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Huntsman Bow L4",
+          "Root Chest L4"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "30 copper ore, 15 tin ore, 100 coins, 20 turnip stew, L1 fishing rod, 50 bone fragment, 5 ectoplasm, 50 carrot, 20 yellow mushroom, 50 finewood, 1 bee hive, 10 surtling cores, 50 blueberry, 20 red mushroom, 20 bear hide, 5 ruby, 5 amber pearl"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "just_right",
+      "name": "Just Right",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No solo",
+      "reward": "Headdress of the Bear L7, Patterns of the Bear L7, Loincloth of the Bear L7, Huntsman Bow L4, Deer Hide Cape L7, Flint Spear L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Daaerwen",
+        "status": "TBD",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Iron",
+        "uniques": [
+          "Headdress of the Bear L7",
+          "Patterns of the Bear L7",
+          "Loincloth of the Bear L7",
+          "Huntsman Bow L4",
+          "Deer Hide Cape L7",
+          "Flint Spear L6"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "Honey, 2 bees, mob drops, Iron, Mudpiles, 4 stacks fire arrows, small amount copper/tin"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "crucible_of_eikthyr",
+      "name": "Crucible of Eikthyr",
+      "category": "Parkour",
+      "coopable": false,
+      "requirements": "No feather cape",
+      "reward": "Antler Pickaxe L19, Midsommer Crown L25",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Ditseey",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Silver",
+        "uniques": [
+          "Antler Pickaxe L19",
+          "Midsommer Crown L25"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "1000g, 40 barrell hoops, 100 Frost arrows, stack of wolf skewer, stack of poison resist, 2 stacks onion soup, 2 black soup, 1 stack ooze bomb"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "astral_scholarium",
+      "name": "Astral Scholarium",
+      "category": "Puzzle",
+      "coopable": true,
+      "requirements": "Replace current food/gear/wep/ammo//potions with the stuff u are handed along the way, as u progress the event. High jump/run skill very helpful throughout.",
+      "reward": "Nidhögg the Thundering L4, Flesh Rippers L20, Frostner L14, Spinesnap L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Hasufer",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Deep North",
+        "players": "2.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Nidhögg the Thundering L4",
+          "Flesh Rippers L20",
+          "Frostner L14",
+          "Spinesnap L9"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "fenris/flametal helmet lvl 1, stagbreaker lvl, iron axe lvl 1 1, 3xlvl 1 buildhammer, up to 3stack flametal ore, 3-4stack bronze, 1 bell, bit of tin/magecap/jotunpuff, vile trophy, 40sap, mixed potions,bombs and few arrows + lvl 1troll set/feathcape (all/most of the lvl 1 stuff+pots & food is to be used in event) around 2k coin, 2molten core/3black core."
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "gauntlgrym",
+      "name": "Gauntlgrym",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No troll/staff of the wild",
+      "reward": "Frostner L14, Staff of Embers L5, Staff of Protection L6, Carapace Buckler L9, Flametal Shield L9, Serpent Scale Shield L20, Jotun Bane L18, Arbalest L40",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Hasufer",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Frostner L14",
+          "Staff of Embers L5",
+          "Staff of Protection L6",
+          "Carapace Buckler L9",
+          "Flametal Shield L9",
+          "Serpent Scale Shield L20",
+          "Jotun Bane L18",
+          "Arbalest L40"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Around 4k gold, 2 molten core, Dyrnwin tip fragment, 1 ionite, 60 crystal/thunderstone, 40tar, 50 surtling cores, 35 fenris hair, 2 stack obsi. 1 padded cuirass,1 iron mace, 1copper knife, 1 butcher knife, 3bronze sword, bronze atgeir, 1 antler/bronze pickaxe, 20 chains, 3 lvl1 hammers,8 surt trophy+, 17 tankard, 1bee, 8 fire resist potions."
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "horrifying_prism_ticklin_creatures_not_sure_if_final_name",
+      "name": "Horrifying Prism & Ticklin' Creatures (Not sure if final name)",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No bows/fire/trollstaff/staff of wild",
+      "reward": "Draugr Fang L28, Black Metal Pickaxe L10, Iron Pickaxe L12, Bronze Pickaxe L13, Staff of Frost L17, Staff of Protection L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Hasufer",
+        "status": "Awaiting Approval",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Draugr Fang L28",
+          "Black Metal Pickaxe L10",
+          "Iron Pickaxe L12",
+          "Bronze Pickaxe L13",
+          "Staff of Frost L17",
+          "Staff of Protection L5"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dverger_town",
+      "name": "Dverger Town",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Wood Shield L28, Wooden Mace L115, Demolisher L12, Finewood Bow L26, Yule Hat L47, Leather Tunic L18, Leather Pants L18, Wolf Fur Cape L13",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Wood Shield L28",
+          "Wooden Mace L115",
+          "Demolisher L12",
+          "Finewood Bow L26",
+          "Yule Hat L47",
+          "Leather Tunic L18",
+          "Leather Pants L18",
+          "Wolf Fur Cape L13"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 stack - misty fishing bait, soft tissue, royal jelly, yggdrasil wood 4 major healing meads, 4 lingering stamina meads, 1 queen bee, 1 lantern, tankards (3?), carapace, seeker meat, black marble, 4 extractors"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "liminal_maze",
+      "name": "Liminal Maze",
+      "category": "Parkour",
+      "coopable": false,
+      "requirements": "No capes",
+      "reward": "Stone Pickaxe L39, Wooden Spear L140",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "N/A",
+        "uniques": [
+          "Stone Pickaxe L39",
+          "Wooden Spear L140"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "Dverger Lantern, Dverger Tankard, 1ea roast crust pie, spicy marmalade, fishnbread, ingering stam mead, 500g, pickable yellow mushrooms (about 1.5 stack), 1 stack volture eggs, 1 stack smoke puffs, 5 acorns, 1 bee"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "multicursal_maze",
+      "name": "Multicursal Maze",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Paws of the Bear L25, Staff of the Wild L4, Silver Knife L40, Pointy Hat L24",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Ocean",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Paws of the Bear L25",
+          "Staff of the Wild L4",
+          "Silver Knife L40",
+          "Pointy Hat L24"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "iron from mudpiles, drops from mobs (undead faction), royal jelly, yellow mushrooms"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "pilgrimage_pt1",
+      "name": "Pilgrimage Pt1",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Klossen (Flametal Mace) L4, Copper Knife L49, Bronze Buckler L19, Bronze Atgeir L23, Fishing Hat L9, Fishing Rod L69, Straw Hat L16, Harvest Tunic L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Klossen (Flametal Mace) L4",
+          "Copper Knife L49",
+          "Bronze Buckler L19",
+          "Bronze Atgeir L23",
+          "Fishing Hat L9",
+          "Fishing Rod L69",
+          "Straw Hat L16",
+          "Harvest Tunic L16"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "~4k gold\n4 fuling totems\nMead base: lingering stam, major healing\ncharred bolt x 100\nbile bomb 1 stack\nMinor healing meads 1 stack\nFishnbread 2\nBread 2\nWolf skewer 3\nCooked hare meat 3\nLox meat 9 stacks\nSeeker meat 1.5 stack\nAngler fish 1 stack\nTar ~1.5 stack (from Growth drops)\n16 stacks ooze (from oozer drops)\nPickable dverger lanterns x12\nTankards x 18\nHorn of celebration x 3\nDeco items (all Level 1) wood shield x 4, bronze buckler x1, iron buckler x 1, antler pickaxe, crude bow, flint axe, stone axe, leather helmet x 2, fishing pole\nPickable royal jelly x 5\nSeeker drops (carapace, meat, mandibles)\nDraugr drops (entrails)\nSoft tissue (breakable crates) ½ stack\n*18 stacks Black Metal scrap\n*12 stacks iron ore\n\n\n*Iron/blackmetal unsmelted and crafting tables are locked behind portals so it’s unusable/will be trashed."
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "pligrimage_pt2",
+      "name": "Pligrimage Pt2",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Bloodgeon (Flametal Mace) L6, Himminafl L10, Ask Chest L5, Ask Hood L5, Ask Legs L5, Asksvin Cloak L9, Wooden Atgeir L85, Ash Fang L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Bloodgeon (Flametal Mace) L6",
+          "Himminafl L10",
+          "Ask Chest L5",
+          "Ask Hood L5",
+          "Ask Legs L5",
+          "Asksvin Cloak L9",
+          "Wooden Atgeir L85",
+          "Ash Fang L8"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "~2k gold\n5 fuling totems\n1 queen trophy\n4 lox pie\n1 Misthare supreme\n2 honey chicken\n2 seeker aspic\n6 bread\n6 eitr mead\n6 major healing\n6 poison\n6 fire resist\n1 stack hare meat\n1 stack soft tissue\n½ stack obsidian\n½ stack crystal\n1 stack finewood\nSeeker drops (carapace, seeker meat, mandibles)\nTick drops (blood clots)\nSeeker brood drops (royal jelly)\n100 fire arrows\n100 wood arrows\n\nDeco items\n3 each Poison/needle/frost/carapace\n2 pickable dverger lanterns\n6 tankards\n2 L1 white linen capes"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "poison_cave",
+      "name": "Poison Cave",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Frostner L14, Wooden Sledge L170, Draugr Fang L23, Root Chest L16, Root Mask L15, Serpent Scale Shield L20, Fishing Hat L8, Harpoon L14",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Jord",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Frostner L14",
+          "Wooden Sledge L170",
+          "Draugr Fang L23",
+          "Root Chest L16",
+          "Root Mask L15",
+          "Serpent Scale Shield L20",
+          "Fishing Hat L8",
+          "Harpoon L14"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Iron from 3 mudpiles, silver from 1 silver node, 1 stack obsidian, 1 stack crystal, draugr drops, ooze (blobs), bone fragments, rotten meat (2), major healing mead (1), med stamina (1), minor eitr (2), bonemass trophy, 1000 gold, fire arrows x 100"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "claustrophobic_catacombs",
+      "name": "Claustrophobic Catacombs",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Copper knife L54, Bronze Legs L21, Bronze Chest L21, Bronze Helm L21, Bronze Buckler L19, Bronze Sword L20, Bronze Mace L18, Bronze Atgeir L22",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Copper knife L54",
+          "Bronze Legs L21",
+          "Bronze Chest L21",
+          "Bronze Helm L21",
+          "Bronze Buckler L19",
+          "Bronze Sword L20",
+          "Bronze Mace L18",
+          "Bronze Atgeir L22"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "4k gold/jewelry, 6s SmokePuff, 2s Molten Core, 6s Tar, 10:1 bone to ashwood via boss altar, 2s Troll Endurance Mead, Lvl 5 Troll Fish, 3 ash Gem, 1 Bell"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "in_this_two_gether",
+      "name": "In this Two-gether",
+      "category": "Puzzle",
+      "coopable": true,
+      "requirements": "100% empty Inventory, No food",
+      "reward": "Black Metal Pickaxe L10, Simple tunic yellow L33, Cultivator L13, Hoe L12",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Black Metal Pickaxe L10",
+          "Simple tunic yellow L33",
+          "Cultivator L13",
+          "Hoe L12"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "2k gold, 2x level 1 feather cape, 2x wisp light & a lantern ofcourse.."
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "terror_s_end",
+      "name": "Terror's End",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Vilebone Maulclaws L19, Staff of Frost L17, Padded Chest L12, Padded Legs L12, Splitnir the Storming L6, Ask Hood L4, Serpent Scale Shield L20, Krom L18",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Vilebone Maulclaws L19",
+          "Staff of Frost L17",
+          "Padded Chest L12",
+          "Padded Legs L12",
+          "Splitnir the Storming L6",
+          "Ask Hood L4",
+          "Serpent Scale Shield L20",
+          "Krom L18"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2k gold, Dyrnwyn Hilt, Dyrnwyn Blade, 1 of each gem, 6 stacks flametal, 5 stacks blackmetal, 1 seeker soldier trophy, 3 fuling totems, 1 stack lightfoot, 1 stack ratatosk"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_ultimate_sin",
+      "name": "The Ultimate Sin",
+      "category": "Puzzle",
+      "coopable": false,
+      "requirements": "100% empty inventory",
+      "reward": "Abyssal Razor L4, Root Chest L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Abyssal Razor L4",
+          "Root Chest L4"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "500 Gold, 1 bee, 7 chains, 1 Lantern,  Portal Mats, 1 Stack Medium Healing Mead, 1 Stack of Tasty Mead, 4 stack bonefrag, bunch of L1 Flint age armor/weapon"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ber_tristram",
+      "name": "Über Tristram",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Silver Knife L41, Troll Pants L17, Troll Tunic L17, Black Metal Atgeir L17, Dvergr Circlet L37, Ripper L33, Bone Tower Shield L28, Club L20",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Silver Knife L41",
+          "Troll Pants L17",
+          "Troll Tunic L17",
+          "Black Metal Atgeir L17",
+          "Dvergr Circlet L37",
+          "Ripper L33",
+          "Bone Tower Shield L28",
+          "Club L20"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2331 gold, 4s iron, 4s copper, 4s Tar, 4s ashwood, 4s Major Healing, 85 cuttable birch,  9 ashland crate, 4 black core, 1  seeker soldier trophy, 2s smoke bomb"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "in_this_four_ever",
+      "name": "In This Four-Ever",
+      "category": "Puzzle",
+      "coopable": true,
+      "requirements": "100% empty Inventory, No food",
+      "reward": "Root Chest L16, Midsommer Crown L48, Wooden Sword L120, Fishing Rod 89, Harpoon L14, Scythe L12",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Kyoki Ben",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "Space",
+        "players": "4.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Root Chest L16",
+          "Midsommer Crown L48",
+          "Wooden Sword L120",
+          "Fishing Rod 89",
+          "Harpoon L14",
+          "Scythe L12"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Midsommer Crown = Headband(Not in the list)"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "viking_s_demise",
+      "name": "Viking's Demise",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo\nMax Armor:",
+      "reward": "Bronze Sword L6, Bronze Axe L6, Stagbreaker L8, Celebratory Cap L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Bronze Sword L6",
+          "Bronze Axe L6",
+          "Stagbreaker L8",
+          "Celebratory Cap L7"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 BEEs, 1 Fishing Pole (hidden), Meadows Materials such as Raspberries, Flint, Dandies, Dear/Boar/Neck drops. Finewood"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "a_crew_s_hope",
+      "name": "A Crew's Hope",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Headdress of the Bear L7, Loincloth of the Bear L7, Patterns of the Bear L7, Paws of the Bear L10, Bronze Axe L6, Bronze Atgeir L7, Finewood Bow L7, Iron Pickaxe L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Iron",
+        "uniques": [
+          "Headdress of the Bear L7",
+          "Loincloth of the Bear L7",
+          "Patterns of the Bear L7",
+          "Paws of the Bear L10",
+          "Bronze Axe L6",
+          "Bronze Atgeir L7",
+          "Finewood Bow L7",
+          "Iron Pickaxe L4"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "Black Forest Mats: Blueberries, Thistle, Red Mushrom, Yellow Mushroom, Carrot Seeds, Copper nodes, and pickable/mineable tin (for crafting in dungeon) (located in space), 10 surtling cores, Corewood Available via tree chopping, fine wood available via chopping ship wrecks. Various Medium Health, Stam, Tasty, frost, fire, poison Potions lootable. 3 Bees"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "bog_iron_brig",
+      "name": "Bog Iron Brig",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Frostner L6, Draugr Fang L8, Root Chest L8, Black Metal Axe L4, Silver Sword L4, Wolf Fur Cape L4, Cape tunic blue L19, Tied headscarf blue L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Silver",
+        "uniques": [
+          "Frostner L6",
+          "Draugr Fang L8",
+          "Root Chest L8",
+          "Black Metal Axe L4",
+          "Silver Sword L4",
+          "Wolf Fur Cape L4",
+          "Cape tunic blue L19",
+          "Tied headscarf blue L7"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Iron ingots, yellow mushrooms, thistle, turnips seeds"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "goblin_heights",
+      "name": "Goblin Heights",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Vilebone Visage L7, Vilebone Cage L7, Vilebone Drapes L7, Himminafl L6, Staff of Embers L4, Staff of Protection L4, Porcupine L8, Root Chest L11",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Vilebone Visage L7",
+          "Vilebone Cage L7",
+          "Vilebone Drapes L7",
+          "Himminafl L6",
+          "Staff of Embers L4",
+          "Staff of Protection L4",
+          "Porcupine L8",
+          "Root Chest L11"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "5 Totems, Birch Trees to Chop, 2 stack:/ea: Flax, Barley"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "grimclaw_keep",
+      "name": "Grimclaw Keep",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Draugr Fang L13, Mistwalker L4, Flesh Rippers L11, Feather Cape L4, Fenris Hood L6, Fenris Chest L6, Fenris Legs L6, Silver Sword L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "90.0",
+        "biome": "Deep North",
+        "players": "3 - 4",
+        "gear_level": "Padded",
+        "uniques": [
+          "Draugr Fang L13",
+          "Mistwalker L4",
+          "Flesh Rippers L11",
+          "Feather Cape L4",
+          "Fenris Hood L6",
+          "Fenris Chest L6",
+          "Fenris Legs L6",
+          "Silver Sword L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 silver veins, hildir frost cave asset."
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "misti_s_manor",
+      "name": "Misti's Manor",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Feather Cape L10, Staff of Protection L6, Dundr L10, Staff of Frost L18, Pointy Hat L24, Eitr-weave Chest L7, Eitr-weave Legs L7, Dead Raiser L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Feather Cape L10",
+          "Staff of Protection L6",
+          "Dundr L10",
+          "Staff of Frost L18",
+          "Pointy Hat L24",
+          "Eitr-weave Chest L7",
+          "Eitr-weave Legs L7",
+          "Dead Raiser L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Black Cores, Dvergr extractors, mage food, potions, royal jelly seal breaker for locked doors in dungeon, 2 Stacks Jotun puffs, 2 Stacks Magecap"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "locked_citadel",
+      "name": "Locked Citadel",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Solo",
+      "reward": "Bronze Buckler L20, Primal Berserkir Axes L3, Staff of the Wild L4, Himminafl L10, Stagbreaker L31, Silver Sword L8, Porcupine L16, Spinesnap L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lockwood",
+        "status": "TBD",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Bronze Buckler L20",
+          "Primal Berserkir Axes L3",
+          "Staff of the Wild L4",
+          "Himminafl L10",
+          "Stagbreaker L31",
+          "Silver Sword L8",
+          "Porcupine L16",
+          "Spinesnap L9"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Ashwood, Volture, Eggs, Vanity Cape: Level 1 Linen Cape (GateCrasher Tag), Dyrnwyn Tip & Shaft. 1 Iolite, $2,500g\n1 Stack of Bog Witch Jump, & Run Potions."
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "barad_dur",
+      "name": "Barad-dur",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Trollstav/No Feather Cape",
+      "reward": "Staff of Protection L5, Flametal Mace L4, Splitnir L11, Black Metal Pickaxe L9, Banded Shield L18, Dvergr Circlet L32, Feather Cape L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Staff of Protection L5",
+          "Flametal Mace L4",
+          "Splitnir L11",
+          "Black Metal Pickaxe L9",
+          "Banded Shield L18",
+          "Dvergr Circlet L32",
+          "Feather Cape L6"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 Fuling Totems, 1 bell, ~90 iron, gold and blackmetal from enemy drops, ~5 stacks of mineable grausten, 3 black cores, 2 molten cores, 6 surtling cores, 75 tar, ~65 mineable flametal"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "brittlebone",
+      "name": "Brittlebone",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Soloing",
+      "reward": "Bronze Axe L5, Bronze Buckler L5, Bronze Mace L5, Troll Hood L5, Troll Pants L5, Troll Tunic L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Black Forest",
+        "players": "2 - 3",
+        "gear_level": "Troll",
+        "uniques": [
+          "Bronze Axe L5",
+          "Bronze Buckler L5",
+          "Bronze Mace L5",
+          "Troll Hood L5",
+          "Troll Pants L5",
+          "Troll Tunic L5"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "Lvl 1 Iron Pickaxe, 3 bees, 24 surtling cores, 24 sausage,  6 minor stam mead, 4 minor heal mead, 4 poison mead"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "castle_black",
+      "name": "Castle Black",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Trollstav",
+      "reward": "Staff of Frost L21, Fenris Chest L13, Storm Fang L3, Silver Sword L9, Himminafl L9, Silver Knife L40, Dead Raiser L5, Iron Buckler L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Staff of Frost L21",
+          "Fenris Chest L13",
+          "Storm Fang L3",
+          "Silver Sword L9",
+          "Himminafl L9",
+          "Silver Knife L40",
+          "Dead Raiser L5",
+          "Iron Buckler L15"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "~1k gold, 3 bells, 4 black cores, 3 molten cores, ~100 silver ore, 300 black marble, 25 copper ore, 45 smelted iron, 100 ashwood, 50 finewood, 200 soft tissue, 2 drvergr extractor, ~10 lanterns, ~10 dvergr tankards, 2 wraith trophies"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "erebor",
+      "name": "Erebor",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Trollstav",
+      "reward": "Staff of Frost L18, Frostner L14, Carapace Buckler L9, Thundering Berserkir Axes L3, Arbalest L40, Black Metal Pickaxe L9, Flametal Helm L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Frost L18",
+          "Frostner L14",
+          "Carapace Buckler L9",
+          "Thundering Berserkir Axes L3",
+          "Arbalest L40",
+          "Black Metal Pickaxe L9",
+          "Flametal Helm L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1k gold, 50 freeze glands, 1 dyrnwyn blade fragment, 1 jade gem, 1 bloodstone gem, 1 iolite gem, 32 flametal, 700 grausten, 450 red jute"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "hawkins_lab",
+      "name": "Hawkins Lab",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Staff of the Wild, No Sledging or Fireballing Outside Walls",
+      "reward": "Skoll and Hati L41, Mistwalker L9, Staff of Embers L5, Root Fang L3, Staff of the Wild L3, Feather Cape L9, Arbalest L40, Dead Raiser L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Skoll and Hati L41",
+          "Mistwalker L9",
+          "Staff of Embers L5",
+          "Root Fang L3",
+          "Staff of the Wild L3",
+          "Feather Cape L9",
+          "Arbalest L40",
+          "Dead Raiser L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 bells, 4 molten cores, 6 black cores, 2 shield cores, 2 stacks of refined eitr, 6 stacks of soft tissue,100 charred arrow, 600 gold, 3 bees"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "helms_deep",
+      "name": "Helms Deep",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Trollstav/No Feather Cape",
+      "reward": "Iron Sledge L29, Ash Fang L9, Berserkir Axes L4, Flametal Shield L4, Iron Atgeir L18, Carapace Buckler L7, Ancient Bark Spear L23",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Plains",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Iron Sledge L29",
+          "Ash Fang L9",
+          "Berserkir Axes L4",
+          "Flametal Shield L4",
+          "Iron Atgeir L18",
+          "Carapace Buckler L7",
+          "Ancient Bark Spear L23"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 bell, dyrnwyn tip and hilt fragment, 50 Bloodbags, 100 Carapace Arrows, gold and blackmetal from enemy drops,  ~2 stacks of flametal ore, ~30 Proustite Powder, 2 molten cores, 3 black cores,"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "isengard",
+      "name": "Isengard",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Trollstav/No Feather Cape",
+      "reward": "Staff of Embers L5, Frostner L14, Skoll and Hati L34, Carapace Spear L20, Black Metal Axe L14, Bone Tower Shield L23, Fenris Chest L12",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Ocean",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Embers L5",
+          "Frostner L14",
+          "Skoll and Hati L34",
+          "Carapace Spear L20",
+          "Black Metal Axe L14",
+          "Bone Tower Shield L23",
+          "Fenris Chest L12"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 bell, 3 black cores, 2 molten cores, 1 bloodstone gem, 40 soft tissue, ~70 iron ore, ~60 silver ore, 50 tar, 32 potions (10 frost, 9 poison, 8 minor), 1 fuling totem, ~1 stack of flametal ore"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "maleficent_s_maze",
+      "name": "Maleficent's Maze",
+      "category": "Maze",
+      "coopable": true,
+      "requirements": "No Jumping Over the Walls",
+      "reward": "Staff of Embers L5, Silver Sword L9, Trollstav L5, Carapace Shield L12",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Embers L5",
+          "Silver Sword L9",
+          "Trollstav L5",
+          "Carapace Shield L12"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "10 black cores, 120 iron, 6 fuling totems, 600 gold, 200 poison arrows, 10 berserker potion, 10 lingering eitr potion, 10 lingering healing potion"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "over_the_rainbow",
+      "name": "Over the Rainbow",
+      "category": "Parkour",
+      "coopable": false,
+      "requirements": "No Feather Cape",
+      "reward": "Hammer L9, Beaded dress yellow L33",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Ocean",
+        "players": "1.0",
+        "gear_level": "N/A",
+        "uniques": [
+          "Hammer L9",
+          "Beaded dress yellow L33"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "50 bloodbags, 20 sausages, 50 guck"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "tooks_tangle",
+      "name": "Tooks Tangle",
+      "category": "Maze",
+      "coopable": true,
+      "requirements": "No Soloing, No Armor (Except Meninjord), No Weapons & Food (except found in the event), No Forsaken Powers Allowed",
+      "reward": "Crude Bow L6, Bronze Axe L6, Copper Knife L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "N/A",
+        "uniques": [
+          "Crude Bow L6",
+          "Bronze Axe L6",
+          "Copper Knife L6"
+        ],
+        "blue_mushrooms": "8.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 bees, 2 acorns, 20 birch seeds, 50 yellow mushrooms, 50 red mushrooms, 50 thistle, 20 rubies, 20 carrot seeds, 20 turnip seeds, ~200 choppable finewood, 5 Deer Stew, 5 Carrot Soup  // enemy drops: 5s boar meat, ~2s leather scraps, 22 necktails"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "warlocks_watch",
+      "name": "Warlocks Watch",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Feather Cape",
+      "reward": "Dundr L10, Staff of Fracturing L4, Himminafl L10, Feather Cape L10, Embla Chest L3, Embla Hood L3, Embla Legs L3, Ashen Cape L2",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Dundr L10",
+          "Staff of Fracturing L4",
+          "Himminafl L10",
+          "Feather Cape L10",
+          "Embla Chest L3",
+          "Embla Hood L3",
+          "Embla Legs L3",
+          "Ashen Cape L2"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1bell, 1 dyrnwyn blade fragment, 3 totems, 2 black cores, 1 seeker soldier trophy, 10 lingering mead, 10 major healing mead, ~400 gold, 40 soft tissue, 50 bloodbags, 2 stack of iron, 2 stack of flametal, 1 stack refined eitr"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "weathertop",
+      "name": "Weathertop",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Bile Bombs, No Mining under Event",
+      "reward": "Silver Sword L5, Iron Buckler L8, Wolf (Silver) Chest L6, Abyssal Razor L12, Torch L2+",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "15.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Silver",
+        "uniques": [
+          "Silver Sword L5",
+          "Iron Buckler L8",
+          "Wolf (Silver) Chest L6",
+          "Abyssal Razor L12",
+          "Torch L2+"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "~90 silver ore, ~60 copper, 10 necklaces, Horn of Celebration, 10 stamina potions"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "white_witch_castle",
+      "name": "White Witch Castle",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Feather Cape",
+      "reward": "Storm Fang L3, Crystal Battleaxe L18, Stagbreaker L32, Drake (Silver) Helm L15, Himminafl L9, Staff of Frost L17, Beaded dress blue L33, Wolf Fur Cape L13",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Luna",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Storm Fang L3",
+          "Crystal Battleaxe L18",
+          "Stagbreaker L32",
+          "Drake (Silver) Helm L15",
+          "Himminafl L9",
+          "Staff of Frost L17",
+          "Beaded dress blue L33",
+          "Wolf Fur Cape L13"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 jade gem, 3 bells, 2 molten cores, 1 sealbreaker, 100 freeze glands, 100 frost arrows, 100 fenris hair, 50 crystal, 12 fenris claws, 96 refined flametal"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "buggy_borough",
+      "name": "Buggy Borough",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Storm Star (Flametal Mace) L4, Staff of Embers L4, Dundr L10, Embla Hood L4, Embla Chest L4, Embla Legs L4, Staff of Protection L5, Mistwalker L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Storm Star (Flametal Mace) L4",
+          "Staff of Embers L4",
+          "Dundr L10",
+          "Embla Hood L4",
+          "Embla Chest L4",
+          "Embla Legs L4",
+          "Staff of Protection L5",
+          "Mistwalker L8"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2x 999 gold, 5 black cores, 4 molten cores, 1 stack roasted crust pie- mashed meat- piqant pie, 1 stack eitr regen- lingering stam- lingering health wisp light"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dead_space",
+      "name": "Dead Space",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Nidhögg the Bleeding L9, Iron Sledge L29, Flametal Chest L6, Flametal Helm L6, Flametal Legs L6, Scythe L12, Demolisher L11, Spinesnap L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Nidhögg the Bleeding L9",
+          "Iron Sledge L29",
+          "Flametal Chest L6",
+          "Flametal Helm L6",
+          "Flametal Legs L6",
+          "Scythe L12",
+          "Demolisher L11",
+          "Spinesnap L9"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3x 999 gold, 1 of each gem, 6 stacks volture meat, 4s tar, 5 fuling totems, 4 molten cores, 5 black cores, 1 stack lingering -etir/health/stam/lightfoot/ratatosk"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "death_from_a_bud_ve",
+      "name": "Death from A-BuD-ve",
+      "category": "Pop-up",
+      "coopable": true,
+      "requirements": "",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "3 - 5",
+        "gear_level": "",
+        "uniques": [],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "dodge_duck_dip_dive_and_dodge",
+      "name": "Dodge, Duck, Dip, Dive and Dodge",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "melee only (bubble staff allowed)",
+      "reward": "Scourging Slayer L8, Arbalest L41",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Scourging Slayer L8",
+          "Arbalest L41"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 stack gold, 1 jade, 1 bee, 3s ashlands health food, 1s zerk/lingering- stam/health"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dracul_castle",
+      "name": "Dracul Castle",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Mistwalker L8, Spinesnap L10, Silver Shield L18, Eitr-weave Legs L8, Eitr-weave Helm L8, Eitr-weave Chest L8, Dead Raiser L5, Ashen Cape L2",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Ocean",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Mistwalker L8",
+          "Spinesnap L10",
+          "Silver Shield L18",
+          "Eitr-weave Legs L8",
+          "Eitr-weave Helm L8",
+          "Eitr-weave Chest L8",
+          "Dead Raiser L5",
+          "Ashen Cape L2"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 flint spear L4, 4 surtling trophies, 1 acorn, 10 bone shield L1, 5xlinen cape L1, 1 swamp key, 50 bloodbags, 6 growth trophy, 7x fenris claw L1, 2x fenring trophy, 1 cultist trophy, 100 frost arrows, 3 amber pearl, 3, black core, 6 birch/2carrot/1onion/1turnipseeds, 1 mead horn of odin, 1 bonemaw trophy"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "frostys_frost_maze",
+      "name": "Frostys Frost Maze",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Silver Shield L6, Drake (Silver) Helm L6, Iron Pickaxe L5, Iron Mace L6, Dvergr Circlet L16, Silver Sword L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Silver",
+        "uniques": [
+          "Silver Shield L6",
+          "Drake (Silver) Helm L6",
+          "Iron Pickaxe L5",
+          "Iron Mace L6",
+          "Dvergr Circlet L16",
+          "Silver Sword L5"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "5 eyescream, 3 tar, 1 carrot, 5 coal, 3 frost resistence, pickable crystalx30, 1 golem trophy"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "gladiators",
+      "name": "Gladiators",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Staff of Protection L6, Thundering Berserkir Axes L3, Slayer L16, Rag Tunic L38, Leather Pants L18, Crystal Battleaxe L17",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Protection L6",
+          "Thundering Berserkir Axes L3",
+          "Slayer L16",
+          "Rag Tunic L38",
+          "Leather Pants L18",
+          "Crystal Battleaxe L17"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "2351 gold"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "hearthwood_hold",
+      "name": "Hearthwood Hold",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Stagbreaker L8, Early Axes L6, Cultivator L4, Hoe L4, Root Chest L4, Root Legs L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Troll",
+        "uniques": [
+          "Stagbreaker L8",
+          "Early Axes L6",
+          "Cultivator L4",
+          "Hoe L4",
+          "Root Chest L4",
+          "Root Legs L4"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "4 bees, 8 9 star deers and 6 oak trees"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "hrafn_s_last_note",
+      "name": "Hrafn’s Last Note",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No soloing",
+      "reward": "Hoe L4, Cultivator L4, Paws of the Bear L6, Huntsman Bow L4, Bronze Axe L6, Headdress of the Bear L5, Loincloth of the Bear L5, Patterns of the Bear L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Troll",
+        "uniques": [
+          "Hoe L4",
+          "Cultivator L4",
+          "Paws of the Bear L6",
+          "Huntsman Bow L4",
+          "Bronze Axe L6",
+          "Headdress of the Bear L5",
+          "Loincloth of the Bear L5",
+          "Patterns of the Bear L5"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 bees,  1000 gold, 3s boar jerky, 3s queen's jam, 1s fire arrows, 8s flint arrows,  2s carrot soup"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "l_art_du_d_placement",
+      "name": "l'art du déplacement",
+      "category": "Parkour",
+      "coopable": false,
+      "requirements": "no feather cape",
+      "reward": "Fishing Rod L69, Butcher Knife L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Padded",
+        "uniques": [
+          "Fishing Rod L69",
+          "Butcher Knife L9"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 bee, 1 lantern, 500g"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "obscurity_run",
+      "name": "Obscurity Run",
+      "category": "Maze",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Abyssal Razor L4, Antler Pickaxe L14",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Abyssal Razor L4",
+          "Antler Pickaxe L14"
+        ],
+        "blue_mushrooms": "4.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 bee, 500g, 1s honey/blueberries/raspberries/yellow/red shrooms"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "pain_train",
+      "name": "Pain Train",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Asksvin Cloak L10, Embla Legs L3",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Asksvin Cloak L10",
+          "Embla Legs L3"
+        ],
+        "blue_mushrooms": "4.0",
+        "total_gold": "",
+        "other_loot": [
+          "400 gold, bloodstone,"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ribe",
+      "name": "Ribe",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Staff of Frost L10, Dead Raiser L4, Iron Sledge L23, Black Metal Shield L11, Fishing Hat L7, Iron Axe L13, Iron Pickaxe L8, Beaded dress blue L26",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Ocean",
+        "players": "3 - 4",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Staff of Frost L10",
+          "Dead Raiser L4",
+          "Iron Sledge L23",
+          "Black Metal Shield L11",
+          "Fishing Hat L7",
+          "Iron Axe L13",
+          "Iron Pickaxe L8",
+          "Beaded dress blue L26"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "1000 gold, 1 copper knife L1, 2 flint knives L1, 2 serpent trophies, 2x White/red/yellow/green/black linen capes L1, 3 serpent scales, 3 bees, 4 bread, 5 bread dough, 5 flint, 3 necktales, 6 neck trophies, 3 serpent meat, 4 honey, 8 cloudberries, 6 blueberries, 7 rasberries, 12 onions, 6 turnips, 5 carrots, 2 grouper, 4 perch, 3 tuna, 3 pike, 1 tetra, 3 linenthread, 1 meadhorn of odin, 2 frost resistence, 2 fire resistence, 2 poison resistence, 1 serpent trophy"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "siege_of_the_grausten_wastes",
+      "name": "Siege of the Grausten Wastes",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Staff of the Wild L5, Ask Chest L5, Ask Hood L5, Ask Legs L5, Staff of Fracturing L4, Draugr Fang L22, Wooden Greatsword L160, Skull Splittur L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Staff of the Wild L5",
+          "Ask Chest L5",
+          "Ask Hood L5",
+          "Ask Legs L5",
+          "Staff of Fracturing L4",
+          "Draugr Fang L22",
+          "Wooden Greatsword L160",
+          "Skull Splittur L16"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "8 molten cores 1 drynwynn piece, 3 x999 gold"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "son_of_a_birch",
+      "name": "Son of a Birch",
+      "category": "Maze",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Scythe L3, Beaded tunic blue L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Silver",
+        "uniques": [
+          "Scythe L3",
+          "Beaded tunic blue L16"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "100 birch seeds, 500g, 2 bees, bear trophy"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_cube",
+      "name": "The Cube",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Tied headscarf yellow L16, Wolf (Silver) Legs L15, Shawl dress yellow L32, Iron Tower Shield L25, Black Metal Pickaxe L9, Splitnir the Bleeding L12, Black Metal Sword L15, Black Metal Axe L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Tied headscarf yellow L16",
+          "Wolf (Silver) Legs L15",
+          "Shawl dress yellow L32",
+          "Iron Tower Shield L25",
+          "Black Metal Pickaxe L9",
+          "Splitnir the Bleeding L12",
+          "Black Metal Sword L15",
+          "Black Metal Axe L15"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "gold: 265, Surtling trophiesx2, Fuling totemx2, carrot soupx1, dvergr lanternx2, soft tissuex21, Dvergr extractorx1, dvergr tankardx1, refined eitrx15, sealbreaker fragmentx1, black corex3, Muckshakex1, mage capx4, Eyes creamx1, poison resistencex1, fire resistencex1, major healing potionx1,1xlolite"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_omnibiome_crucible",
+      "name": "The OmniBiome Crucible",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Bleeding Berserkir Axes L4, Primal Slayer L7, Ashen Cape L3, Iron Buckler L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Bleeding Berserkir Axes L4",
+          "Primal Slayer L7",
+          "Ashen Cape L3",
+          "Iron Buckler L15"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "2s gold, stack of withered bones, 4 molten cores, 5 black cores, 12s flametal"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_right_way",
+      "name": "The Right Way",
+      "category": "Maze",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Hoe L4, Cultivator L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "lxBuDxl",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Hoe L4",
+          "Cultivator L4"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "500 gold, 2 bees and 1s honey"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "forsaken_farm",
+      "name": "Forsaken Farm",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Soloing",
+      "reward": "Root Chest L5, Root Legs L5, Root Mask L5, Bronze Axe L9, Cultivator L4, Bronze Mace L4, Hammer L4, Cape Test L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Lyka",
+        "status": "Approved",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "3 - 5",
+        "gear_level": "Iron",
+        "uniques": [
+          "Root Chest L5",
+          "Root Legs L5",
+          "Root Mask L5",
+          "Bronze Axe L9",
+          "Cultivator L4",
+          "Bronze Mace L4",
+          "Hammer L4",
+          "Cape Test L7"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 Bees, Turnips, turnip seeds, carrots, carrot seeds, finewood, 30 tin, 30 copper"
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "tainted_garden",
+      "name": "Tainted Garden",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Macaron",
+        "status": "TBD",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "",
+        "gear_level": "Flametal+",
+        "uniques": [],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "the_alpines",
+      "name": "The Alpines",
+      "category": "Parkour",
+      "coopable": true,
+      "requirements": "No feather cape",
+      "reward": "Feather Cape L4, Draugr Fang L13, Fenris Chest L6, Fenris Legs L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Macaron",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Padded",
+        "uniques": [
+          "Feather Cape L4",
+          "Draugr Fang L13",
+          "Fenris Chest L6",
+          "Fenris Legs L6"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "8s frost arrow, 2000 Gold, 4s eyescream, 4s sweet bread"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_big_bad_awakens",
+      "name": "The Big Bad Awakens",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Early Axes L6, Huntsman Bow L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Macaron",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Troll",
+        "uniques": [
+          "Early Axes L6",
+          "Huntsman Bow L4"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 tankard, 1 minor stamina mead, 1 minor healing mead, 1 tasty mead, 2s boar jerky, 4s deer stew, 1 dverger lantern, 500 gold, 6s honey, 5s flint arrows, 5s fire arrows, 2 surtling cores.\n\na bunch of pickables, copper nodes, oak tree, tree resources depending on how much they want to gather resources."
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "the_bird_and_the_bee",
+      "name": "The Bird and the Bee",
+      "category": "Maze",
+      "coopable": true,
+      "requirements": "No soloing",
+      "reward": "Feather Cape L4, Draugr Fang L13, Fenris Hood L6, Fenris Legs L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Macaron",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Padded",
+        "uniques": [
+          "Feather Cape L4",
+          "Draugr Fang L13",
+          "Fenris Hood L6",
+          "Fenris Legs L6"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "3s bronze head arrow, 4s sweet bread, 2 dverger lantern, 2 tankard, 2000 gold, 4 acorns, 12 s honey, 3 bees"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "totem_recall_fest",
+      "name": "Totem Recall Fest",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No Magic",
+      "reward": "Staff of Frost L18, Storm Fang L3, Staff of the Wild L4, Staff of Protection L6, Feather Cape L9, Eitr-weave Chest L7, Eitr-weave Helm L7, Eitr-weave Legs L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Macaron",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Frost L18",
+          "Storm Fang L3",
+          "Staff of the Wild L4",
+          "Staff of Protection L6",
+          "Feather Cape L9",
+          "Eitr-weave Chest L7",
+          "Eitr-weave Helm L7",
+          "Eitr-weave Legs L7"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3k gold, 9s needle arrows, 1 oilite, 2s of each: ratatosk, anti sting, barley wine, vanandir, 1 1/2  refined eitr, 3s lox pie, 4s bread, 8 ashland 6 every other biome spices, 8s freeze glands, 5 1/2s flame metal, 5-7s tar, 4 lox saddles"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "anthill",
+      "name": "Anthill",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Carapace Buckler L10, Carapace Helm L9, Carapace Chest L9, Carapace Legs L9, Frostner L14, Feather Cape L9, Black Metal Atgeir L16, Black Metal Sword L14",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Carapace Buckler L10",
+          "Carapace Helm L9",
+          "Carapace Chest L9",
+          "Carapace Legs L9",
+          "Frostner L14",
+          "Feather Cape L9",
+          "Black Metal Atgeir L16",
+          "Black Metal Sword L14"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 stacks majestic carapace, 6 stacks royal jelly, 2 iolite, 1 jade, 1 bloodstons, Dyrnwyn tip fragment, 3 seeker soldier trophies, stacks of eggs, fiddleheads, hare meat, hare hide, vineberries, smokepuffs, soft tissue, and assorted vegetables"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "bonemaw_battle",
+      "name": "Bonemaw Battle",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "Ashlands",
+        "players": "2 - 3",
+        "gear_level": "Flametal+",
+        "uniques": [],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [
+          "1 iolite, 1 blood gem, 5 goblin totems,1 stack misty bait, 1 stack lava bait, 3 stack serpent scales, 3 stack serpent meat, 3 stack bonemaw meat, 3 stack bonemaw scales,1 lvl 5 Angler fish and 1 lvl 5 Lava Fish"
+        ],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "broomstick_blitz",
+      "name": "Broomstick Blitz",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Pointy Hat L21",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "15.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Pointy Hat L21"
+        ],
+        "blue_mushrooms": "2.0",
+        "total_gold": "",
+        "other_loot": [
+          "Kvastur Trophy, 2 stacks Eitr Potions, 2 stacks lingering Eitr potions"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "graveyard_slash",
+      "name": "Graveyard Slash",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Trollstav L6, Dead Raiser L6, Krom L19, Spinesnap L10, Vilebone Cage L8, Vilebone Drapes L8, Vilebone Visage L8, Bone Tower Shield L28",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Trollstav L6",
+          "Dead Raiser L6",
+          "Krom L19",
+          "Spinesnap L10",
+          "Vilebone Cage L8",
+          "Vilebone Drapes L8",
+          "Vilebone Visage L8",
+          "Bone Tower Shield L28"
+        ],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [
+          "2 stacks Bone Bolts, More bones than anyone will ever need, ~240 iron, ~380 tar, 3 gems (one of each), 3 bells, dyrnwyn tip"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "heart_of_yggdrasil",
+      "name": "Heart of Yggdrasil",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Root Mask L16, Root Chest L16, Root Legs L16, Huntsman Bow L26, Hoe L12, Cultivator L12, Bronze Axe L21, Torch L2+",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Ocean",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Root Mask L16",
+          "Root Chest L16",
+          "Root Legs L16",
+          "Huntsman Bow L26",
+          "Hoe L12",
+          "Cultivator L12",
+          "Bronze Axe L21",
+          "Torch L2+"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "10 stacks Ygga Wood\n8 stacks Ancient Bark\n10 stacks corewood\n10 stacks finewood\nPickables: Thistle, Mushrooms, berries, veggie seeds, Vine berries\nSap: Estimated 5 stacks minimum (depends on interaction)\n2 Jade, 3 bells, 1 blade Fragment"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "jarring_experience",
+      "name": "Jarring Experience",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "no lightfoot",
+      "reward": "Butcher Knife L10",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Silver",
+        "uniques": [
+          "Butcher Knife L10"
+        ],
+        "blue_mushrooms": "4.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 stack bread, 2 stacks Queen's Jam, 1 Bee"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "maze_of_bee_trayal",
+      "name": "Maze of Bee-trayal",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Midsommer Crown L34, Stone Axe L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Padded",
+        "uniques": [
+          "Midsommer Crown L34",
+          "Stone Axe L15"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 bees, 3 stacks honey, roughly half a stack of Blue/Razz Berries (depends on how many they actually find / pick)"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "overcurrent",
+      "name": "Overcurrent",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Dundr L11, Fenris Hood L12, Fenris Legs L13, Fenris Chest L12, Scourging Slayer L5, Blood Fang L6",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Dundr L11",
+          "Fenris Hood L12",
+          "Fenris Legs L13",
+          "Fenris Chest L12",
+          "Scourging Slayer L5",
+          "Blood Fang L6"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "3 iolite, 3k gold, 10 thunder stones, one bee"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "prisoner_of_asgard",
+      "name": "Prisoner of Asgard",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Flesh Rippers L20, Wolf Fur Cape L13",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "TBD",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Flesh Rippers L20",
+          "Wolf Fur Cape L13"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "just, so much fenris hair and claws\n1 iolite, 1 bell, dyrnwyn blade fragment, 2 stacks rotten meat,  1 stack withered bones"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ragnarok",
+      "name": "Ragnarok",
+      "category": "Questline",
+      "coopable": false,
+      "requirements": "",
+      "reward": null,
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "",
+        "gear_level": "",
+        "uniques": [],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Questline"
+      }
+    },
+    {
+      "quest_id": "random_axe_of_violence",
+      "name": "Random Axe of Violence",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "Axes and Shields only",
+      "reward": "Battleaxe L7, Early Axes L8, Wooden Battleaxe L30, Headdress of the Bear L5, Patterns of the Bear L5, Loincloth of the Bear L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "2 - 3",
+        "gear_level": "Iron",
+        "uniques": [
+          "Battleaxe L7",
+          "Early Axes L8",
+          "Wooden Battleaxe L30",
+          "Headdress of the Bear L5",
+          "Patterns of the Bear L5",
+          "Loincloth of the Bear L5"
+        ],
+        "blue_mushrooms": "9.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 Bees, Honey, seeds from a large forest, berries"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "running_with_seekers",
+      "name": "Running with Seekers",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Carapace Buckler L9, Carapace Spear L19",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Carapace Buckler L9",
+          "Carapace Spear L19"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "250 blue jute 1000 gold 3 seeker soldier trophies 1 iolite"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "sarasaland",
+      "name": "Sarasaland",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Staff of the Wild L4, Beaded dress yellow L33",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of the Wild L4",
+          "Beaded dress yellow L33"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "2k gold, Jade, 5 totems, volture egg pickables (3 stacks), toadstools, 6 stacks of bronze, level 5 Grouper"
+        ],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "scourge_of_branches",
+      "name": "Scourge of Branches",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Brutal Slayer L11, Embla Legs L4, Embla Hood L4, Embla Chest L4, Nidhögg the Bleeding L6, Staff of Embers L4, Staff of Fracturing L3",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Brutal Slayer L11",
+          "Embla Legs L4",
+          "Embla Hood L4",
+          "Embla Chest L4",
+          "Nidhögg the Bleeding L6",
+          "Staff of Embers L4",
+          "Staff of Fracturing L3"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "bloodstone, iolite, jade, 3 bell fragments, 1 dyrnwyn blade piece, 1 dyrnwyn tip, 2k gold, 2 stacks fiddleheads, 2 stacks smoke puffs, 2 each charred warlock trophy, warrior trophy, archer trophy\none quest item: The player who takes the quest item may not take any unique loot"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "sickness_of_jormungandr",
+      "name": "Sickness of Jormungandr",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Jotun Bane L19, Serpent Scale Shield L18, Crude Bow L32, Vilebone Maulclaws L18",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Jotun Bane L19",
+          "Serpent Scale Shield L18",
+          "Crude Bow L32",
+          "Vilebone Maulclaws L18"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 stacks ooze bombs, bile bombs, 2k gold, 4 stacks blood bags, 4 stacks clots, 2 stacks bile bags"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "sunken_castle",
+      "name": "Sunken Castle",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "no feathercape, no lightfoot",
+      "reward": "Abyssal Razor L12, Harpoon L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "15.0",
+        "biome": "Ocean",
+        "players": "1.0",
+        "gear_level": "Iron",
+        "uniques": [
+          "Abyssal Razor L12",
+          "Harpoon L4"
+        ],
+        "blue_mushrooms": "2.0",
+        "total_gold": "",
+        "other_loot": [
+          "100 crystal, 50 blood bags, 50 freeze glands"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "tower_defense",
+      "name": "Tower Defense?",
+      "category": "Dungeon",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Arbalest L41, Black Metal Sword L14",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Arbalest L41",
+          "Black Metal Sword L14"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "1k gold (hidden behind hard parkour), Stone Golem Trophy, 2 stacks of each arrow and bolt type, 5 totems"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "wabbit_season",
+      "name": "Wabbit Season",
+      "category": "Puzzle",
+      "coopable": false,
+      "requirements": "use only the weapons given at the event",
+      "reward": "Huntsman Bow L21, Wooden Knife L25",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "15.0",
+        "biome": "Space",
+        "players": "1.0",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Huntsman Bow L21",
+          "Wooden Knife L25"
+        ],
+        "blue_mushrooms": "4.0",
+        "total_gold": "",
+        "other_loot": [
+          "2 stacks carrots, one bee, hare meat and scale hide from bunnies"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "wulfhaus",
+      "name": "Wulfhaus",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "Melee Only",
+      "reward": "Silver Sword L9, Fenris Hood L13, Fenris Chest L12, Fenris Legs L12",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Mayo",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "Space",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Silver Sword L9",
+          "Fenris Hood L13",
+          "Fenris Chest L12",
+          "Fenris Legs L12"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "5 stacks frost glands in chests,2 iolite, 2 bells, Dyrnwyn blade fragment, ~6 stacks of crystal and Obsidian,12 stacks blackmetal, 2 stacks barley wine, 2 stacks berserkir mead, 3k gold, lots of rubies and other treasures in the vault"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "eichenwalde",
+      "name": "Eichenwalde",
+      "category": "",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Bronze Buckler L5, Bronze Atgeir L7, Early Axes L6, Abyssal Razor L4, Iron Sledge L4, Root Mask L4, Root Chest L4, Root Legs L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "30.0",
+        "biome": "",
+        "players": "3 - 5",
+        "gear_level": "Troll",
+        "uniques": [
+          "Bronze Buckler L5",
+          "Bronze Atgeir L7",
+          "Early Axes L6",
+          "Abyssal Razor L4",
+          "Iron Sledge L4",
+          "Root Mask L4",
+          "Root Chest L4",
+          "Root Legs L4"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "Lv1 harpoon, meginjord, 2 bees, elder/eikthyr/brenna/surtling drops, stack of carrots,turnips,finewood,feathers"
+        ],
+        "cape_set": "Odin's Apprentice (L6 Green Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "mario_cube",
+      "name": "Mario Cube",
+      "category": "",
+      "coopable": false,
+      "requirements": "No feather cape",
+      "reward": "Beaded dress blue L22, Hammer L5",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Silver",
+        "uniques": [
+          "Beaded dress blue L22",
+          "Hammer L5"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "meginjord, 25 toadstool, 50 red/50 yellow mushrooms"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "briar_tower",
+      "name": "Briar Tower",
+      "category": "",
+      "coopable": false,
+      "requirements": "feather cape required\nno-trade fenris",
+      "reward": "Fenris Hood L12, Scythe L9",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Fenris Hood L12",
+          "Scythe L9"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "got_a_light",
+      "name": "Got a Light?",
+      "category": "",
+      "coopable": false,
+      "requirements": "feather cape required\nno-trade fenris",
+      "reward": "Fenris Chest L12, Early Axes L11",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Fenris Chest L12",
+          "Early Axes L11"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "lantern, wisplight, acorn\nstack of: thunderstones, Lightfoot and Vananidir potions"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "ice_capades",
+      "name": "Ice Capades",
+      "category": "",
+      "coopable": false,
+      "requirements": "feather cape required\nno-trade fenris",
+      "reward": "Fenris Legs L12, Frostner L11",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal",
+        "uniques": [
+          "Fenris Legs L12",
+          "Frostner L11"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "stack of: frost glands, crystal, frosty bait, eyescream, Frost and Ratatosk potions"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "shakedown",
+      "name": "Shakedown",
+      "category": "",
+      "coopable": false,
+      "requirements": "no feather cape",
+      "reward": "Black Metal Pickaxe L10, Cape Test L17",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "75.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Black Metal Pickaxe L10",
+          "Cape Test L17"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "stack of: gold, MuckSHAKEs/Troll endurance meads/Love potions"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "treetops",
+      "name": "Treetops",
+      "category": "",
+      "coopable": false,
+      "requirements": "no feather cape",
+      "reward": "Cultivator L13, Harvest Dress L16",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Cultivator L13",
+          "Harvest Dress L16"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "25 acorns, stack of: pine cones/fir cones"
+        ],
+        "cape_set": "Parkour Master (L6 Blue Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "dragonlord_placidusax",
+      "name": "Dragonlord Placidusax",
+      "category": "",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Slayer L16, Brutal Slayer L11, Nidhögg the Bleeding L7, Pointy Hat L25, Skull Splittur L16, Splitnir the Storming L5, Club L20, Demolisher L11",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "",
+        "players": "3 - 5",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Slayer L16",
+          "Brutal Slayer L11",
+          "Nidhögg the Bleeding L7",
+          "Pointy Hat L25",
+          "Skull Splittur L16",
+          "Splitnir the Storming L5",
+          "Club L20",
+          "Demolisher L11"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2-3st flametal and 4 gems, ~12st finewood and 4st bronze nails, 2 Faders, 1-2st bonemaw drops, decorative ancient metal (ore and smelted)"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "mages_galeon",
+      "name": "Mages Galeon",
+      "category": "",
+      "coopable": true,
+      "requirements": "No Ashlands staves / weapons",
+      "reward": "Staff of Embers L5, Eitr-weave Helm L8, Eitr-weave Chest L8, Eitr-weave Legs L8, Staff of Frost L17, Arbalest L40, Flint Knife L50, Iron Sledge L28",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of Embers L5",
+          "Eitr-weave Helm L8",
+          "Eitr-weave Chest L8",
+          "Eitr-weave Legs L8",
+          "Staff of Frost L17",
+          "Arbalest L40",
+          "Flint Knife L50",
+          "Iron Sledge L28"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "2k gold, 4 gems, L1 harpoons/wisplights\n2 extractors, 5 black cores, 3 sealbreaker frags\nStone Golem Trophy"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "memorial",
+      "name": "Memorial",
+      "category": "",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Himminafl L10, Porcupine L17, Mistwalker L9, Feather Cape L10, Fenris Hood L12, Fenris Chest L12, Fenris Legs L12, Hammer L8",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Himminafl L10",
+          "Porcupine L17",
+          "Mistwalker L9",
+          "Feather Cape L10",
+          "Fenris Hood L12",
+          "Fenris Chest L12",
+          "Fenris Legs L12",
+          "Hammer L8"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "16st blackmetal and 2k gold from Fuling Berserkers, 4st tar, 30 Dvergr Lanterns, 2 Iolite 1 Jade 1 Bloodstone, Dyrnwyn Tip + Reto"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "tip_2_tip",
+      "name": "Tip 2 Tip",
+      "category": "",
+      "coopable": true,
+      "requirements": "bring no weapons",
+      "reward": "Splitnir the Primal L8, Splitnir the Bleeding L12, Splitnir the Storming L5, Fang Spear L22",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "45.0",
+        "biome": "",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Splitnir the Primal L8",
+          "Splitnir the Bleeding L12",
+          "Splitnir the Storming L5",
+          "Fang Spear L22"
+        ],
+        "blue_mushrooms": "6.0",
+        "total_gold": "",
+        "other_loot": [
+          "1 Dyrnwyn Tip\n2 Jade, bees, extractors, deathsquito/fenring trophies\n1 stack: carrots, fir cones, birch seeds, red mushrooms, yellow mushrooms, silver, magecaps, toadstools\n4 stacks: ashwood, ygg wood, withered bones"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "vorpal_colosseum",
+      "name": "Vorpal Colosseum",
+      "category": "",
+      "coopable": false,
+      "requirements": "knoife",
+      "reward": "Staff of the Wild L4, Black Metal Knife L39",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Staff of the Wild L4",
+          "Black Metal Knife L39"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "Queen, Fallen Valkyrie, Golem, Geirrhafa, Fuling Berserker, Lox, wolf, misthare, asksvin, greydwarf, boar drops, skull tissue/marble, 10 stacks of bloodbags, 2stk flametal, 1x iolite, dyrnwyn blade fragment (middle), bell fragments"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "voracidous_the_invincible",
+      "name": "Voracidous the Invincible",
+      "category": "",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Wound Ripper L33, Dundr L10, Staff of Embers L5, Staff of Fracturing L4, Blood Fang L6, Splitnir the Storming L5, Splitnir the Primal L7, Draugr Fang L22",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "3 - 4",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Wound Ripper L33",
+          "Dundr L10",
+          "Staff of Embers L5",
+          "Staff of Fracturing L4",
+          "Blood Fang L6",
+          "Splitnir the Storming L5",
+          "Splitnir the Primal L7",
+          "Draugr Fang L22"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "lycagon_the_nightslayer",
+      "name": "Lycagon the Nightslayer",
+      "category": "",
+      "coopable": false,
+      "requirements": "Swords Lv80 REQ, bring no weapons",
+      "reward": "Brutal Slayer L15, Patterns of the Bear L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "TBD",
+        "run_time_minutes": "60.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Brutal Slayer L15",
+          "Patterns of the Bear L15"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "idek bro probably a meginjord, 4 gems, dyrnwyn blade, shitload of ectoplasm"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "wethermon_the_tombguard",
+      "name": "Wethermon the Tombguard",
+      "category": "",
+      "coopable": false,
+      "requirements": "",
+      "reward": "Himminafl L12, Primal Berserkir Axes L3",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "Active",
+        "run_time_minutes": "90.0",
+        "biome": "",
+        "players": "1.0",
+        "gear_level": "Flametal++",
+        "uniques": [
+          "Himminafl L12",
+          "Primal Berserkir Axes L3"
+        ],
+        "blue_mushrooms": "5.0",
+        "total_gold": "",
+        "other_loot": [
+          "Mineable flametal, 2 stk gold, 1x jade. Dyrnwyn Tip & blade, Seeker Soldier Trophy, Golem trophy, 4stk ea. Ratatosk, Minor Eitr, Tasty, Berserker, Troll Endurance"
+        ],
+        "cape_set": "Odin's Chosen (L6 Black Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "rush_b",
+      "name": "Rush B",
+      "category": "",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Wound Ripper L21, Ripper L34, Root Ripper L19, Storm Ripper L15",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "",
+        "players": "2.0",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Wound Ripper L21",
+          "Ripper L34",
+          "Root Ripper L19",
+          "Storm Ripper L15"
+        ],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": ""
+      }
+    },
+    {
+      "quest_id": "white_claw_wonderland",
+      "name": "White Claw Wonderland",
+      "category": "Maze",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Wooden Atgeir L95, Wooden Sledge L170, Wooden Greatsword L165, Wooden Knife L40, Headdress of the Bear L14, Patterns of the Bear L14, Loincloth of the Bear L14, Wooden Mace L110",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "miker",
+        "status": "TBD",
+        "run_time_minutes": "",
+        "biome": "Space",
+        "players": "3 - 4",
+        "gear_level": "Flametal+",
+        "uniques": [
+          "Wooden Atgeir L95",
+          "Wooden Sledge L170",
+          "Wooden Greatsword L165",
+          "Wooden Knife L40",
+          "Headdress of the Bear L14",
+          "Patterns of the Bear L14",
+          "Loincloth of the Bear L14",
+          "Wooden Mace L110"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [],
+        "cape_set": "Maze Runner (L6 Yellow Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "green_wedding",
+      "name": "Green Wedding",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "No  SledgeHammers",
+      "reward": "Porcupine L12, Ancient Bark Spear L18, Celebratory Cap L17, Leather Pants L15, Leather Tunic L15, Krom L4, Staff of Frost L4, Jotun Bane L4",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Neo",
+        "status": "Active",
+        "run_time_minutes": "60.0",
+        "biome": "Ocean",
+        "players": "3 - 4",
+        "gear_level": "Carapace",
+        "uniques": [
+          "Porcupine L12",
+          "Ancient Bark Spear L18",
+          "Celebratory Cap L17",
+          "Leather Pants L15",
+          "Leather Tunic L15",
+          "Krom L4",
+          "Staff of Frost L4",
+          "Jotun Bane L4"
+        ],
+        "blue_mushrooms": "12.0",
+        "total_gold": "",
+        "other_loot": [
+          "3fuling totems, 2 black cores, 2 surtling cores, 1 pickable royal jelly 2300g from fulings/berserkers, 1 draugr elite trophy,4 fuling trophy, 4 growth trophy, 2 leech trophy, 1 fenring trophy, almost 13 stacks blackmetal, 4 scrap iron, 13 stacks entrails, 2stacks lox meat, 7stacks crystal from golems, 64 chains, 5stack stone from golems,16 lox pelts, 21 ooze, 5 bloodbags, 6 rotten meat, 4 gucks, 24 red jute, 6 tankards, 2 dverger tankards"
+        ],
+        "cape_set": "Odin's Executioner (L6 Red Linen Cape)"
+      }
+    },
+    {
+      "quest_id": "serpent_slaughterhouse",
+      "name": "Serpent Slaughterhouse",
+      "category": "Dungeon",
+      "coopable": true,
+      "requirements": "",
+      "reward": "Abyssal Razor L28, Vilebone Cage L5, Vilebone Drapes L5, Flint Spear L16, Huntsman Bow L12, Serpent Scale Shield L7",
+      "evidence": {
+        "screenshots": 0,
+        "video_alternative": false,
+        "link": false,
+        "group_turnin": false,
+        "notes": false
+      },
+      "evidence_note": null,
+      "bot_command": null,
+      "auto_checked": true,
+      "venue": "in_game",
+      "trigger": null,
+      "event": {
+        "creator": "Neo",
+        "status": "Approved",
+        "run_time_minutes": "",
+        "biome": "Ocean",
+        "players": "2 - 3",
+        "gear_level": "Padded",
+        "uniques": [
+          "Abyssal Razor L28",
+          "Vilebone Cage L5",
+          "Vilebone Drapes L5",
+          "Flint Spear L16",
+          "Huntsman Bow L12",
+          "Serpent Scale Shield L7"
+        ],
+        "blue_mushrooms": "",
+        "total_gold": "",
+        "other_loot": [
+          "4 totems, 1350g, 7stacks Blackmetal, L1 harpoon and butcher knife, 19 serpent meat, 7 serpent scale, 2 serpent trophy, 1 ful berserker trophy"
+        ],
+        "cape_set": "Single Creator Set (L6 White Linen Cape)"
+      }
+    }
+  ]
+}
