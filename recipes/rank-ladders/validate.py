@@ -43,6 +43,15 @@ if seen:
     if missing:
         warnings.append(f"non-sequential tiers; missing: {missing}")
 
+# optional achievement blocks (harvested ladders): advice-level checks only
+for key in ("achievements", "village_achievements"):
+    for i, e in enumerate(data.get(key) or []):
+        where = f"{key}[{i}] ({e.get('name', '?')})"
+        if not (e.get("name") or "").strip():
+            errors.append(f"{where}: missing 'name'")
+        if not e.get("requirements"):
+            warnings.append(f"{where}: no requirements — what earns it?")
+
 if data.get("bot_command_is_placeholder"):
     warnings.append("bot_command_template is a PLACEHOLDER — replace it with the guild's real "
                     "command format, then set bot_command_is_placeholder to false")

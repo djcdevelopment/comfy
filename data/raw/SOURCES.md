@@ -50,3 +50,29 @@ guild rules on it.
 - Known drift (expected; the disease the kernel names): its rank requirements do not
   exactly match `recipes/rank-ladders/example-output.json` (era 16 transcription) or
   the tracker's per-era rank tabs. The harvester surfaces the conflict; a human rules.
+
+## creator-events-tracker.xlsx
+
+- Source: Etheiry (Luna)'s "Creator Events Tracker, Guidelines & Schedule" drop
+  (archived in comfy-etheiry-analysis/CreatorStuff/), 28 tabs spanning eras 4-18.
+- Retrieved: 2026-08-01
+- What it is: the creator-events program's live tracker — one `Events (E#)` tab per
+  era plus schedule, reward guidelines, loot spread, and allowlist tabs.
+- Harvested: `Events (E18)` via the `creator-events-xlsx` adapter (126 events).
+  Historical era tabs are deliberately not harvested yet.
+
+## hobbit-reqs-rewards-reset.xlsx
+
+- Source: Luna's "Hobbit Reqs & Rewards + Reset Checklist" copy, shared on Discord
+  2026-08-07 (also archived in comfy-etheiry-analysis/CreatorStuff/).
+- Retrieved: 2026-08-07
+- What it is: the Hobbit guild's era-reset workbook, 6 tabs.
+- Harvested: `E17 Reqs & Rewards` via the `hobbit-ladder-xlsx` adapter (kind:
+  rank-ladder) — 4 ranks, 12 achievements, 3 village achievements; rewards from the
+  "Proposed E17 Rewards" column, E16 diffs surfaced as anomalies.
+- Deliberately not harvested:
+  - `(In-Game)/(Other) Reset Checklist` — ops runbook (locations, coords, wards,
+    placement commands). Operational, not player-facing.
+  - `Completion Data` — per-quest completion counts; demand data worth a future
+    telemetry cross-check.
+  - `Archived`, `(In-Game) Reset Checklist Old` — history.

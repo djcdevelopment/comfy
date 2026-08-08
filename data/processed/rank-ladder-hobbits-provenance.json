@@ -1,0 +1,843 @@
+{
+  "schema_version": 1,
+  "mode": "sheet",
+  "source": {
+    "id": "hobbits-ladder",
+    "guild": "Hobbits",
+    "era": 17,
+    "adapter": "hobbit-ladder-xlsx",
+    "path": "../../data/raw/hobbit-reqs-rewards-reset.xlsx",
+    "tab": "E17 Reqs & Rewards",
+    "url": null,
+    "retrieved": "2026-08-07"
+  },
+  "tabs": [
+    {
+      "tab": "E17 Reqs & Rewards",
+      "header_row": null,
+      "columns": [
+        {
+          "index": 1,
+          "letter": "B",
+          "header": "Rank / Requirements",
+          "fields": [
+            "name",
+            "requirements"
+          ],
+          "note": "a row with only this column filled names a rank/achievement; later rows in the block carry its requirement text"
+        },
+        {
+          "index": 2,
+          "letter": "C",
+          "header": "Current era rewards",
+          "fields": [],
+          "note": "reference only — compared against the proposed column; differences become questions"
+        },
+        {
+          "index": 3,
+          "letter": "D",
+          "header": "Proposed rewards",
+          "fields": [
+            "rewards",
+            "reward.bonus"
+          ],
+          "note": "the harvested reward column, verbatim"
+        },
+        {
+          "index": 5,
+          "letter": "F",
+          "header": "Margin notes",
+          "fields": [],
+          "note": "annotations like 'New' / 'Modification' / 'New Scaling' — recorded as questions"
+        }
+      ],
+      "rows": [
+        {
+          "row": 2,
+          "outcome": "header",
+          "cells": {
+            "B": "Requirements",
+            "C": "Current E16 Rewards",
+            "D": "Proposed E17 Rewards"
+          }
+        },
+        {
+          "row": 30,
+          "outcome": "section",
+          "category": "Achievements (Must be Dweller to Submit for Completion)",
+          "cells": {
+            "B": "Achievements (Must be Dweller to Submit for Completion)"
+          }
+        },
+        {
+          "row": 70,
+          "outcome": "section",
+          "category": "Village Achievements",
+          "cells": {
+            "B": "Village Achievements"
+          }
+        },
+        {
+          "row": 3,
+          "outcome": "rank",
+          "quest_id": "hobbit",
+          "cells": {
+            "B": "Hobbit "
+          }
+        },
+        {
+          "row": 4,
+          "outcome": "detail",
+          "entry": "hobbit",
+          "cells": {
+            "B": "Complete initiation.",
+            "C": "1 Lox Pie",
+            "D": "1 Lox Pie"
+          }
+        },
+        {
+          "row": 5,
+          "outcome": "detail",
+          "entry": "hobbit",
+          "cells": {
+            "C": "1 Fish Wrap",
+            "D": "1 Fish Wrap"
+          }
+        },
+        {
+          "row": 6,
+          "outcome": "detail",
+          "entry": "hobbit",
+          "cells": {
+            "C": "1 Blood Pudding",
+            "D": "1 Blood Pudding"
+          }
+        },
+        {
+          "row": 7,
+          "outcome": "detail",
+          "entry": "hobbit",
+          "cells": {
+            "C": "1 Serpent Stew",
+            "D": "1 Serpent Stew"
+          }
+        },
+        {
+          "row": 8,
+          "outcome": "detail",
+          "entry": "hobbit",
+          "cells": {
+            "C": "1 Sparkler",
+            "D": "1 Sparkler"
+          }
+        },
+        {
+          "row": 9,
+          "outcome": "rank",
+          "quest_id": "traveller",
+          "cells": {
+            "B": "Traveller"
+          }
+        },
+        {
+          "row": 10,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "B": "Complete 5 beginner quests. ",
+            "C": "L5 Cultivator",
+            "D": "L5 Cultivator"
+          }
+        },
+        {
+          "row": 11,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "C": "L5 Butcher Knife",
+            "D": "L5 Butcher Knife"
+          }
+        },
+        {
+          "row": 12,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "C": "L5 Serving Tray",
+            "D": "L5 Serving Tray"
+          }
+        },
+        {
+          "row": 13,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "C": "1 Stack of Basic Fireworks",
+            "D": "1 Stack of Basic Fireworks"
+          }
+        },
+        {
+          "row": 14,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "C": "1 Queen Bee",
+            "D": "1 Queen Bee"
+          }
+        },
+        {
+          "row": 15,
+          "outcome": "detail",
+          "entry": "traveller",
+          "cells": {
+            "C": "Portal to Hobbit Hub",
+            "D": "Portal to Hobbit Hub"
+          }
+        },
+        {
+          "row": 16,
+          "outcome": "rank",
+          "quest_id": "harvester",
+          "cells": {
+            "B": "Harvester"
+          }
+        },
+        {
+          "row": 17,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "B": "Complete 3 beginner quests + 2 Intermediate quests \n(+Traveller Requirements).",
+            "C": "L10 Scythe",
+            "D": "L10 Scythe",
+            "F": "New"
+          }
+        },
+        {
+          "row": 18,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "C": "L10 Harpoon",
+            "D": "L10 Harpoon",
+            "F": "Modification"
+          }
+        },
+        {
+          "row": 19,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "C": "100 Birch Seeds ",
+            "D": "100 Birch Seeds ",
+            "F": "New Scaling"
+          }
+        },
+        {
+          "row": 20,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "C": "10 Acorns ",
+            "D": "10 Acorns "
+          }
+        },
+        {
+          "row": 21,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "C": "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)",
+            "D": "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)"
+          }
+        },
+        {
+          "row": 22,
+          "outcome": "detail",
+          "entry": "harvester",
+          "cells": {
+            "C": "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)",
+            "D": "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)",
+            "F": "\"Turbo\" = ten times as fast the rate of vanilla"
+          }
+        },
+        {
+          "row": 23,
+          "outcome": "rank",
+          "quest_id": "dweller",
+          "cells": {
+            "B": "Dweller"
+          }
+        },
+        {
+          "row": 24,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "B": "Complete 3 intermediate quests + 2 challenging quests \n(+ Harvester requirements). \n5 Event Quests must be completed within quest totals.",
+            "C": "L42 Circlet (43 Armor) (Odin Max)",
+            "D": "L42 Circlet (43 Armor) (Odin Max)"
+          }
+        },
+        {
+          "row": 25,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "C": "L10 Mistwalker  (Guild Max)",
+            "D": "L10 Mistwalker  (Guild Max)"
+          }
+        },
+        {
+          "row": 26,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "C": "L14 Silver Shield (Guild Max)",
+            "D": "L20 Silver Shield (Guild Max)"
+          }
+        },
+        {
+          "row": 27,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "C": "L16 Lox Cape (Guild Max)",
+            "D": "L16 Lox Cape (Guild Max)"
+          }
+        },
+        {
+          "row": 28,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "C": "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)",
+            "D": "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)"
+          }
+        },
+        {
+          "row": 29,
+          "outcome": "detail",
+          "entry": "dweller",
+          "cells": {
+            "C": "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)",
+            "D": "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)"
+          }
+        },
+        {
+          "row": 31,
+          "outcome": "achievement",
+          "quest_id": "current_era_heroic_dweller",
+          "cells": {
+            "B": "Current Era Heroic Dweller"
+          }
+        },
+        {
+          "row": 32,
+          "outcome": "detail",
+          "entry": "current_era_heroic_dweller",
+          "cells": {
+            "B": "Complete 21 Hobbit Quests. ",
+            "C": "L43 Rag Tunic/Legs (Odin Max)",
+            "D": "L43 Rag Tunic/Legs (Odin Max)"
+          }
+        },
+        {
+          "row": 33,
+          "outcome": "detail",
+          "entry": "current_era_heroic_dweller",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 34,
+          "outcome": "achievement",
+          "quest_id": "previous_current_heroic_dweller",
+          "cells": {
+            "B": "Previous & Current Heroic Dweller"
+          }
+        },
+        {
+          "row": 35,
+          "outcome": "detail",
+          "entry": "previous_current_heroic_dweller",
+          "cells": {
+            "B": "Complete 21 Hobbit Quests (current era and previous era)",
+            "C": "Mistwalker L10 --> L11 (Odin Max)",
+            "D": "Mistwalker L10 --> L11 (Odin Max)"
+          }
+        },
+        {
+          "row": 36,
+          "outcome": "detail",
+          "entry": "previous_current_heroic_dweller",
+          "cells": {
+            "C": "Silver Shield L14 --> 15 (Odin Max)",
+            "D": "Silver Shield L20 --> 21 (Odin Max)"
+          }
+        },
+        {
+          "row": 37,
+          "outcome": "detail",
+          "entry": "previous_current_heroic_dweller",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 38,
+          "outcome": "achievement",
+          "quest_id": "thain_of_the_shire",
+          "cells": {
+            "B": "Thain of the Shire",
+            "F": "New"
+          }
+        },
+        {
+          "row": 39,
+          "outcome": "detail",
+          "entry": "thain_of_the_shire",
+          "cells": {
+            "B": "Complete 30 Hobbit Quests",
+            "C": "L38 Hildir Natural Tunic (Odin Max)",
+            "D": "L38 Hildir Natural Tunic (Odin Max)",
+            "F": "Modification"
+          }
+        },
+        {
+          "row": 40,
+          "outcome": "detail",
+          "entry": "thain_of_the_shire",
+          "cells": {
+            "C": "L4 Staff of the Wild (Creator Max)",
+            "D": "L4 Staff of the Wild (Creator Max)",
+            "F": "New Scaling"
+          }
+        },
+        {
+          "row": 41,
+          "outcome": "detail",
+          "entry": "thain_of_the_shire",
+          "cells": {
+            "C": "Evenstar Sculpture (includes 1 demister prefab)",
+            "D": "Evenstar Sculpture (includes 1 demister prefab)"
+          }
+        },
+        {
+          "row": 42,
+          "outcome": "detail",
+          "entry": "thain_of_the_shire",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 43,
+          "outcome": "achievement",
+          "quest_id": "master_burglar",
+          "cells": {
+            "B": "Master Burglar"
+          }
+        },
+        {
+          "row": 44,
+          "outcome": "detail",
+          "entry": "master_burglar",
+          "cells": {
+            "B": "Reach 50 sneak skill and find the 10 chests and Arkenestone in Erebor.",
+            "C": "4 Stacks of Roasted Crust Pie",
+            "D": "4 Stacks of Roasted Crust Pie"
+          }
+        },
+        {
+          "row": 45,
+          "outcome": "detail",
+          "entry": "master_burglar",
+          "cells": {
+            "C": "1 Iolite Gem",
+            "D": "1 Iolite Gem"
+          }
+        },
+        {
+          "row": 46,
+          "outcome": "detail",
+          "entry": "master_burglar",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 47,
+          "outcome": "achievement",
+          "quest_id": "ring_bearer",
+          "cells": {
+            "B": "Ring Bearer"
+          }
+        },
+        {
+          "row": 48,
+          "outcome": "detail",
+          "entry": "ring_bearer",
+          "cells": {
+            "B": "Complete Barad-Dur, Helms Deep and Isengard wearing any Circlet ",
+            "C": "Boss Stone token",
+            "D": "Boss Stone token"
+          }
+        },
+        {
+          "row": 49,
+          "outcome": "detail",
+          "entry": "ring_bearer",
+          "cells": {
+            "C": "4 Stacks of Troll Endurance Mead",
+            "D": "4 Stacks of Troll Endurance Mead"
+          }
+        },
+        {
+          "row": 50,
+          "outcome": "detail",
+          "entry": "ring_bearer",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 51,
+          "outcome": "achievement",
+          "quest_id": "farmor_maggot_returns",
+          "cells": {
+            "B": "Farmor Maggot Returns"
+          }
+        },
+        {
+          "row": 52,
+          "outcome": "detail",
+          "entry": "farmor_maggot_returns",
+          "cells": {
+            "B": "Find 4 2 empty Farmor Maggot quest sites and complete the quest requirements again. ",
+            "C": "L5 -> L15 Traveller Cultivator",
+            "D": "L5 -> L15 Traveller Cultivator"
+          }
+        },
+        {
+          "row": 53,
+          "outcome": "detail",
+          "entry": "farmor_maggot_returns",
+          "cells": {
+            "D": "50 Birch Seeds"
+          }
+        },
+        {
+          "row": 54,
+          "outcome": "achievement",
+          "quest_id": "second_breakfast",
+          "cells": {
+            "B": "Second Breakfast"
+          }
+        },
+        {
+          "row": 55,
+          "outcome": "detail",
+          "entry": "second_breakfast",
+          "cells": {
+            "B": "Find 4 2 empty Hobbit Comfort Huts and leave 5 stacks of crafted food in the designated chest.",
+            "C": "L10 -> L15 Harvester Scythe",
+            "D": "L10 -> L15 Harvester Scythe"
+          }
+        },
+        {
+          "row": 56,
+          "outcome": "detail",
+          "entry": "second_breakfast",
+          "cells": {
+            "D": "50 Birch Seeds"
+          }
+        },
+        {
+          "row": 57,
+          "outcome": "achievement",
+          "quest_id": "baskets_from_bag_end",
+          "cells": {
+            "B": "Baskets from Bag End"
+          }
+        },
+        {
+          "row": 58,
+          "outcome": "detail",
+          "entry": "baskets_from_bag_end",
+          "cells": {
+            "B": "Craft one of every feast (8 total) and leave them in the wild in their corresponding biome. Place a torch and a sign that says \"Free Baskets from Bag End\".",
+            "C": "L5 -> L10 Traveller Serving Tray",
+            "D": "L5 -> L10 Traveller Serving Tray"
+          }
+        },
+        {
+          "row": 59,
+          "outcome": "detail",
+          "entry": "baskets_from_bag_end",
+          "cells": {
+            "C": "10 Acorns",
+            "D": "10 Acorns"
+          }
+        },
+        {
+          "row": 60,
+          "outcome": "achievement",
+          "quest_id": "weekly_gifter",
+          "cells": {
+            "B": "Weekly Gifter"
+          }
+        },
+        {
+          "row": 61,
+          "outcome": "detail",
+          "entry": "weekly_gifter",
+          "cells": {
+            "B": "Gift 1 stack of current high-tier food to any player once a week and receive 1 acorn in return.",
+            "C": "1 Acorn",
+            "D": "1 Acorn"
+          }
+        },
+        {
+          "row": 62,
+          "outcome": "achievement",
+          "quest_id": "gandalf_s_grand_fireworks",
+          "cells": {
+            "B": "Gandalf's Grand Fireworks"
+          }
+        },
+        {
+          "row": 63,
+          "outcome": "detail",
+          "entry": "gandalf_s_grand_fireworks",
+          "cells": {
+            "B": "Put on a grand firework show. Throwing at least 5 of each 6 firework colors (blue, cyan, green purple, red and yellow) into a bonfire for any comfy event you did not create. (Ex. Another player's Jarl Sail) ",
+            "C": "L16 -> L18 Dweller Lox Cape (Odin Max)",
+            "D": "L16 -> L18 Dweller Lox Cape (Odin Max)"
+          }
+        },
+        {
+          "row": 64,
+          "outcome": "detail",
+          "entry": "gandalf_s_grand_fireworks",
+          "cells": {
+            "C": "Horn of Celebration crafted by Gandalf the White",
+            "D": "Horn of Celebration crafted by Gandalf the White"
+          }
+        },
+        {
+          "row": 65,
+          "outcome": "achievement",
+          "quest_id": "one_cape_to_rule_them_all",
+          "cells": {
+            "B": "One Cape to Rule Them All"
+          }
+        },
+        {
+          "row": 66,
+          "outcome": "detail",
+          "entry": "one_cape_to_rule_them_all",
+          "cells": {
+            "B": "Collect and turn-in the 5 horn of celebrations crafted by 5 different LOTR characters. These can be found in the Dweller achievement rewards and Hobbit Creator Events.",
+            "C": "L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\" ",
+            "D": "L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\" "
+          }
+        },
+        {
+          "row": 67,
+          "outcome": "achievement",
+          "quest_id": "middle_earth_entertainer",
+          "cells": {
+            "B": "Middle Earth Entertainer"
+          }
+        },
+        {
+          "row": 68,
+          "outcome": "detail",
+          "entry": "middle_earth_entertainer",
+          "cells": {
+            "B": "Perform at 2 Hobbit Socials. Player must submit link to event post providing documentation (guild staff will not track repeats).",
+            "C": "Tankard Sculpture",
+            "D": "Tankard Sculpture"
+          }
+        },
+        {
+          "row": 69,
+          "outcome": "detail",
+          "entry": "middle_earth_entertainer",
+          "cells": {
+            "C": "Vanity Title",
+            "D": "Vanity Title"
+          }
+        },
+        {
+          "row": 71,
+          "outcome": "achievement",
+          "quest_id": "from_under_the_hill",
+          "cells": {
+            "B": "From Under the Hill"
+          }
+        },
+        {
+          "row": 72,
+          "outcome": "detail",
+          "entry": "from_under_the_hill",
+          "cells": {
+            "B": "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 3 Dwellers total living in the village (on the wards) to earn these rewards",
+            "C": "Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace",
+            "D": "Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace"
+          }
+        },
+        {
+          "row": 73,
+          "outcome": "detail",
+          "entry": "from_under_the_hill",
+          "cells": {
+            "C": "Official Shire-Themed Village Name & Private Thread",
+            "D": "Official Shire-Themed Village Name & Private Thread"
+          }
+        },
+        {
+          "row": 74,
+          "outcome": "achievement",
+          "quest_id": "there_and_back_again",
+          "cells": {
+            "B": "There and Back Again"
+          }
+        },
+        {
+          "row": 75,
+          "outcome": "detail",
+          "entry": "there_and_back_again",
+          "cells": {
+            "B": "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 5 Dwellers total living in the village (on the wards) to earn these rewards",
+            "C": "Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle",
+            "D": "Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle"
+          }
+        },
+        {
+          "row": 76,
+          "outcome": "achievement",
+          "quest_id": "hobbit_hospitality",
+          "cells": {
+            "B": "Hobbit Hospitality"
+          }
+        },
+        {
+          "row": 77,
+          "outcome": "detail",
+          "entry": "hobbit_hospitality",
+          "cells": {
+            "B": "Request for a Hobbit Social to be hosted at your Dweller Village and provide Hobbit Chef for the event. Make sure there is seating to accommodate 15 players.",
+            "C": "Wintershire Ice Rink",
+            "D": "Wintershire Ice Rink"
+          }
+        }
+      ]
+    }
+  ],
+  "anomalies": [
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "harvester",
+      "quest_name": "Harvester",
+      "message": "margin note reads 'New' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "harvester",
+      "quest_name": "Harvester",
+      "message": "margin note reads 'Modification' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "harvester",
+      "quest_name": "Harvester",
+      "message": "margin note reads 'New Scaling' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "harvester",
+      "quest_name": "Harvester",
+      "message": "margin note reads '\"Turbo\" = ten times as fast the rate of vanilla' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "reward_rescale",
+      "row": null,
+      "tab": null,
+      "quest_id": "dweller",
+      "quest_name": "Dweller",
+      "message": "the proposed rewards differ from the current era's: ['L42 Circlet (43 Armor) (Odin Max)', 'L10 Mistwalker  (Guild Max)', 'L14 Silver Shield (Guild Max)', 'L16 Lox Cape (Guild Max)', 'Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)', 'Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \\n(Odin Max)'] -> ['L42 Circlet (43 Armor) (Odin Max)', 'L10 Mistwalker  (Guild Max)', 'L20 Silver Shield (Guild Max)', 'L16 Lox Cape (Guild Max)', 'Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)', 'Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \\n(Odin Max)']. Deliberate re-scaling?"
+    },
+    {
+      "kind": "reward_rescale",
+      "row": null,
+      "tab": null,
+      "quest_id": "previous_current_heroic_dweller",
+      "quest_name": "Previous & Current Heroic Dweller",
+      "message": "the proposed rewards differ from the current era's: ['Mistwalker L10 --> L11 (Odin Max)', 'Silver Shield L14 --> 15 (Odin Max)', 'Vanity Title'] -> ['Mistwalker L10 --> L11 (Odin Max)', 'Silver Shield L20 --> 21 (Odin Max)', 'Vanity Title']. Deliberate re-scaling?"
+    },
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "thain_of_the_shire",
+      "quest_name": "Thain of the Shire",
+      "message": "margin note reads 'Modification' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "margin_note",
+      "row": null,
+      "tab": null,
+      "quest_id": "thain_of_the_shire",
+      "quest_name": "Thain of the Shire",
+      "message": "margin note reads 'New Scaling' — recorded verbatim, not interpreted."
+    },
+    {
+      "kind": "reward_rescale",
+      "row": null,
+      "tab": null,
+      "quest_id": "farmor_maggot_returns",
+      "quest_name": "Farmor Maggot Returns",
+      "message": "the proposed rewards differ from the current era's: ['L5 -> L15 Traveller Cultivator'] -> ['L5 -> L15 Traveller Cultivator', '50 Birch Seeds']. Deliberate re-scaling?"
+    },
+    {
+      "kind": "reward_rescale",
+      "row": null,
+      "tab": null,
+      "quest_id": "second_breakfast",
+      "quest_name": "Second Breakfast",
+      "message": "the proposed rewards differ from the current era's: ['L10 -> L15 Harvester Scythe'] -> ['L10 -> L15 Harvester Scythe', '50 Birch Seeds']. Deliberate re-scaling?"
+    },
+    {
+      "kind": "needs_leader",
+      "row": null,
+      "tab": null,
+      "quest_id": null,
+      "quest_name": null,
+      "message": "[need: the Hobbits' real submit command] — the bot_command_template in the ladder is a placeholder until the guild provides theirs."
+    }
+  ],
+  "counts": {
+    "rows_seen": 76,
+    "quests": 19,
+    "entries": 19,
+    "skipped": 0,
+    "blank": 0,
+    "anomalies": 11
+  }
+}

@@ -5018,6 +5018,7 @@
   "counts": {
     "rows_seen": 986,
     "quests": 103,
+    "entries": 103,
     "skipped": 0,
     "blank": 882,
     "anomalies": 21

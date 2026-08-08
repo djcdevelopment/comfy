@@ -17,5 +17,20 @@ Each entry in `ranks`:
 - `requirements` — list of text. What you must do to reach this rank. Copy them as written.
 - `reward` — optional. `{ "rank": text, "bonus": text }`.
 
+Optional blocks a ladder may carry (harvested ladders do):
+- `achievements` / `village_achievements` — lists of `{ name, requirements, rewards,
+  entry_id, source_row }`: parallel goals that aren't rank rungs. `render.py` prints
+  them after the ranks; `validate.py` checks them at advice level.
+
 That's the whole shape. Nothing hidden. If you need a field that isn't here, add it — then teach
 `validate.py` and `render.py` about it (see PROMPT.md → CREATE / REPAIR).
+
+## Where ladders come from
+
+Two lanes produce this file:
+1. **Hand transcription** (the original lane) — PROMPT.md walks a helper through it;
+   unknowns become `[need: ...]` questions for the leader.
+2. **Harvested** — `../quest-catalogs/harvest.py` sources with `"kind": "rank-ladder"`
+   (first: `hobbits-ladder`, from Luna's workbook) emit this shape directly, plus an
+   anomalies report and a provenance sidecar that powers the leader-facing receipt
+   page (`data/processed/provenance-<source-id>.html`).

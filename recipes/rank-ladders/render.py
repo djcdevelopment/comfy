@@ -32,6 +32,23 @@ for r in ranks:
         out.append(f"- _reward: {', '.join(bits)}_")
     out.append("")
 
+# optional achievement blocks (harvested ladders carry these; hand-written ones may not)
+for key, title in (("achievements", "Achievements"),
+                   ("village_achievements", "Village achievements")):
+    entries = data.get(key) or []
+    if not entries:
+        continue
+    out.append("---")
+    out.append(f"## {title}")
+    out.append("")
+    for e in entries:
+        out.append(f"### {e['name']}")
+        for req in e.get("requirements", []):
+            out.append(f"- {req}")
+        if e.get("rewards"):
+            out.append(f"- _reward: {'; '.join(e['rewards'])}_")
+        out.append("")
+
 out.append("---")
 out.append("## copy-paste submission commands")
 if data.get("bot_command_is_placeholder"):

@@ -1,0 +1,279 @@
+{
+  "schema_version": 1,
+  "kind": "rank-ladder",
+  "guild": "Hobbits",
+  "era": 17,
+  "source": "hobbit-reqs-rewards-reset.xlsx :: E17 Reqs & Rewards (retrieved 2026-08-07). Luna's 'Hobbit Reqs & Rewards + Reset Checklist' drop (comfy-etheiry-analysis/CreatorStuff). Rewards harvested from the 'Proposed E17 Rewards' column.",
+  "bot_command_template": "/hobbit submit rank:{rank} proof:{proof}",
+  "bot_command_is_placeholder": true,
+  "ranks": [
+    {
+      "entry_id": "hobbit",
+      "name": "Hobbit",
+      "requirements": [
+        "Complete initiation."
+      ],
+      "rewards": [
+        "1 Lox Pie",
+        "1 Fish Wrap",
+        "1 Blood Pudding",
+        "1 Serpent Stew",
+        "1 Sparkler"
+      ],
+      "source_row": 3,
+      "tier": 0,
+      "reward": {
+        "rank": "Hobbit",
+        "bonus": "1 Lox Pie; 1 Fish Wrap; 1 Blood Pudding; 1 Serpent Stew; 1 Sparkler"
+      }
+    },
+    {
+      "entry_id": "traveller",
+      "name": "Traveller",
+      "requirements": [
+        "Complete 5 beginner quests."
+      ],
+      "rewards": [
+        "L5 Cultivator",
+        "L5 Butcher Knife",
+        "L5 Serving Tray",
+        "1 Stack of Basic Fireworks",
+        "1 Queen Bee",
+        "Portal to Hobbit Hub"
+      ],
+      "source_row": 9,
+      "tier": 1,
+      "reward": {
+        "rank": "Traveller",
+        "bonus": "L5 Cultivator; L5 Butcher Knife; L5 Serving Tray; 1 Stack of Basic Fireworks; 1 Queen Bee; Portal to Hobbit Hub"
+      }
+    },
+    {
+      "entry_id": "harvester",
+      "name": "Harvester",
+      "requirements": [
+        "Complete 3 beginner quests + 2 Intermediate quests \n(+Traveller Requirements)."
+      ],
+      "rewards": [
+        "L10 Scythe",
+        "L10 Harpoon",
+        "100 Birch Seeds",
+        "10 Acorns",
+        "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)",
+        "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)"
+      ],
+      "source_row": 16,
+      "tier": 2,
+      "reward": {
+        "rank": "Harvester",
+        "bonus": "L10 Scythe; L10 Harpoon; 100 Birch Seeds; 10 Acorns; 3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare); Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)"
+      }
+    },
+    {
+      "entry_id": "dweller",
+      "name": "Dweller",
+      "requirements": [
+        "Complete 3 intermediate quests + 2 challenging quests \n(+ Harvester requirements). \n5 Event Quests must be completed within quest totals."
+      ],
+      "rewards": [
+        "L42 Circlet (43 Armor) (Odin Max)",
+        "L10 Mistwalker  (Guild Max)",
+        "L20 Silver Shield (Guild Max)",
+        "L16 Lox Cape (Guild Max)",
+        "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)",
+        "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)"
+      ],
+      "source_row": 23,
+      "tier": 3,
+      "reward": {
+        "rank": "Dweller",
+        "bonus": "L42 Circlet (43 Armor) (Odin Max); L10 Mistwalker  (Guild Max); L20 Silver Shield (Guild Max); L16 Lox Cape (Guild Max); Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee); Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)"
+      }
+    }
+  ],
+  "achievements": [
+    {
+      "entry_id": "current_era_heroic_dweller",
+      "name": "Current Era Heroic Dweller",
+      "requirements": [
+        "Complete 21 Hobbit Quests."
+      ],
+      "rewards": [
+        "L43 Rag Tunic/Legs (Odin Max)",
+        "Vanity Title"
+      ],
+      "source_row": 31
+    },
+    {
+      "entry_id": "previous_current_heroic_dweller",
+      "name": "Previous & Current Heroic Dweller",
+      "requirements": [
+        "Complete 21 Hobbit Quests (current era and previous era)"
+      ],
+      "rewards": [
+        "Mistwalker L10 --> L11 (Odin Max)",
+        "Silver Shield L20 --> 21 (Odin Max)",
+        "Vanity Title"
+      ],
+      "source_row": 34
+    },
+    {
+      "entry_id": "thain_of_the_shire",
+      "name": "Thain of the Shire",
+      "requirements": [
+        "Complete 30 Hobbit Quests"
+      ],
+      "rewards": [
+        "L38 Hildir Natural Tunic (Odin Max)",
+        "L4 Staff of the Wild (Creator Max)",
+        "Evenstar Sculpture (includes 1 demister prefab)",
+        "Vanity Title"
+      ],
+      "source_row": 38
+    },
+    {
+      "entry_id": "master_burglar",
+      "name": "Master Burglar",
+      "requirements": [
+        "Reach 50 sneak skill and find the 10 chests and Arkenestone in Erebor."
+      ],
+      "rewards": [
+        "4 Stacks of Roasted Crust Pie",
+        "1 Iolite Gem",
+        "Vanity Title"
+      ],
+      "source_row": 43
+    },
+    {
+      "entry_id": "ring_bearer",
+      "name": "Ring Bearer",
+      "requirements": [
+        "Complete Barad-Dur, Helms Deep and Isengard wearing any Circlet"
+      ],
+      "rewards": [
+        "Boss Stone token",
+        "4 Stacks of Troll Endurance Mead",
+        "Vanity Title"
+      ],
+      "source_row": 47
+    },
+    {
+      "entry_id": "farmor_maggot_returns",
+      "name": "Farmor Maggot Returns",
+      "requirements": [
+        "Find 4 2 empty Farmor Maggot quest sites and complete the quest requirements again."
+      ],
+      "rewards": [
+        "L5 -> L15 Traveller Cultivator",
+        "50 Birch Seeds"
+      ],
+      "source_row": 51
+    },
+    {
+      "entry_id": "second_breakfast",
+      "name": "Second Breakfast",
+      "requirements": [
+        "Find 4 2 empty Hobbit Comfort Huts and leave 5 stacks of crafted food in the designated chest."
+      ],
+      "rewards": [
+        "L10 -> L15 Harvester Scythe",
+        "50 Birch Seeds"
+      ],
+      "source_row": 54
+    },
+    {
+      "entry_id": "baskets_from_bag_end",
+      "name": "Baskets from Bag End",
+      "requirements": [
+        "Craft one of every feast (8 total) and leave them in the wild in their corresponding biome. Place a torch and a sign that says \"Free Baskets from Bag End\"."
+      ],
+      "rewards": [
+        "L5 -> L10 Traveller Serving Tray",
+        "10 Acorns"
+      ],
+      "source_row": 57
+    },
+    {
+      "entry_id": "weekly_gifter",
+      "name": "Weekly Gifter",
+      "requirements": [
+        "Gift 1 stack of current high-tier food to any player once a week and receive 1 acorn in return."
+      ],
+      "rewards": [
+        "1 Acorn"
+      ],
+      "source_row": 60
+    },
+    {
+      "entry_id": "gandalf_s_grand_fireworks",
+      "name": "Gandalf's Grand Fireworks",
+      "requirements": [
+        "Put on a grand firework show. Throwing at least 5 of each 6 firework colors (blue, cyan, green purple, red and yellow) into a bonfire for any comfy event you did not create. (Ex. Another player's Jarl Sail)"
+      ],
+      "rewards": [
+        "L16 -> L18 Dweller Lox Cape (Odin Max)",
+        "Horn of Celebration crafted by Gandalf the White"
+      ],
+      "source_row": 62
+    },
+    {
+      "entry_id": "one_cape_to_rule_them_all",
+      "name": "One Cape to Rule Them All",
+      "requirements": [
+        "Collect and turn-in the 5 horn of celebrations crafted by 5 different LOTR characters. These can be found in the Dweller achievement rewards and Hobbit Creator Events."
+      ],
+      "rewards": [
+        "L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\""
+      ],
+      "source_row": 65
+    },
+    {
+      "entry_id": "middle_earth_entertainer",
+      "name": "Middle Earth Entertainer",
+      "requirements": [
+        "Perform at 2 Hobbit Socials. Player must submit link to event post providing documentation (guild staff will not track repeats)."
+      ],
+      "rewards": [
+        "Tankard Sculpture",
+        "Vanity Title"
+      ],
+      "source_row": 67
+    }
+  ],
+  "village_achievements": [
+    {
+      "entry_id": "from_under_the_hill",
+      "name": "From Under the Hill",
+      "requirements": [
+        "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 3 Dwellers total living in the village (on the wards) to earn these rewards"
+      ],
+      "rewards": [
+        "Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace",
+        "Official Shire-Themed Village Name & Private Thread"
+      ],
+      "source_row": 71
+    },
+    {
+      "entry_id": "there_and_back_again",
+      "name": "There and Back Again",
+      "requirements": [
+        "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 5 Dwellers total living in the village (on the wards) to earn these rewards"
+      ],
+      "rewards": [
+        "Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle"
+      ],
+      "source_row": 74
+    },
+    {
+      "entry_id": "hobbit_hospitality",
+      "name": "Hobbit Hospitality",
+      "requirements": [
+        "Request for a Hobbit Social to be hosted at your Dweller Village and provide Hobbit Chef for the event. Make sure there is seating to accommodate 15 players."
+      ],
+      "rewards": [
+        "Wintershire Ice Rink"
+      ],
+      "source_row": 76
+    }
+  ]
+}

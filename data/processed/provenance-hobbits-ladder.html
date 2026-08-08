@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Provenance — Hobbits (hobbits-ladder)</title>
+<style>
+:root{
+  --bg:#0b1013; --paper:#11191d; --panel:#162126; --line:#2c3a3f; --line2:#3d5058;
+  --ink:#edf5f2; --muted:#9eb0ad; --dim:#7b8f8c;
+  --wood:#d7a86e; --amber:#f6c453; --blue:#75c9f1; --green:#68d391; --violet:#c7a7ff;
+  --sans:ui-sans-serif,system-ui,"Segoe UI",sans-serif;
+  --mono:ui-monospace,Consolas,monospace;
+}
+@media (prefers-color-scheme:light){
+  :root{
+    --bg:#eceeed; --paper:#f6f7f6; --panel:#e3e8e7; --line:#c6d0ce; --line2:#a8b6b4;
+    --ink:#0e1719; --muted:#4d5f5d; --dim:#687977;
+    --wood:#8a5a22; --amber:#8a6410; --blue:#1a6285; --green:#1f6b42; --violet:#5b3fa0;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0b1013; --paper:#11191d; --panel:#162126; --line:#2c3a3f; --line2:#3d5058;
+  --ink:#edf5f2; --muted:#9eb0ad; --dim:#7b8f8c;
+  --wood:#d7a86e; --amber:#f6c453; --blue:#75c9f1; --green:#68d391; --violet:#c7a7ff;
+}
+:root[data-theme="light"]{
+  --bg:#eceeed; --paper:#f6f7f6; --panel:#e3e8e7; --line:#c6d0ce; --line2:#a8b6b4;
+  --ink:#0e1719; --muted:#4d5f5d; --dim:#687977;
+  --wood:#8a5a22; --amber:#8a6410; --blue:#1a6285; --green:#1f6b42; --violet:#5b3fa0;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+p{margin:0}
+h1,h2,h3{margin:0;text-wrap:balance;font-weight:600}
+a{color:var(--wood);text-decoration:none;border-bottom:1px solid rgba(215,168,110,.4)}
+a:hover{border-bottom-color:var(--wood)}
+code{font-family:var(--mono);font-size:.86em;color:var(--wood)}
+.wrap{max-width:64rem;margin:0 auto;padding:0 20px}
+section+section{margin-top:3.4rem}
+header+section{margin-top:2rem}
+.eyebrow{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--wood)}
+h2{font-family:var(--mono);font-weight:700;font-size:clamp(1.05rem,2.4vw,1.35rem);
+  letter-spacing:-.01em;line-height:1.25}
+.head{display:flex;flex-direction:column;gap:.45rem;margin-bottom:1rem}
+.muted{color:var(--muted)}
+header{padding:3.4rem 0 0;display:flex;flex-direction:column;gap:1rem}
+.mark{display:flex;align-items:center;gap:.7rem}
+.mark .glyph{width:30px;height:30px;display:grid;place-items:center;border-radius:7px;
+  border:1px solid var(--wood);color:var(--wood);font-family:var(--mono);font-weight:700;
+  font-size:.9rem}
+.mark .name{font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.03em}
+h1{font-family:var(--mono);font-weight:700;letter-spacing:-.02em;line-height:1.15;
+  font-size:clamp(1.35rem,4.6vw,2.3rem);max-width:30ch}
+.rule{height:1px;background:var(--line);margin:.4rem 0}
+dl.meta{display:grid;grid-template-columns:auto 1fr;gap:.3rem 1.1rem;margin:0;
+  font-family:var(--mono);font-size:.74rem;color:var(--dim);max-width:46rem}
+dl.meta dt{color:var(--muted);font-weight:700}
+dl.meta dd{margin:0;overflow-wrap:anywhere}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:5px;
+  padding:1rem 1.1rem;display:flex;flex-direction:column;gap:.45rem;min-width:0}
+.card h3{font-family:var(--mono);font-size:.9rem;font-weight:700}
+.card p{font-size:.9rem;color:var(--muted);line-height:1.55}
+.card.ghost{border-style:dashed;border-color:var(--line2)}
+.tag{align-self:flex-start;font-family:var(--mono);font-size:.6rem;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;padding:.16rem .45rem;border-radius:999px;
+  border:1px solid currentColor}
+.t-run{color:var(--green)}
+.t-ghost{color:var(--dim)}
+.warn{border-left:2px solid var(--amber);padding:.2rem 0 .2rem 1rem;color:var(--muted);
+  font-size:.94rem;max-width:38rem}
+.diagram{background:var(--paper);border:1px solid var(--line);border-radius:5px;
+  padding:.9rem;overflow-x:auto}
+.diagram svg{display:block;width:100%;height:auto;min-width:560px}
+.caption{font-family:var(--mono);font-size:.7rem;color:var(--dim);line-height:1.7;
+  max-width:44rem;margin-top:.55rem}
+svg text{font-family:var(--mono)}
+.n-box{fill:var(--panel);stroke:var(--line)}
+.n-wood{fill:var(--panel);stroke:var(--wood)}
+.n-amber{fill:var(--panel);stroke:var(--amber)}
+.t-ink{fill:var(--ink);font-size:12.5px;font-weight:600}
+.t-woodtxt{fill:var(--wood);font-size:12.5px;font-weight:700}
+.t-ambertxt{fill:var(--amber);font-size:12px;font-weight:600}
+.t-dim{fill:var(--dim);font-size:10.5px}
+.edge{stroke:var(--dim);stroke-width:1.3;fill:none}
+.edge-soft{stroke:var(--dim);stroke-width:1.3;fill:none;stroke-dasharray:5 4}
+/* ---- row ledger ---- */
+.ledger{display:flex;flex-direction:column;gap:3px}
+.ledger details{background:var(--paper);border:1px solid var(--line);border-radius:5px}
+.ledger details[data-outcome="skipped"]{border-color:var(--amber)}
+.ledger summary{display:flex;align-items:baseline;gap:.7rem;padding:.4rem .8rem;
+  cursor:pointer;font-family:var(--mono);font-size:.78rem;list-style:none;flex-wrap:wrap}
+.ledger summary::-webkit-details-marker{display:none}
+.ledger summary:hover{background:var(--panel)}
+.rowno{color:var(--dim);min-width:7.5ch}
+.chip{font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  padding:.1rem .4rem;border-radius:999px;border:1px solid currentColor}
+.c-quest{color:var(--green)}
+.c-ach{color:var(--violet)}
+.c-skipped{color:var(--amber)}
+.c-dim{color:var(--dim)}
+.ledger details[data-outcome="detail"]{margin-left:1.4rem}
+.rname{color:var(--ink);font-weight:600}
+.rbecame{color:var(--muted)}
+.abadge{color:var(--amber);font-weight:700}
+.rbody{padding:.5rem .9rem .9rem;border-top:1px solid var(--line);
+  display:flex;flex-direction:column;gap:.7rem}
+.cells{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.55rem}
+.cell{min-width:0}
+.cell b{display:block;font-family:var(--mono);font-size:.62rem;font-weight:700;
+  letter-spacing:.06em;color:var(--dim);text-transform:uppercase}
+.cell div{font-family:var(--mono);font-size:.78rem;white-space:pre-wrap;
+  overflow-wrap:anywhere;color:var(--ink)}
+.became{font-size:.85rem;color:var(--muted)}
+.became b{color:var(--ink)}
+.became code{overflow-wrap:anywhere}
+.rowanom{border-left:2px solid var(--amber);padding-left:.8rem;
+  font-size:.85rem;color:var(--muted)}
+.gap{font-family:var(--mono);font-size:.72rem;color:var(--dim);padding:.25rem .8rem}
+.anomlist{display:flex;flex-direction:column;gap:.6rem;max-width:46rem}
+.anomlist .item{border-left:2px solid var(--amber);padding:.15rem 0 .15rem 1rem;
+  font-size:.92rem;color:var(--muted)}
+.anomlist .item b{color:var(--ink)}
+.anomlist .item a{font-family:var(--mono);font-size:.72rem}
+h3.tabname{font-family:var(--mono);font-size:.95rem;font-weight:700;margin:1.6rem 0 .6rem}
+footer{border-top:1px solid var(--line);margin-top:4rem;padding:2rem 0 3rem}
+.fine{font-family:var(--mono);font-size:.68rem;color:var(--dim);line-height:1.8;margin:0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="mark">
+    <span class="glyph">A</span>
+    <span class="name">THE ABSORPTION LOOP &middot; PROVENANCE</span>
+  </div>
+  <h1>How your artifact became the Hobbits rank ladder</h1>
+  <p class="muted" style="max-width:40rem">Your artifact was read as it exists —
+    nothing in it was edited. This page is the receipt: every column, every row,
+    and every question the harvester routed back to you.</p>
+  <div class="rule"></div>
+  <dl class="meta"><dt>Artifact</dt><dd>hobbit-reqs-rewards-reset.xlsx</dd>
+<dt>Tab(s)</dt><dd>E17 Reqs &amp; Rewards</dd>
+<dt>Adapter</dt><dd>hobbit-ladder-xlsx</dd>
+<dt>Retrieved</dt><dd>2026-08-07</dd>
+<dt>Rows seen</dt><dd>76</dd>
+<dt>Entries</dt><dd>19</dd>
+<dt>Skipped</dt><dd>0</dd>
+<dt>Anomalies</dt><dd>11</dd></dl>
+</header>
+
+<section>
+  <div class="head">
+    <div class="eyebrow">Columns</div>
+    <h2>What each column became</h2>
+  </div>
+  <div class="diagram" role="img" aria-label="Column mapping for tab E17 Reqs &amp; Rewards: each source column and the canonical fields it became.">
+<svg viewBox="0 0 800 156" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="cm" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L8 4L0 8z" fill="var(--dim)"/></marker></defs>
+<rect class="n-box" x="10" y="10" width="330" height="26" rx="5"/>
+<text class="t-ink" x="175.0" y="27.5" text-anchor="middle">B · Rank / Requirements</text>
+<line class="edge" x1="340" y1="23.0" x2="424" y2="23.0" marker-end="url(#cm)"/>
+<rect class="n-wood" x="430" y="10" width="340" height="26" rx="5"/>
+<text class="t-woodtxt" x="600.0" y="27.5" text-anchor="middle">name · requirements</text>
+<rect class="n-box" x="10" y="44" width="330" height="26" rx="5"/>
+<text class="t-ink" x="175.0" y="61.5" text-anchor="middle">C · Current era rewards</text>
+<line class="edge" x1="340" y1="57.0" x2="424" y2="57.0" marker-end="url(#cm)"/>
+<rect class="n-wood" x="430" y="44" width="340" height="26" rx="5"/>
+<text class="t-woodtxt" x="600.0" y="61.5" text-anchor="middle"></text>
+<rect class="n-box" x="10" y="78" width="330" height="26" rx="5"/>
+<text class="t-ink" x="175.0" y="95.5" text-anchor="middle">D · Proposed rewards</text>
+<line class="edge" x1="340" y1="91.0" x2="424" y2="91.0" marker-end="url(#cm)"/>
+<rect class="n-wood" x="430" y="78" width="340" height="26" rx="5"/>
+<text class="t-woodtxt" x="600.0" y="95.5" text-anchor="middle">rewards · reward.bonus</text>
+<rect class="n-box" x="10" y="112" width="330" height="26" rx="5"/>
+<text class="t-ink" x="175.0" y="129.5" text-anchor="middle">F · Margin notes</text>
+<line class="edge" x1="340" y1="125.0" x2="424" y2="125.0" marker-end="url(#cm)"/>
+<rect class="n-wood" x="430" y="112" width="340" height="26" rx="5"/>
+<text class="t-woodtxt" x="600.0" y="129.5" text-anchor="middle"></text>
+</svg>
+</div>
+</section>
+
+<section>
+  <div class="head">
+    <div class="eyebrow">Rows</div>
+    <h2>The fate of every row</h2>
+    <p class="muted" style="max-width:38rem">Click a row to see the verbatim cells
+      next to the quest they became. Row numbers match your own sheet.</p>
+  </div>
+  <div id="ledger"></div>
+</section>
+
+<section>
+  <div class="head">
+    <div class="eyebrow">Questions for you</div>
+    <h2>11 question(s) the harvester routed back</h2>
+    <p class="muted" style="max-width:38rem">Nothing here was &ldquo;fixed&rdquo; —
+      the harvester copies your content verbatim and flags what looks off. These are
+      yours to rule on.</p>
+  </div>
+  <div id="anomalies" class="anomlist"></div>
+</section>
+
+<section>
+  <div class="head">
+    <div class="eyebrow">Downstream</div>
+    <h2>Where your quests went</h2>
+  </div>
+  <div class="diagram" role="img" aria-label="Your artifact becomes the Hobbits rank ladder of 4 ranks and 15 achievements, feeding the rendered ladder page and the mod&#x27;s rank submit actions. Anomalies branch back to you.">
+  <svg viewBox="0 0 960 210" xmlns="http://www.w3.org/2000/svg">
+<defs><marker id="lp" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="6.5"
+ markerHeight="6.5" orient="auto-start-reverse">
+ <path d="M0 0L8 4L0 8z" fill="var(--dim)"/></marker></defs>
+<rect class="n-box" x="16" y="36" width="170" height="44" rx="5"/>
+<text class="t-ink" x="101" y="62" text-anchor="middle">your artifact</text>
+<rect class="n-box" x="256" y="36" width="200" height="44" rx="5"/>
+<text class="t-ink" x="356" y="56" text-anchor="middle">Hobbits rank ladder</text>
+<text class="t-dim" x="356" y="71" text-anchor="middle">4 ranks &#183; 15 achievements</text>
+<rect class="n-box" x="546" y="16" width="200" height="44" rx="5"/>
+<text class="t-ink" x="646" y="36" text-anchor="middle">rendered ladder page</text>
+<text class="t-dim" x="646" y="51" text-anchor="middle">recipes/rank-ladders/render.py</text>
+<rect class="n-wood" x="546" y="86" width="200" height="44" rx="5"/>
+<text class="t-woodtxt" x="646" y="106" text-anchor="middle">in-game rank actions</text>
+<text class="t-dim" x="646" y="121" text-anchor="middle">one submit action per rank-up</text>
+<line class="edge" x1="186" y1="58" x2="252" y2="58" marker-end="url(#lp)"/>
+<line class="edge" x1="456" y1="50" x2="542" y2="38" marker-end="url(#lp)"/>
+<line class="edge-soft" x1="456" y1="66" x2="542" y2="105" marker-end="url(#lp)"/>
+<text class="t-dim" x="470" y="92">once the real</text>
+<text class="t-dim" x="470" y="106">command is known</text>
+<rect class="n-amber" x="256" y="140" width="200" height="44" rx="5"/>
+<text class="t-ambertxt" x="356" y="160" text-anchor="middle">anomalies</text>
+<text class="t-dim" x="356" y="175" text-anchor="middle">11 question(s) for you</text>
+<line class="edge" x1="356" y1="80" x2="356" y2="136" marker-end="url(#lp)"/>
+<path class="edge-soft" d="M252 162 C 120 162, 90 120, 96 84" marker-end="url(#lp)"/>
+<text class="t-dim" x="60" y="120">you rule on them</text>
+</svg>
+  </div>
+  <p class="caption">Solid lines are built and running. Dashed lines are where a
+    human acts. <a href="https://am4.tail8e749c.ts.net/questpicker/">Open the live quest picker</a> &middot;
+    <a href="quest-picker.html">local copy</a> &middot;
+    <a href="provenance.html">all sources</a></p>
+</section>
+
+<footer>
+  <p class="fine">Generated by recipes/quest-catalogs/render_provenance.py from the
+    provenance sidecar — regenerate with <code>python render_provenance.py</code>
+    after any harvest. Contracts: schema.md &middot; quest-view-schema.md.</p>
+</footer>
+
+</div>
+<script>
+var DATA = {"provenance": {"schema_version": 1, "mode": "sheet", "source": {"id": "hobbits-ladder", "guild": "Hobbits", "era": 17, "adapter": "hobbit-ladder-xlsx", "path": "../../data/raw/hobbit-reqs-rewards-reset.xlsx", "tab": "E17 Reqs & Rewards", "url": null, "retrieved": "2026-08-07"}, "tabs": [{"tab": "E17 Reqs & Rewards", "header_row": null, "columns": [{"index": 1, "letter": "B", "header": "Rank / Requirements", "fields": ["name", "requirements"], "note": "a row with only this column filled names a rank/achievement; later rows in the block carry its requirement text"}, {"index": 2, "letter": "C", "header": "Current era rewards", "fields": [], "note": "reference only — compared against the proposed column; differences become questions"}, {"index": 3, "letter": "D", "header": "Proposed rewards", "fields": ["rewards", "reward.bonus"], "note": "the harvested reward column, verbatim"}, {"index": 5, "letter": "F", "header": "Margin notes", "fields": [], "note": "annotations like 'New' / 'Modification' / 'New Scaling' — recorded as questions"}], "rows": [{"row": 2, "outcome": "header", "cells": {"B": "Requirements", "C": "Current E16 Rewards", "D": "Proposed E17 Rewards"}}, {"row": 30, "outcome": "section", "category": "Achievements (Must be Dweller to Submit for Completion)", "cells": {"B": "Achievements (Must be Dweller to Submit for Completion)"}}, {"row": 70, "outcome": "section", "category": "Village Achievements", "cells": {"B": "Village Achievements"}}, {"row": 3, "outcome": "rank", "quest_id": "hobbit", "cells": {"B": "Hobbit "}}, {"row": 4, "outcome": "detail", "entry": "hobbit", "cells": {"B": "Complete initiation.", "C": "1 Lox Pie", "D": "1 Lox Pie"}}, {"row": 5, "outcome": "detail", "entry": "hobbit", "cells": {"C": "1 Fish Wrap", "D": "1 Fish Wrap"}}, {"row": 6, "outcome": "detail", "entry": "hobbit", "cells": {"C": "1 Blood Pudding", "D": "1 Blood Pudding"}}, {"row": 7, "outcome": "detail", "entry": "hobbit", "cells": {"C": "1 Serpent Stew", "D": "1 Serpent Stew"}}, {"row": 8, "outcome": "detail", "entry": "hobbit", "cells": {"C": "1 Sparkler", "D": "1 Sparkler"}}, {"row": 9, "outcome": "rank", "quest_id": "traveller", "cells": {"B": "Traveller"}}, {"row": 10, "outcome": "detail", "entry": "traveller", "cells": {"B": "Complete 5 beginner quests. ", "C": "L5 Cultivator", "D": "L5 Cultivator"}}, {"row": 11, "outcome": "detail", "entry": "traveller", "cells": {"C": "L5 Butcher Knife", "D": "L5 Butcher Knife"}}, {"row": 12, "outcome": "detail", "entry": "traveller", "cells": {"C": "L5 Serving Tray", "D": "L5 Serving Tray"}}, {"row": 13, "outcome": "detail", "entry": "traveller", "cells": {"C": "1 Stack of Basic Fireworks", "D": "1 Stack of Basic Fireworks"}}, {"row": 14, "outcome": "detail", "entry": "traveller", "cells": {"C": "1 Queen Bee", "D": "1 Queen Bee"}}, {"row": 15, "outcome": "detail", "entry": "traveller", "cells": {"C": "Portal to Hobbit Hub", "D": "Portal to Hobbit Hub"}}, {"row": 16, "outcome": "rank", "quest_id": "harvester", "cells": {"B": "Harvester"}}, {"row": 17, "outcome": "detail", "entry": "harvester", "cells": {"B": "Complete 3 beginner quests + 2 Intermediate quests \n(+Traveller Requirements).", "C": "L10 Scythe", "D": "L10 Scythe", "F": "New"}}, {"row": 18, "outcome": "detail", "entry": "harvester", "cells": {"C": "L10 Harpoon", "D": "L10 Harpoon", "F": "Modification"}}, {"row": 19, "outcome": "detail", "entry": "harvester", "cells": {"C": "100 Birch Seeds ", "D": "100 Birch Seeds ", "F": "New Scaling"}}, {"row": 20, "outcome": "detail", "entry": "harvester", "cells": {"C": "10 Acorns ", "D": "10 Acorns "}}, {"row": 21, "outcome": "detail", "entry": "harvester", "cells": {"C": "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)", "D": "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)"}}, {"row": 22, "outcome": "detail", "entry": "harvester", "cells": {"C": "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)", "D": "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)", "F": "\"Turbo\" = ten times as fast the rate of vanilla"}}, {"row": 23, "outcome": "rank", "quest_id": "dweller", "cells": {"B": "Dweller"}}, {"row": 24, "outcome": "detail", "entry": "dweller", "cells": {"B": "Complete 3 intermediate quests + 2 challenging quests \n(+ Harvester requirements). \n5 Event Quests must be completed within quest totals.", "C": "L42 Circlet (43 Armor) (Odin Max)", "D": "L42 Circlet (43 Armor) (Odin Max)"}}, {"row": 25, "outcome": "detail", "entry": "dweller", "cells": {"C": "L10 Mistwalker  (Guild Max)", "D": "L10 Mistwalker  (Guild Max)"}}, {"row": 26, "outcome": "detail", "entry": "dweller", "cells": {"C": "L14 Silver Shield (Guild Max)", "D": "L20 Silver Shield (Guild Max)"}}, {"row": 27, "outcome": "detail", "entry": "dweller", "cells": {"C": "L16 Lox Cape (Guild Max)", "D": "L16 Lox Cape (Guild Max)"}}, {"row": 28, "outcome": "detail", "entry": "dweller", "cells": {"C": "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)", "D": "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)"}}, {"row": 29, "outcome": "detail", "entry": "dweller", "cells": {"C": "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)", "D": "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)"}}, {"row": 31, "outcome": "achievement", "quest_id": "current_era_heroic_dweller", "cells": {"B": "Current Era Heroic Dweller"}}, {"row": 32, "outcome": "detail", "entry": "current_era_heroic_dweller", "cells": {"B": "Complete 21 Hobbit Quests. ", "C": "L43 Rag Tunic/Legs (Odin Max)", "D": "L43 Rag Tunic/Legs (Odin Max)"}}, {"row": 33, "outcome": "detail", "entry": "current_era_heroic_dweller", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 34, "outcome": "achievement", "quest_id": "previous_current_heroic_dweller", "cells": {"B": "Previous & Current Heroic Dweller"}}, {"row": 35, "outcome": "detail", "entry": "previous_current_heroic_dweller", "cells": {"B": "Complete 21 Hobbit Quests (current era and previous era)", "C": "Mistwalker L10 --> L11 (Odin Max)", "D": "Mistwalker L10 --> L11 (Odin Max)"}}, {"row": 36, "outcome": "detail", "entry": "previous_current_heroic_dweller", "cells": {"C": "Silver Shield L14 --> 15 (Odin Max)", "D": "Silver Shield L20 --> 21 (Odin Max)"}}, {"row": 37, "outcome": "detail", "entry": "previous_current_heroic_dweller", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 38, "outcome": "achievement", "quest_id": "thain_of_the_shire", "cells": {"B": "Thain of the Shire", "F": "New"}}, {"row": 39, "outcome": "detail", "entry": "thain_of_the_shire", "cells": {"B": "Complete 30 Hobbit Quests", "C": "L38 Hildir Natural Tunic (Odin Max)", "D": "L38 Hildir Natural Tunic (Odin Max)", "F": "Modification"}}, {"row": 40, "outcome": "detail", "entry": "thain_of_the_shire", "cells": {"C": "L4 Staff of the Wild (Creator Max)", "D": "L4 Staff of the Wild (Creator Max)", "F": "New Scaling"}}, {"row": 41, "outcome": "detail", "entry": "thain_of_the_shire", "cells": {"C": "Evenstar Sculpture (includes 1 demister prefab)", "D": "Evenstar Sculpture (includes 1 demister prefab)"}}, {"row": 42, "outcome": "detail", "entry": "thain_of_the_shire", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 43, "outcome": "achievement", "quest_id": "master_burglar", "cells": {"B": "Master Burglar"}}, {"row": 44, "outcome": "detail", "entry": "master_burglar", "cells": {"B": "Reach 50 sneak skill and find the 10 chests and Arkenestone in Erebor.", "C": "4 Stacks of Roasted Crust Pie", "D": "4 Stacks of Roasted Crust Pie"}}, {"row": 45, "outcome": "detail", "entry": "master_burglar", "cells": {"C": "1 Iolite Gem", "D": "1 Iolite Gem"}}, {"row": 46, "outcome": "detail", "entry": "master_burglar", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 47, "outcome": "achievement", "quest_id": "ring_bearer", "cells": {"B": "Ring Bearer"}}, {"row": 48, "outcome": "detail", "entry": "ring_bearer", "cells": {"B": "Complete Barad-Dur, Helms Deep and Isengard wearing any Circlet ", "C": "Boss Stone token", "D": "Boss Stone token"}}, {"row": 49, "outcome": "detail", "entry": "ring_bearer", "cells": {"C": "4 Stacks of Troll Endurance Mead", "D": "4 Stacks of Troll Endurance Mead"}}, {"row": 50, "outcome": "detail", "entry": "ring_bearer", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 51, "outcome": "achievement", "quest_id": "farmor_maggot_returns", "cells": {"B": "Farmor Maggot Returns"}}, {"row": 52, "outcome": "detail", "entry": "farmor_maggot_returns", "cells": {"B": "Find 4 2 empty Farmor Maggot quest sites and complete the quest requirements again. ", "C": "L5 -> L15 Traveller Cultivator", "D": "L5 -> L15 Traveller Cultivator"}}, {"row": 53, "outcome": "detail", "entry": "farmor_maggot_returns", "cells": {"D": "50 Birch Seeds"}}, {"row": 54, "outcome": "achievement", "quest_id": "second_breakfast", "cells": {"B": "Second Breakfast"}}, {"row": 55, "outcome": "detail", "entry": "second_breakfast", "cells": {"B": "Find 4 2 empty Hobbit Comfort Huts and leave 5 stacks of crafted food in the designated chest.", "C": "L10 -> L15 Harvester Scythe", "D": "L10 -> L15 Harvester Scythe"}}, {"row": 56, "outcome": "detail", "entry": "second_breakfast", "cells": {"D": "50 Birch Seeds"}}, {"row": 57, "outcome": "achievement", "quest_id": "baskets_from_bag_end", "cells": {"B": "Baskets from Bag End"}}, {"row": 58, "outcome": "detail", "entry": "baskets_from_bag_end", "cells": {"B": "Craft one of every feast (8 total) and leave them in the wild in their corresponding biome. Place a torch and a sign that says \"Free Baskets from Bag End\".", "C": "L5 -> L10 Traveller Serving Tray", "D": "L5 -> L10 Traveller Serving Tray"}}, {"row": 59, "outcome": "detail", "entry": "baskets_from_bag_end", "cells": {"C": "10 Acorns", "D": "10 Acorns"}}, {"row": 60, "outcome": "achievement", "quest_id": "weekly_gifter", "cells": {"B": "Weekly Gifter"}}, {"row": 61, "outcome": "detail", "entry": "weekly_gifter", "cells": {"B": "Gift 1 stack of current high-tier food to any player once a week and receive 1 acorn in return.", "C": "1 Acorn", "D": "1 Acorn"}}, {"row": 62, "outcome": "achievement", "quest_id": "gandalf_s_grand_fireworks", "cells": {"B": "Gandalf's Grand Fireworks"}}, {"row": 63, "outcome": "detail", "entry": "gandalf_s_grand_fireworks", "cells": {"B": "Put on a grand firework show. Throwing at least 5 of each 6 firework colors (blue, cyan, green purple, red and yellow) into a bonfire for any comfy event you did not create. (Ex. Another player's Jarl Sail) ", "C": "L16 -> L18 Dweller Lox Cape (Odin Max)", "D": "L16 -> L18 Dweller Lox Cape (Odin Max)"}}, {"row": 64, "outcome": "detail", "entry": "gandalf_s_grand_fireworks", "cells": {"C": "Horn of Celebration crafted by Gandalf the White", "D": "Horn of Celebration crafted by Gandalf the White"}}, {"row": 65, "outcome": "achievement", "quest_id": "one_cape_to_rule_them_all", "cells": {"B": "One Cape to Rule Them All"}}, {"row": 66, "outcome": "detail", "entry": "one_cape_to_rule_them_all", "cells": {"B": "Collect and turn-in the 5 horn of celebrations crafted by 5 different LOTR characters. These can be found in the Dweller achievement rewards and Hobbit Creator Events.", "C": "L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\" ", "D": "L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\" "}}, {"row": 67, "outcome": "achievement", "quest_id": "middle_earth_entertainer", "cells": {"B": "Middle Earth Entertainer"}}, {"row": 68, "outcome": "detail", "entry": "middle_earth_entertainer", "cells": {"B": "Perform at 2 Hobbit Socials. Player must submit link to event post providing documentation (guild staff will not track repeats).", "C": "Tankard Sculpture", "D": "Tankard Sculpture"}}, {"row": 69, "outcome": "detail", "entry": "middle_earth_entertainer", "cells": {"C": "Vanity Title", "D": "Vanity Title"}}, {"row": 71, "outcome": "achievement", "quest_id": "from_under_the_hill", "cells": {"B": "From Under the Hill"}}, {"row": 72, "outcome": "detail", "entry": "from_under_the_hill", "cells": {"B": "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 3 Dwellers total living in the village (on the wards) to earn these rewards", "C": "Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace", "D": "Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace"}}, {"row": 73, "outcome": "detail", "entry": "from_under_the_hill", "cells": {"C": "Official Shire-Themed Village Name & Private Thread", "D": "Official Shire-Themed Village Name & Private Thread"}}, {"row": 74, "outcome": "achievement", "quest_id": "there_and_back_again", "cells": {"B": "There and Back Again"}}, {"row": 75, "outcome": "detail", "entry": "there_and_back_again", "cells": {"B": "Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 5 Dwellers total living in the village (on the wards) to earn these rewards", "C": "Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle", "D": "Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle"}}, {"row": 76, "outcome": "achievement", "quest_id": "hobbit_hospitality", "cells": {"B": "Hobbit Hospitality"}}, {"row": 77, "outcome": "detail", "entry": "hobbit_hospitality", "cells": {"B": "Request for a Hobbit Social to be hosted at your Dweller Village and provide Hobbit Chef for the event. Make sure there is seating to accommodate 15 players.", "C": "Wintershire Ice Rink", "D": "Wintershire Ice Rink"}}]}], "anomalies": [{"kind": "margin_note", "row": null, "tab": null, "quest_id": "harvester", "quest_name": "Harvester", "message": "margin note reads 'New' — recorded verbatim, not interpreted."}, {"kind": "margin_note", "row": null, "tab": null, "quest_id": "harvester", "quest_name": "Harvester", "message": "margin note reads 'Modification' — recorded verbatim, not interpreted."}, {"kind": "margin_note", "row": null, "tab": null, "quest_id": "harvester", "quest_name": "Harvester", "message": "margin note reads 'New Scaling' — recorded verbatim, not interpreted."}, {"kind": "margin_note", "row": null, "tab": null, "quest_id": "harvester", "quest_name": "Harvester", "message": "margin note reads '\"Turbo\" = ten times as fast the rate of vanilla' — recorded verbatim, not interpreted."}, {"kind": "reward_rescale", "row": null, "tab": null, "quest_id": "dweller", "quest_name": "Dweller", "message": "the proposed rewards differ from the current era's: ['L42 Circlet (43 Armor) (Odin Max)', 'L10 Mistwalker  (Guild Max)', 'L14 Silver Shield (Guild Max)', 'L16 Lox Cape (Guild Max)', 'Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)', 'Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \\n(Odin Max)'] -> ['L42 Circlet (43 Armor) (Odin Max)', 'L10 Mistwalker  (Guild Max)', 'L20 Silver Shield (Guild Max)', 'L16 Lox Cape (Guild Max)', 'Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)', 'Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \\n(Odin Max)']. Deliberate re-scaling?"}, {"kind": "reward_rescale", "row": null, "tab": null, "quest_id": "previous_current_heroic_dweller", "quest_name": "Previous & Current Heroic Dweller", "message": "the proposed rewards differ from the current era's: ['Mistwalker L10 --> L11 (Odin Max)', 'Silver Shield L14 --> 15 (Odin Max)', 'Vanity Title'] -> ['Mistwalker L10 --> L11 (Odin Max)', 'Silver Shield L20 --> 21 (Odin Max)', 'Vanity Title']. Deliberate re-scaling?"}, {"kind": "margin_note", "row": null, "tab": null, "quest_id": "thain_of_the_shire", "quest_name": "Thain of the Shire", "message": "margin note reads 'Modification' — recorded verbatim, not interpreted."}, {"kind": "margin_note", "row": null, "tab": null, "quest_id": "thain_of_the_shire", "quest_name": "Thain of the Shire", "message": "margin note reads 'New Scaling' — recorded verbatim, not interpreted."}, {"kind": "reward_rescale", "row": null, "tab": null, "quest_id": "farmor_maggot_returns", "quest_name": "Farmor Maggot Returns", "message": "the proposed rewards differ from the current era's: ['L5 -> L15 Traveller Cultivator'] -> ['L5 -> L15 Traveller Cultivator', '50 Birch Seeds']. Deliberate re-scaling?"}, {"kind": "reward_rescale", "row": null, "tab": null, "quest_id": "second_breakfast", "quest_name": "Second Breakfast", "message": "the proposed rewards differ from the current era's: ['L10 -> L15 Harvester Scythe'] -> ['L10 -> L15 Harvester Scythe', '50 Birch Seeds']. Deliberate re-scaling?"}, {"kind": "needs_leader", "row": null, "tab": null, "quest_id": null, "quest_name": null, "message": "[need: the Hobbits' real submit command] — the bot_command_template in the ladder is a placeholder until the guild provides theirs."}], "counts": {"rows_seen": 76, "quests": 19, "entries": 19, "skipped": 0, "blank": 0, "anomalies": 11}}, "entries": {"hobbit": {"kind": "rank", "name": "Hobbit", "tier": 0, "requirements": ["Complete initiation."], "rewards": ["1 Lox Pie", "1 Fish Wrap", "1 Blood Pudding", "1 Serpent Stew", "1 Sparkler"]}, "traveller": {"kind": "rank", "name": "Traveller", "tier": 1, "requirements": ["Complete 5 beginner quests."], "rewards": ["L5 Cultivator", "L5 Butcher Knife", "L5 Serving Tray", "1 Stack of Basic Fireworks", "1 Queen Bee", "Portal to Hobbit Hub"]}, "harvester": {"kind": "rank", "name": "Harvester", "tier": 2, "requirements": ["Complete 3 beginner quests + 2 Intermediate quests \n(+Traveller Requirements)."], "rewards": ["L10 Scythe", "L10 Harpoon", "100 Birch Seeds", "10 Acorns", "3 Forever Babies (boar, wolf, lox, chicken, asksvin, deer, hare)", "Access to Hobbit Farm/Kitchen \n(\"Turbo\" Windmills/Spinning Wheels/Fermenters)"]}, "dweller": {"kind": "rank", "name": "Dweller", "tier": 3, "requirements": ["Complete 3 intermediate quests + 2 challenging quests \n(+ Harvester requirements). \n5 Event Quests must be completed within quest totals."], "rewards": ["L42 Circlet (43 Armor) (Odin Max)", "L10 Mistwalker  (Guild Max)", "L20 Silver Shield (Guild Max)", "L16 Lox Cape (Guild Max)", "Hobbit Home (includes 5 pickables - 1 rasp, 1 blue, 1 thistle, 1 smoke, 1 fiddlehead and 1 bee)", "Previous Era Heroic Dweller Only - L43 Rag Tunic/Legs \n(Odin Max)"]}, "current_era_heroic_dweller": {"kind": "achievement", "name": "Current Era Heroic Dweller", "requirements": ["Complete 21 Hobbit Quests."], "rewards": ["L43 Rag Tunic/Legs (Odin Max)", "Vanity Title"]}, "previous_current_heroic_dweller": {"kind": "achievement", "name": "Previous & Current Heroic Dweller", "requirements": ["Complete 21 Hobbit Quests (current era and previous era)"], "rewards": ["Mistwalker L10 --> L11 (Odin Max)", "Silver Shield L20 --> 21 (Odin Max)", "Vanity Title"]}, "thain_of_the_shire": {"kind": "achievement", "name": "Thain of the Shire", "requirements": ["Complete 30 Hobbit Quests"], "rewards": ["L38 Hildir Natural Tunic (Odin Max)", "L4 Staff of the Wild (Creator Max)", "Evenstar Sculpture (includes 1 demister prefab)", "Vanity Title"]}, "master_burglar": {"kind": "achievement", "name": "Master Burglar", "requirements": ["Reach 50 sneak skill and find the 10 chests and Arkenestone in Erebor."], "rewards": ["4 Stacks of Roasted Crust Pie", "1 Iolite Gem", "Vanity Title"]}, "ring_bearer": {"kind": "achievement", "name": "Ring Bearer", "requirements": ["Complete Barad-Dur, Helms Deep and Isengard wearing any Circlet"], "rewards": ["Boss Stone token", "4 Stacks of Troll Endurance Mead", "Vanity Title"]}, "farmor_maggot_returns": {"kind": "achievement", "name": "Farmor Maggot Returns", "requirements": ["Find 4 2 empty Farmor Maggot quest sites and complete the quest requirements again."], "rewards": ["L5 -> L15 Traveller Cultivator", "50 Birch Seeds"]}, "second_breakfast": {"kind": "achievement", "name": "Second Breakfast", "requirements": ["Find 4 2 empty Hobbit Comfort Huts and leave 5 stacks of crafted food in the designated chest."], "rewards": ["L10 -> L15 Harvester Scythe", "50 Birch Seeds"]}, "baskets_from_bag_end": {"kind": "achievement", "name": "Baskets from Bag End", "requirements": ["Craft one of every feast (8 total) and leave them in the wild in their corresponding biome. Place a torch and a sign that says \"Free Baskets from Bag End\"."], "rewards": ["L5 -> L10 Traveller Serving Tray", "10 Acorns"]}, "weekly_gifter": {"kind": "achievement", "name": "Weekly Gifter", "requirements": ["Gift 1 stack of current high-tier food to any player once a week and receive 1 acorn in return."], "rewards": ["1 Acorn"]}, "gandalf_s_grand_fireworks": {"kind": "achievement", "name": "Gandalf's Grand Fireworks", "requirements": ["Put on a grand firework show. Throwing at least 5 of each 6 firework colors (blue, cyan, green purple, red and yellow) into a bonfire for any comfy event you did not create. (Ex. Another player's Jarl Sail)"], "rewards": ["L16 -> L18 Dweller Lox Cape (Odin Max)", "Horn of Celebration crafted by Gandalf the White"]}, "one_cape_to_rule_them_all": {"kind": "achievement", "name": "One Cape to Rule Them All", "requirements": ["Collect and turn-in the 5 horn of celebrations crafted by 5 different LOTR characters. These can be found in the Dweller achievement rewards and Hobbit Creator Events."], "rewards": ["L24 Yellow Linen Cape (Odin Max) \nwith the tag: \"One Cape to Rule Them All\""]}, "middle_earth_entertainer": {"kind": "achievement", "name": "Middle Earth Entertainer", "requirements": ["Perform at 2 Hobbit Socials. Player must submit link to event post providing documentation (guild staff will not track repeats)."], "rewards": ["Tankard Sculpture", "Vanity Title"]}, "from_under_the_hill": {"kind": "village achievement", "name": "From Under the Hill", "requirements": ["Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 3 Dwellers total living in the village (on the wards) to earn these rewards"], "rewards": ["Medieval-Styled Maxed Out Workshop - includes maxed workbench, forge, black forge, galdr table, 3 stonecutter supplies, 1 smelter, 1 blast furnace", "Official Shire-Themed Village Name & Private Thread"]}, "there_and_back_again": {"kind": "village achievement", "name": "There and Back Again", "requirements": ["Create a Dweller Village by requesting to place your Hobbit Home with another Hobbit Home and have at least 5 Dwellers total living in the village (on the wards) to earn these rewards"], "rewards": ["Gated Oak Tree Portal to Exclusive Hobbit Hub Village Portal including 2 thistle"]}, "hobbit_hospitality": {"kind": "village achievement", "name": "Hobbit Hospitality", "requirements": ["Request for a Hobbit Social to be hosted at your Dweller Village and provide Hobbit Chef for the event. Make sure there is seating to accommodate 15 players."], "rewards": ["Wintershire Ice Rink"]}}};
+
+function el(tag, cls, text){
+  var e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined && text !== null) e.textContent = text;
+  return e;
+}
+
+var OUTCOME_CHIP = {
+  quest:       ["c-quest", "quest"],
+  rank:        ["c-quest", "rank"],
+  achievement: ["c-ach", "achievement"],
+  detail:      ["c-dim", "detail"],
+  skipped:     ["c-skipped", "skipped"],
+  blank:       ["c-dim", "blank"],
+  filler:      ["c-dim", "not harvested"],
+  banner:      ["c-dim", "banner"],
+  section:     ["c-dim", "section"],
+  header:      ["c-dim", "header"]
+};
+
+// anomalies joined by (tab,row) and by quest_id
+var anomsByRow = {}, anomsByQuest = {};
+DATA.provenance.anomalies.forEach(function(a){
+  if (a.row !== null && a.row !== undefined){
+    var k = (a.tab || "") + "\u0000" + a.row;
+    (anomsByRow[k] = anomsByRow[k] || []).push(a);
+  } else if (a.quest_id){
+    (anomsByQuest[a.quest_id] = anomsByQuest[a.quest_id] || []).push(a);
+  }
+});
+
+var rowAnchorByQuest = {};  // quest_id -> anchor id, for anomaly links
+
+function headerFor(tab, letter){
+  for (var i = 0; i < tab.columns.length; i++)
+    if (tab.columns[i].letter === letter) return tab.columns[i].header;
+  return "";
+}
+
+function renderRow(tab, ti, r){
+  var d = document.createElement("details");
+  d.dataset.outcome = r.outcome;
+  d.id = "row-" + ti + "-" + r.row;
+  var s = document.createElement("summary");
+  var label = (DATA.provenance.tabs.length > 1 && tab.tab ? tab.tab + " " : "") + "row " + r.row;
+  s.appendChild(el("span", "rowno", label));
+  var chip = OUTCOME_CHIP[r.outcome] || ["c-dim", r.outcome];
+  s.appendChild(el("span", "chip " + chip[0], chip[1]));
+  var q = r.quest_id ? DATA.entries[r.quest_id] : null;
+  var firstCell = r.cells ? r.cells[Object.keys(r.cells).sort()[0]] : "";
+  var name = q ? q.name : (firstCell || "").split("\n")[0];
+  if (name) s.appendChild(el("span", "rname", name));
+  if (q && (r.outcome === "quest" || r.outcome === "rank" || r.outcome === "achievement"))
+    s.appendChild(el("span", "rbecame", "\u2192 " + r.quest_id));
+  if (r.reason) s.appendChild(el("span", "rbecame", r.reason));
+  // row-keyed anomalies may carry the tab name or not (single-tab adapters omit it)
+  var anoms = (anomsByRow[(tab.tab || "") + "\u0000" + r.row] || []).slice();
+  if (tab.tab) anoms = anoms.concat(anomsByRow["\u0000" + r.row] || []);
+  if (r.quest_id) anoms = anoms.concat(anomsByQuest[r.quest_id] || []);
+  if (anoms.length) s.appendChild(el("span", "abadge", "\u26a0 " + anoms.length));
+  d.appendChild(s);
+  if (r.quest_id) rowAnchorByQuest[r.quest_id] = d.id;
+
+  var body = el("div", "rbody");
+  if (r.cells){
+    var cells = el("div", "cells");
+    Object.keys(r.cells).sort(function(a,b){
+      return (a.length - b.length) || (a < b ? -1 : 1);
+    }).forEach(function(letter){
+      var c = el("div", "cell");
+      c.appendChild(el("b", null, letter + " \u00b7 " + headerFor(tab, letter)));
+      var v = el("div"); v.textContent = r.cells[letter]; c.appendChild(v);
+      cells.appendChild(c);
+    });
+    body.appendChild(cells);
+  }
+  if (q){
+    var b = el("p", "became");
+    b.appendChild(el("b", null, "Became: "));
+    if (q.kind === "quest"){
+      b.appendChild(document.createTextNode(
+        q.name + " (" + r.quest_id + ")" +
+        (q.category ? " \u00b7 " + q.category : "") +
+        (q.coopable ? " \u00b7 coopable" : "") +
+        (q.auto_checked ? " \u00b7 auto-checked" : "")));
+      if (q.bot_command){
+        b.appendChild(document.createElement("br"));
+        var cd = document.createElement("code"); cd.textContent = q.bot_command;
+        b.appendChild(cd);
+      }
+      if (q.reward){
+        b.appendChild(document.createElement("br"));
+        b.appendChild(document.createTextNode("Reward: " + q.reward));
+      }
+    } else {
+      b.appendChild(document.createTextNode(
+        q.name + " (" + r.quest_id + ") \u00b7 " +
+        (q.kind === "rank" ? "rank, tier " + q.tier : q.kind)));
+      if (q.requirements && q.requirements.length){
+        b.appendChild(document.createElement("br"));
+        b.appendChild(document.createTextNode("Requires: " + q.requirements.join(" ")));
+      }
+      if (q.rewards && q.rewards.length){
+        b.appendChild(document.createElement("br"));
+        b.appendChild(document.createTextNode("Rewards: " + q.rewards.join("; ")));
+      }
+    }
+    body.appendChild(b);
+  }
+  anoms.forEach(function(a){
+    body.appendChild(el("p", "rowanom", a.message));
+  });
+  if (body.children.length) d.appendChild(body);
+  else d.querySelector("summary").style.cursor = "default";
+  return d;
+}
+
+var ledger = document.getElementById("ledger");
+DATA.provenance.tabs.forEach(function(tab, ti){
+  if (DATA.provenance.tabs.length > 1 && tab.tab)
+    ledger.appendChild(el("h3", "tabname", tab.tab));
+  var box = el("div", "ledger");
+  var blanks = [];
+  function flushBlanks(){
+    if (!blanks.length) return;
+    if (blanks.length <= 2){
+      blanks.forEach(function(r){ box.appendChild(renderRow(tab, ti, r)); });
+    } else {
+      box.appendChild(el("div", "gap", "rows " + blanks[0].row + "\u2013" +
+        blanks[blanks.length-1].row + " \u00b7 " + blanks.length + " blank rows"));
+    }
+    blanks = [];
+  }
+  tab.rows.forEach(function(r){
+    if (r.outcome === "blank"){ blanks.push(r); return; }
+    flushBlanks();
+    box.appendChild(renderRow(tab, ti, r));
+  });
+  flushBlanks();
+  ledger.appendChild(box);
+});
+
+var anomBox = document.getElementById("anomalies");
+if (!DATA.provenance.anomalies.length){
+  anomBox.appendChild(el("p", "muted", "No anomalies — nothing looked off."));
+}
+DATA.provenance.anomalies.forEach(function(a){
+  var item = el("div", "item");
+  var who = el("b", null, a.quest_name ? a.quest_name :
+    (a.row !== null && a.row !== undefined ? ((a.tab ? a.tab + " " : "") + "row " + a.row) : "source"));
+  item.appendChild(who);
+  item.appendChild(document.createTextNode(" \u2014 " + a.message + " "));
+  var target = null;
+  if (a.row !== null && a.row !== undefined){
+    for (var ti = 0; ti < DATA.provenance.tabs.length; ti++)
+      if ((DATA.provenance.tabs[ti].tab || "") === (a.tab || "") ||
+          DATA.provenance.tabs.length === 1)
+        { target = "row-" + ti + "-" + a.row; break; }
+  } else if (a.quest_id && rowAnchorByQuest[a.quest_id]){
+    target = rowAnchorByQuest[a.quest_id];
+  }
+  if (target && document.getElementById(target)){
+    var link = el("a", null, "\u2192 see the row");
+    link.href = "#" + target;
+    link.addEventListener("click", function(){
+      document.getElementById(target).open = true;
+    });
+    item.appendChild(link);
+  }
+  anomBox.appendChild(item);
+});
+</script>
+</body>
+</html>

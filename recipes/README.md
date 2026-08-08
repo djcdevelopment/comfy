@@ -18,6 +18,16 @@ python .\recipes\rank-ladders\validate.py .\recipes\rank-ladders\example-output.
 python .\recipes\rank-ladders\render.py .\recipes\rank-ladders\example-output.json
 ```
 
+Ladders can also be **harvested**: quest-catalogs sources with `"kind": "rank-ladder"`
+(first: the Hobbits, from Luna's workbook) run through the same absorption engine and
+get the same anomalies report + provenance receipt as quest catalogs:
+
+```powershell
+python .\recipes\quest-catalogs\harvest.py hobbits-ladder
+python .\recipes\rank-ladders\validate.py .\data\processed\rank-ladder-hobbits.json
+python .\recipes\rank-ladders\render.py .\data\processed\rank-ladder-hobbits.json
+```
+
 ### Quest catalogs
 
 [`quest-catalogs/`](quest-catalogs/) harvests guild trackers into canonical catalogs and anomaly
