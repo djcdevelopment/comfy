@@ -985,16 +985,10 @@ namespace Comfy.CameraProof
                 // every two, and settle is six at its shortest, so both land before the
                 // shutter. Reach is measured from where the lens ended up rather than
                 // where the plan wanted it.
-                if (s.Fires)
-                {
-                    HoldFiresLit(s.Aim, FireSweepRadius, Vector3.Distance(target, s.Aim) + 40f);
-                }
-                else
-                {
-                    // Never let a held shot's counts ride along into an unheld receipt.
-                    _firesFound = _firesWereBurning = _firesWereWet = _firesLit = 0;
-                    _firesUnowned = _lodsWidened = 0;
-                }
+                // Always survey; hold only when the plan asked. The control frame's
+                // count is half the measurement.
+                HoldFiresLit(s.Aim, FireSweepRadius, Vector3.Distance(target, s.Aim) + 40f,
+                             s.Fires);
                 yield return new WaitForSeconds(settle);
 
                 var pieces = PiecesNear(s.Aim, 60f);
@@ -1049,6 +1043,7 @@ namespace Comfy.CameraProof
                     .Append($"\"time_of_day\":{JsonNumber(s.TimeOfDay)},")
                     .Append($"\"fires\":{JsonBool(s.Fires)},")
                     .Append($"\"fires_found\":{_firesFound},")
+                    .Append($"\"fires_in_view\":{_firesInView},")
                     .Append($"\"fires_burning\":{_firesWereBurning},")
                     .Append($"\"fires_wet\":{_firesWereWet},")
                     .Append($"\"fires_lit\":{_firesLit},")
@@ -1926,14 +1921,26 @@ namespace Comfy.CameraProof
         private int _firesWereBurning;
         private int _firesWereWet;
         private int _firesLit;
+        private int _firesInView;
         private int _firesUnowned;
         private int _lodsWidened;
 
-        private void HoldFiresLit(Vector3 center, float radius, float lodDistance)
+        /// <summary>
+        /// Walk the fires near the subject, count what is there, and -- only if the
+        /// plan asked -- hold them lit.
+        ///
+        /// Counting and holding are separated because the control frame needs the
+        /// count too. storm_dark is the same camera and the same sky as storm with
+        /// the fires left alone, and a control that reports zero fires cannot be
+        /// half of a correlation. So the survey always runs and `fires` in the
+        /// receipt records whether anything was actually held.
+        /// </summary>
+        private void HoldFiresLit(Vector3 center, float radius, float lodDistance, bool hold)
         {
             ReleaseHeldLight();
             _firesFound = _firesWereBurning = _firesWereWet = _firesLit = 0;
-            _firesUnowned = _lodsWidened = 0;
+            _firesInView = _firesUnowned = _lodsWidened = 0;
+            var cam = Camera.main;
 
             var wetField = FindField(typeof(Fireplace), "m_wet");
             var blockedField = FindField(typeof(Fireplace), "m_blocked");
@@ -1952,9 +1959,25 @@ namespace Comfy.CameraProof
                 try
                 {
                     _firesFound++;
-                    if (fire.IsBurning()) _firesWereBurning++;
-                    else _firesLit++;
+                    var wasBurning = fire.IsBurning();
+                    if (wasBurning) _firesWereBurning++;
                     if (wetField != null && (bool)wetField.GetValue(fire)) _firesWereWet++;
+
+                    // In the frustum, not merely within 80 m. Note this is a frustum
+                    // test and NOT a visibility test: a fire behind a wall still counts,
+                    // because the alternative is a raycast per fire per shot and because
+                    // IsOccluded's mask cannot see walls anyway.
+                    if (cam != null)
+                    {
+                        var v = cam.WorldToViewportPoint(fire.transform.position);
+                        if (v.z > 0f && v.x >= 0f && v.x <= 1f && v.y >= 0f && v.y <= 1f)
+                        {
+                            _firesInView++;
+                        }
+                    }
+
+                    if (!hold) continue;
+                    if (!wasBurning) _firesLit++;
 
                     var held = new HeldFire
                     {
@@ -2018,8 +2041,9 @@ namespace Comfy.CameraProof
                 }
             }
 
-            if (lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
-            Logger.LogInfo($"  fires: found {_firesFound}, burning {_firesWereBurning}, "
+            if (hold && lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
+            Logger.LogInfo($"  fires: found {_firesFound}, in view {_firesInView}, "
+                           + $"burning {_firesWereBurning}, "
                            + $"wet {_firesWereWet}, lit {_firesLit}"
                            + (_firesUnowned > 0 ? $", {_firesUnowned} not ours (fuel left alone)" : "")
                            + $"; light lods {_lodsWidened}");
