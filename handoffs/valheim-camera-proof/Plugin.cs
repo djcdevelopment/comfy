@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.1.0")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.0")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -518,6 +518,61 @@ namespace Comfy.CameraProof
             public float TimeOfDay;
             public Vector3 Aim;
             public string Label;
+            public string Mode;
+        }
+
+        /// <summary>
+        /// Interior rows (14th TSV column, written by plan_interiors.py) keep their
+        /// composed position: the ground clamp relaxes to eye-height margins and
+        /// occlusion recovery -- which exists to escape foliage -- stays off, because
+        /// indoors every "rescue" is a teleport through the roof.
+        /// </summary>
+        private static bool IsInterior(Shot s)
+            => string.Equals(s.Mode, "interior", StringComparison.OrdinalIgnoreCase);
+
+        private static FieldInfo FindField(Type type, string name)
+        {
+            for (var cur = type; cur != null; cur = cur.BaseType)
+            {
+                var f = cur.GetField(name,
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (f != null) return f;
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// The camera rig is not a combatant. Shots teleport the player into
+        /// courtyards and halls where wolves, raids and fall damage are real; a
+        /// death mid-plan costs a respawn wait and puts a freshly *visible*
+        /// corpse-run character in frame (the hide toggle binds to the instance
+        /// that died). God and ghost mode via reflection, because nothing here
+        /// can type 'devcommands' into the console.
+        /// </summary>
+        private void SetInvulnerable(object player, bool on)
+        {
+            if (player == null) return;
+            try
+            {
+                var type = player.GetType();
+                var god = type.GetMethod("SetGodMode",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                if (god != null)
+                {
+                    god.Invoke(player, new object[] { on });
+                }
+                else
+                {
+                    var f = FindField(type, "m_godMode");
+                    if (f != null) f.SetValue(player, on);
+                }
+                var ghost = FindField(type, "m_ghostMode");
+                if (ghost != null) ghost.SetValue(player, on);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Could not set god/ghost mode: {ex.Message}");
+            }
         }
 
         private System.Collections.Generic.List<Shot> LoadShotPlan()
@@ -546,7 +601,8 @@ namespace Comfy.CameraProof
                         Environment = f[7],
                         TimeOfDay = P(f[8]),
                         Aim = new Vector3(P(f[9]), P(f[10]), P(f[11])),
-                        Label = f.Length > 12 ? f[12] : ""
+                        Label = f.Length > 12 ? f[12] : "",
+                        Mode = f.Length > 13 ? f[13].Trim() : ""
                     });
                 }
                 catch (Exception ex)
@@ -796,15 +852,23 @@ namespace Comfy.CameraProof
                         break;
                     }
                     Logger.LogInfo($"  player back after {waited:0}s; continuing");
+                    // A respawned player is a new instance: the hide toggle from the
+                    // session setup no longer applies to it.
+                    if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
                 }
+                SetInvulnerable(player, true);
 
                 // Never end up inside the hill. The planner has no terrain data at all,
                 // so this is the first moment anything knows the real ground height.
+                // Interior cameras sit at eye height by design -- the 2 m margin that
+                // keeps an orbit out of a hillside would shove them to the ceiling, so
+                // they keep just enough to stay out of the dirt.
                 var target = s.Camera;
+                var minAbove = IsInterior(s) ? 0.2f : 2f;
                 if (TryResolveGroundHeight(target.x, target.z, out var ground) && ground.HasValue
-                    && target.y < ground.Value + 2f)
+                    && target.y < ground.Value + minAbove)
                 {
-                    target.y = ground.Value + 2f;
+                    target.y = ground.Value + minAbove;
                 }
 
                 var yaw = s.Yaw;
@@ -824,7 +888,12 @@ namespace Comfy.CameraProof
                 // about to be buried in a canopy. Run 4 proved it: one frame came back
                 // occluded=true with clearance=planned, the two checks disagreeing purely
                 // because they ran either side of the world loading.
-                var moved = FindClearView(target, s.Aim, out var clearance);
+                var clearance = "planned";
+                var moved = target;
+                if (!IsInterior(s))
+                {
+                    moved = FindClearView(target, s.Aim, out clearance);
+                }
                 if (clearance != "planned")
                 {
                     Logger.LogInfo($"  view was blocked; {clearance}");
@@ -847,6 +916,7 @@ namespace Comfy.CameraProof
                                       + "arrived (0 pieces) -- shot skipped");
                     AppendReceipt("{\"run\":" + JsonString(runId) + ",\"index\":" + i
                                   + ",\"cluster_id\":" + s.ClusterId + ",\"shot\":" + JsonString(s.Name)
+                                  + ",\"mode\":" + JsonString(s.Mode)
                                   + ",\"skipped\":\"world_never_loaded\"}");
                     continue;
                 }
@@ -864,6 +934,7 @@ namespace Comfy.CameraProof
                     .Append($"\"index\":{i},")
                     .Append($"\"cluster_id\":{s.ClusterId},")
                     .Append($"\"shot\":{JsonString(s.Name)},")
+                    .Append($"\"mode\":{JsonString(s.Mode)},")
                     .Append($"\"label\":{JsonString(s.Label)},")
                     .Append($"\"file\":{JsonString(fileName)},")
                     .Append($"\"planned\":{JsonVector(s.Camera)},")
@@ -892,6 +963,7 @@ namespace Comfy.CameraProof
             SetDebugTime(null);
             SetCaptureChromeHidden(false);
             SetLocalPlayerVisible(!_hidePlayerForScreenshots);
+            SetInvulnerable(GetLocalPlayer(), false);
             if (priorBoom >= 0f) SetCameraBoom(priorBoom);
             _stillJobRunning = false;
             var done = shotIndex;
