@@ -269,6 +269,7 @@ namespace Comfy.CameraProof
                 new Terminal.ConsoleCommand("comfyproof_env", "force environment: comfyproof_env Clear|Misty|Rain|ThunderStorm|noforce", ConsoleEnv);
                 new Terminal.ConsoleCommand("comfyproof_time", "force time of day 0..1, or off: comfyproof_time 0.5", ConsoleTime);
                 new Terminal.ConsoleCommand("comfyproof_envs", "write available environment names to comfy-camera-proof-envs.json", ConsoleEnvList);
+                new Terminal.ConsoleCommand("comfyproof_sky", "dump sun/moon direction per time of day: comfyproof_sky [0.8,0.9,...]", ConsoleSky);
                 new Terminal.ConsoleCommand("comfyproof_hideplayer", "hide/show local player: comfyproof_hideplayer on|off", ConsoleHidePlayer);
                 new Terminal.ConsoleCommand("comfyproof_variantstills", "capture env/time variants: comfyproof_variantstills [limit] [settle] [variantSet]", ConsoleVariantStills);
                 new Terminal.ConsoleCommand("comfyproof_capture", "capture variants at current position: comfyproof_capture [variantSet]", ConsoleCaptureHere);
@@ -390,6 +391,32 @@ namespace Comfy.CameraProof
             }
         }
 
+        /// <summary>Times a sky dump was asked for, from the same request file.</summary>
+        private System.Collections.Generic.List<float> ReadSkyTimes()
+        {
+            var times = new System.Collections.Generic.List<float>();
+            try
+            {
+                if (!File.Exists(OrbitRequestPath)) return times;
+                var m = Regex.Match(File.ReadAllText(OrbitRequestPath),
+                                    "\"sky_times\"\\s*:\\s*\\[([^\\]]*)\\]");
+                if (!m.Success) return times;
+                foreach (var part in m.Groups[1].Value.Split(','))
+                {
+                    if (float.TryParse(part.Trim(), NumberStyles.Float,
+                                       CultureInfo.InvariantCulture, out var t))
+                    {
+                        times.Add(Mathf.Clamp01(t));
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Could not read sky_times: {ex.Message}");
+            }
+            return times;
+        }
+
         private static string Match(string text, string key)
         {
             var m = Regex.Match(text, "\"" + key + "\"\\s*:\\s*\"([^\"]*)\"");
@@ -496,7 +523,18 @@ namespace Comfy.CameraProof
             Logger.LogInfo("Orbit auto-boot: player is in-world; settling before capture.");
             yield return new WaitForSeconds(12f);
 
-            yield return RunShotPlan(0);
+            // A sky dump is a measurement rather than a capture, but it still needs
+            // a loaded world -- EnvMan only exists inside a scene. Same file, same
+            // unattended path, because nothing here can type into the console.
+            var skyTimes = ReadSkyTimes();
+            if (skyTimes.Count > 0)
+            {
+                yield return SkyDumpRoutine(skyTimes);
+            }
+            else
+            {
+                yield return RunShotPlan(0);
+            }
 
             if (quitWhenDone)
             {
@@ -954,7 +992,8 @@ namespace Comfy.CameraProof
                 else
                 {
                     // Never let a held shot's counts ride along into an unheld receipt.
-                    _firesFound = _firesWereBurning = _firesWereWet = _firesLit = _lodsWidened = 0;
+                    _firesFound = _firesWereBurning = _firesWereWet = _firesLit = 0;
+                    _firesUnowned = _lodsWidened = 0;
                 }
                 yield return new WaitForSeconds(settle);
 
@@ -1013,6 +1052,7 @@ namespace Comfy.CameraProof
                     .Append($"\"fires_burning\":{_firesWereBurning},")
                     .Append($"\"fires_wet\":{_firesWereWet},")
                     .Append($"\"fires_lit\":{_firesLit},")
+                    .Append($"\"fires_unowned\":{_firesUnowned},")
                     .Append($"\"light_lods\":{_lodsWidened},")
                     .Append($"\"flash\":{JsonString(flash)},")
                     .Append($"\"flash_bearing_deg\":{JsonNumberOrNull(s.Flash)},")
@@ -1111,6 +1151,214 @@ namespace Comfy.CameraProof
             results.AppendLine("}");
             WriteJson("comfy-camera-proof-aimtest.json", results.ToString());
             Announce("aimtest written to comfy-camera-proof-aimtest.json");
+        }
+
+        /// <summary>
+        /// Where the sun and the moon actually are, per forced time of day.
+        ///
+        /// The night-sky planner needs three numbers a screenshot cannot give it
+        /// cleanly: the bearing and altitude of the body lighting the sky, and how
+        /// big its disc is. Fitting a circle to the moon's limb in a captured frame
+        /// does work -- it gave azimuth 75, altitude 67 and an angular radius of 44
+        /// degrees at t=0.90 -- but that limb is cut by trees and by the ring
+        /// feature, and a fit over those is a fit over noise. EnvMan already knows.
+        ///
+        /// Three things get written, because the first alone is not enough:
+        ///   1. the directional light's vector. The body is at -forward. Colour and
+        ///      intensity come too, so it is possible to tell whether the light is
+        ///      tracking the sun or the moon at a given hour rather than assuming.
+        ///   2. every EnvMan field naming a sun, a moon or a phase, with its value.
+        ///      If a runtime phase field exists it can be set for a shot the way
+        ///      m_debugTime is, without touching the save. If it does not, phase is
+        ///      whatever the world's day gives us, and gets recorded rather than
+        ///      chosen. Only Get*/Is* methods are invoked -- a zero-argument method
+        ///      matching "sun" could just as easily be UpdateSunLight().
+        ///   3. any renderer in the sky hierarchy with its bounds and its distance
+        ///      from the sky camera, which is the one source of the disc's angular
+        ///      radius that is not a curve fit.
+        ///
+        /// Reads only, and puts the operator's time back when it is done.
+        /// </summary>
+        private void ConsoleSky(Terminal.ConsoleEventArgs args)
+        {
+            if (_stillJobRunning)
+            {
+                Announce("busy: a capture job is already running");
+                return;
+            }
+            var times = new System.Collections.Generic.List<float>();
+            for (var i = 1; i < args.Length; i++)
+            {
+                foreach (var part in (args[i] ?? "").Split(','))
+                {
+                    if (float.TryParse(part, NumberStyles.Float,
+                                       CultureInfo.InvariantCulture, out var t))
+                    {
+                        times.Add(Mathf.Clamp01(t));
+                    }
+                }
+            }
+            if (times.Count == 0)
+            {
+                // The night band at 0.02, wrapping through midnight, plus the
+                // daylight side -- so the dump can be checked against the golden
+                // and dawn frames that already exist rather than only trusted.
+                for (var k = 30; k <= 50; k++) times.Add(k / 50f);   // 0.60 .. 1.00
+                for (var k = 0; k <= 20; k++) times.Add(k / 50f);    // 0.00 .. 0.40
+            }
+            StartCoroutine(SkyDumpRoutine(times));
+        }
+
+        private IEnumerator SkyDumpRoutine(System.Collections.Generic.List<float> times)
+        {
+            _stillJobRunning = true;
+            Announce($"sky dump: {times.Count} time(s)");
+            var samples = new System.Collections.Generic.List<string>();
+            foreach (var t in times)
+            {
+                SetDebugTime(t);
+                // EnvMan smooths toward a forced time rather than snapping to it, so
+                // a reading taken on the next frame is a reading of the transition.
+                // Sample twice and publish both: if they disagree it has not settled,
+                // and that is a fact about the dump rather than about the sky.
+                yield return new WaitForSeconds(1.0f);
+                var settling = ReadSky();
+                yield return new WaitForSeconds(0.5f);
+                var settled = ReadSky();
+                samples.Add("    { \"time_of_day\": " + JsonNumber(t)
+                            + ", \"settling\": " + settling
+                            + ", \"settled\": " + settled + " }");
+            }
+            SetDebugTime(null);
+
+            var json = new StringBuilder();
+            json.AppendLine("{");
+            json.AppendLine($"  \"written_at\": {JsonString(DateTime.Now.ToString("o", CultureInfo.InvariantCulture))},");
+            json.AppendLine($"  \"env_fields\": {EnvManSkyFields()},");
+            json.AppendLine($"  \"sky_renderers\": {SkyRenderers()},");
+            json.AppendLine("  \"samples\": [");
+            json.AppendLine(string.Join(",\n", samples.ToArray()));
+            json.AppendLine("  ]");
+            json.AppendLine("}");
+            WriteJson("comfy-camera-proof-sky.json", json.ToString());
+            _stillJobRunning = false;
+            Announce("sky dump written to comfy-camera-proof-sky.json");
+        }
+
+        /// <summary>The directional light right now, as a bearing and an altitude.</summary>
+        private string ReadSky()
+        {
+            var env = EnvMan.instance;
+            if (env == null) return "null";
+            var light = FindField(typeof(EnvMan), "m_dirLight")?.GetValue(env) as Light;
+            if (light == null) return "null";
+            var forward = light.transform.forward;
+            var body = -forward;              // light travels FROM the body toward us
+            var mag = Mathf.Max(body.magnitude, 1e-6f);
+            var az = Mathf.Repeat(Mathf.Atan2(body.x, body.z) * Mathf.Rad2Deg, 360f);
+            var alt = Mathf.Asin(Mathf.Clamp(body.y / mag, -1f, 1f)) * Mathf.Rad2Deg;
+            var c = light.color;
+            return "{ \"forward\": " + JsonVector(forward)
+                   + ", \"body_azimuth_deg\": " + JsonNumber(az)
+                   + ", \"body_altitude_deg\": " + JsonNumber(alt)
+                   + ", \"intensity\": " + JsonNumber(light.intensity)
+                   + ", \"enabled\": " + JsonBool(light.enabled)
+                   + ", \"color\": { \"r\": " + JsonNumber(c.r)
+                   + ", \"g\": " + JsonNumber(c.g)
+                   + ", \"b\": " + JsonNumber(c.b) + " } }";
+        }
+
+        private string EnvManSkyFields()
+        {
+            var env = EnvMan.instance;
+            if (env == null) return "[]";
+            var wanted = new Regex("moon|phase|sun", RegexOptions.IgnoreCase);
+            var items = new System.Collections.Generic.List<string>();
+            var flags = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance;
+            for (var type = typeof(EnvMan); type != null && type != typeof(MonoBehaviour);
+                 type = type.BaseType)
+            {
+                foreach (var fi in type.GetFields(flags))
+                {
+                    if (!wanted.IsMatch(fi.Name)) continue;
+                    var field = fi;
+                    items.Add("    { \"kind\": \"field\", \"name\": " + JsonString(field.Name)
+                              + ", \"type\": " + JsonString(field.FieldType.Name)
+                              + ", \"value\": " + JsonString(SafeValue(() => field.GetValue(env)))
+                              + " }");
+                }
+                foreach (var mi in type.GetMethods(flags))
+                {
+                    // Get*/Is* only. A zero-argument method matching "sun" is as
+                    // likely to be UpdateSunLight() as GetSunDirection(), and a dump
+                    // that mutates the thing it is measuring is not a dump.
+                    if (!wanted.IsMatch(mi.Name)) continue;
+                    if (mi.GetParameters().Length != 0) continue;
+                    if (!mi.Name.StartsWith("Get") && !mi.Name.StartsWith("Is")) continue;
+                    var method = mi;
+                    items.Add("    { \"kind\": \"method\", \"name\": " + JsonString(method.Name)
+                              + ", \"type\": " + JsonString(method.ReturnType.Name)
+                              + ", \"value\": " + JsonString(SafeValue(() => method.Invoke(env, null)))
+                              + " }");
+                }
+            }
+            return items.Count == 0 ? "[]" : "[\n" + string.Join(",\n", items.ToArray()) + "\n  ]";
+        }
+
+        private string SkyRenderers()
+        {
+            var items = new System.Collections.Generic.List<string>();
+            try
+            {
+                var cam = GameCamera.instance;
+                var sky = cam == null
+                    ? null
+                    : FindField(typeof(GameCamera), "m_skyCamera")?.GetValue(cam) as Camera;
+                if (sky != null)
+                {
+                    var origin = sky.transform.position;
+                    foreach (var r in sky.transform.root.GetComponentsInChildren<Renderer>(true))
+                    {
+                        var b = r.bounds;
+                        items.Add("    { \"path\": " + JsonString(PathOf(r.transform))
+                                  + ", \"enabled\": " + JsonBool(r.enabled)
+                                  + ", \"lossy_scale\": " + JsonVector(r.transform.lossyScale)
+                                  + ", \"extents\": " + JsonVector(b.extents)
+                                  + ", \"center\": " + JsonVector(b.center)
+                                  + ", \"distance_from_sky_cam\": "
+                                  + JsonNumber(Vector3.Distance(origin, b.center)) + " }");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                items.Add("    { \"error\": " + JsonString(ex.Message) + " }");
+            }
+            return items.Count == 0 ? "[]" : "[\n" + string.Join(",\n", items.ToArray()) + "\n  ]";
+        }
+
+        private static string PathOf(Transform t)
+        {
+            var sb = new StringBuilder(t.name);
+            for (var p = t.parent; p != null; p = p.parent) sb.Insert(0, p.name + "/");
+            return sb.ToString();
+        }
+
+        private static string SafeValue(Func<object> get)
+        {
+            try
+            {
+                var v = get();
+                if (v == null) return "null";
+                if (v is Vector3) { var q = (Vector3)v; return $"({JsonNumber(q.x)}, {JsonNumber(q.y)}, {JsonNumber(q.z)})"; }
+                if (v is float) return ((float)v).ToString("0.#####", CultureInfo.InvariantCulture);
+                var f = v as IFormattable;
+                return f != null ? f.ToString(null, CultureInfo.InvariantCulture) : v.ToString();
+            }
+            catch (Exception ex)
+            {
+                return "<" + ex.GetType().Name + ">";
+            }
         }
 
         private static float? AngleFrom(Vector3 want)
@@ -1678,12 +1926,14 @@ namespace Comfy.CameraProof
         private int _firesWereBurning;
         private int _firesWereWet;
         private int _firesLit;
+        private int _firesUnowned;
         private int _lodsWidened;
 
         private void HoldFiresLit(Vector3 center, float radius, float lodDistance)
         {
             ReleaseHeldLight();
-            _firesFound = _firesWereBurning = _firesWereWet = _firesLit = _lodsWidened = 0;
+            _firesFound = _firesWereBurning = _firesWereWet = _firesLit = 0;
+            _firesUnowned = _lodsWidened = 0;
 
             var wetField = FindField(typeof(Fireplace), "m_wet");
             var blockedField = FindField(typeof(Fireplace), "m_blocked");
@@ -1731,15 +1981,32 @@ namespace Comfy.CameraProof
                     // through the public SetFuel, which routes via RPC_SetFuelAmount and
                     // plays m_fuelAddedEffects: a puff and a sound on every fire at once,
                     // in frame.
-                    if (held.Fuel < fire.m_maxFuel)
+                    //
+                    // Only the ZDO's owner may write it. That is the whole multiplayer
+                    // contract, and it is the line between "this is local rendering" and
+                    // "this edits somebody's world". The four fields above stay safe
+                    // either way: IsBurning() reads m_infiniteFuel directly, so an
+                    // unowned fire still renders lit in this client and is untouched
+                    // everywhere else. Only these two writes need the guard. A capture
+                    // run is single-player against a disposable copy and owns everything
+                    // in it, so this should never fire -- which is why the count is
+                    // recorded rather than assumed away.
+                    if (view.IsOwner())
                     {
-                        zdo.Set(ZDOVars.s_fuel, fire.m_maxFuel);
-                        held.FuelWritten = true;
+                        if (held.Fuel < fire.m_maxFuel)
+                        {
+                            zdo.Set(ZDOVars.s_fuel, fire.m_maxFuel);
+                            held.FuelWritten = true;
+                        }
+                        if (held.State != 1)
+                        {
+                            zdo.Set(ZDOVars.s_state, 1);
+                            held.StateWritten = true;
+                        }
                     }
-                    if (held.State != 1)
+                    else
                     {
-                        zdo.Set(ZDOVars.s_state, 1);
-                        held.StateWritten = true;
+                        _firesUnowned++;
                     }
 
                     if (updateState != null) updateState.Invoke(fire, null);
@@ -1753,7 +2020,9 @@ namespace Comfy.CameraProof
 
             if (lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
             Logger.LogInfo($"  fires: found {_firesFound}, burning {_firesWereBurning}, "
-                           + $"wet {_firesWereWet}, lit {_firesLit}; light lods {_lodsWidened}");
+                           + $"wet {_firesWereWet}, lit {_firesLit}"
+                           + (_firesUnowned > 0 ? $", {_firesUnowned} not ours (fuel left alone)" : "")
+                           + $"; light lods {_lodsWidened}");
         }
 
         /// <summary>
