@@ -22,6 +22,14 @@ namespace Comfy.CameraProof
         private int _waypointIndex = -1;
         private Vector3? _holdAt;      // pinned camera position while a shot is composed
 
+        // Centred on the aim point, not the lens: an orbit stands off up to 120 m and
+        // the fires worth lighting are the subject's, not the ones behind the camera.
+        private const float FireSweepRadius = 80f;
+
+        // Long enough that a 4K shutter lands inside it with room either side, short
+        // enough to still read as one strike rather than a lit sky.
+        private const float FlashHoldSeconds = 1.2f;
+
         // Hotkeys are configurable because this install shares a keyboard with other
         // Comfy plugins. F7 is deliberately avoided: ComfyControlSurface binds it for
         // quest submit.
@@ -519,6 +527,27 @@ namespace Comfy.CameraProof
             public Vector3 Aim;
             public string Label;
             public string Mode;
+            public bool Fires;
+            public float? Flash;
+        }
+
+        /// <summary>Optional trailing TSV columns are how every plan already on disk
+        /// stays readable: absent means "as before", never "off by accident".</summary>
+        private static bool TsvFlag(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return false;
+            var v = value.Trim();
+            return v == "1" || v.Equals("true", StringComparison.OrdinalIgnoreCase)
+                            || v.Equals("yes", StringComparison.OrdinalIgnoreCase);
+        }
+
+        private static float? TsvFloat(string value)
+        {
+            if (string.IsNullOrEmpty(value)) return null;
+            var v = value.Trim();
+            if (v.Length == 0 || v == "-" || v.Equals("off", StringComparison.OrdinalIgnoreCase)) return null;
+            return float.TryParse(v, NumberStyles.Float, CultureInfo.InvariantCulture, out var f)
+                ? (float?)f : null;
         }
 
         /// <summary>
@@ -602,7 +631,9 @@ namespace Comfy.CameraProof
                         TimeOfDay = P(f[8]),
                         Aim = new Vector3(P(f[9]), P(f[10]), P(f[11])),
                         Label = f.Length > 12 ? f[12] : "",
-                        Mode = f.Length > 13 ? f[13].Trim() : ""
+                        Mode = f.Length > 13 ? f[13].Trim() : "",
+                        Fires = f.Length > 14 && TsvFlag(f[14]),
+                        Flash = f.Length > 15 ? TsvFloat(f[15]) : null
                     });
                 }
                 catch (Exception ex)
@@ -821,6 +852,10 @@ namespace Comfy.CameraProof
             Directory.CreateDirectory(outDir);
             Announce($"orbit capture: {plan.Count - startIndex} shot(s) -> {runId}");
 
+            // One reflection walk per run, so the environment list stops being a thing
+            // nobody has ever looked at.
+            WriteEnvironmentNames();
+
             var settle = Mathf.Max(1f, _settleSeconds.Value);
             var priorBoom = SetCameraBoom(0f);      // first person: lens at the planned point
             SetCaptureChromeHidden(true);
@@ -905,6 +940,22 @@ namespace Comfy.CameraProof
                 }
 
                 TryAim(yaw, pitch);                  // re-assert after the world loaded
+
+                // Held after the world has streamed in and after any occlusion move, so
+                // the sweep is centred on the subject this frame will actually contain.
+                // LightLod re-reads its distances once a second and UpdateFireplace ticks
+                // every two, and settle is six at its shortest, so both land before the
+                // shutter. Reach is measured from where the lens ended up rather than
+                // where the plan wanted it.
+                if (s.Fires)
+                {
+                    HoldFiresLit(s.Aim, FireSweepRadius, Vector3.Distance(target, s.Aim) + 40f);
+                }
+                else
+                {
+                    // Never let a held shot's counts ride along into an unheld receipt.
+                    _firesFound = _firesWereBurning = _firesWereWet = _firesLit = _lodsWidened = 0;
+                }
                 yield return new WaitForSeconds(settle);
 
                 var pieces = PiecesNear(s.Aim, 60f);
@@ -923,8 +974,18 @@ namespace Comfy.CameraProof
                 var occluded = IsOccluded(target, s.Aim);
                 var fileName = $"{s.ClusterId:0000}_{s.Name}.png";
                 var path = Path.Combine(outDir, fileName);
+
+                var flash = "off";
+                if (s.Flash.HasValue)
+                {
+                    flash = DriveFlash(s.Aim, target, s.Flash.Value, FlashHoldSeconds);
+                    // Inside the hold, past the frame the lights need to be applied on.
+                    yield return new WaitForSeconds(0.2f);
+                }
+
                 ScreenCapture.CaptureScreenshot(path);
                 yield return new WaitForSeconds(1f);
+                if (s.Fires) ReleaseHeldLight();
 
                 var cam = Camera.main;
                 var lens = cam == null ? target : cam.transform.position;
@@ -947,6 +1008,15 @@ namespace Comfy.CameraProof
                     .Append($"\"fov\":{JsonNumber(CameraFov())},")
                     .Append($"\"environment\":{JsonString(s.Environment)},")
                     .Append($"\"time_of_day\":{JsonNumber(s.TimeOfDay)},")
+                    .Append($"\"fires\":{JsonBool(s.Fires)},")
+                    .Append($"\"fires_found\":{_firesFound},")
+                    .Append($"\"fires_burning\":{_firesWereBurning},")
+                    .Append($"\"fires_wet\":{_firesWereWet},")
+                    .Append($"\"fires_lit\":{_firesLit},")
+                    .Append($"\"light_lods\":{_lodsWidened},")
+                    .Append($"\"flash\":{JsonString(flash)},")
+                    .Append($"\"flash_bearing_deg\":{JsonNumberOrNull(s.Flash)},")
+                    .Append($"\"flash_hold_s\":{(s.Flash.HasValue ? JsonNumber(FlashHoldSeconds) : "null")},")
                     .Append($"\"pieces_near_aim\":{pieces},")
                     .Append($"\"occluded\":{JsonBool(occluded)},")
                     .Append($"\"at\":{JsonString(DateTime.Now.ToString("o", CultureInfo.InvariantCulture))}")
@@ -959,6 +1029,7 @@ namespace Comfy.CameraProof
             }
 
             _holdAt = null;
+            ReleaseHeldLight();
             SetForcedEnvironment("");
             SetDebugTime(null);
             SetCaptureChromeHidden(false);
@@ -1103,6 +1174,18 @@ namespace Comfy.CameraProof
         }
 
         private void ConsoleEnvList(Terminal.ConsoleEventArgs args)
+        {
+            WriteEnvironmentNames();
+        }
+
+        /// <summary>
+        /// The four names this project shoots -- Clear, Misty, Rain, ThunderStorm -- were
+        /// picked by hand, and comfy-camera-proof-envs.json had never been written once in
+        /// 4,536 receipts, so nobody has ever seen the list they were picked from. Writing
+        /// it at the top of every plan run costs a reflection walk and settles the question
+        /// permanently: whatever storms this build of the game has, they are named here.
+        /// </summary>
+        private void WriteEnvironmentNames()
         {
             var names = GetEnvironmentNames();
             var json = new StringBuilder();
@@ -1521,6 +1604,306 @@ namespace Comfy.CameraProof
             File.WriteAllText(Path.Combine(outDir, "capture.json"), manifest.ToString(), Encoding.UTF8);
             _stillJobRunning = false;
             Logger.LogInfo($"Manual capture finished. Output: {outDir}");
+        }
+
+        // -------------------------------------------------------------------------
+        // Light. Hold the builders' own fires lit for the length of a shot.
+        //
+        // Read out of assembly_valheim 0.221.12 with ilspycmd, not off the field
+        // names: the annotation layer has been inverted before, and believing it cost
+        // ComfyQuestLab two rounds of watching a gallery fall down.
+        //
+        //   IsBurning() = !m_blocked && state == 1 && !underwater
+        //                 && (fuel > 0f || m_infiniteFuel)
+        //
+        // and UpdateFireplace's drain sits behind `IsBurning() && !m_infiniteFuel`.
+        // So m_infiniteFuel is honest, and it alone makes a fire burn at fuel zero.
+        //
+        // Why this is needed at all: GetTimeSinceLastUpdate() reads s_lastTime and
+        // burns off every second that passed while the zone was unloaded. A capture
+        // run opens a disposable copy of a world nobody has walked in for months, so
+        // the first UpdateFireplace tick takes every hearth, brazier and groundtorch
+        // in it straight to zero. Every twilight and night frame in the corpus so far
+        // was shot with the builders' lighting switched off, and the runbook's own
+        // conclusion is that the lighting is the thing twilight exists to show.
+        //
+        // Wet is a SECOND mechanism and m_disableCoverCheck does not gate it.
+        // CheckWet() runs off its own InvokeRepeating("CheckEnv", 4, 4) and, when
+        // EnvMan.IsWet(), swaps m_enabledObjectHigh for m_enabledObjectLow and toggles
+        // off anything with m_canTurnOff. That is the storm case exactly: the one
+        // condition that puts the lights out before you photograph them. Cancelling
+        // CheckEnv and clearing m_wet is what holds a fire at full strength in a
+        // ThunderStorm. m_disableCoverCheck only clears m_blocked, which is the
+        // buried-under-terrain and no-headroom test.
+        //
+        // m_infiniteFuel, m_disableCoverCheck, m_wet and m_blocked are plain instance
+        // fields -- not synced, nothing written to the world. Only fuel and state are
+        // ZDO-backed, and both are put back exactly as they were found.
+        // -------------------------------------------------------------------------
+
+        private sealed class HeldFire
+        {
+            public Fireplace Fire;
+            public ZDO Zdo;
+            public bool InfiniteFuel;
+            public bool DisableCoverCheck;
+            public float Fuel;
+            public int State;
+            public bool FuelWritten;
+            public bool StateWritten;
+        }
+
+        private sealed class HeldLod
+        {
+            public LightLod Lod;
+            public float LightDistance;
+            public float ShadowDistance;
+        }
+
+        private readonly System.Collections.Generic.List<HeldFire> _heldFires =
+            new System.Collections.Generic.List<HeldFire>();
+        private readonly System.Collections.Generic.List<HeldLod> _heldLods =
+            new System.Collections.Generic.List<HeldLod>();
+        private int _lightLimitWas = int.MinValue;
+        private int _shadowLimitWas = int.MinValue;
+
+        // What the last sweep found, for the receipt. A build's light count has been
+        // the missing targeting signal for the twilight lane, and the scan cannot
+        // produce it: scan_features.py's fire vocabulary was written from the craftable
+        // build menu and misses Candle_resin, the MountainKit braziers and the CastleKit
+        // groundtorches, ~200k placements between them. The camera is standing in the
+        // room. It does not need a vocabulary, it can count the components, and counting
+        // them costs nothing on top of lighting them.
+        private int _firesFound;
+        private int _firesWereBurning;
+        private int _firesWereWet;
+        private int _firesLit;
+        private int _lodsWidened;
+
+        private void HoldFiresLit(Vector3 center, float radius, float lodDistance)
+        {
+            ReleaseHeldLight();
+            _firesFound = _firesWereBurning = _firesWereWet = _firesLit = _lodsWidened = 0;
+
+            var wetField = FindField(typeof(Fireplace), "m_wet");
+            var blockedField = FindField(typeof(Fireplace), "m_blocked");
+            var updateState = typeof(Fireplace).GetMethod("UpdateState",
+                BindingFlags.NonPublic | BindingFlags.Instance);
+            var r2 = radius * radius;
+
+            foreach (var fire in UnityEngine.Object.FindObjectsByType<Fireplace>(FindObjectsSortMode.None))
+            {
+                if (fire == null) continue;
+                if ((fire.transform.position - center).sqrMagnitude > r2) continue;
+                var view = fire.GetComponent<ZNetView>();
+                var zdo = view == null || !view.IsValid() ? null : view.GetZDO();
+                if (zdo == null) continue;
+
+                try
+                {
+                    _firesFound++;
+                    if (fire.IsBurning()) _firesWereBurning++;
+                    else _firesLit++;
+                    if (wetField != null && (bool)wetField.GetValue(fire)) _firesWereWet++;
+
+                    var held = new HeldFire
+                    {
+                        Fire = fire,
+                        Zdo = zdo,
+                        InfiniteFuel = fire.m_infiniteFuel,
+                        DisableCoverCheck = fire.m_disableCoverCheck,
+                        Fuel = zdo.GetFloat(ZDOVars.s_fuel, fire.m_startFuel),
+                        State = zdo.GetInt(ZDOVars.s_state, 1)
+                    };
+
+                    fire.m_infiniteFuel = true;
+                    fire.m_disableCoverCheck = true;
+                    if (blockedField != null) blockedField.SetValue(fire, false);
+
+                    // CheckEnv re-wets on a 4 s timer. Without cancelling it the low
+                    // flame comes back between the sweep and the shutter.
+                    fire.CancelInvoke("CheckEnv");
+                    if (wetField != null) wetField.SetValue(fire, false);
+
+                    // fuel also drives the wood-pile visuals (m_full/m_half/m_emptyObject),
+                    // so a fire burning on m_infiniteFuel alone still photographs as an
+                    // empty pit with flames in it. Written straight to the ZDO rather than
+                    // through the public SetFuel, which routes via RPC_SetFuelAmount and
+                    // plays m_fuelAddedEffects: a puff and a sound on every fire at once,
+                    // in frame.
+                    if (held.Fuel < fire.m_maxFuel)
+                    {
+                        zdo.Set(ZDOVars.s_fuel, fire.m_maxFuel);
+                        held.FuelWritten = true;
+                    }
+                    if (held.State != 1)
+                    {
+                        zdo.Set(ZDOVars.s_state, 1);
+                        held.StateWritten = true;
+                    }
+
+                    if (updateState != null) updateState.Invoke(fire, null);
+                    _heldFires.Add(held);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogWarning($"Could not hold a fireplace lit: {ex.Message}");
+                }
+            }
+
+            if (lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
+            Logger.LogInfo($"  fires: found {_firesFound}, burning {_firesWereBurning}, "
+                           + $"wet {_firesWereWet}, lit {_firesLit}; light lods {_lodsWidened}");
+        }
+
+        /// <summary>
+        /// A held fire is only worth the sweep if its light reaches the lens. LightLod
+        /// culls both the light and its shadow by distance -- 40 m and 20 m by default,
+        /// against orbits planned out to 120 m -- and LightLod.m_lightLimit is a static
+        /// cap on how many lights may be on at once regardless of distance, which is the
+        /// one that bites a hall with thirty braziers in it. The UpdateLoop coroutine
+        /// re-reads both every second, so raising them lands well inside settle.
+        /// </summary>
+        private void WidenLightLod(Vector3 center, float radius, float distance)
+        {
+            _lightLimitWas = LightLod.m_lightLimit;
+            _shadowLimitWas = LightLod.m_shadowLimit;
+            LightLod.m_lightLimit = -1;
+            LightLod.m_shadowLimit = -1;
+
+            var r2 = radius * radius;
+            foreach (var lod in UnityEngine.Object.FindObjectsByType<LightLod>(FindObjectsSortMode.None))
+            {
+                if (lod == null) continue;
+                if ((lod.transform.position - center).sqrMagnitude > r2) continue;
+                if (lod.m_lightDistance >= distance && lod.m_shadowDistance >= distance) continue;
+                _heldLods.Add(new HeldLod
+                {
+                    Lod = lod,
+                    LightDistance = lod.m_lightDistance,
+                    ShadowDistance = lod.m_shadowDistance
+                });
+                lod.m_lightDistance = Mathf.Max(lod.m_lightDistance, distance);
+                lod.m_shadowDistance = Mathf.Max(lod.m_shadowDistance, distance);
+                _lodsWidened++;
+            }
+        }
+
+        private void ReleaseHeldLight()
+        {
+            var wetField = FindField(typeof(Fireplace), "m_wet");
+            foreach (var held in _heldFires)
+            {
+                try
+                {
+                    if (held.Fire == null) continue;
+                    held.Fire.m_infiniteFuel = held.InfiniteFuel;
+                    held.Fire.m_disableCoverCheck = held.DisableCoverCheck;
+                    if (held.Zdo != null)
+                    {
+                        if (held.FuelWritten) held.Zdo.Set(ZDOVars.s_fuel, held.Fuel);
+                        if (held.StateWritten) held.Zdo.Set(ZDOVars.s_state, held.State);
+                    }
+                    // Put the wet check back on its own timer rather than leaving the fire
+                    // permanently dry for whoever loads this world next.
+                    held.Fire.CancelInvoke("CheckEnv");
+                    held.Fire.InvokeRepeating("CheckEnv", 0f, 4f);
+                    if (wetField != null) wetField.SetValue(held.Fire, false);
+                }
+                catch (Exception)
+                {
+                    // A fire whose zone unloaded mid-run is not worth a warning per zone.
+                }
+            }
+            _heldFires.Clear();
+
+            foreach (var held in _heldLods)
+            {
+                if (held.Lod == null) continue;
+                held.Lod.m_lightDistance = held.LightDistance;
+                held.Lod.m_shadowDistance = held.ShadowDistance;
+            }
+            _heldLods.Clear();
+
+            if (_lightLimitWas != int.MinValue) LightLod.m_lightLimit = _lightLimitWas;
+            if (_shadowLimitWas != int.MinValue) LightLod.m_shadowLimit = _shadowLimitWas;
+            _lightLimitWas = _shadowLimitWas = int.MinValue;
+        }
+
+        /// <summary>
+        /// Fire one of the game's own lightning flashes on a bearing we choose, and hold
+        /// it long enough to photograph.
+        ///
+        /// Thunder.DoFlash() is private and picks its bearing at random, so this does the
+        /// same work against the same public m_flashEffect: place the effect at
+        /// m_flashAltitude on a chosen bearing, then rotate every Light it carries to face
+        /// back at the subject. That rotation is the whole reason a strike lights the
+        /// scene instead of only the sky, and it is why a driven flash can be a key light
+        /// rather than a lucky one.
+        ///
+        /// The hold is the deliberate part, and the part to be plain about. LightFlicker
+        /// ramps in over m_fadeInDuration, holds, then decays across the last
+        /// m_fadeDuration of m_ttl and destroys itself. A real strike is shorter than the
+        /// shutter is reliable at 4K, so the spawned flicker is re-timed to a flat hold
+        /// and the frame is taken inside it. The light is the game's; the exposure is
+        /// ours, and the receipt records both the bearing and the hold.
+        ///
+        /// Thunder rides the environment's m_psystems, which EnvMan switches off for a
+        /// player InShelter when the setup is m_psystemsOutsideOnly, so indoors there may
+        /// be no live Thunder at all. FindObjectsOfTypeAll reaches the inactive one for
+        /// its EffectList, which is all this needs.
+        /// </summary>
+        private string DriveFlash(Vector3 subject, Vector3 camera, float bearingOffsetDeg, float hold)
+        {
+            try
+            {
+                Thunder thunder = null;
+                foreach (var t in Resources.FindObjectsOfTypeAll<Thunder>())
+                {
+                    if (t != null && t.m_flashEffect != null) { thunder = t; break; }
+                }
+                if (thunder == null) return "no_thunder";
+
+                var toSubject = subject - camera;
+                toSubject.y = 0f;
+                if (toSubject.sqrMagnitude < 0.001f) toSubject = Vector3.forward;
+                var baseYaw = Mathf.Atan2(toSubject.x, toSubject.z) * Mathf.Rad2Deg;
+                var yaw = (baseYaw + bearingOffsetDeg) * Mathf.Deg2Rad;
+
+                // Near end of the game's own envelope: far enough to read as sky, close
+                // enough that the falloff still lands on the subject.
+                var dist = Mathf.Lerp(thunder.m_flashDistanceMin, thunder.m_flashDistanceMax, 0.3f);
+                var pos = subject + new Vector3(Mathf.Sin(yaw), 0f, Mathf.Cos(yaw)) * dist;
+                pos.y += thunder.m_flashAltitude;
+                var rotation = Quaternion.LookRotation((subject - pos).normalized);
+
+                var spawned = thunder.m_flashEffect.Create(pos, Quaternion.identity);
+                if (spawned == null || spawned.Length == 0) return "no_effect";
+
+                var lit = 0;
+                foreach (var obj in spawned)
+                {
+                    if (obj == null) continue;
+                    foreach (var light in obj.GetComponentsInChildren<Light>())
+                    {
+                        light.transform.rotation = rotation;
+                        lit++;
+                    }
+                    foreach (var flicker in obj.GetComponentsInChildren<LightFlicker>())
+                    {
+                        flicker.m_fadeInDuration = 0f;
+                        flicker.m_fadeDuration = Mathf.Min(0.15f, hold * 0.25f);
+                        flicker.m_ttl = hold;
+                    }
+                }
+                if (lit == 0) return "sky_only";
+                return Settings.ReduceFlashingLights ? "reduced_flashing" : "ok";
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Could not drive a flash: {ex.Message}");
+                return "error";
+            }
         }
 
         private void SetForcedEnvironment(string name)
