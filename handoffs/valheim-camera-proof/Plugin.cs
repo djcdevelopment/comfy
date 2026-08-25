@@ -991,6 +991,19 @@ namespace Comfy.CameraProof
                              s.Fires);
                 yield return new WaitForSeconds(settle);
 
+                // Re-count against the world as it will be PHOTOGRAPHED. The hold
+                // pass has to run before settle, because a fire's visuals only
+                // update on Fireplace's own 2 s tick and LightLod re-reads its
+                // distances on a 1 s coroutine -- both need the lead time. But a
+                // count taken then describes a less-streamed world than the frame
+                // does, and the first shot after a teleport is the least streamed
+                // of all. The smoke pair caught it: fires_found 5 on the first
+                // frame and 23 on the second, same camera, ten seconds apart,
+                // with pieces_near_aim identical at 7568 -- because that counts
+                // colliders on the piece and static_solid layers, which are
+                // present long before every Fireplace component has instantiated.
+                RecountFires(s.Aim, FireSweepRadius);
+
                 var pieces = PiecesNear(s.Aim, 60f);
                 if (pieces <= 0)
                 {
@@ -2041,7 +2054,16 @@ namespace Comfy.CameraProof
                 }
             }
 
-            if (hold && lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
+            // Widening runs on EVERY frame, held or not. It used to run only when
+            // holding did, which made the control "fires off AND lights culled at
+            // 40 m" against a treatment of "fires on AND lights widened" -- two
+            // variables, and the second one is the very hypothesis the A/B was
+            // meant to separate from the first. The smoke pair showed it plainly:
+            // light_lods 220 on the held frame against 0 on the control, with
+            // twelve fires burning in that control whose light was being culled.
+            // A darker control could then mean "fewer fires lit" or "same fires,
+            // culled" -- entangled in the control rather than separated by it.
+            if (lodDistance > 0f) WidenLightLod(center, radius, lodDistance);
             Logger.LogInfo($"  fires: found {_firesFound}, in view {_firesInView}, "
                            + $"burning {_firesWereBurning}, "
                            + $"wet {_firesWereWet}, lit {_firesLit}"
@@ -2080,6 +2102,47 @@ namespace Comfy.CameraProof
                 lod.m_shadowDistance = Mathf.Max(lod.m_shadowDistance, distance);
                 _lodsWidened++;
             }
+        }
+
+        /// <summary>
+        /// Re-measure how many fires are near the subject and how many are in the
+        /// frustum, immediately before the shutter, so both arms of an A/B describe
+        /// the same world.
+        ///
+        /// Deliberately does NOT touch fires_burning, fires_wet, fires_lit or
+        /// fires_unowned: those describe what the fires were like BEFORE anything
+        /// was done to them, which is only knowable at hold time. fires_found and
+        /// fires_in_view describe the frame, so they are measured at the frame.
+        ///
+        /// A consequence worth knowing when reading receipts: on a held frame
+        /// fires_found can exceed fires_lit, because a Fireplace that streamed in
+        /// after the hold pass is counted but was never held. That gap is the
+        /// streaming race made visible rather than hidden, and it is logged.
+        /// </summary>
+        private void RecountFires(Vector3 center, float radius)
+        {
+            var cam = Camera.main;
+            var r2 = radius * radius;
+            var found = 0;
+            var inView = 0;
+            foreach (var fire in UnityEngine.Object.FindObjectsByType<Fireplace>(FindObjectsSortMode.None))
+            {
+                if (fire == null) continue;
+                if ((fire.transform.position - center).sqrMagnitude > r2) continue;
+                var view = fire.GetComponent<ZNetView>();
+                if (view == null || !view.IsValid() || view.GetZDO() == null) continue;
+                found++;
+                if (cam == null) continue;
+                var v = cam.WorldToViewportPoint(fire.transform.position);
+                if (v.z > 0f && v.x >= 0f && v.x <= 1f && v.y >= 0f && v.y <= 1f) inView++;
+            }
+            if (found != _firesFound)
+            {
+                Logger.LogInfo($"  fires: {_firesFound} at sweep, {found} at shutter "
+                               + $"({found - _firesFound:+0;-0} streamed in during settle)");
+            }
+            _firesFound = found;
+            _firesInView = inView;
         }
 
         private void ReleaseHeldLight()
