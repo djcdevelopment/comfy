@@ -268,6 +268,9 @@ namespace Comfy.CameraProof
                 new Terminal.ConsoleCommand("comfyproof_stills", "capture stills for waypoints: comfyproof_stills [limit] [settleSeconds]", ConsoleStills);
                 new Terminal.ConsoleCommand("comfyproof_env", "force environment: comfyproof_env Clear|Misty|Rain|ThunderStorm|noforce", ConsoleEnv);
                 new Terminal.ConsoleCommand("comfyproof_time", "force time of day 0..1, or off: comfyproof_time 0.5", ConsoleTime);
+                new Terminal.ConsoleCommand("comfyproof_lights",
+                    "dump every light prefab and all 39 environments to comfy-camera-proof-lights.json",
+                    ConsoleLights);
                 new Terminal.ConsoleCommand("comfyproof_envs", "write available environment names to comfy-camera-proof-envs.json", ConsoleEnvList);
                 new Terminal.ConsoleCommand("comfyproof_sky", "dump sun/moon direction per time of day: comfyproof_sky [0.8,0.9,...]", ConsoleSky);
                 new Terminal.ConsoleCommand("comfyproof_hideplayer", "hide/show local player: comfyproof_hideplayer on|off", ConsoleHidePlayer);
@@ -387,6 +390,23 @@ namespace Comfy.CameraProof
             catch (Exception ex)
             {
                 Logger.LogError($"Could not read orbit request: {ex}");
+                return false;
+            }
+        }
+
+        /// <summary>Whether the request file asks for a light dump instead of a plan.</summary>
+        private bool ReadLightDumpRequested()
+        {
+            try
+            {
+                if (!File.Exists(OrbitRequestPath)) return false;
+                var text = File.ReadAllText(OrbitRequestPath);
+                var m = Regex.Match(text, "\"light_dump\"\\s*:\\s*(true|false)");
+                return m.Success && m.Groups[1].Value == "true";
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Could not read light_dump flag: {ex.Message}");
                 return false;
             }
         }
@@ -527,7 +547,11 @@ namespace Comfy.CameraProof
             // a loaded world -- EnvMan only exists inside a scene. Same file, same
             // unattended path, because nothing here can type into the console.
             var skyTimes = ReadSkyTimes();
-            if (skyTimes.Count > 0)
+            if (ReadLightDumpRequested())
+            {
+                yield return LightDumpRoutine();
+            }
+            else if (skyTimes.Count > 0)
             {
                 yield return SkyDumpRoutine(skyTimes);
             }
@@ -720,6 +744,24 @@ namespace Comfy.CameraProof
         /// <summary>
         /// Is anything solid between the lens and the subject? A shot straight into a
         /// hillside looks exactly like a successful capture unless you check.
+        ///
+        /// IT CANNOT SEE PLAYER BUILDS. The mask below is terrain, static_solid and
+        /// Default; placed pieces are on the "piece" layer, which PiecesNear twenty
+        /// lines down uses to count them. So this returns false with the lens flat
+        /// against masonry, and FindClearView -- whose early return, five lift rungs
+        /// and every swing bearing all call this -- inherits the blindness. The
+        /// night-sky lane found it by shooting sixteen frames that came back
+        /// clearance="planned", occluded=false and pieces_near_aim up to 30,930, four
+        /// of which are a photograph of a build's own lattice.
+        ///
+        /// Left as is deliberately. Adding "piece" would make every exterior orbit
+        /// report its own subject as an obstruction and climb away from it, and the
+        /// dist * 0.85f below is nowhere near enough slack for a 100 m structure. A
+        /// real fix has to tell the subject's pieces from everything else and then
+        /// re-baseline the corpus against a new reject rate.
+        ///
+        /// So occluded=false means "no terrain or static geometry in the way". It has
+        /// never meant "the view is clear", and on interiors the guard is los.
         /// </summary>
         private static bool IsOccluded(Vector3 from, Vector3 to)
         {
@@ -1056,6 +1098,7 @@ namespace Comfy.CameraProof
                     .Append($"\"time_of_day\":{JsonNumber(s.TimeOfDay)},")
                     .Append($"\"fires\":{JsonBool(s.Fires)},")
                     .Append($"\"fires_found\":{_firesFound},")
+                    .Append($"\"fires_found_at_sweep\":{_firesFoundAtSweep},")
                     .Append($"\"fires_in_view\":{_firesInView},")
                     .Append($"\"fires_burning\":{_firesWereBurning},")
                     .Append($"\"fires_wet\":{_firesWereWet},")
@@ -1427,6 +1470,11 @@ namespace Comfy.CameraProof
             _hidePlayerForScreenshots = on;
             SetLocalPlayerVisible(!on);
             WriteJson("comfy-camera-proof-hideplayer.json", "{\n  \"hide_player_for_screenshots\": " + JsonBool(on) + "\n}\n");
+        }
+
+        private void ConsoleLights(Terminal.ConsoleEventArgs args)
+        {
+            StartCoroutine(LightDumpRoutine());
         }
 
         private void ConsoleEnvList(Terminal.ConsoleEventArgs args)
@@ -1931,6 +1979,12 @@ namespace Comfy.CameraProof
         // room. It does not need a vocabulary, it can count the components, and counting
         // them costs nothing on top of lighting them.
         private int _firesFound;
+        // The population the HOLD pass saw, kept beside the shutter count. Without it
+        // fires_burning has no denominator: burning is measured at hold time and
+        // fires_found at the shutter, so dividing them mixes two different worlds --
+        // it read as 39.6% burning on a first shot where the true figure was 73.5%,
+        // and only came out because burning + lit happened to reconstruct it.
+        private int _firesFoundAtSweep;
         private int _firesWereBurning;
         private int _firesWereWet;
         private int _firesLit;
@@ -2136,6 +2190,7 @@ namespace Comfy.CameraProof
                 var v = cam.WorldToViewportPoint(fire.transform.position);
                 if (v.z > 0f && v.x >= 0f && v.x <= 1f && v.y >= 0f && v.y <= 1f) inView++;
             }
+            _firesFoundAtSweep = _firesFound;
             if (found != _firesFound)
             {
                 Logger.LogInfo($"  fires: {_firesFound} at sweep, {found} at shutter "
@@ -2260,6 +2315,244 @@ namespace Comfy.CameraProof
                 Logger.LogWarning($"Could not drive a flash: {ex.Message}");
                 return "error";
             }
+        }
+
+        /// <summary>
+        /// Read every light in the game and every environment it can be lit under,
+        /// once, from a running world.
+        ///
+        /// This exists because the two questions blocking three lanes are both
+        /// asset data, and asset data is not in the assembly. ilspycmd gives the
+        /// SHAPE of Fireplace and EnvSetup -- which fields exist and what the code
+        /// does with them -- and says nothing about the VALUES a prefab was
+        /// authored with. The committed prefab dump carries hash/name/netView/
+        /// piece/wearNTear for 3,458 prefabs and no component fields at all, and
+        /// its generator left with the sovereign split. So this is the only place
+        /// the answers live.
+        ///
+        /// Question one, for the storm and hearth lanes: which of the world's
+        /// ~173,500 placed lights are fuel-burners that went out when the zone
+        /// reloaded, and which are always-on props that were never in that
+        /// mechanism? m_infiniteFuel decides it, per prefab. Names cannot --
+        /// piece_FairylightGarland reads warm and is a blue point light, and
+        /// CastleKit_groundtorch_unlit exists as its own prefab against 6,130 lit
+        /// siblings.
+        ///
+        /// Question two, for the colour lane: what do the 35 environments nobody
+        /// has ever forced actually look like? m_sunColor*, m_ambColor*,
+        /// m_fogColor* and m_fogDensity* give opponent_gap a predicted value per
+        /// environment BEFORE anything is shot, which turns a 39-way sweep into a
+        /// check.
+        ///
+        /// And one the dump answers for free, which is the storm lane's whole
+        /// question: EnvMan.IsWet() is what drives Fireplace.CheckWet, and it is
+        /// EnvSetup.m_isWet. Wind does it too -- CheckWet also trips on
+        /// GetWindIntensity() >= 0.8f, so m_windMax >= 0.8 wets a fire in a
+        /// nominally dry environment. Between those two fields this dump says,
+        /// for all 39, which environments put the builders' lights out. That is a
+        /// table rather than a capture run.
+        /// </summary>
+        private IEnumerator LightDumpRoutine()
+        {
+            Announce("light dump: walking prefabs and environments");
+            yield return null;
+
+            var json = new StringBuilder();
+            json.AppendLine("{");
+            // Application.version, not Valheim's own Version class -- that one is
+            // `internal` and a plugin cannot see it. Trial build caught this; the
+            // guess would have failed at compile time, in the pass where the file
+            // is unfrozen and everyone is waiting.
+            json.Append("  \"game_version\": ").Append(JsonString(Application.version)).AppendLine(",");
+            json.Append("  \"at\": ").Append(JsonString(DateTime.Now.ToString("o", CultureInfo.InvariantCulture))).AppendLine(",");
+
+            // ---- statics that gate every light in the scene at once -----------
+            json.AppendLine("  \"light_lod_limits\": {");
+            json.Append("    \"m_lightLimit\": ").Append(LightLod.m_lightLimit).AppendLine(",");
+            json.Append("    \"m_shadowLimit\": ").Append(LightLod.m_shadowLimit).AppendLine();
+            json.AppendLine("  },");
+
+            // ---- every prefab carrying a Fireplace or a Light -----------------
+            json.AppendLine("  \"lights\": [");
+            var scene = ZNetScene.instance;
+            var wrote = 0;
+            var scanned = 0;
+            if (scene != null && scene.m_prefabs != null)
+            {
+                foreach (var prefab in scene.m_prefabs)
+                {
+                    if (prefab == null) continue;
+                    scanned++;
+                    Fireplace fire = null;
+                    Light[] lights = null;
+                    LightLod[] lods = null;
+                    try
+                    {
+                        fire = prefab.GetComponent<Fireplace>();
+                        lights = prefab.GetComponentsInChildren<Light>(true);
+                        lods = prefab.GetComponentsInChildren<LightLod>(true);
+                    }
+                    catch (Exception) { continue; }
+
+                    var hasLight = lights != null && lights.Length > 0;
+                    if (fire == null && !hasLight) continue;
+
+                    if (wrote > 0) json.AppendLine(",");
+                    wrote++;
+                    json.Append("    {");
+                    json.Append($"\"prefab\":{JsonString(prefab.name)},");
+                    json.Append($"\"hash\":{prefab.name.GetStableHashCode()},");
+
+                    if (fire != null)
+                    {
+                        // The verdict this whole dump exists for. m_infiniteFuel true
+                        // means the prefab never had fuel to lose and was never in the
+                        // catch-up-burn mechanism at all.
+                        json.Append("\"fireplace\":{");
+                        json.Append($"\"m_infiniteFuel\":{JsonBool(fire.m_infiniteFuel)},");
+                        json.Append($"\"m_canTurnOff\":{JsonBool(fire.m_canTurnOff)},");
+                        json.Append($"\"m_canRefill\":{JsonBool(fire.m_canRefill)},");
+                        json.Append($"\"m_disableCoverCheck\":{JsonBool(fire.m_disableCoverCheck)},");
+                        json.Append($"\"m_lowWetOverHalf\":{JsonBool(fire.m_lowWetOverHalf)},");
+                        json.Append($"\"m_startFuel\":{JsonNumber(fire.m_startFuel)},");
+                        json.Append($"\"m_maxFuel\":{JsonNumber(fire.m_maxFuel)},");
+                        json.Append($"\"m_secPerFuel\":{JsonNumber(fire.m_secPerFuel)},");
+                        json.Append($"\"m_coverCheckOffset\":{JsonNumber(fire.m_coverCheckOffset)},");
+                        var fuelItem = fire.m_fuelItem == null ? null : fire.m_fuelItem.name;
+                        json.Append($"\"m_fuelItem\":{JsonString(fuelItem)}");
+                        json.Append("},");
+                    }
+                    else
+                    {
+                        // Stated rather than implied: no Fireplace means no fuel, which
+                        // means this prefab is lit whenever it is loaded.
+                        json.Append("\"fireplace\":null,");
+                    }
+
+                    json.Append("\"lights\":[");
+                    for (var i = 0; hasLight && i < lights.Length; i++)
+                    {
+                        var l = lights[i];
+                        if (l == null) continue;
+                        if (i > 0) json.Append(",");
+                        var c = l.color;
+                        json.Append("{");
+                        json.Append($"\"type\":{JsonString(l.type.ToString())},");
+                        json.Append($"\"r\":{JsonNumber(c.r)},\"g\":{JsonNumber(c.g)},\"b\":{JsonNumber(c.b)},");
+                        json.Append($"\"intensity\":{JsonNumber(l.intensity)},");
+                        json.Append($"\"range\":{JsonNumber(l.range)},");
+                        json.Append($"\"shadows\":{JsonString(l.shadows.ToString())}");
+                        json.Append("}");
+                    }
+                    json.Append("],");
+
+                    json.Append("\"light_lod\":");
+                    if (lods != null && lods.Length > 0)
+                    {
+                        var lod = lods[0];
+                        json.Append("{");
+                        json.Append($"\"m_lightLod\":{JsonBool(lod.m_lightLod)},");
+                        json.Append($"\"m_lightDistance\":{JsonNumber(lod.m_lightDistance)},");
+                        json.Append($"\"m_shadowLod\":{JsonBool(lod.m_shadowLod)},");
+                        json.Append($"\"m_shadowDistance\":{JsonNumber(lod.m_shadowDistance)}");
+                        json.Append("}");
+                    }
+                    else
+                    {
+                        json.Append("null");
+                    }
+                    json.Append("}");
+                }
+            }
+            json.AppendLine();
+            json.AppendLine("  ],");
+
+            // ---- every environment, not only the four we shoot ---------------
+            json.AppendLine("  \"environments\": [");
+            var envs = GetEnvSetups();
+            for (var i = 0; i < envs.Count; i++)
+            {
+                var e = envs[i];
+                if (i > 0) json.AppendLine(",");
+                json.Append("    {");
+                json.Append($"\"m_name\":{JsonString(e.m_name)},");
+                // The two fields that decide whether a fire survives this weather.
+                json.Append($"\"m_isWet\":{JsonBool(e.m_isWet)},");
+                json.Append($"\"m_windMin\":{JsonNumber(e.m_windMin)},");
+                json.Append($"\"m_windMax\":{JsonNumber(e.m_windMax)},");
+                json.Append($"\"wets_fires\":{JsonBool(e.m_isWet || e.m_windMax >= 0.8f)},");
+                json.Append($"\"m_alwaysDark\":{JsonBool(e.m_alwaysDark)},");
+                json.Append($"\"m_psystemsOutsideOnly\":{JsonBool(e.m_psystemsOutsideOnly)},");
+                json.Append($"\"m_rainCloudAlpha\":{JsonNumber(e.m_rainCloudAlpha)},");
+                json.Append($"\"m_sunAngle\":{JsonNumber(e.m_sunAngle)},");
+                json.Append($"\"m_lightIntensityDay\":{JsonNumber(e.m_lightIntensityDay)},");
+                json.Append($"\"m_lightIntensityNight\":{JsonNumber(e.m_lightIntensityNight)},");
+                json.Append($"\"m_fogDensityMorning\":{JsonNumber(e.m_fogDensityMorning)},");
+                json.Append($"\"m_fogDensityDay\":{JsonNumber(e.m_fogDensityDay)},");
+                json.Append($"\"m_fogDensityEvening\":{JsonNumber(e.m_fogDensityEvening)},");
+                json.Append($"\"m_fogDensityNight\":{JsonNumber(e.m_fogDensityNight)},");
+                json.Append($"\"m_isFreezing\":{JsonBool(e.m_isFreezing)},");
+                json.Append($"\"m_isFreezingAtNight\":{JsonBool(e.m_isFreezingAtNight)},");
+                json.Append($"\"m_isCold\":{JsonBool(e.m_isCold)},");
+                json.Append($"\"m_isColdAtNight\":{JsonBool(e.m_isColdAtNight)},");
+                json.Append($"\"m_default\":{JsonBool(e.m_default)},");
+                // Every colour, not a chosen subset. The colour lane's measurement
+                // says the warm lobe is MATERIAL -- R-B of 47 to 55 while the
+                // directional light swings -68 to +160 -- so ambient and fog carry
+                // the signal and m_sunColor* looks decorative today. Emitting only
+                // what today's model wants is how this project ended up shooting
+                // four environments out of thirty-nine: a dump that pre-judges has
+                // to be re-run the moment the model changes, and this one costs a
+                // world load. Thirty-nine records of thirty fields is nothing.
+                json.Append($"\"m_ambColorDay\":{JsonColor(e.m_ambColorDay)},");
+                json.Append($"\"m_ambColorNight\":{JsonColor(e.m_ambColorNight)},");
+                json.Append($"\"m_fogColorMorning\":{JsonColor(e.m_fogColorMorning)},");
+                json.Append($"\"m_fogColorDay\":{JsonColor(e.m_fogColorDay)},");
+                json.Append($"\"m_fogColorEvening\":{JsonColor(e.m_fogColorEvening)},");
+                json.Append($"\"m_fogColorNight\":{JsonColor(e.m_fogColorNight)},");
+                json.Append($"\"m_fogColorSunMorning\":{JsonColor(e.m_fogColorSunMorning)},");
+                json.Append($"\"m_fogColorSunDay\":{JsonColor(e.m_fogColorSunDay)},");
+                json.Append($"\"m_fogColorSunEvening\":{JsonColor(e.m_fogColorSunEvening)},");
+                json.Append($"\"m_fogColorSunNight\":{JsonColor(e.m_fogColorSunNight)},");
+                json.Append($"\"m_sunColorMorning\":{JsonColor(e.m_sunColorMorning)},");
+                json.Append($"\"m_sunColorDay\":{JsonColor(e.m_sunColorDay)},");
+                json.Append($"\"m_sunColorEvening\":{JsonColor(e.m_sunColorEvening)},");
+                json.Append($"\"m_sunColorNight\":{JsonColor(e.m_sunColorNight)}");
+                json.Append("}");
+            }
+            json.AppendLine();
+            json.AppendLine("  ]");
+            json.AppendLine("}");
+
+            WriteJson("comfy-camera-proof-lights.json", json.ToString());
+            Logger.LogInfo($"Light dump: {wrote} light prefab(s) of {scanned} scanned, "
+                           + $"{envs.Count} environment(s).");
+            Announce($"light dump: {wrote} light prefabs, {envs.Count} environments");
+        }
+
+        private static string JsonColor(Color c)
+            => $"{{\"r\":{JsonNumber(c.r)},\"g\":{JsonNumber(c.g)},\"b\":{JsonNumber(c.b)},\"a\":{JsonNumber(c.a)}}}";
+
+        /// <summary>
+        /// The EnvSetup objects behind GetEnvironmentNames. Same reflected field, kept
+        /// separate because that one returns names for a console listing and this one
+        /// needs the whole record.
+        /// </summary>
+        private System.Collections.Generic.List<EnvSetup> GetEnvSetups()
+        {
+            var result = new System.Collections.Generic.List<EnvSetup>();
+            if (EnvMan.instance == null) return result;
+            var field = typeof(EnvMan).GetField("m_environments",
+                BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+            if (field == null) return result;
+            if (field.GetValue(EnvMan.instance) is System.Collections.IEnumerable list)
+            {
+                foreach (var item in list)
+                {
+                    if (item is EnvSetup env && env != null) result.Add(env);
+                }
+            }
+            return result;
         }
 
         private void SetForcedEnvironment(string name)
