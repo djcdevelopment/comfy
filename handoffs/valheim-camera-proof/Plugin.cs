@@ -22,6 +22,18 @@ namespace Comfy.CameraProof
         private int _waypointIndex = -1;
         private Vector3? _holdAt;      // pinned camera position while a shot is composed
 
+        /// <summary>
+        /// True when this session exists only to run a plan and exit. It gates the
+        /// teardown: an unattended run must stay pinned and immortal until the
+        /// PROCESS is gone. Releasing god, fly and the position hold two seconds
+        /// before Application.Quit() drops an orbit rig from hundreds of metres,
+        /// Valheim saves the death, and the NEXT run boots into a corpse run --
+        /// which is exactly the "no local player; waiting for respawn" that has
+        /// been eating the first shots of runs. Derek watched it happen.
+        /// An operator session (quit_when_done false) still gets everything back.
+        /// </summary>
+        private bool _quitWhenDone;
+
         // Centred on the aim point, not the lens: an orbit stands off up to 120 m and
         // the fires worth lighting are the subject's, not the ones behind the camera.
         private const float FireSweepRadius = 80f;
@@ -546,6 +558,8 @@ namespace Comfy.CameraProof
             // A sky dump is a measurement rather than a capture, but it still needs
             // a loaded world -- EnvMan only exists inside a scene. Same file, same
             // unattended path, because nothing here can type into the console.
+            _quitWhenDone = quitWhenDone;
+
             var skyTimes = ReadSkyTimes();
             if (ReadLightDumpRequested())
             {
@@ -554,6 +568,10 @@ namespace Comfy.CameraProof
             else if (skyTimes.Count > 0)
             {
                 yield return SkyDumpRoutine(skyTimes);
+            }
+            else if (ReadClipsRequested())
+            {
+                yield return RunClipPlan();
             }
             else
             {
@@ -565,6 +583,279 @@ namespace Comfy.CameraProof
                 Logger.LogInfo("Orbit auto-boot: plan complete, quitting.");
                 yield return new WaitForSeconds(2f);
                 Application.Quit();
+            }
+        }
+
+        // ---------------- driven camera clips (video) -------------------------------
+        //
+        // A photograph samples an instant; a clip samples TIME, which is the only way
+        // to compose with an event -- a lightning strike lands ON a beat instead of
+        // being lucky. So a clip is a start pose, an end pose, a duration, and an
+        // optional flash offset within it.
+        //
+        // THE HOT LOOP DOES NO IO. Derek's standing warning, and the same trap as the
+        // raw-socket POST that froze a server's main thread for ten seconds: a Unity
+        // coroutine runs ON the main thread, so one synchronous write inside the motion
+        // loop is a dropped frame in the recording. Everything -- log lines, receipts,
+        // environment and clock changes, world waits -- happens BEFORE the loop starts
+        // or AFTER it ends. Between those two points there is nothing but arithmetic.
+        //
+        // The recorder lives outside the game entirely (ffmpeg x11grab + NVENC on the
+        // capture node). It records continuously; this file emits a UTC timestamp at
+        // each clip's first and last frame, and the slicing happens afterwards. That
+        // keeps the game and the encoder fully decoupled -- no IPC, no frame-locking,
+        // and no way for a stalled encoder to stutter the camera.
+        //
+        // Motion is driven by moving the PLAYER with debug-fly on, not by taking over
+        // the camera: the boom is already zero (first person) for stills, so the lens
+        // rides the player's head, and fly removes the gravity that Update() otherwise
+        // has to fight. That reuse is deliberate -- a separate camera rig would be a
+        // second thing that can silently disagree with where the receipts say we were.
+        //
+        // VERIFY EVERY CLIP WITH freezedetect. A previous driven-motion path in this
+        // project emitted perfect receipts -- start, end, exact duration -- over
+        // panels that were frozen for 17 of 20 seconds. Receipts prove intent, not
+        // movement. The only acceptance evidence for a clip is the file.
+        private string ClipPlanPath => Path.Combine(ConfigDir, "clipplan.tsv");
+        private string ClipReceiptsPath => Path.Combine(ConfigDir, "clip-receipts.jsonl");
+
+        private sealed class Clip
+        {
+            public string Name;
+            public string Label;
+            public string Environment;
+            public float TimeOfDay;
+            public float DurationSeconds;
+            public string Ease;
+            public float FlashAt;            // seconds into the clip; negative = never
+            public float FlashBearing;
+            public Vector3 From;
+            public Vector3 To;
+            public float YawFrom, PitchFrom;
+            public float YawTo, PitchTo;
+        }
+
+        private bool ReadClipsRequested()
+        {
+            try
+            {
+                if (!File.Exists(OrbitRequestPath)) return false;
+                var m = Regex.Match(File.ReadAllText(OrbitRequestPath),
+                                    "\"clips\"\\s*:\\s*(true|false)");
+                return m.Success && m.Groups[1].Value == "true";
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Could not read clips flag: {ex.Message}");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 18 columns, positional like every other plan this project writes:
+        /// clip label env time dur ease flash_at flash_bearing
+        /// x0 y0 z0 yaw0 pitch0 x1 y1 z1 yaw1 pitch1
+        /// </summary>
+        private System.Collections.Generic.List<Clip> LoadClipPlan()
+        {
+            var clips = new System.Collections.Generic.List<Clip>();
+            if (!File.Exists(ClipPlanPath)) return clips;
+            foreach (var raw in File.ReadAllLines(ClipPlanPath))
+            {
+                var line = raw.Trim();
+                if (line.Length == 0 || line.StartsWith("#")) continue;
+                var f = line.Split('\t');
+                if (f.Length < 18) continue;
+                try
+                {
+                    clips.Add(new Clip
+                    {
+                        Name = f[0],
+                        Label = f[1],
+                        Environment = f[2],
+                        TimeOfDay = P(f[3]),
+                        DurationSeconds = Mathf.Clamp(P(f[4]), 0.5f, 120f),
+                        Ease = string.IsNullOrEmpty(f[5]) ? "smooth" : f[5],
+                        FlashAt = string.IsNullOrEmpty(f[6]) ? -1f : P(f[6]),
+                        FlashBearing = string.IsNullOrEmpty(f[7]) ? 0f : P(f[7]),
+                        From = new Vector3(P(f[8]), P(f[9]), P(f[10])),
+                        YawFrom = P(f[11]),
+                        PitchFrom = P(f[12]),
+                        To = new Vector3(P(f[13]), P(f[14]), P(f[15])),
+                        YawTo = P(f[16]),
+                        PitchTo = P(f[17]),
+                    });
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogWarning($"Bad clip row skipped: {ex.Message}");
+                }
+            }
+            return clips;
+        }
+
+        /// <summary>Where the lens is pointing, 25 m out -- the flash needs a subject.</summary>
+        private static Vector3 ForwardPoint(Vector3 lens, float yawDeg, float pitchDeg, float dist)
+        {
+            var yaw = yawDeg * Mathf.Deg2Rad;
+            var pitch = pitchDeg * Mathf.Deg2Rad;      // positive pitch looks DOWN
+            var horiz = Mathf.Cos(pitch);
+            return lens + new Vector3(Mathf.Sin(yaw) * horiz,
+                                      -Mathf.Sin(pitch),
+                                      Mathf.Cos(yaw) * horiz) * dist;
+        }
+
+        private IEnumerator RunClipPlan()
+        {
+            var clips = LoadClipPlan();
+            if (clips.Count == 0)
+            {
+                Logger.LogWarning($"clips requested but no rows in {ClipPlanPath}");
+                yield break;
+            }
+            Logger.LogInfo($"clip plan: {clips.Count} clip(s)");
+
+            var priorBoom = SetCameraBoom(0f);
+            SetCaptureChromeHidden(true);
+            if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
+
+            for (var i = 0; i < clips.Count; i++)
+            {
+                var c = clips[i];
+                var player = GetLocalPlayer();
+                if (player == null)
+                {
+                    Logger.LogWarning($"[clip {i + 1}/{clips.Count}] no local player; waiting");
+                    var waited = 0f;
+                    while (player == null && waited < 90f)
+                    {
+                        yield return new WaitForSeconds(2f);
+                        waited += 2f;
+                        player = GetLocalPlayer();
+                    }
+                    if (player == null)
+                    {
+                        Logger.LogError("clip plan stopped: player never returned");
+                        break;
+                    }
+                    if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
+                }
+                SetInvulnerable(player, true);      // god AND debug-fly: a dolly cannot fall
+
+                // Compose the opening frame exactly as a still would be composed, and
+                // let the world arrive BEFORE rolling -- a clip that starts on popping
+                // terrain is unusable, and waiting costs nothing once recording is
+                // continuous.
+                PlacePlayer(player, c.From);
+                _holdAt = c.From;
+                TryAim(c.YawFrom, c.PitchFrom);
+                SetForcedEnvironment(c.Environment);
+                SetDebugTime(c.TimeOfDay);
+                yield return WaitForStablePlayer(c.From, 15f);
+                yield return WaitForWorld(ForwardPoint(c.From, c.YawFrom, c.PitchFrom, 25f), 25f);
+                yield return new WaitForSeconds(Mathf.Max(1f, _settleSeconds.Value));
+
+                var startedUtc = DateTime.UtcNow;
+                Logger.LogInfo($"[clip {i + 1}/{clips.Count}] {c.Name} ROLLING "
+                               + $"{startedUtc:yyyy-MM-ddTHH:mm:ss.fffZ} dur={c.DurationSeconds:0.00}s");
+
+                // ---- hot loop: arithmetic only, one frame at a time, no IO ----
+                var elapsed = 0f;
+                var flashed = c.FlashAt < 0f;
+                var frames = 0;
+                while (elapsed < c.DurationSeconds)
+                {
+                    var u = Mathf.Clamp01(elapsed / c.DurationSeconds);
+                    var e = c.Ease == "linear" ? u : u * u * (3f - 2f * u);
+                    var pos = Vector3.Lerp(c.From, c.To, e);
+                    var yaw = Mathf.LerpAngle(c.YawFrom, c.YawTo, e);
+                    var pitch = Mathf.Lerp(c.PitchFrom, c.PitchTo, e);
+
+                    _holdAt = pos;                 // Update() pins to this same point
+                    PlacePlayer(player, pos);
+                    TryAim(yaw, pitch);
+
+                    if (!flashed && elapsed >= c.FlashAt)
+                    {
+                        DriveFlash(ForwardPoint(pos, yaw, pitch, 40f), pos,
+                                   c.FlashBearing, 0.35f);
+                        flashed = true;
+                    }
+
+                    frames++;
+                    yield return null;
+                    elapsed += Time.deltaTime;
+                }
+                // ---- end hot loop ----
+
+                var endedUtc = DateTime.UtcNow;
+                var wall = (float)(endedUtc - startedUtc).TotalSeconds;
+                Logger.LogInfo($"[clip {i + 1}/{clips.Count}] {c.Name} CUT "
+                               + $"{endedUtc:yyyy-MM-ddTHH:mm:ss.fffZ} "
+                               + $"{frames} frames in {wall:0.00}s ({frames / Mathf.Max(wall, 0.01f):0.0} fps)");
+
+                AppendClipReceipt(c, startedUtc, endedUtc, frames, wall);
+            }
+
+            SetForcedEnvironment("");
+            SetDebugTime(null);
+            SetCaptureChromeHidden(false);
+            SetLocalPlayerVisible(!_hidePlayerForScreenshots);
+            if (priorBoom >= 0f) SetCameraBoom(priorBoom);
+            ReleaseRigOrHoldForExit();
+            Announce($"clip plan finished: {clips.Count} clip(s)");
+        }
+
+        /// <summary>
+        /// End of plan. An operator session gets its character back exactly as it
+        /// was found; an unattended one keeps god, fly and the position pin all the
+        /// way into Application.Quit(), because the alternative is a two-second
+        /// fall from an orbit altitude, a saved death, and a corpse run waiting for
+        /// the next launch. Restoring state politely is worth nothing if the thing
+        /// being restored is then killed.
+        /// </summary>
+        private void ReleaseRigOrHoldForExit()
+        {
+            if (_quitWhenDone)
+            {
+                Logger.LogInfo("holding the rig pinned and immortal through shutdown "
+                               + "(quit_when_done): a released rig falls and the death "
+                               + "is saved into the next run");
+                return;
+            }
+            _holdAt = null;
+            SetInvulnerable(GetLocalPlayer(), false);
+        }
+
+        private void AppendClipReceipt(Clip c, DateTime started, DateTime ended,
+                                       int frames, float wall)
+        {
+            try
+            {
+                var sb = new StringBuilder();
+                sb.Append("{");
+                sb.Append($"\"clip\":\"{c.Name}\",");
+                sb.Append($"\"label\":\"{c.Label.Replace("\"", "'")}\",");
+                sb.Append($"\"environment\":\"{c.Environment}\",");
+                sb.Append($"\"time_of_day\":{c.TimeOfDay.ToString("0.###", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"started_utc\":\"{started:yyyy-MM-ddTHH:mm:ss.fffZ}\",");
+                sb.Append($"\"ended_utc\":\"{ended:yyyy-MM-ddTHH:mm:ss.fffZ}\",");
+                sb.Append($"\"planned_s\":{c.DurationSeconds.ToString("0.###", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"wall_s\":{wall.ToString("0.###", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"frames\":{frames},");
+                sb.Append($"\"fps\":{(frames / Mathf.Max(wall, 0.01f)).ToString("0.##", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"flash_at\":{c.FlashAt.ToString("0.###", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"flash_bearing_deg\":{c.FlashBearing.ToString("0.#", CultureInfo.InvariantCulture)},");
+                sb.Append($"\"from\":[{c.From.x.ToString("0.#", CultureInfo.InvariantCulture)},{c.From.y.ToString("0.##", CultureInfo.InvariantCulture)},{c.From.z.ToString("0.#", CultureInfo.InvariantCulture)}],");
+                sb.Append($"\"to\":[{c.To.x.ToString("0.#", CultureInfo.InvariantCulture)},{c.To.y.ToString("0.##", CultureInfo.InvariantCulture)},{c.To.z.ToString("0.#", CultureInfo.InvariantCulture)}],");
+                sb.Append($"\"yaw\":[{c.YawFrom.ToString("0.##", CultureInfo.InvariantCulture)},{c.YawTo.ToString("0.##", CultureInfo.InvariantCulture)}],");
+                sb.Append($"\"pitch\":[{c.PitchFrom.ToString("0.##", CultureInfo.InvariantCulture)},{c.PitchTo.ToString("0.##", CultureInfo.InvariantCulture)}]");
+                sb.Append("}");
+                File.AppendAllText(ClipReceiptsPath, sb.ToString() + Environment.NewLine);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Could not append clip receipt: {ex.Message}");
             }
         }
 
@@ -1170,14 +1461,13 @@ namespace Comfy.CameraProof
                                + $"pieces={pieces} occluded={occluded}");
             }
 
-            _holdAt = null;
             ReleaseHeldLight();
             SetForcedEnvironment("");
             SetDebugTime(null);
             SetCaptureChromeHidden(false);
             SetLocalPlayerVisible(!_hidePlayerForScreenshots);
-            SetInvulnerable(GetLocalPlayer(), false);
             if (priorBoom >= 0f) SetCameraBoom(priorBoom);
+            ReleaseRigOrHoldForExit();
             _stillJobRunning = false;
             var done = shotIndex;
             Announce(done >= plan.Count - startIndex
