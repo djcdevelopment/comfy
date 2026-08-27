@@ -777,8 +777,13 @@ namespace Comfy.CameraProof
 
                     if (!flashed && elapsed >= c.FlashAt)
                     {
-                        DriveFlash(ForwardPoint(pos, yaw, pitch, 40f), pos,
-                                   c.FlashBearing, 0.35f);
+                        // The still path records DriveFlash's status string in its
+                        // receipt; this path used to discard it -- and the one clip
+                        // lap with a scheduled strike showed no luma spike at the
+                        // scheduled time. Log the string so the next no-show says why.
+                        var flashHow = DriveFlash(ForwardPoint(pos, yaw, pitch, 40f),
+                                                  pos, c.FlashBearing, 0.35f);
+                        Logger.LogInfo($"clip {c.Name}: flash at {elapsed:F2}s -> {flashHow}");
                         flashed = true;
                     }
 
