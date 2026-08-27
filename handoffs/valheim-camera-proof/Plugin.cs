@@ -646,19 +646,70 @@ namespace Comfy.CameraProof
             try
             {
                 var type = player.GetType();
+                string via = null;
                 var god = type.GetMethod("SetGodMode",
                     BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
                 if (god != null)
                 {
                     god.Invoke(player, new object[] { on });
+                    via = "SetGodMode()";
                 }
                 else
                 {
                     var f = FindField(type, "m_godMode");
-                    if (f != null) f.SetValue(player, on);
+                    if (f != null)
+                    {
+                        f.SetValue(player, on);
+                        via = "m_godMode field";
+                    }
                 }
                 var ghost = FindField(type, "m_ghostMode");
                 if (ghost != null) ghost.SetValue(player, on);
+
+                // Debug-fly, the same safeguard NetworkSense applies before its
+                // route teleports. Measured 2026-08-27 at cluster 504: god read
+                // back True and the rig STILL died -- placed before the build
+                // streamed in, it fell, and because zone streaming follows the
+                // player, the falling player dragged the load target down with
+                // it ("world never arrived (0 pieces)") until the fall ended in
+                // a void death god mode does not cover. Fly removes the fall,
+                // which also keeps the stream anchored at the stance.
+                var inFly = type.GetMethod("InDebugFlyMode",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                var toggleFly = type.GetMethod("ToggleDebugFly",
+                    BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                object flyNow = "<no fly API>";
+                if (inFly != null && toggleFly != null)
+                {
+                    if ((bool)inFly.Invoke(player, null) != on)
+                    {
+                        toggleFly.Invoke(player, null);
+                    }
+                    flyNow = inFly.Invoke(player, null);
+                }
+
+                // Read back the state the game will actually consult. The old
+                // version could miss BOTH lookups and say nothing -- a rig that
+                // was believed immortal and wasn't, for an unknown number of
+                // runs. The log line is the difference between a guard and a
+                // hope.
+                var godField = FindField(type, "m_godMode");
+                object godNow = godField != null
+                    ? godField.GetValue(player) : "<no m_godMode field>";
+                object ghostNow = ghost != null
+                    ? ghost.GetValue(player) : "<no m_ghostMode field>";
+                if (via == null && godField == null)
+                {
+                    Logger.LogWarning(
+                        "god mode NOT applied: neither SetGodMode nor m_godMode "
+                        + "exists on " + type.FullName + " -- the rig is MORTAL");
+                }
+                else
+                {
+                    Logger.LogInfo(
+                        $"invulnerable={on} via {via ?? "<none>"}; "
+                        + $"god now {godNow}, ghost now {ghostNow}, fly now {flyNow}");
+                }
             }
             catch (Exception ex)
             {
