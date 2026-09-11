@@ -12,7 +12,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.0")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.1")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -51,6 +51,7 @@ namespace Comfy.CameraProof
         private ConfigEntry<KeyboardShortcut> _keyStatus;
         private ConfigEntry<float> _settleSeconds;
         private ConfigEntry<string> _defaultVariantSet;
+        private ConfigEntry<bool> _skipIntroCinematic;
 
         private string ProgressPath => Path.Combine(ConfigDir, "comfy-camera-proof-progress.json");
 
@@ -71,9 +72,26 @@ namespace Comfy.CameraProof
             _defaultVariantSet = Config.Bind("Capture", "defaultVariantSet", "basic",
                 "Which set the capture hotkey shoots: basic (24 frames, all weather), "
                 + "weather (12), or quick (4).");
+            _skipIntroCinematic = Config.Bind("Capture", "skipIntroCinematic", true,
+                "Valheim 1.0 plays $cinematics_intro on every cold start. Its only gate is "
+                + "Game.m_hasStartedOnce, a process-static bool that nothing persists, so it is "
+                + "pre-set here, before the start scene loads. No-op on builds without the field.");
+            if (_skipIntroCinematic.Value) SkipStartupCinematic();
 
             LoadProgress();
-            RegisterConsoleCommands();
+            // A signature change in Terminal.ConsoleCommand throws MissingMethodException
+            // when RegisterConsoleCommands is JIT-compiled, i.e. here, before its own
+            // try block exists -- Valheim 1.0 (build 25185596) did exactly that and the
+            // unattended run sat at the main menu for 13 minutes. Console commands are
+            // a convenience; the auto-boot below is the product. Never let one kill the other.
+            try
+            {
+                RegisterConsoleCommands();
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Console commands unavailable on this game build: {ex.GetType().Name}: {ex.Message}");
+            }
 
             // Armed by a file, not a keystroke: this is what makes an unattended run
             // possible at all, since nothing here can type into the game's console.
@@ -455,6 +473,46 @@ namespace Comfy.CameraProof
             return m.Success ? m.Groups[1].Value : null;
         }
 
+        /// <summary>
+        /// The 1.0 startup cinematic (FejdStartup.PlayIntroCinematic) is gated only by
+        /// !Game.m_hasStartedOnce, a public static bool whose single writer is the last line
+        /// of Game.Start(). Nothing saves it -- no pref, file, cloud or stat -- so every cold
+        /// launch under every launcher plays the video (measured 2026-09-11 on both hosts,
+        /// Steam's Play button included). BepInEx runs Awake before start.unity loads, so
+        /// setting the field here is sufficient; no Harmony needed.
+        /// </summary>
+        private void SkipStartupCinematic()
+        {
+            var field = typeof(Game).GetField("m_hasStartedOnce", BindingFlags.Public | BindingFlags.Static);
+            if (field == null)
+            {
+                Logger.LogInfo("No Game.m_hasStartedOnce on this build; no startup cinematic to skip.");
+                return;
+            }
+            field.SetValue(null, true);
+            Logger.LogInfo("Startup cinematic disabled: Game.m_hasStartedOnce pre-set before FejdStartup.Start.");
+        }
+
+        /// <summary>
+        /// A profile that has never spawned (PlayerProfile.m_firstSpawn) queues the story
+        /// intro and the valkyrie ride on entry, and a frozen character copy never clears
+        /// that flag, so an unattended run would replay it every attempt and the text
+        /// overlay could land in a frame. Game.SkipIntro() forces a respawn, so it is only
+        /// called while the intro is queued or playing.
+        /// </summary>
+        private void SkipQueuedStoryIntro()
+        {
+            var game = Game.instance;
+            if (game == null) return;
+            var inIntro = typeof(Game).GetMethod("InIntro", BindingFlags.Public | BindingFlags.Instance);
+            var skip = typeof(Game).GetMethod("SkipIntro", BindingFlags.Public | BindingFlags.Instance);
+            if (inIntro == null || skip == null) return;
+            var args = inIntro.GetParameters().Length == 1 ? new object[] { true } : null;
+            if (!(bool)inIntro.Invoke(game, args)) return;
+            skip.Invoke(game, null);
+            Logger.LogInfo("Story intro skipped: the character profile had never spawned (m_firstSpawn).");
+        }
+
         private IEnumerator AutoBoot(string worldName, string characterName, bool quitWhenDone)
         {
             Logger.LogInfo($"Orbit auto-boot: world='{worldName}' character='{characterName ?? "(first)"}'");
@@ -553,6 +611,7 @@ namespace Comfy.CameraProof
             }
 
             Logger.LogInfo("Orbit auto-boot: player is in-world; settling before capture.");
+            SkipQueuedStoryIntro();
             yield return new WaitForSeconds(12f);
 
             // A sky dump is a measurement rather than a capture, but it still needs
