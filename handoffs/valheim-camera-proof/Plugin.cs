@@ -727,6 +727,9 @@ namespace Comfy.CameraProof
             // (a location prefab the world has and the game no longer does) means the player
             // never spawns at all (era11, 2026-09-12: the cloud profile pointed at the 84th
             // build, "Missing location" every frame, 600 s, nothing). Prefer the local file.
+            // Note SaveWithBackups groups files by name and makes the cloud copy the primary,
+            // so a local file with the SAME name never appears in this list at all: the runner
+            // must seed under a distinct file name for a Local match to exist.
             var index = -1;
             if (!string.IsNullOrEmpty(characterName))
             {
@@ -734,7 +737,13 @@ namespace Comfy.CameraProof
                 {
                     var candidate = profiles[i] as PlayerProfile;
                     var nm = candidate?.GetName();
-                    if (string.IsNullOrEmpty(nm) || !nm.Equals(characterName, StringComparison.OrdinalIgnoreCase))
+                    var fn = candidate?.GetFilename();
+                    // Name or file stem: a seeded copy can carry a unique file name (questyfour-seed)
+                    // precisely so that Steam Cloud's questyfour cannot shadow it -- the save system
+                    // groups by file name and lets the cloud copy win the group.
+                    var byName = !string.IsNullOrEmpty(nm) && nm.Equals(characterName, StringComparison.OrdinalIgnoreCase);
+                    var byFile = !string.IsNullOrEmpty(fn) && fn.Equals(characterName, StringComparison.OrdinalIgnoreCase);
+                    if (!byName && !byFile)
                         continue;
                     if (index < 0 || ProfileSource(candidate) == "Local" && ProfileSource(profiles[index]) != "Local")
                         index = i;
