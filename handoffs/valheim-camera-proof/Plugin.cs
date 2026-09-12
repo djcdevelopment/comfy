@@ -1,5 +1,6 @@
 using BepInEx;
 using BepInEx.Configuration;
+using HarmonyLib;
 using UnityEngine;
 using System;
 using System.Collections;
@@ -12,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.1")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.2")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -52,6 +53,8 @@ namespace Comfy.CameraProof
         private ConfigEntry<float> _settleSeconds;
         private ConfigEntry<string> _defaultVariantSet;
         private ConfigEntry<bool> _skipIntroCinematic;
+        private ConfigEntry<bool> _skipEquipmentCloth;
+        private ConfigEntry<bool> _disableAllCloth;
 
         private string ProgressPath => Path.Combine(ConfigDir, "comfy-camera-proof-progress.json");
 
@@ -77,6 +80,27 @@ namespace Comfy.CameraProof
                 + "Game.m_hasStartedOnce, a process-static bool that nothing persists, so it is "
                 + "pre-set here, before the start scene loads. No-op on builds without the field.");
             if (_skipIntroCinematic.Value) SkipStartupCinematic();
+
+            _skipEquipmentCloth = Config.Bind("Capture", "skipEquipmentCloth", true,
+                "Valheim 1.0 builds MagicaCloth2 physics for every cape an armour item attaches "
+                + "(VisEquipment.SetupCloth -> MagicaCloth.BuildAndRun). On the Linux Mono player that "
+                + "build dies at character spawn in MagicaCloth2.ColliderManager.AddColliderInternal "
+                + "(mono_class_from_mono_type_internal assertion; 3 of 3 on build 25185596). The player "
+                + "is hidden in every capture, so a Harmony prefix disables each cloth's auto-build and "
+                + "skips SetupCloth. No-op on builds without SetupCloth or MagicaClothV2.");
+            _disableAllCloth = Config.Bind("Capture", "disableAllCloth", false,
+                "Fallback if the crash moves: also prefix MagicaCloth.BuildAndRun and ClothProcess.AutoBuild "
+                + "so no cloth at all (sails, banners, prefab-authored) is ever built. Off unless needed.");
+            // Same discipline as the console-command block below: a JIT failure inside Apply
+            // surfaces at this call site, and the auto-boot must survive it.
+            try
+            {
+                ClothPatches.Apply(Logger, _skipEquipmentCloth.Value, _disableAllCloth.Value);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Cloth patches unavailable on this game build: {ex.GetType().Name}: {ex.Message}");
+            }
 
             LoadProgress();
             // A signature change in Terminal.ConsoleCommand throws MissingMethodException
@@ -511,6 +535,103 @@ namespace Comfy.CameraProof
             if (!(bool)inIntro.Invoke(game, args)) return;
             skip.Invoke(game, null);
             Logger.LogInfo("Story intro skipped: the character profile had never spawned (m_firstSpawn).");
+        }
+
+        /// <summary>
+        /// Valheim 1.0 attaches MagicaCloth2 physics to every cape an armour item brings in
+        /// (VisEquipment.SetupCloth -> MagicaCloth.BuildAndRun). On the Linux Mono player that
+        /// build dies at character spawn inside MagicaCloth2.ColliderManager.AddColliderInternal
+        /// (mono_class_from_mono_type_internal "implement me", a garbage type code; SIGSEGV or
+        /// SIGABRT, 3 of 3 on build 25185596). SetupCloth is the only caller that hands a cloth
+        /// its colliders, and only colliders reach that method, so skipping SetupCloth is the
+        /// narrow cut. Skipping alone is not enough: MagicaCloth.Start() calls
+        /// ClothProcess.AutoBuild(), which builds unless DisableAutoBuild() has set its flag
+        /// first -- SetupCloth normally does that itself, so the prefix has to do it too.
+        /// The player is hidden in every capture; equipment cloth has no visual value here.
+        /// MagicaCloth2 types are reached by reflection only, so builds without MagicaClothV2
+        /// never try to load it.
+        /// </summary>
+        private static class ClothPatches
+        {
+            private static Harmony _harmony;
+            private static BepInEx.Logging.ManualLogSource _log;
+            private static Type _magicaCloth;
+            private static MethodInfo _disableAutoBuild;
+            private static int _skipped;
+
+            public static void Apply(BepInEx.Logging.ManualLogSource log, bool skipEquipment, bool disableAll)
+            {
+                _log = log;
+                if (!skipEquipment && !disableAll)
+                {
+                    log.LogInfo("Cloth patches off by config.");
+                    return;
+                }
+                // Assembly-qualified so Mono loads MagicaClothV2.dll even if nothing has touched it yet.
+                _magicaCloth = Type.GetType("MagicaCloth2.MagicaCloth, MagicaClothV2", throwOnError: false);
+                var clothProcess = Type.GetType("MagicaCloth2.ClothProcess, MagicaClothV2", throwOnError: false);
+                var setupCloth = AccessTools.Method(typeof(VisEquipment), "SetupCloth", new[] { typeof(GameObject) });
+                _disableAutoBuild = _magicaCloth == null ? null : AccessTools.Method(_magicaCloth, "DisableAutoBuild");
+                if (setupCloth == null || _magicaCloth == null || _disableAutoBuild == null)
+                {
+                    log.LogInfo("No VisEquipment.SetupCloth / MagicaCloth2 on this build; no cloth to skip.");
+                    return;
+                }
+                _harmony = new Harmony("com.comfy.camera-proof.cloth");
+                if (skipEquipment)
+                {
+                    _harmony.Patch(setupCloth, prefix: new HarmonyMethod(typeof(ClothPatches), nameof(SkipSetupCloth)));
+                    log.LogInfo("Cloth patch engaged: VisEquipment.SetupCloth prefixed; equipment cloth is never built.");
+                }
+                if (disableAll)
+                {
+                    var buildAndRun = AccessTools.Method(_magicaCloth, "BuildAndRun");
+                    var autoBuild = clothProcess == null ? null : AccessTools.Method(clothProcess, "AutoBuild");
+                    foreach (var target in new[] { buildAndRun, autoBuild })
+                    {
+                        if (target != null)
+                        {
+                            _harmony.Patch(target, prefix: new HarmonyMethod(typeof(ClothPatches), nameof(NeverBuild)));
+                        }
+                    }
+                    log.LogInfo($"Cloth fallback engaged: BuildAndRun={buildAndRun != null} AutoBuild={autoBuild != null}; neither ever builds.");
+                }
+            }
+
+            // Prefix for VisEquipment.SetupCloth(GameObject item). __0 binds the item by position,
+            // so a parameter rename in a later build cannot detach the patch. Returning false
+            // skips the original.
+            private static bool SkipSetupCloth(GameObject __0)
+            {
+                var count = 0;
+                if (__0 != null)
+                {
+                    foreach (var cloth in __0.GetComponentsInChildren(_magicaCloth, true))
+                    {
+                        try
+                        {
+                            _disableAutoBuild.Invoke(cloth, null);
+                        }
+                        catch (Exception ex)
+                        {
+                            _log.LogWarning($"DisableAutoBuild failed on '{cloth.name}': {ex.GetType().Name}: {ex.Message}");
+                        }
+                        count++;
+                    }
+                }
+                if (_skipped++ < 8)
+                {
+                    _log.LogInfo($"SetupCloth skipped for '{(__0 == null ? "(null)" : __0.name)}' ({count} MagicaCloth component(s)).");
+                }
+                return false;
+            }
+
+            // Prefix for MagicaCloth.BuildAndRun / ClothProcess.AutoBuild (both return bool). With
+            // the original skipped and no __result assigned, Harmony returns default(bool) = false.
+            private static bool NeverBuild()
+            {
+                return false;
+            }
         }
 
         private IEnumerator AutoBoot(string worldName, string characterName, bool quitWhenDone)
