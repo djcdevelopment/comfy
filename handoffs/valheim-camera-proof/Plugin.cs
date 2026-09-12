@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.2")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.3")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -34,6 +34,11 @@ namespace Comfy.CameraProof
         /// An operator session (quit_when_done false) still gets everything back.
         /// </summary>
         private bool _quitWhenDone;
+
+        // Feed mode keeps the rig armed across many fed plans; the boom is restored once,
+        // at the end of the session, not after every plan.
+        private bool _rigArmed;
+        private float _priorBoom = -1f;
 
         // Centred on the aim point, not the lens: an orbit stands off up to 120 m and
         // the fires worth lighting are the subject's, not the ones behind the camera.
@@ -465,6 +470,29 @@ namespace Comfy.CameraProof
             }
         }
 
+        /// <summary>
+        /// Feed directory and idle timeout from the same request file; no feed_dir = off.
+        /// feed_dir is relative to the BepInEx config dir; feed_idle_seconds defaults to 600.
+        /// </summary>
+        private bool ReadFeedRequest(out string feedDir, out float idleSeconds)
+        {
+            feedDir = null; idleSeconds = 600f;
+            try
+            {
+                if (!File.Exists(OrbitRequestPath)) return false;
+                var text = File.ReadAllText(OrbitRequestPath);
+                feedDir = Match(text, "feed_dir");
+                var m = Regex.Match(text, "\"feed_idle_seconds\"\\s*:\\s*([0-9.]+)");
+                if (m.Success) idleSeconds = float.Parse(m.Groups[1].Value, CultureInfo.InvariantCulture);
+                return !string.IsNullOrEmpty(feedDir);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogError($"Could not read feed request: {ex.Message}");
+                return false;
+            }
+        }
+
         /// <summary>Times a sky dump was asked for, from the same request file.</summary>
         private System.Collections.Generic.List<float> ReadSkyTimes()
         {
@@ -755,7 +783,12 @@ namespace Comfy.CameraProof
             }
             else
             {
-                yield return RunShotPlan(0);
+                // Feed mode: the initial plan (possibly header-only) runs without its
+                // teardown, then the loop below keeps shooting whatever lands in feed_dir
+                // with the world loaded and the rig pinned, until STOP or idle.
+                var feed = ReadFeedRequest(out var feedDir, out var feedIdle);
+                yield return RunShotPlan(0, finalize: !feed);
+                if (feed) yield return FeedLoop(feedDir, feedIdle);
             }
 
             if (quitWhenDone)
@@ -1193,15 +1226,17 @@ namespace Comfy.CameraProof
             }
         }
 
-        private System.Collections.Generic.List<Shot> LoadShotPlan()
+        private System.Collections.Generic.List<Shot> LoadShotPlan() => LoadShotPlanFrom(ShotPlanPath);
+
+        private System.Collections.Generic.List<Shot> LoadShotPlanFrom(string path)
         {
             var plan = new System.Collections.Generic.List<Shot>();
-            if (!File.Exists(ShotPlanPath))
+            if (!File.Exists(path))
             {
                 return plan;
             }
 
-            foreach (var raw in File.ReadAllLines(ShotPlanPath))
+            foreach (var raw in File.ReadAllLines(path))
             {
                 var line = raw.Trim();
                 if (line.Length == 0 || line.StartsWith("#")) continue;
@@ -1443,7 +1478,7 @@ namespace Comfy.CameraProof
             StartCoroutine(RunShotPlan(from));
         }
 
-        private IEnumerator RunShotPlan(int startIndex)
+        private IEnumerator RunShotPlan(int startIndex, bool finalize = true)
         {
             var plan = LoadShotPlan();
             if (plan.Count == 0)
@@ -1451,25 +1486,40 @@ namespace Comfy.CameraProof
                 Announce($"no shots in {ShotPlanPath}");
                 yield break;
             }
+            yield return RunShotRows(plan.GetRange(startIndex, plan.Count - startIndex), "shotplan.tsv", finalize);
+        }
 
+        /// <summary>
+        /// Shoot one list of rows into a fresh run directory. finalize=false leaves the rig
+        /// armed (chrome hidden, player hidden, boom at 0, position held) for the next fed
+        /// plan; the session-level teardown then happens once, in FeedLoop.
+        /// </summary>
+        private IEnumerator RunShotRows(System.Collections.Generic.List<Shot> plan, string planName, bool finalize)
+        {
             _stillJobRunning = true;
             var outRoot = Path.Combine(ConfigDir, "comfy-orbit-captures");
             var runId = DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
             var outDir = Path.Combine(outRoot, runId);
+            // The harness keys runs by this exact timestamp shape, so two plans landing in the
+            // same second wait it out rather than take a suffix.
+            while (Directory.Exists(outDir))
+            {
+                yield return new WaitForSeconds(1f);
+                runId = DateTime.Now.ToString("yyyyMMdd-HHmmss", CultureInfo.InvariantCulture);
+                outDir = Path.Combine(outRoot, runId);
+            }
             Directory.CreateDirectory(outDir);
-            Announce($"orbit capture: {plan.Count - startIndex} shot(s) -> {runId}");
+            Announce($"orbit capture: {plan.Count} shot(s) -> {runId} ({planName})");
 
             // One reflection walk per run, so the environment list stops being a thing
             // nobody has ever looked at.
             WriteEnvironmentNames();
 
             var settle = Mathf.Max(1f, _settleSeconds.Value);
-            var priorBoom = SetCameraBoom(0f);      // first person: lens at the planned point
-            SetCaptureChromeHidden(true);
-            if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
+            ArmRig();
 
             var shotIndex = 0;
-            for (var i = startIndex; i < plan.Count; i++)
+            for (var i = 0; i < plan.Count; i++)
             {
                 var s = plan[i];
                 // Player.m_localPlayer goes transiently null -- death and respawn, a zone
@@ -1580,7 +1630,7 @@ namespace Comfy.CameraProof
                     // says why than a file that looks like a capture and is not one.
                     Logger.LogWarning($"[{i + 1}/{plan.Count}] {s.Label} {s.Name}: world never "
                                       + "arrived (0 pieces) -- shot skipped");
-                    AppendReceipt("{\"run\":" + JsonString(runId) + ",\"index\":" + i
+                    AppendReceipt("{\"run\":" + JsonString(runId) + ",\"plan\":" + JsonString(planName) + ",\"index\":" + i
                                   + ",\"cluster_id\":" + s.ClusterId + ",\"shot\":" + JsonString(s.Name)
                                   + ",\"mode\":" + JsonString(s.Mode)
                                   + ",\"skipped\":\"world_never_loaded\"}");
@@ -1607,6 +1657,7 @@ namespace Comfy.CameraProof
                 AppendReceipt(new StringBuilder()
                     .Append("{")
                     .Append($"\"run\":{JsonString(runId)},")
+                    .Append($"\"plan\":{JsonString(planName)},")
                     .Append($"\"index\":{i},")
                     .Append($"\"cluster_id\":{s.ClusterId},")
                     .Append($"\"shot\":{JsonString(s.Name)},")
@@ -1647,17 +1698,116 @@ namespace Comfy.CameraProof
             }
 
             ReleaseHeldLight();
+            if (finalize)
+            {
+                FinalizeRig();
+                _stillJobRunning = false;
+            }
+            var done = shotIndex;
+            Announce(done >= plan.Count
+                ? $"orbit capture finished: {done}/{plan.Count} -> {outDir}"
+                : $"orbit capture ENDED EARLY: {done}/{plan.Count} -> {outDir}");
+        }
+
+        private void ArmRig()
+        {
+            if (_rigArmed) return;
+            _rigArmed = true;
+            _priorBoom = SetCameraBoom(0f);      // first person: lens at the planned point
+            SetCaptureChromeHidden(true);
+            if (_hidePlayerForScreenshots) SetLocalPlayerVisible(false);
+        }
+
+        private void FinalizeRig()
+        {
             SetForcedEnvironment("");
             SetDebugTime(null);
             SetCaptureChromeHidden(false);
             SetLocalPlayerVisible(!_hidePlayerForScreenshots);
-            if (priorBoom >= 0f) SetCameraBoom(priorBoom);
+            if (_priorBoom >= 0f) SetCameraBoom(_priorBoom);
+            _priorBoom = -1f;
             ReleaseRigOrHoldForExit();
+            _rigArmed = false;
+        }
+
+        /// <summary>
+        /// Feed mode: after the initial plan, keep the loaded world and the pinned rig and
+        /// run every shotplan file that lands in feed_dir, in name order, until a STOP file
+        /// appears or nothing arrives for idleSeconds. The ~3 minute world load is paid once
+        /// per session instead of once per iteration, which is what makes a shoot -> measure
+        /// -> reposition loop affordable: a fed row costs ~7 s. A file is run at most once
+        /// (tracked in memory as well as by the .done rename) and is never read mid-write
+        /// because the writer renames a complete .tmp into place. The idle clock only
+        /// advances between plans, so a long plan cannot time itself out.
+        /// </summary>
+        private IEnumerator FeedLoop(string feedDir, float idleSeconds)
+        {
+            var dir = Path.Combine(ConfigDir, feedDir);
+            Directory.CreateDirectory(dir);
+            var stopPath = Path.Combine(dir, "STOP");
+            Logger.LogInfo($"Feed: watching {dir} (idle {idleSeconds:0}s)");
+            _stillJobRunning = true;
+            var fed = new System.Collections.Generic.HashSet<string>(StringComparer.Ordinal);
+            var lastActivity = Time.realtimeSinceStartup;
+            while (true)
+            {
+                if (File.Exists(stopPath))
+                {
+                    Logger.LogInfo("Feed: STOP");
+                    break;
+                }
+                if (Time.realtimeSinceStartup - lastActivity > idleSeconds)
+                {
+                    Logger.LogWarning($"Feed: idle timeout after {idleSeconds:0}s");
+                    break;
+                }
+                string next = null;
+                try
+                {
+                    var files = Directory.GetFiles(dir, "*.tsv");
+                    Array.Sort(files, StringComparer.Ordinal);
+                    foreach (var f in files)
+                    {
+                        // Mono's glob can be loose about suffixes; the .done rename must
+                        // never be mistaken for a plan.
+                        if (!f.EndsWith(".tsv", StringComparison.OrdinalIgnoreCase)) continue;
+                        if (fed.Contains(f)) continue;
+                        next = f;
+                        break;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogWarning($"Feed: scan failed: {ex.Message}");
+                }
+                if (next == null)
+                {
+                    yield return new WaitForSeconds(1f);
+                    continue;
+                }
+                fed.Add(next);
+                var name = Path.GetFileName(next);
+                var rows = LoadShotPlanFrom(next);
+                Logger.LogInfo($"Feed: plan {name} {rows.Count} rows");
+                if (rows.Count > 0)
+                {
+                    yield return RunShotRows(rows, name, finalize: false);
+                }
+                try
+                {
+                    var done = next + ".done";
+                    if (File.Exists(done)) File.Delete(done);
+                    File.Move(next, done);
+                }
+                catch (Exception ex)
+                {
+                    Logger.LogWarning($"Feed: could not mark {name} done: {ex.Message}");
+                }
+                Logger.LogInfo($"Feed: plan {name} done");
+                lastActivity = Time.realtimeSinceStartup;
+            }
+            FinalizeRig();
             _stillJobRunning = false;
-            var done = shotIndex;
-            Announce(done >= plan.Count - startIndex
-                ? $"orbit capture finished: {done}/{plan.Count - startIndex} -> {outDir}"
-                : $"orbit capture ENDED EARLY: {done}/{plan.Count - startIndex} -> {outDir}");
         }
 
         private void AppendReceipt(string json)
