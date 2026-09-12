@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.4")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.5")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -664,6 +664,21 @@ namespace Comfy.CameraProof
             }
         }
 
+        /// <summary>"Cloud", "Local" or "Legacy" from PlayerProfile.m_fileSource; "?" if the field is gone.</summary>
+        private static string ProfileSource(object profile)
+        {
+            if (profile == null) return "?";
+            try
+            {
+                var field = profile.GetType().GetField("m_fileSource", BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
+                return field?.GetValue(profile)?.ToString() ?? "?";
+            }
+            catch
+            {
+                return "?";
+            }
+        }
+
         private IEnumerator AutoBoot(string worldName, string characterName, bool quitWhenDone)
         {
             Logger.LogInfo($"Orbit auto-boot: world='{worldName}' character='{characterName ?? "(first)"}'");
@@ -705,22 +720,33 @@ namespace Comfy.CameraProof
                 yield break;
             }
 
-            var index = 0;
+            // The character list merges Steam Cloud and characters_local, and a name can be
+            // present in both. The runner seeds characters_local and pins that file's hash; the
+            // cloud copy is whatever the previous session saved on quit -- its logout point is
+            // the last shot's camera, and a logout point in a zone this client refuses to spawn
+            // (a location prefab the world has and the game no longer does) means the player
+            // never spawns at all (era11, 2026-09-12: the cloud profile pointed at the 84th
+            // build, "Missing location" every frame, 600 s, nothing). Prefer the local file.
+            var index = -1;
             if (!string.IsNullOrEmpty(characterName))
             {
                 for (var i = 0; i < profiles.Count; i++)
                 {
-                    var nm = (profiles[i] as PlayerProfile)?.GetName();
-                    if (!string.IsNullOrEmpty(nm) &&
-                        nm.Equals(characterName, StringComparison.OrdinalIgnoreCase))
-                    {
+                    var candidate = profiles[i] as PlayerProfile;
+                    var nm = candidate?.GetName();
+                    if (string.IsNullOrEmpty(nm) || !nm.Equals(characterName, StringComparison.OrdinalIgnoreCase))
+                        continue;
+                    if (index < 0 || ProfileSource(candidate) == "Local" && ProfileSource(profiles[index]) != "Local")
                         index = i;
-                        break;
-                    }
                 }
+                if (index < 0)
+                    Logger.LogWarning($"Orbit auto-boot: no character named '{characterName}'; taking the first profile.");
             }
+            if (index < 0) index = 0;
             var chosen = profiles[index] as PlayerProfile;
-            Logger.LogInfo($"Orbit auto-boot: character '{chosen?.GetName()}' (index {index}).");
+            Logger.LogInfo($"Orbit auto-boot: character '{chosen?.GetName()}' (index {index}, source {ProfileSource(chosen)}, file {chosen?.GetFilename()}).");
+            if (ProfileSource(chosen) != "Local")
+                Logger.LogWarning("Orbit auto-boot: the chosen profile is not the local file; its logout point comes from a previous session.");
 
             profileIndex?.SetValue(fejd, index);
             if (chosen != null) setSelected?.Invoke(fejd, new object[] { chosen.GetFilename() });
