@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 
 namespace Comfy.CameraProof
 {
-    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.3")]
+    [BepInPlugin("com.comfy.camera-proof", "Comfy Camera Proof", "0.2.4")]
     public sealed class Plugin : BaseUnityPlugin
     {
         private string ConfigDir => Paths.ConfigPath;
@@ -342,6 +342,8 @@ namespace Comfy.CameraProof
                 new Terminal.ConsoleCommand("aim", "point the camera: aim <yaw> <pitch>  (pitch + = down)", ConsoleAim);
                 new Terminal.ConsoleCommand("aimtest", "prove aiming works and holds: aimtest", ConsoleAimTest);
                 new Terminal.ConsoleCommand("runplan", "shoot every line of shotplan.tsv: runplan [startIndex]", ConsoleRunPlan);
+                new Terminal.ConsoleCommand("pose", "record the current camera as a shot row: pose [name] [aimDistance]", ConsolePose);
+                new Terminal.ConsoleCommand("runclips", "fly every clip in clipplan.tsv now (demo a path before recording)", ConsoleRunClips);
             }
             catch (Exception ex)
             {
@@ -1465,6 +1467,88 @@ namespace Comfy.CameraProof
 
             how = "still_blocked";   // shoot anyway; the receipt says why it is bad
             return desired;
+        }
+
+        private string PosesPath => Path.Combine(ConfigDir, "comfy-camera-proof-poses.jsonl");
+
+        /// <summary>
+        /// The missing half of hand framing: fly somewhere, aim, type `pose`, and the camera you
+        /// are looking through becomes one shotplan row (feet, yaw, pitch, aim) plus a JSON line
+        /// with the lens itself. Same conventions as the receipts, so a hand-found pose and a
+        /// planned one are interchangeable in every tool downstream. The aim point is the view
+        /// ray at aimDistance (default 40 m), which is what the runner's WaitForWorld and
+        /// PiecesNear key on.
+        /// </summary>
+        private void ConsolePose(Terminal.ConsoleEventArgs args)
+        {
+            var player = GetLocalPlayer();
+            var cam = Camera.main;
+            if (player == null || cam == null)
+            {
+                Announce("no local player or camera");
+                return;
+            }
+            var name = args.Length > 1 ? args[1] : "pose" + DateTime.Now.ToString("HHmmss", CultureInfo.InvariantCulture);
+            var aimDistance = args.TryParameterFloat(2, out var wanted) ? Mathf.Clamp(wanted, 2f, 400f) : 40f;
+            var feet = ((Component)player).transform.position;
+            var lens = cam.transform.position;
+            var forward = cam.transform.forward;
+            var aim = lens + forward * aimDistance;
+            // The runner's convention (plan_shots.camera_for): yaw clockwise from +Z, pitch positive down,
+            // both from the feet toward the aim -- exactly how a TSV row is replayed.
+            LookAngles(feet, aim, out var yaw, out var pitch);
+            var inv = CultureInfo.InvariantCulture;
+            var row = string.Join("\t", new[]
+            {
+                "0", name,
+                feet.x.ToString("0.0", inv), feet.y.ToString("0.0", inv), feet.z.ToString("0.0", inv),
+                yaw.ToString("0.00", inv), pitch.ToString("0.00", inv),
+                EnvMan.instance != null && !string.IsNullOrEmpty(EnvMan.instance.GetCurrentEnvironment()?.m_name)
+                    ? EnvMan.instance.GetCurrentEnvironment().m_name : "Clear",
+                (EnvMan.instance != null ? EnvMan.instance.GetDayFraction() : 0.64f).ToString("0.00", inv),
+                aim.x.ToString("0.0", inv), aim.y.ToString("0.0", inv), aim.z.ToString("0.0", inv),
+                "Pose " + name, "", "0", ""
+            });
+            var json = new StringBuilder()
+                .Append("{")
+                .Append($"\"name\":{JsonString(name)},")
+                .Append($"\"at\":{JsonString(DateTime.Now.ToString("o", inv))},")
+                .Append($"\"feet\":{JsonVector(feet)},")
+                .Append($"\"lens\":{JsonVector(lens)},")
+                .Append($"\"aim\":{JsonVector(aim)},")
+                .Append($"\"aim_distance_m\":{aimDistance.ToString("0.0", inv)},")
+                .Append($"\"yaw\":{yaw.ToString("0.00", inv)},")
+                .Append($"\"pitch\":{pitch.ToString("0.00", inv)},")
+                .Append($"\"fov\":{cam.fieldOfView.ToString("0.0", inv)},")
+                .Append($"\"tsv\":{JsonString(row)}")
+                .Append("}")
+                .ToString();
+            try
+            {
+                File.AppendAllText(PosesPath, json + "\n", Encoding.UTF8);
+            }
+            catch (Exception ex)
+            {
+                Logger.LogWarning($"Could not append pose: {ex.Message}");
+            }
+            Announce($"pose {name}: yaw {yaw:0.#} pitch {pitch:0.#} lens {lens.x:0.0},{lens.y:0.0},{lens.z:0.0} -> {Path.GetFileName(PosesPath)}");
+            Logger.LogInfo("pose row: " + row);
+        }
+
+        /// <summary>Demo a clip plan without the unattended boot: the same RunClipPlan, from the console.</summary>
+        private void ConsoleRunClips(Terminal.ConsoleEventArgs args)
+        {
+            if (_stillJobRunning)
+            {
+                Announce("a capture job is already running");
+                return;
+            }
+            if (!File.Exists(ClipPlanPath))
+            {
+                Announce($"no clip plan at {ClipPlanPath}");
+                return;
+            }
+            StartCoroutine(RunClipPlan());
         }
 
         private void ConsoleRunPlan(Terminal.ConsoleEventArgs args)
